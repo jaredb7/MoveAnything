@@ -1,16 +1,22 @@
 ## Interface: 50400
 ## Title: MoveAnything - MoP
-## Notes: 13.8.2 by Alea
-## Version: 13.8.2
+## Notes: 13.8.3 by Resike
+## Version: 13.8.3
 ## Author: Wagthaa
 ## SavedVariables: MADB
-
-Localization.en.lua
-
 
 Lib\NoTaint\embeds.xml
 Lib\NoTaint\Code.lua
 
+Lang\Localization.br.lua
+Lang\Localization.cn.lua
+Lang\Localization.de.lua
+Lang\Localization.en.lua
+Lang\Localization.es.lua
+Lang\Localization.fr.lua
+Lang\Localization.kr.lua
+Lang\Localization.ru.lua
+Lang\Localization.tw.lua
 
 MoveAnything.lua
 Profile.lua
@@ -29,7 +35,6 @@ Modules\Scale.lua
 Modules\Visibility.lua
 
 FrameList.lua
-
 
 MoveAnything.xml
 BlizzardOptions.xml

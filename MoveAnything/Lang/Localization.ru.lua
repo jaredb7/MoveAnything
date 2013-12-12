@@ -1,4 +1,6 @@
-﻿local MOVANY = {}
+﻿if GetLocale() ~= "ruRU" then return end
+
+local MOVANY = {}
 MOVANY.RESET_FRAME_CONFIRM = "Сбросить %s? Нажми еще раз в течение 5 секунд для подтверждения"
 MOVANY.RESETTING_FRAME = "Сбрасываю %s"
 MOVANY.FRAME_PROTECTED_DURING_COMBAT = "Нельзя взаимодействовать с %s во время боя"
