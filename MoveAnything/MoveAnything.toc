@@ -1,0 +1,35 @@
+## Interface: 50400
+## Title: MoveAnything - MoP
+## Notes: 13.8.2 by Alea
+## Version: 13.8.2
+## Author: Wagthaa
+## SavedVariables: MADB
+
+Localization.en.lua
+
+
+Lib\NoTaint\embeds.xml
+Lib\NoTaint\Code.lua
+
+
+MoveAnything.lua
+Profile.lua
+API.lua
+FrameEditor.lua
+PortDialog.lua
+VirtualMovers.lua
+
+Modules\Alpha.lua
+Modules\Backdrop.lua
+Modules\Dimentions.lua
+Modules\Layers.lua
+Modules\Misc.lua
+Modules\Position.lua
+Modules\Scale.lua
+Modules\Visibility.lua
+
+FrameList.lua
+
+
+MoveAnything.xml
+BlizzardOptions.xml
