@@ -646,7 +646,7 @@ function MovAny:Load()
 	self:VerifyData()
 	
 	if MADB.squareMM then
-		Minimap:SetMaskTexture("Interface\\AddOns\\MoveAnything\\MinimapMaskSquare")
+		Minimap:SetMaskTexture("Interface\\AddOns\\MoveAnything\\Textures\\MinimapMaskSquare")
 	end
 	
 	self:SetNumRows(MADB.frameListRows, false)
@@ -5247,7 +5247,7 @@ MovAny.dbg = dbg
 function MovAny:OptionCheckboxChecked(button, var)
 	if var == "squareMM" then
 		if button:GetChecked() then
-			Minimap:SetMaskTexture("Interface\\AddOns\\MoveAnything\\MinimapMaskSquare")
+			Minimap:SetMaskTexture("Interface\\AddOns\\MoveAnything\\Textures\\MinimapMaskSquare")
 		else
 			Minimap:SetMaskTexture("Textures\\MinimapMask")
 		end

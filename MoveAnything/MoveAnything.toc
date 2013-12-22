@@ -5,18 +5,19 @@
 ## Author: Wagthaa
 ## SavedVariables: MADB
 
-Lib\NoTaint\embeds.xml
-Lib\NoTaint\Code.lua
+Libs\NoTaint\embeds.xml
+Libs\NoTaint\Code.lua
 
-Lang\Localization.br.lua
-Lang\Localization.cn.lua
-Lang\Localization.de.lua
-Lang\Localization.en.lua
-Lang\Localization.es.lua
-Lang\Localization.fr.lua
-Lang\Localization.kr.lua
-Lang\Localization.ru.lua
-Lang\Localization.tw.lua
+Localizations\Localization.br.lua
+Localizations\Localization.cn.lua
+Localizations\Localization.de.lua
+Localizations\Localization.en.lua
+Localizations\Localization.es.lua
+Localizations\Localization.fr.lua
+Localizations\Localization.it.lua
+Localizations\Localization.kr.lua
+Localizations\Localization.ru.lua
+Localizations\Localization.tw.lua
 
 MoveAnything.lua
 Profile.lua
@@ -27,7 +28,6 @@ VirtualMovers.lua
 
 Modules\Alpha.lua
 Modules\Backdrop.lua
-Modules\Dimentions.lua
 Modules\Layers.lua
 Modules\Misc.lua
 Modules\Position.lua
