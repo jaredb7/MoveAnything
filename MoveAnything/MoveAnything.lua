@@ -1,36 +1,35 @@
---[[ 
-  MoveAnything by Wagthaa @ Earthen Ring EU
+--[[
+	MoveAnything by Wagthaa @ Earthen Ring EU
 	FanUpdate by Alea @ Gordynni EU
 	Vanilla & TBC versions by: Skrag, Jason, Vincent
 ]]
 local MOVANY = _G.MOVANY
-local _
 local MAOptions
 
 -- X: http://lua-users.org/wiki/CopyTable
 function MA_tdeepcopy(object)
-    local lookup_table = {}
-    local function _copy(object)
-        if type(object) ~= "table" then
-            return object
-        elseif lookup_table[object] then
-            return lookup_table[object]
-        end
-        local new_table = {}
-        lookup_table[object] = new_table
-        for index, value in pairs(object) do
-            new_table[_copy(index)] = _copy(value)
-        end
-        return setmetatable(new_table, getmetatable(object))
-    end
-    return _copy(object)
+	local lookup_table = { }
+	local function _copy(object)
+		if type(object) ~= "table" then
+			return object
+		elseif lookup_table[object] then
+			return lookup_table[object]
+		end
+		local new_table = { }
+		lookup_table[object] = new_table
+		for index, value in pairs(object) do
+			new_table[_copy(index)] = _copy(value)
+		end
+		return setmetatable(new_table, getmetatable(object))
+	end
+	return _copy(object)
 end
 
 function MA_tcopy(object)
 	if type(object) ~= "table" then
 		return object
 	end
-	local new_table = {}
+	local new_table = { }
 	for index, value in pairs(object) do
 		new_table[index] = value
 	end
@@ -51,24 +50,24 @@ local API
 
 MADB = {
 	tooltips = true,
-	characters = {},
-	profiles = {},
+	characters = { },
+	profiles = { },
 }
 
 local MovAny = {
 	fVoid = function() end,
 	guiLines = -1,
 	resetConfirm = "",
-	bagFrames = {},
-	cats = {},
+	bagFrames = { },
+	cats = { },
 	collapsed = true,
-	defFrames = {},
-	frames = {},
+	defFrames = { },
+	frames = { },
 	framesCount = 0,
-	framesIdx = {},
+	framesIdx = { },
 	initRun = nil,
 	lastFrameName = nil,
-	lSafeRelatives = {},
+	lSafeRelatives = { },
 	lAllowedTypes = {
 		Frame = "Frame",
 		FontString = "FontString",
@@ -112,34 +111,29 @@ local MovAny = {
 		Boss4TargetFrame = "Boss4TargetFrame",
 		Boss5TargetFrame = "Boss5TargetFrame",
 		ActionButton1 = "ActionButton1",
-		
 		ArenaEnemyFrame1 = "ArenaEnemyFrame1",
 		ArenaEnemyFrame2 = "ArenaEnemyFrame2",
 		ArenaEnemyFrame3 = "ArenaEnemyFrame3",
 		ArenaEnemyFrame4 = "ArenaEnemyFrame4",
 		ArenaEnemyFrame5 = "ArenaEnemyFrame5",
-		
 		ArenaPrepFrame1 = "ArenaPrepFrame1",
 		ArenaPrepFrame2 = "ArenaPrepFrame2",
 		ArenaPrepFrame3 = "ArenaPrepFrame3",
 		ArenaPrepFrame4 = "ArenaPrepFrame4",
 		ArenaPrepFrame5 = "ArenaPrepFrame5",
-		
 		ArenaPrepFrames = "ArenaPrepFrames",
 		ArenaEnemyFrames = "ArenaEnemyFrames",
-		
 		ArenaEnemyFrame1PetFrame = "ArenaEnemyFrame1PetFrame",
 		ArenaEnemyFrame2PetFrame = "ArenaEnemyFrame2PetFrame",
 		ArenaEnemyFrame3PetFrame = "ArenaEnemyFrame3PetFrame",
 		ArenaEnemyFrame4PetFrame = "ArenaEnemyFrame4PetFrame",
 		ArenaEnemyFrame5PetFrame = "ArenaEnemyFrame5PetFrame",
-		
 		PetFrame = "PetFrame",
 		BuffFrame = "BuffFrame",
 		MinimapCluster = "MinimapCluster"
 	},
 	lEnableMouse = {
-	--	WatchFrame,
+		--WatchFrame,
 		DurabilityFrame,
 		CastingBarFrame,
 		WorldStateScoreFrame,
@@ -224,16 +218,16 @@ local MovAny = {
 	},
 	rendered = nil,
 	nextFrameIdx = 1,
-	pendingActions = {},
-	pendingFrames = {},
-	pendingMovers = {},
-	minimizedMovers = {},
+	pendingActions = { },
+	pendingFrames = { },
+	pendingMovers = { },
+	minimizedMovers = { },
 	SCROLL_HEIGHT = 24,
 	currentMover = nil,
 	moverPrefix = "MAMover",
 	moverNextId = 1,
-	movers = {},
-	frameEditors = {},
+	movers = { },
+	frameEditors = { },
 	DDMPointList = {
 		{"Top Left", "TOPLEFT"},
 		{"Top", "TOP"},
@@ -287,7 +281,7 @@ local MovAny = {
 		Boss4TargetFrame = "UIParent",
 		Boss5TargetFrame = "UIParent",
 		RuneFrame = "UIParent",
-	--	ArenaEnemyFrame1 = "UIParent",
+		--ArenaEnemyFrame1 = "UIParent",
 	},
 	NoReparent = {
 		TargetFrameSpellBar = "TargetFrameSpellBar",
@@ -295,12 +289,10 @@ local MovAny = {
 		OverrideMenuBarHealthBar = "OverrideMenuBarHealthBar",
 		OverrideMenuBarLeaveButton = "OverrideMenuBarLeaveButton",
 		OverrideMenuBarPowerBar = "OverrideMenuBarPowerBar",
-		
 		ArenaPrepFrames = "ArenaPrepFrames",
 		ArenaEnemyFrames = "ArenaEnemyFrames",
-		
 		MinimapCluster = "MinimapCluster",
-	--	WatchFrame = "WatchFrame",
+		--WatchFrame = "WatchFrame",
 	},
 	NoUnanchoring = {
 		BuffFrame = "BuffFrame",
@@ -320,9 +312,8 @@ local MovAny = {
 		TargetFrameToTDebuffsMover = "TargetFrameToTDebuffsMover",
 		TemporaryEnchantFrame = "TemporaryEnchantFrame",
 		AuctionDressUpFrame = "AuctionDressUpFrame",
-		
 		MinimapCluster = "MinimapCluster",
-		},
+	},
 	lAllowedMAFrames = {
 		MAOptions = "MAOptions",
 		MANudger = "MANudger",
@@ -363,13 +354,11 @@ local MovAny = {
 		[40] = {"Interface\\ContainerFrame\\UI-Bag-5x4", 256, 256, 459},
 	},
 
-----------------------------------------------------------------
---X: hook replacements
+-- X: hook replacements
 
 	ContainerFrame_GenerateFrame = function (frame, size, id)
 		MovAny:GrabContainerFrame(frame, MovAny:GetBag(id))
 	end,
-	
 	hCreateFrame = function(frameType, name, parent, inherit, dontHook)
 		if name and not MovAny.lForceProtected[name] then
 			if dontHook == "MADontHook" then
@@ -378,7 +367,6 @@ local MovAny = {
 			API:SyncElement(name)
 		end
 	end,
-
 	hBlizzard_TalentUI = function(self)
 		if PlayerTalentFrame_Toggle then
 			hooksecurefunc("PlayerTalentFrame_Toggle", function()
@@ -387,11 +375,9 @@ local MovAny = {
 			MovAny.hBlizzard_TalentUI = nil
 		end
 	end,
-	
 	hReputationWatchBar_Update = function()
 		API:SyncElement("ReputationWatchBar")
 	end,
-	
 	hChatFrame_OnUpdate = function()
 		local b = arg1
 			if MovAny:IsModified(b) then
@@ -400,7 +386,6 @@ local MovAny = {
 				b:SetPoint("BOTTOMRIGHT", ChatEditBoxesMover, "BOTTOMRIGHT", 0, 0)
 			end
 	end,
-	
 	hCaptureBar_Create = function(id)
 		local f = MovAny.oCaptureBar_Create(id)
 		local e = API:GetElement("WorldStateCaptureBar1")
@@ -413,13 +398,11 @@ local MovAny = {
 		end
 		return f
 	end,
-
 	hAchievementAlertFrame_OnLoad = function(f)
 		f.RegisterForClicks = MovAny.fVoid
 		MovAny.oAchievementAlertFrame_OnLoad(f)
 		API:SyncElement(f:GetName())
 	end,
-
 	hAchievementAlertFrame_GetAlertFrame = function()
 		local f = MovAny.oAchievementAlertFrame_GetAlertFrame()
 		if not f then
@@ -428,169 +411,157 @@ local MovAny = {
 		API:SyncElement(f:GetName())
 		return f
 	end,
-	
 	hStanceBar_Update = function()
 		API:SyncElement("StanceButtonsMover")
 		API:SyncElement("StanceButtonsVerticalMover")
 	end,
-	
 	hStanceBar_UpdateState = function()
 		API:SyncElement("StanceButtonsMover")
 		API:SyncElement("StanceButtonsVerticalMover")
 	end,
-	
-	
 	hookArenaEnemyFrames = function()
 		if ArenaPrepFrames and not ArenaPrepFrames.hooked_ma then
-				ArenaPrepFrames.hooked_ma = true
-				ArenaPrepFrames.Hide = function()end
-				ArenaPrepFrames:Show()
-				ArenaPrepFrames.Show = function()end
-				ArenaPrepFrames.clear_all_points = ArenaPrepFrames.ClearAllPoints
-				ArenaPrepFrames.ClearAllPoints = function(self) if not InCombatLockdown() then self:clear_all_points() end end
-				ArenaPrepFrames.set_points = ArenaPrepFrames.SetPoint
-				ArenaPrepFrames.SetPoint = function(self, ...) if not InCombatLockdown() then self:set_points(...) end end
+			ArenaPrepFrames.hooked_ma = true
+			ArenaPrepFrames.Hide = function()end
+			ArenaPrepFrames:Show()
+			ArenaPrepFrames.Show = function()end
+			ArenaPrepFrames.clear_all_points = ArenaPrepFrames.ClearAllPoints
+			ArenaPrepFrames.ClearAllPoints = function(self)
+				if not InCombatLockdown() then
+					self:clear_all_points()
+				end
 			end
-			
-			if ArenaEnemyFrames and not ArenaEnemyFrames.hooked_ma then
-				ArenaEnemyFrames.hooked_ma = true
-				ArenaEnemyFrames.Hide = function()end
-				ArenaEnemyFrames:Show()
-				ArenaEnemyFrames.Show = function()end
-				ArenaEnemyFrames.clear_all_points = ArenaEnemyFrames.ClearAllPoints
-				ArenaEnemyFrames.ClearAllPoints = function(self) if not InCombatLockdown() then self:clear_all_points() end end
-				ArenaEnemyFrames.set_points = ArenaEnemyFrames.SetPoint
-				ArenaEnemyFrames.SetPoint = function(self, ...) if not InCombatLockdown() then self:set_points(...) end end
+			ArenaPrepFrames.set_points = ArenaPrepFrames.SetPoint
+			ArenaPrepFrames.SetPoint = function(self, ...)
+				if not InCombatLockdown() then
+					self:set_points(...)
+				end
 			end
+		end
+		if ArenaEnemyFrames and not ArenaEnemyFrames.hooked_ma then
+			ArenaEnemyFrames.hooked_ma = true
+			ArenaEnemyFrames.Hide = function()end
+			ArenaEnemyFrames:Show()
+			ArenaEnemyFrames.Show = function()end
+			ArenaEnemyFrames.clear_all_points = ArenaEnemyFrames.ClearAllPoints
+			ArenaEnemyFrames.ClearAllPoints = function(self)
+				if not InCombatLockdown() then
+					self:clear_all_points()
+				end
+			end
+			ArenaEnemyFrames.set_points = ArenaEnemyFrames.SetPoint
+			ArenaEnemyFrames.SetPoint = function(self, ...)
+				if not InCombatLockdown() then
+					self:set_points(...)
+				end
+			end
+		end
 	end,
-	
 	arenaframes15hooked = false,
 	hookArenaEnemyFrames15 = function(self)
-
-			if InCombatLockdown() then return end
-			
-			if MovAny:IsModified("ArenaEnemyFrame1") then 
-
-			else
-
-				ArenaEnemyFrame1:SetPoint("TOP", UIParent, "TOP", 600, -300) 
-				ArenaEnemyFrame2:SetPoint("TOP", ArenaEnemyFrame1, "BOTTOM", 0, -20)
-				ArenaEnemyFrame3:SetPoint("TOP", ArenaEnemyFrame2, "BOTTOM", 0, -20)
-				ArenaEnemyFrame4:SetPoint("TOP", ArenaEnemyFrame3, "BOTTOM", 0, -20)
-				ArenaEnemyFrame5:SetPoint("TOP", ArenaEnemyFrame4, "BOTTOM", 0, -20)
-			end
-			
-			if MovAny:IsModified("ArenaPrepFrame1") then 
-
-			else
-				ArenaPrepFrame1:SetPoint("TOP", UIParent, "TOP", 600, -300) 
-				ArenaPrepFrame2:SetPoint("TOP", ArenaPrepFrame1, "BOTTOM", 0, -20)
-				ArenaPrepFrame3:SetPoint("TOP", ArenaPrepFrame2, "BOTTOM", 0, -20)
-				ArenaPrepFrame4:SetPoint("TOP", ArenaPrepFrame3, "BOTTOM", 0, -20)
-				ArenaPrepFrame5:SetPoint("TOP", ArenaPrepFrame4, "BOTTOM", 0, -20)
-			end
+		if InCombatLockdown() then
+			return
+		end
+		if not MovAny:IsModified("ArenaEnemyFrame1") then 
+			ArenaEnemyFrame1:SetPoint("TOP", UIParent, "TOP", 600, - 300) 
+			ArenaEnemyFrame2:SetPoint("TOP", ArenaEnemyFrame1, "BOTTOM", 0, - 20)
+			ArenaEnemyFrame3:SetPoint("TOP", ArenaEnemyFrame2, "BOTTOM", 0, - 20)
+			ArenaEnemyFrame4:SetPoint("TOP", ArenaEnemyFrame3, "BOTTOM", 0, - 20)
+			ArenaEnemyFrame5:SetPoint("TOP", ArenaEnemyFrame4, "BOTTOM", 0, - 20)
+		end
+		if not MovAny:IsModified("ArenaPrepFrame1") then 
+			ArenaPrepFrame1:SetPoint("TOP", UIParent, "TOP", 600, - 300) 
+			ArenaPrepFrame2:SetPoint("TOP", ArenaPrepFrame1, "BOTTOM", 0, - 20)
+			ArenaPrepFrame3:SetPoint("TOP", ArenaPrepFrame2, "BOTTOM", 0, - 20)
+			ArenaPrepFrame4:SetPoint("TOP", ArenaPrepFrame3, "BOTTOM", 0, - 20)
+			ArenaPrepFrame5:SetPoint("TOP", ArenaPrepFrame4, "BOTTOM", 0, - 20)
+		end
 	end,
-	
-	hookArenaEnemyPets15 = function()
-	
-	end,
-	
+	hookArenaEnemyPets15 = function() end,
 	hArenaEnemyFrames_Enable = function()
-	--	print("hArenaEnemyFrames_Enable")
 		ArenaPrepFrames:ma_Show()
 		ArenaEnemyFrames:ma_Show()
 	end,
-	
 	hArenaEnemyFrames_Disable = function()
-	--	print("hArenaEnemyFrames_Disable")
-		
 		ArenaPrepFrames:ma_Hide()
 		ArenaEnemyFrames:ma_Hide()
 	end,
-	
 	hWatchFrameExpand = function()
 		if ArenaEnemyFrames then
 			local _, instanceType = IsInInstance()	
-			if ( not WatchFrame:IsUserPlaced() ) then
-				if ( ArenaEnemyFrames:IsShown() ) then
-					if ( WatchFrame_RemoveObjectiveHandler(WatchFrame_DisplayTrackedQuests) ) then
-						ArenaEnemyFrames.hidWatchedQuests = true;
+			if not WatchFrame:IsUserPlaced() then
+				if ArenaEnemyFrames:IsShown() then
+					if WatchFrame_RemoveObjectiveHandler(WatchFrame_DisplayTrackedQuests) then
+						ArenaEnemyFrames.hidWatchedQuests = true
 					end
-				elseif (( instanceType == "arena" ) or ( instanceType == "pvp" )) then
-					if ( WatchFrame_RemoveObjectiveHandler(WatchFrame_DisplayTrackedQuests) ) then
-						ArenaEnemyFrames.hidWatchedQuests = true;
+				elseif instanceType == "arena" or instanceType == "pvp" then
+					if WatchFrame_RemoveObjectiveHandler(WatchFrame_DisplayTrackedQuests) then
+						ArenaEnemyFrames.hidWatchedQuests = true
 					end
 				else
-					if ( ArenaEnemyFrames.hidWatchedQuests ) then
-						WatchFrame_AddObjectiveHandler(WatchFrame_DisplayTrackedQuests);
-						ArenaEnemyFrames.hidWatchedQuests = false;
+					if ArenaEnemyFrames.hidWatchedQuests then
+						WatchFrame_AddObjectiveHandler(WatchFrame_DisplayTrackedQuests)
+						ArenaEnemyFrames.hidWatchedQuests = false
 					end
 				end
-			elseif ( ArenaEnemyFrames.hidWatchedQuests ) then	
-				WatchFrame_AddObjectiveHandler(WatchFrame_DisplayTrackedQuests);
-				ArenaEnemyFrames.hidWatchedQuests = false;
+			elseif ArenaEnemyFrames.hidWatchedQuests then	
+				WatchFrame_AddObjectiveHandler(WatchFrame_DisplayTrackedQuests)
+				ArenaEnemyFrames.hidWatchedQuests = false
 			end		
 		elseif ArenaPrepFrames then
 			local _, instanceType = IsInInstance()		
-			if ( not WatchFrame:IsUserPlaced() ) then
-				if ( ArenaPrepFrames:IsShown() ) then
-					if ( WatchFrame_RemoveObjectiveHandler(WatchFrame_DisplayTrackedQuests) ) then
-						ArenaPrepFrames.hidWatchedQuests = true;
+			if not WatchFrame:IsUserPlaced() then
+				if ArenaPrepFrames:IsShown() then
+					if WatchFrame_RemoveObjectiveHandler(WatchFrame_DisplayTrackedQuests) then
+						ArenaPrepFrames.hidWatchedQuests = true
 					end
-				elseif (( instanceType == "arena" ) or ( instanceType == "pvp" )) then
-					if ( WatchFrame_RemoveObjectiveHandler(WatchFrame_DisplayTrackedQuests) ) then
-						ArenaPrepFrames.hidWatchedQuests = true;
+				elseif instanceType == "arena" or instanceType == "pvp" then
+					if WatchFrame_RemoveObjectiveHandler(WatchFrame_DisplayTrackedQuests) then
+						ArenaPrepFrames.hidWatchedQuests = true
 					end
 				else
-					if ( ArenaPrepFrames.hidWatchedQuests ) then
-						WatchFrame_AddObjectiveHandler(WatchFrame_DisplayTrackedQuests);
-						ArenaPrepFrames.hidWatchedQuests = false;
+					if ArenaPrepFrames.hidWatchedQuests then
+						WatchFrame_AddObjectiveHandler(WatchFrame_DisplayTrackedQuests)
+						ArenaPrepFrames.hidWatchedQuests = false
 					end
 				end
-			elseif ( ArenaPrepFrames.hidWatchedQuests ) then	
-				WatchFrame_AddObjectiveHandler(WatchFrame_DisplayTrackedQuests);
-				ArenaPrepFrames.hidWatchedQuests = false;
+			elseif ArenaPrepFrames.hidWatchedQuests then	
+				WatchFrame_AddObjectiveHandler(WatchFrame_DisplayTrackedQuests)
+				ArenaPrepFrames.hidWatchedQuests = false
 			end
 		end				
 	end,
-
 	hFocusFrame_Update = function()
-	--print("Test")
 		if MovAny:IsModified(FocusFrame, opt, hidden) then
-		--	print("HIDE")
 			RegisterStateDriver("FocusFrame", "visibility", "hide")
 		else
-		--	print("SHOW")
-			RegisterStateDriver("FocusFrame", "visibility", "show");
+			RegisterStateDriver("FocusFrame", "visibility", "show")
 		end
 	end,
-	
-	--hPetActionBarFrame_OnUpdate = function()
-	--	if ( MovAny:IsModified(PetActionButtonsMover) or MovAny:IsModified(PetActionButtonsVerticalMover) ) then
---			API:SyncElement("PetActionButtonsMover")
-	--		API:SyncElement("PetActionButtonsVerticalMover")
-	--	end
---	end,
+	--[[hPetActionBarFrame_OnUpdate = function()
+		if MovAny:IsModified(PetActionButtonsMover) or MovAny:IsModified(PetActionButtonsVerticalMover) then
+			API:SyncElement("PetActionButtonsMover")
+			API:SyncElement("PetActionButtonsVerticalMover")
+		end
+	end,]]
 	hAddFrameLock = function()
-	--	print("hAddFrameLock", SHOW_MULTI_ACTIONBAR_1, SHOW_MULTI_ACTIONBAR_2)
 		MultiBarBottomLeft:Hide()
 		MultiBarBottomRight:Hide()
 	end,
-	
 	hRemoveFrameLock = function()
-	--	print("hRemoveFrameLock", SHOW_MULTI_ACTIONBAR_1, SHOW_MULTI_ACTIONBAR_2)
-		if ( SHOW_MULTI_ACTIONBAR_1 ) then
+		if SHOW_MULTI_ACTIONBAR_1 then
 			MultiBarBottomLeft:Show()
 		elseif (MovAny:IsModified(MultiBarBottomLeft) and not MovAny:IsModified(MultiBarBottomLeft, opt, hidden)) then
 			MultiBarBottomLeft:Show()
 		end
-		if ( SHOW_MULTI_ACTIONBAR_2 ) then
+		if SHOW_MULTI_ACTIONBAR_2 then
 			MultiBarBottomRight:Show()
 		elseif (MovAny:IsModified(MultiBarBottomRight) and not MovAny:IsModified(MultiBarBottomRight, opt, hidden)) then
 			MultiBarBottomRight:Show()
 		end
 	end,
 }
+
 _G.MovAny = MovAny
 
 BINDING_HEADER_MOVEANYTHING = "MoveAnything"
@@ -614,9 +585,7 @@ function MovAny:Load()
 	if self.inited then
 		return
 	end
-	
 	MAOptions = _G["MAOptions"]
-	
 	if not MADB.noMMMW and Minimap:GetScript("OnMouseWheel") == nil then
 		Minimap:SetScript("OnMouseWheel", function(self, dir)
 			if dir < 0 then
@@ -627,62 +596,46 @@ function MovAny:Load()
 		end)
 		Minimap:EnableMouseWheel(true)
 	end
-
 	local MADB_Defaults = {
 		frameListRows = 18,
 	}
-
 	for i, v in pairs(MADB_Defaults) do
-		if MADB[i] ~= nil then
-		else
+		if MADB[i] == nil then
 			MADB[i] = v
 		end
 	end
-	
 	if tlen(MADB.profiles) == 0 then
 		MADB.autoShowNext = true
 	end
-	
 	self:VerifyData()
-	
 	if MADB.squareMM then
 		Minimap:SetMaskTexture("Interface\\AddOns\\MoveAnything\\Textures\\MinimapMaskSquare")
 	end
-	
 	self:SetNumRows(MADB.frameListRows, false)
-	
 	if MADB.closeGUIOnEscape then
 		tinsert(UISpecialFrames, "MAOptions")
 	end
-	
 	MAOptionsMoveHeader:SetText(MOVANY.LIST_HEADING_MOVER)
 	MAOptionsHideHeader:SetText(MOVANY.LIST_HEADING_HIDE)
-	
 	MAOptionsToggleFrameEditors:SetChecked(true)
-	
 	self.userData = MADB.profiles[self:GetProfileName()].frames
-	
 	for i, m in pairs(self.core) do
 		if m.Init then
 			m:Init()
 		end
 	end
-	
 	for i, m in pairs(self.core) do
 		if m.Enable then
 			m:Enable()
 		end
 	end
-	
 	for i, m in pairs(self.modules) do
 		if m.Enable then
 			m:Enable()
 		end
 	end
-	
 	API = self.API
-	
-	local ar = {}
+	local ar = { }
 	local e
 	for n, v in pairs(self.userData) do
 		e = API:GetElement(n)
@@ -699,7 +652,6 @@ function MovAny:Load()
 		e = API:AddElement({name = fn})
 		e:SetUserData(self.userData[fn])
 	end
-	
 	if self.lVirtualMovers then
 		if type(self.lCreateVMs) == "table" then
 			if not MADB.noBags then
@@ -743,13 +695,10 @@ function MovAny:Load()
 				if type(data.children) == "table" then
 					for i, v in pairs(data.children) do
 						local child = v
-						
 						if type(v) == "string" then
 							child = _G[v]
 						end
-						
 						if child then
-				--		print(child)
 							if not self:IsModified(child:GetName()) then
 								child.MAParent = name
 							end
@@ -761,12 +710,10 @@ function MovAny:Load()
 			end
 		end
 	end
-	
 	if not MADB.noBags then
 		MAOptions:RegisterEvent("BANKFRAME_OPENED")
 		MAOptions:RegisterEvent("BANKFRAME_CLOSED")
 	end
-	
 	MAOptions:RegisterEvent("BAG_UPDATE")
 end
 
@@ -774,7 +721,6 @@ function MovAny:Boot()
 	if self.inited then
 		return
 	end
-	
 	if not MADB.dontHookCreateFrame and CreateFrame then
 		hooksecurefunc("CreateFrame", self.hCreateFrame)
 	end
@@ -790,8 +736,7 @@ function MovAny:Boot()
 	if UpdateUIPanelPositions then
 		hooksecurefunc("UpdateUIPanelPositions", self.SyncUIPanels)
 	end
-	
---	UIParentManageFramePositions
+	--UIParentManageFramePositions
 	if GameTooltip_SetDefaultAnchor then
 		hooksecurefunc("GameTooltip_SetDefaultAnchor", self.hGameTooltip_SetDefaultAnchor)
 	end
@@ -801,9 +746,9 @@ function MovAny:Boot()
 	if StanceBar_UpdateState then
 		hooksecurefunc("StanceBar_UpdateState", self.hStanceBar_UpdateState)
 	end
---	if false then
---		hooksecurefunc("PetActionBar_Update", self.hPetActionBar_Update)
---	end
+	--[[if false then
+		hooksecurefunc("PetActionBar_Update", self.hPetActionBar_Update)
+	end]]
 	if GameTooltip and GameTooltip.SetBagItem then
 		hooksecurefunc(GameTooltip, "SetBagItem", self.hGameTooltip_SetBagItem)
 	end
@@ -813,7 +758,6 @@ function MovAny:Boot()
 	if RemoveFrameLock then
 		hooksecurefunc("RemoveFrameLock", self.hRemoveFrameLock)
 	end
-		
 	if UpdateContainerFrameAnchors then
 		hooksecurefunc("UpdateContainerFrameAnchors", self.hUpdateContainerFrameAnchors)
 	end
@@ -822,30 +766,22 @@ function MovAny:Boot()
 			SpellBookPage1:SetPoint("LEFT", SpellBookFrame)
 		end)
 	end
-	
 	if WatchFrame_Update then
 		hooksecurefunc("WatchFrame_Update", self.hWatchFrameExpand)
 	end
-	
-	setfenv(WorldMapFrame_OnShow, setmetatable({UpdateMicroButtons=function() end }, { __index = _G}))
-	
-	--C_StorePublic.IsDisabledByParentalControls = function() 
-	--	print("Hello Blizzrd from MoveAnything. PLEASE FIRE YOUR CODERS ALREADY. C_StorePublic.IsDisabledByParentalControls Removed THX YOU") 
---	end
-	
---[[	hooksecurefunc("PetActionBar_UpdatePositionValues", function()
-				if MovAny:IsModified(PetActionButtonsVerticalMover) or MovAny:IsModified(PetActionButtonsMover) then
-				--	print("PetActionBar_UpdatePositionValues()", MovAny:IsModified(PetActionButtonsVerticalMover), MovAny:IsModified(PetActionButtonsMover))
-					PetActionBarFrame:SetPoint("TOPLEFT", PetActionBarFrame:GetParent(), "BOTTOMLEFT", 500, 0)
-				end
-			end)
+	setfenv(WorldMapFrame_OnShow, setmetatable({UpdateMicroButtons = function() end }, { __index = _G}))
+	--[[hooksecurefunc("PetActionBar_UpdatePositionValues", function()
+		if MovAny:IsModified(PetActionButtonsVerticalMover) or MovAny:IsModified(PetActionButtonsMover) then
+			--print("PetActionBar_UpdatePositionValues()", MovAny:IsModified(PetActionButtonsVerticalMover), MovAny:IsModified(PetActionButtonsMover))
+			PetActionBarFrame:SetPoint("TOPLEFT", PetActionBarFrame:GetParent(), "BOTTOMLEFT", 500, 0)
+		end
+	end)
 	hooksecurefunc("ShowPetActionBar", function()
-				if MovAny:IsModified(PetActionButtonsVerticalMover) or MovAny:IsModified(PetActionButtonsMover) then
-				--	print("ShowPetActionBar()", MovAny:IsModified(PetActionButtonsVerticalMover), MovAny:IsModified(PetActionButtonsMover))
-					PetActionBarFrame:SetPoint("TOPLEFT", PetActionBarFrame:GetParent(), "BOTTOMLEFT", 500, 0)
-				end
-			end)]]
-	
+		if MovAny:IsModified(PetActionButtonsVerticalMover) or MovAny:IsModified(PetActionButtonsMover) then
+			--print("ShowPetActionBar()", MovAny:IsModified(PetActionButtonsVerticalMover), MovAny:IsModified(PetActionButtonsMover))
+			PetActionBarFrame:SetPoint("TOPLEFT", PetActionBarFrame:GetParent(), "BOTTOMLEFT", 500, 0)
+		end
+	end)]]
 	hooksecurefunc("ChatEdit_UpdateHeader",function(arg1, arg2)
 		local b = arg1
 		if MovAny:IsModified(b) then
@@ -854,7 +790,6 @@ function MovAny:Boot()
 			b:SetPoint("BOTTOMRIGHT", ChatEditBoxesMover, "BOTTOMRIGHT", 0, 0)
 		end
 	end)
-	
 	if ExtendedUI and ExtendedUI.CAPTUREPOINT then
 		self.oCaptureBar_Create = ExtendedUI.CAPTUREPOINT.create
 		ExtendedUI.CAPTUREPOINT.create = self.hCaptureBar_Create
@@ -867,9 +802,9 @@ function MovAny:Boot()
 		self.oAchievementAlertFrame_GetAlertFrame = AchievementAlertFrame_GetAlertFrame
 		AchievementAlertFrame_GetAlertFrame = self.hAchievementAlertFrame_GetAlertFrame
 	end
---[[	if LootWonAlertFrame_SetUp then
+	--[[if LootWonAlertFrame_SetUp then
 		hooksecurefunc("LootWonAlertFrame_SetUp", function(self, arg1, ...)
-			print("TestDone", self, arg1, select(1, ...), select(2, ...), select(3, ...), select(4, ...), select(5, ...))
+			--print("TestDone", self, arg1, select(1, ...), select(2, ...), select(3, ...), select(4, ...), select(5, ...))
 			if self == LOOT_WON_ALERT_FRAMES[1] and MovAny:IsModified(LootWonAlertMover1) then
 				print("LootWonAlert1 - Find")
 				LOOT_WON_ALERT_FRAMES[1]:SetPoint("BOTTOMLEFT", LootWonAlertMover1, "BOTTOMLEFT", 0, 0)
@@ -892,10 +827,9 @@ function MovAny:Boot()
 			end
 		end)
 	end]]
-	
---[[	if GroupLootContainer_AddFrame then
+	--[[if GroupLootContainer_AddFrame then
 		hooksecurefunc("GroupLootContainer_AddFrame", function(self, ...)
-			print(self, select(1, ...), select(2, ...))
+			--print(self, select(1, ...), select(2, ...))
 			if MovAny:IsModified(GroupLootFrameMover1) then
 				GroupLootFrame1:SetPoint("BOTTOMLEFT", GroupLootFrameMover1, "BOTTOMLEFT", 0, 0)
 			end
@@ -910,9 +844,7 @@ function MovAny:Boot()
 			end
 		end)
 	end]]
-	
 	self.inited = true
-	
 	if IsAddOnLoaded("Blizzard_TalentUI") and self.hBlizzard_TalentUI then
 		self:hBlizzard_TalentUI()
 	end
@@ -926,7 +858,6 @@ function MovAny:OnPlayerLogout()
 	if MAOptions:IsShown() then
 		MADB.autoShowNext = true
 	end
-
 	if type(self.movers) == "table" then
 		for i, v in ipairs(MA_tcopy(self.movers)) do
 			self:StopMoving(v.tagged:GetName())
@@ -941,7 +872,7 @@ end
 
 function MovAny:VerifyData()
 	if MoveAnything_CharacterSettings then
-		MADB.profiles = {}
+		MADB.profiles = { }
 		for i, v in pairs(MoveAnything_CharacterSettings) do
 			if type(v) == "table" then
 				MADB.profiles[i] = {name = i, frames = v}
@@ -949,22 +880,21 @@ function MovAny:VerifyData()
 		end
 		MoveAnything_CharacterSettings = nil
 		
-		MADB.characters = {}
+		MADB.characters = { }
 		if MoveAnything_UseCharacterSettings then
 			for i, _ in pairs(MADB.profiles) do
 				MADB.characters[i] = {profile = i}
 			end
 		end
 	end
-	
 	if type(MADB) ~= "table" then
-		MADB = {}
+		MADB = { }
 	end
 	if type(MADB.profiles) ~= "table" then
-		MADB.profiles = {}
+		MADB.profiles = { }
 	end
 	if type(MADB.characters) ~= "table" then
-		MADB.characters = {}
+		MADB.characters = { }
 	end
 	if MADB.profiles["default"] == nil then
 		self:AddProfile("default", true, true)
@@ -975,17 +905,15 @@ function MovAny:VerifyData()
 			char.profile = nil
 		end
 	end
-	
 	local fRel
-	local remList = {}
-	local addList = {}
+	local remList = { }
+	local addList = { }
 	local rewriteName
-	
 	for pi, profile in pairs(MADB.profiles) do
 		table.wipe(remList)
 		table.wipe(addList)
 		if type(profile.frames) ~= "table" then
-			profile.frames = {}
+			profile.frames = { }
 		end
 		for fn, opt in pairs(profile.frames) do
 			if type(fn) ~= "string" or type(opt) ~= "table" or self.lDeleteFrameNames[fn] then
@@ -997,31 +925,22 @@ function MovAny:VerifyData()
 					fn = self.lFrameNameRewrites[fn]
 				end
 				opt.cat = nil
-				
 				if opt.name ~= fn then
 					opt.name = fn
 				end
-				
 				opt.originalLeft = nil
 				opt.originalBottom = nil
-					
 				opt.originalWidth = nil
 				opt.orgWidth = nil
-				
 				opt.originalHeight = nil
 				opt.orgHeight = nil
-				
 				opt.orgPos = nil
-				
 				opt.originalScale = nil
 				opt.orgScale = nil
-				
 				opt.originalAlpha = nil
 				opt.origAlpha = nil
-				
 				opt.MANAGED_FRAME = nil
 				opt.UIPanelWindows = nil
-				
 				if type(opt.scale) == "number" then
 					if opt.scale > 0.991 and opt.scale < 1.009 then
 						opt.scale = 1
@@ -1029,15 +948,13 @@ function MovAny:VerifyData()
 				else
 					opt.scale = nil
 				end
-				
 				if opt.x ~= nil and opt.y ~= nil then
-					f = _G[fn]
-					
+					local f = _G[fn]
 					fRel = self:ForcedDetachFromParent(fn, opt)
+					local p
 					if not fRel then
 						p = f and f.GetParent and f:GetParent() ~= nil and f:GetParent():GetName() or "UIParent"
 					end
-					
 					opt.pos = {"BOTTOMLEFT", p, "BOTTOMLEFT", opt.x, opt.y}
 					opt.x = nil
 					opt.y = nil
@@ -1045,21 +962,18 @@ function MovAny:VerifyData()
 					opt.x = nil
 					opt.y = nil
 				end
-				
 				if type(opt.pos) == "table" then
 					local relTo = opt.pos[2]
 					if type(relTo) == "table" and relTo.GetName and relTo:GetName() then
 						opt.pos[2] = relTo:GetName()
 					end
 				end
-				--[[
-				if opt.width and opt.orgWidth and opt.width == opt.orgWidth then
+				--[[if opt.width and opt.orgWidth and opt.width == opt.orgWidth then
 					opt.width = nil
 				end
 				if opt.height and opt.orgHeight and opt.height == opt.orgHeight then
 					opt.height = nil
-				end
-				]]
+				end]]
 				if rewriteName then
 					if not self:IsModified(fn, nil, opt) then
 						tinsert(remList, rewriteName)
@@ -1079,7 +993,6 @@ function MovAny:VerifyData()
 			MADB.profiles[pi].frames[i] = opt
 		end
 	end
-	
 	self.lFrameNameRewrites = nil
 	self.lDeleteFrameNames = nil
 end
@@ -1116,7 +1029,7 @@ end
 
 function MovAny:IsValidObject(f, silent)
 	if type(f) == "string" then
-		f = _G[ f ]
+		f = _G[f]
 	end
 	if not f then
 		return
@@ -1133,14 +1046,12 @@ function MovAny:IsValidObject(f, silent)
 		end
 		return
 	end
-	
 	if not self.lAllowedTypes[f:GetObjectType()] then
 		if not silent then
 			maPrint(string.format(MOVANY.UNSUPPORTED_TYPE, f:GetObjectType()))
 		end
 		return
 	end
-	
 	if MovAny:IsMAFrame(f:GetName()) then
 		if MovAny.lAllowedMAFrames[f:GetName()] or string.sub(f:GetName(), 1, 5) == "MA_FE" then
 			return true
@@ -1157,8 +1068,6 @@ function MovAny:SyncAllFrames(dontReset)
 	table.wipe(self.pendingFrames)
 	if type(self.userData) == "table" then
 		for i, v in pairs(self.userData) do
-		--	print(i, API:GetElement(i))
-			
 			if i ~= "ArenaPrepFrames" or i ~= "ArenaEnemyFrames" then
 				self.pendingFrames[i] = API:GetElement(i)
 			end
@@ -1171,7 +1080,6 @@ function MovAny:SyncFrames(dontReset)
 	if not self.inited or self.syncingFrames then
 		return
 	end
-	
 	local i = 0
 	for k in pairs(self.pendingFrames) do
 		i = i + 1
@@ -1180,12 +1088,9 @@ function MovAny:SyncFrames(dontReset)
 	if i == 0 then
 		return
 	end
-
 	self.syncingFrames = true
-
 	local f, parent, handled
-	local skippedFrames = {}
-	
+	local skippedFrames = { }
 	if dontReset then
 		for fn, e in pairs(self.pendingFrames) do
 			f = _G[fn]
@@ -1194,13 +1099,11 @@ function MovAny:SyncFrames(dontReset)
 			end
 		end
 	end
-	
-	local ret
 	for fn, e in pairs(self.pendingFrames) do
 		if not self:GetMoverByFrame(fn) then
 			self.curSync = e
 			
-			_, ret = xpcall(function()
+			local _, ret = xpcall(function()
 				return e:Sync()
 			end, self.SyncErrorHandler, self)
 			if not ret or self.syncError then
@@ -1212,20 +1115,16 @@ function MovAny:SyncFrames(dontReset)
 		end
 	end
 	self.pendingFrames = skippedFrames
-	
-	local postponed = {}
+	local postponed = { }
 	for k, f in pairs(self.pendingActions) do
 		if f() then
 			tinsert(postponed, f)
 		end
 	end
 	self.pendingActions = postponed
-	
 	self:SyncUIPanels()
-	
 	self.rendered = true
 	self.syncingFrames = nil
-	
 	if MADB.autoShowNext then
 		MAOptions:Show()
 	end
@@ -1274,11 +1173,9 @@ function MovAny:GetUserData(fn, noSymLink, create)
 	if self.userData == nil then
 		return nil
 	end
-	
 	if not noSymLink and not self.userData[fn] and self.lTranslateSec[fn] then
 		fn = self.lTranslateSec[fn]
 	end
-	
 	if create and self.userData[fn] == nil then
 		local ud = {name = fn}
 		local e = API:AddElementIfNew(fn)
@@ -1313,12 +1210,10 @@ function MovAny:LockVisibility(f, dontHide)
 		return
 	end
 	f.MAHidden = true
-	
 	if not f.MAShowHook then
 		hooksecurefunc(f, "Show", MovAny.hShow)
 		f.MAShowHook = true
 	end
-	
 	f.MAWasShown = f:IsShown()
 	if not dontHide and f.MAWasShown then
 		f:Hide()
@@ -1332,36 +1227,26 @@ function MovAny:UnlockVisibility(f)
 		return
 	end
 	f.MAHidden = nil
-	
 	if f.MAWasShown then
 		f.MAWasShown = nil
 		if f.my_real_parent then
 			
 			f:SetParent(f.my_real_parent)
 		end
-		
 		f:Show()
-		
 	end
 end
 
 function MovAny.hSetPoint(f, ...)
-	--[[
-	if MovAny.lForceProtected[f:GetName()] then 
+	--[[if MovAny.lForceProtected[f:GetName()] then 
 		print(f:GetName())
-	
-		return 
-	end
-	]]
-	--[[
-	if string.find(f:GetName(), "Arena") then
+		return
+	end]]
+	--[[if string.find(f:GetName(), "Arena") then
 		print(":1332,", string.find(f:GetName(), "Arena"), f:GetName())
-	end
-	]]
-	
+	end]]
 	if f.MAPoint then
 		local fn = f:GetName()
-		
 		if fn and string.match(fn, "^ContainerFrame[1-9][0-9]*$") then
 			local bag = MovAny:GetBagInContainerFrame(f)
 			if not bag then
@@ -1369,7 +1254,6 @@ function MovAny.hSetPoint(f, ...)
 			end
 			fn = bag:GetName()
 		end
-		
 		if InCombatLockdown() and MovAny:IsProtected(f) then
 			local closure = function(f)
 				return function()
@@ -1429,7 +1313,7 @@ end
 function MovAny.hSetParent(f, ...)
 	if f.MAParented then
 		if InCombatLockdown() and MovAny:IsProtected(f) then
-			MovAny.pendingFrames[ f:GetName() ] = API:GetElement(f:GetName())
+			MovAny.pendingFrames[f:GetName()] = API:GetElement(f:GetName())
 		else
 			local p = f.MAParented
 			MovAny:UnlockParent(f)
@@ -1438,16 +1322,14 @@ function MovAny.hSetParent(f, ...)
 		end
 	end
 end
---[[
-function MovAny.hSetWidth(f, ...)
+
+--[[function MovAny.hSetWidth(f, ...)
 	if f.MAScaled then
 		local fn = f:GetName()
-		
 		if string.match(fn, "^ContainerFrame[0-9]+$") then
 			local bag = MovAny:GetBagInContainerFrame(f)
 			fn = bag:GetName()
 		end
-		
 		MovAny.pendingFrames[fn] = API:GetElement(fn)
 		if not MovAny:IsProtected(f) or not InCombatLockdown() then
 			MovAny:SyncFrames()
@@ -1458,12 +1340,10 @@ end
 function MovAny.hSetHeight(f, ...)
 	if f.MAScaled then
 		local fn = f:GetName()
-		
 		if string.match(fn, "^ContainerFrame[0-9]+$") then
 			local bag = MovAny:GetBagInContainerFrame(f)
 			fn = bag:GetName()
 		end
-		
 		MovAny.pendingFrames[fn] = API:GetElement(fn)
 		if not MovAny:IsProtected(f) or not InCombatLockdown() then
 			MovAny:SyncFrames()
@@ -1474,12 +1354,10 @@ end
 function MovAny.hSetScale(f, ...)
 	if f.MAScaled then
 		local fn = f:GetName()
-		
 		if string.match(fn, "^ContainerFrame[0-9]+$") then
 			local bag = MovAny:GetBagInContainerFrame(f)
 			fn = bag:GetName()
 		end
-		
 		MovAny.pendingFrames[fn] = API:GetElement(fn)
 		if not MovAny:IsProtected(f) or not InCombatLockdown() then
 			MovAny:SyncFrames()
@@ -1507,8 +1385,7 @@ end
 
 function MovAny:UnlockScale(f)
 	f.MAScaleLocked = nil
-end
-]]
+end]]
 
 function MovAny.hSetScale(f)
 	if f.MAScaled then
@@ -1530,7 +1407,6 @@ function MovAny.hSetScale(f)
 			end
 			fn = bag:GetName()
 		end
-		
 		if MovAny:IsProtected(f) and InCombatLockdown() then
 			MovAny.pendingFrames[fn] = API:GetElement(fn)
 		else
@@ -1590,16 +1466,13 @@ function MovAny:HookFrame(e, f, dontUnanchor, runBeforeInteract)
 			return
 		end
 	end
-	
 	if not self:IsValidObject(f) then
 		return
 	end
-	
 	if not runBeforeInteract and e and e.runBeforeInteract and e.runBeforeInteract() then
 		return
 	end
 	local fn = f:GetName()
-	
 	local opt = self:GetUserData(fn, nil, true)
 	if opt.name == nil then
 		opt.name = fn
@@ -1607,8 +1480,6 @@ function MovAny:HookFrame(e, f, dontUnanchor, runBeforeInteract)
 	if opt.disabled then
 		return
 	end
-	
-	
 	if f.MAOrgScale then
 		self:UnlockScale(f)
 		f:SetScale(f.MAOrgScale)
@@ -1618,7 +1489,6 @@ function MovAny:HookFrame(e, f, dontUnanchor, runBeforeInteract)
 		f:SetAlpha(f.MAOrgAlpha)
 		f.MAOrgAlpha = nil
 	end
-	
 	if fn == "FocusFrame" then
 		f.orgScale = f:GetScale()
 		f.scale = f:GetScale()
@@ -1640,29 +1510,23 @@ function MovAny:HookFrame(e, f, dontUnanchor, runBeforeInteract)
 	if not opt.orgPos and not e.noMove then
 		self.Position:StoreOrgPoints(f, opt)
 	end
-	
 	if not f.MAHooked then
 		if f.OnMAHook and f:OnMAHook() ~= nil then
 			return
 		end
-		
 		f.MAHooked = true
 	end
-	
 	if not dontUnanchor and not e.noUnanchorRelatives and not e.noMove then
 		self:UnanchorRelatives(e, f, opt)
 	end
-	
 	if self.DetachFromParent[fn] and not self.NoReparent[fn] and not f.MAOrgParent then
 		f.MAOrgParent = f:GetParent()
 		f:SetParent(_G[ self.DetachFromParent[fn] ])
 		--self:LockParent(f)
 	end
-	
 	if f.OnMAPostHook and f.OnMAPostHook(f) ~= nil then
 		return
 	end
-	
 	return opt
 end
 
@@ -1679,10 +1543,7 @@ function MovAny:IsModified(fn, var, opt)
 			if opt[var] then
 				return true
 			end
-		elseif opt.pos or opt.hidden or opt.scale ~= nil or opt.alpha ~= nil or opt.frameStrata ~= nil or
-				opt.disableLayerArtwork ~= nil or opt.disableLayerBackground ~= nil or opt.disableLayerBorder ~= nil or
-				opt.disableLayerHighlight ~= nil or opt.disableLayerOverlay ~= nil or opt.unregisterAllEvents ~= nil or 
-				opt.groups ~= nil or opt.forcedLock ~= nil then
+		elseif opt.pos or opt.hidden or opt.scale ~= nil or opt.alpha ~= nil or opt.frameStrata ~= nil or opt.disableLayerArtwork ~= nil or opt.disableLayerBackground ~= nil or opt.disableLayerBorder ~= nil or opt.disableLayerHighlight ~= nil or opt.disableLayerOverlay ~= nil or opt.unregisterAllEvents ~= nil or opt.groups ~= nil or opt.forcedLock ~= nil then
 			return true
 		end
 	else
@@ -1695,39 +1556,32 @@ end
 
 function MovAny:AttachMover(fn, displayName)
 	local e = API:AddElementIfNew(fn)
-	 if e.unsupported then
+	if e.unsupported then
 		string.format(MOVANY.UNSUPPORTED_FRAME, fn)
 		return
-	 end
-	 
-	 if e.noMove and e.noScale and e.noAlpha then
+	end
+	if e.noMove and e.noScale and e.noAlpha then
 		maPrint(string.format(MOVANY.FRAME_VISIBILITY_ONLY, fn))
 		return
-	 end
-
+	end
 	local f = _G[fn]
-	
 	if e.onlyOnceCreated and (f == nil or not f:IsShown()) then
 		maPrint(string.format(MOVANY.ONLY_ONCE_CREATED, fn))
 		return
 	end
-	
 	if e and e.refuseSync then
 		if type(e.refuseSync) == "string" then
 			maPrint(string.format(e.refuseSync, fn))
 		end
 		return
 	end
-	
 	if f and type(f) ~= "table" then
 		maPrint(string.format(MOVANY.ERROR_NOT_A_TABLE, fn))
 		return
 	end
-	
 	if self:ErrorNotInCombat(f) then
 		return
 	end
-
 	if not self:GetMoverByFrame(f) then
 		if e then
 			if e.runOnce then
@@ -1751,7 +1605,6 @@ function MovAny:AttachMover(fn, displayName)
 				f = _G[fn]
 			end
 		end
-		
 		if f and fn ~= f:GetName() then
 			fn = f:GetName()
 			f = _G[fn]
@@ -1776,7 +1629,6 @@ function MovAny:AttachMover(fn, displayName)
 				end
 			end
 		end
-		
 		if e and e.runAfterInteract then
 			e:runAfterInteract(handled)
 		end
@@ -1797,7 +1649,6 @@ function MovAny:GetAvailableMover()
 			break
 		end
 	end
-	
 	if f then
 		tinsert(self.movers, f)
 		return f
@@ -1815,7 +1666,6 @@ function MovAny:GetDefaultFrameParent(f)
 					return _G[ bag:GetName() ]
 				end
 			end
-			
 			local maParent = c.MAParent
 			if maParent then
 				if type(maParent) == "string" then
@@ -1823,7 +1673,6 @@ function MovAny:GetDefaultFrameParent(f)
 				end
 				return maParent
 			end
-			
 			local transName = self:Translate(c:GetName(),true,true)
 			if self:IsModified(transName) then
 				return _G[ transName ]
@@ -1876,7 +1725,6 @@ function MovAny:ToggleMove(fn)
 	else
 		ret = self:AttachMover(fn)
 	end
-	
 	self.lastFrameName = fn
 	self:UpdateGUIIfShown(true)
 	return ret
@@ -1902,11 +1750,11 @@ function MovAny:ToggleHide(fn)
 	return ret
 end
 
---X: bindings
+-- X: bindings
 function MovAny:SafeMoveFrameAtCursor()
 	local obj = GetMouseFocus()
-	while 1 == 1 and obj do
-		while 1 == 1 and obj do
+	while true and obj do
+		while true and obj do
 			if self:IsMAFrame(obj:GetName()) then
 				if self:IsMover(obj:GetName()) then
 					if obj.tagged then
@@ -1926,39 +1774,33 @@ function MovAny:SafeMoveFrameAtCursor()
 				break
 			end
 		end
-		
 		local transName = self:Translate(obj:GetName(), 1)
 		
 		if transName ~= obj:GetName() then
 			self:ToggleMove(transName)
 			break
 		end
-		
 		local p = obj:GetParent()
 		-- check for minimap button
 		if (p == MinimapBackdrop or p == Minimap or p == MinimapCluster) and obj ~= Minimap then
 			self:ToggleMove(obj:GetName())
 			break
 		end
-
 		local objTest = self:GetDefaultFrameParent(obj)
 		if objTest then
 			self:ToggleMove(objTest:GetName())
 			break
 		end
-
 		objTest = self:GetTopFrameParent(obj)
 		if objTest then
 			self:ToggleMove(objTest:GetName())
 			break
 		end
-
 		if obj and obj ~= WorldFrame and obj ~= UIParent and obj.GetName then
 			self:ToggleMove(obj:GetName())
 		end
 		break
 	end
-
 	self:UpdateGUIIfShown(true)
 end
 
@@ -1974,21 +1816,19 @@ function MovAny:MoveFrameAtCursor()
 	if not self:IsModified(obj:GetName()) and obj.MAParent then
 		self:ToggleMove(type(obj.MAParent== "string") and obj.MAParent or obj.MAParent:GetName())
 	else
-		local transName = self:Translate(obj:GetName(),true,true)
+		local transName = self:Translate(obj:GetName(), true, true)
 		if transName ~= obj:GetName() then
 			self:ToggleMove(transName)
 		elseif obj and obj ~= WorldFrame and obj ~= UIParent and obj:GetName() then
 			self:ToggleMove(obj:GetName())
 		end
 	end
-	
 	self:UpdateGUIIfShown(true)
 end
 
 function MovAny:SafeHideFrameAtCursor()
 	local obj = GetMouseFocus()
-
-	while 1 do
+	while true do
 		if self:IsMAFrame(obj:GetName()) then
 			if self:IsMover(obj:GetName()) and obj.tagged then
 				obj = obj.tagged
@@ -2019,7 +1859,6 @@ function MovAny:SafeHideFrameAtCursor()
 		end
 		break
 	end
-	
 	self:UpdateGUIIfShown(true)
 end
 
@@ -2035,7 +1874,7 @@ function MovAny:HideFrameAtCursor()
 	if not self:IsModified(obj:GetName()) and obj.MAParent then
 		self:ToggleHide(type(obj.MAParent== "string") and obj.MAParent or obj.MAParent:GetName())
 	else
-		local transName = self:Translate(obj:GetName(),true,true)
+		local transName = self:Translate(obj:GetName(), true, true)
 		if transName ~= obj:GetName() then
 			self:ToggleHide(transName)
 		elseif obj and obj ~= WorldFrame and obj ~= UIParent and obj:GetName() then
@@ -2049,8 +1888,7 @@ end
 function MovAny:SafeResetFrameAtCursor()
 	local obj = GetMouseFocus()
 	local fn = obj:GetName()
-
-	while 1 do
+	while true do
 		if fn and self.userData[fn] then
 			self:ResetFrameConfirm(fn)
 			break
@@ -2065,7 +1903,6 @@ function MovAny:SafeResetFrameAtCursor()
 			end
 			fn = obj:GetName()
 		end
-		
 		local transName = self:Translate(fn, 1)
 		if transName ~= fn and self.userData[fn] then
 			self:ResetFrameConfirm(fn)
@@ -2098,24 +1935,21 @@ function MovAny:ResetFrameAtCursor()
 			return
 		end
 	end
-	
 	if InCombatLockdown() and MovAny:IsProtected(obj) then
 		self:ErrorNotInCombat(obj)
 		return
 	end
-
 	local fn
 	if not self:IsModified(obj:GetName()) and obj.MAParent then
 		fn = type(obj.MAParent== "string") and obj.MAParent or obj.MAParent:GetName()
 	else
-		fn = self:Translate(obj:GetName(),true,true)
+		fn = self:Translate(obj:GetName(), true, true)
 		if transName ~= obj:GetName() then
 			fn = transName
 		elseif obj and obj ~= WorldFrame and obj ~= UIParent and obj:GetName() then
 			fn = obj:GetName()
 		end
 	end
-
 	if fn and self.userData[fn] then
 		self:ResetFrameConfirm(fn)
 	end
@@ -2123,8 +1957,8 @@ end
 
 function MovAny:SafeMAFEFrameAtCursor()
 	local obj = GetMouseFocus()
-	while 1 == 1 and obj do
-		while 1 == 1 and obj do
+	while true and obj do
+		while true and obj do
 			if self:IsMAFrame(obj:GetName()) then
 				if self:IsMover(obj:GetName()) then
 					if obj.tagged then
@@ -2145,37 +1979,31 @@ function MovAny:SafeMAFEFrameAtCursor()
 			end
 		end
 		local transName = self:Translate(obj:GetName(), 1)
-		
 		if transName ~= obj:GetName() then
 			self:FrameEditor(transName)
 			break
 		end
-		
 		local p = obj:GetParent()
 		-- check for minimap button
 		if (p == MinimapBackdrop or p == Minimap or p == MinimapCluster) and obj ~= Minimap then
 			self:FrameEditor(obj:GetName())
 			break
 		end
-
 		local objTest = self:GetDefaultFrameParent(obj)
 		if objTest then
 			self:FrameEditor(objTest:GetName())
 			break
 		end
-
 		objTest = self:GetTopFrameParent(obj)
 		if objTest then
 			self:FrameEditor(objTest:GetName())
 			break
 		end
-
 		if obj and obj ~= WorldFrame and obj ~= UIParent and obj.GetName then
 			self:FrameEditor(obj:GetName())
 		end
 		break
 	end
-
 	self:UpdateGUIIfShown(true)
 end
 
@@ -2191,7 +2019,7 @@ function MovAny:MAFEFrameAtCursor()
 	if not self:IsModified(obj:GetName()) and obj.MAParent then
 		self:FrameEditor(type(obj.MAParent== "string") and obj.MAParent or obj.MAParent:GetName())
 	else
-		local transName = self:Translate(obj:GetName(),true,true)
+		local transName = self:Translate(obj:GetName(), true, true)
 		if transName ~= obj:GetName() then
 			self:FrameEditor(transName)
 		elseif obj and obj ~= WorldFrame and obj ~= UIParent and obj:GetName() then
@@ -2220,14 +2048,12 @@ function MovAny:IsContainer(fn)
 end
 
 function MovAny:Translate(f,secondary,nofirst)
-	if not nofirst and self.lTranslate[ f ] then
-		return self.lTranslate[ f ]
+	if not nofirst and self.lTranslate[f] then
+		return self.lTranslate[f]
 	end
-
-	if secondary and self.lTranslateSec[ f ] then
-		return self.lTranslateSec[ f ]
+	if secondary and self.lTranslateSec[f] then
+		return self.lTranslateSec[f]
 	end
-
 	if f == "last" then
 		return MovAny.lastFrameName
 	else
@@ -2237,7 +2063,7 @@ end
 
 function MovAny:ToggleMovers()
 	if _G.MAOptionsToggleMovers:GetChecked() then
-		local protected = {}
+		local protected = { }
 		for i, v in ipairs(self.minimizedMovers) do
 			if InCombatLockdown() and self:IsProtected(v) then
 				tinsert(protected, v)
@@ -2287,7 +2113,6 @@ end
 
 function MovAny:AttachMoverToFrame(mover, f)
 	self:UnlockPoint(f)
-	
 	local e = f.MAE
 	if not e then
 		self:DetachMover(mover)
@@ -2295,43 +2120,32 @@ function MovAny:AttachMoverToFrame(mover, f)
 	end
 	mover.MAE = e
 	local opt = e.userData or MovAny:GetUserData(e.name, nil, true)
-	
 	mover.displayName = e.displayName or f:GetName()
 	f.MAMover = mover
-
 	if f.OnMAMoving then
 		if not f:OnMAMoving() then
 			self:DetachMover(mover)
 			return
 		end
 	end
-
-	local x, y
-	x = 0
-	y = 0
+	local x, y = 0, 0
 	if f:GetLeft() == nil and not f:IsShown() then
 		f:Show()
 		f:Hide()
 	end
-	
 	mover.attaching = true
 	mover.dontUpdate = nil
-	
 	if f.IsClampedToScreen then
 		mover:SetClampedToScreen(f:IsClampedToScreen())
 	end
 	opt.disabled = nil
-	
 	mover:ClearAllPoints()
-	mover:SetPoint("CENTER", f, "CENTER")
-
+	mover:SetAllPoints(f)
 	mover:SetWidth(f:GetWidth() * MAGetScale(f , 1) / UIParent:GetScale())
 	mover:SetHeight(f:GetHeight()  * MAGetScale(f , 1) / UIParent:GetScale())
-
 	if f.GetFrameLevel then
 		mover:SetFrameLevel(f:GetFrameLevel() + 1)
 	end
-	
 	if not e.noMove then
 		if not opt.pos then
 			opt.pos = self:GetRelativePoint(self.Position:GetFirstOrgPoint(opt), f)
@@ -2344,29 +2158,22 @@ function MovAny:AttachMoverToFrame(mover, f)
 		if f.GetScale then
 			mover.MAStartScale = f:GetScale()
 		end
-		
 		f:ClearAllPoints()
 		if f.MASetPoint then
 			f:MASetPoint("BOTTOMLEFT", mover, "BOTTOMLEFT", 0, 0)
 		else
 			f:SetPoint("BOTTOMLEFT", mover, "BOTTOMLEFT", 0, 0)
 		end
-		
 		f.orgX = x
 		f.orgY = y
 	end
-	
 	mover.tagged = f
-	
 	local label = _G[ mover:GetName().."BackdropInfoLabel"]
 	label:Hide()
 	label:ClearAllPoints()
 	label:SetPoint("CENTER", label:GetParent(), "CENTER", 0, 0)
-	
 	mover:Show()
-	
 	mover.attaching = nil
-	
 	return true
 end
 
@@ -2374,14 +2181,12 @@ function MovAny:DetachMover(mover)
 	mover.detaching = true
 	if mover.tagged and not mover.attaching then
 		local f = mover.tagged
-		
 		if not mover.MAE.noMove and not mover.dontUpdate then
 			if mover.MAStartPoint then
 				self:MoverUpdatePosition(mover)
 			end
 			self.Position:Apply(mover.MAE, f)
 		end
-		
 		if mover.createdTagged then
 			mover.tagged:Hide()
 		end
@@ -2389,7 +2194,6 @@ function MovAny:DetachMover(mover)
 			f.OnMADetach(f, mover)
 		end
 	end
-	
 	mover:Hide()
 	mover.tagged = nil
 	mover.attaching = nil
@@ -2398,25 +2202,19 @@ function MovAny:DetachMover(mover)
 	mover.MAStartPoint = nil
 	mover.MAStartScale = nil
 	mover.dontUpdate = nil
-	
 	if mover.tagged then
 		mover.tagged.MAMover = nil
 	end
-	
-	local found
-	
 	for i, m in ipairs(self.movers) do
 		if m == mover then
 			tremove(self.movers, i)
 		end
 	end
-	
 	if self.currentMover == mover then
 		self:NudgerChangeMover(1)
 	else
 		self:NudgerFrameRefresh()
 	end
-	
 	mover.detaching = nil
 end
 
@@ -2460,15 +2258,11 @@ function MovAny:ResetFrame(f, dontUpdate, readOnly)
 	if not fn then
 		return
 	end
-	
 	if self:ErrorNotInCombat(f) or (InCombatLockdown() and f.UMFP) then
 		return
 	end
-	
 	self:StopMoving(fn)
-	
 	self.lastFrameName = fn
-	
 	if not f then
 		if not readOnly then
 			self:ClearUserData(fn)
@@ -2481,25 +2275,21 @@ function MovAny:ResetFrame(f, dontUpdate, readOnly)
 	local e = API:GetElement(fn)
 	local opt = e.userData or self:GetUserData(fn)
 	if opt == nil then
-		opt = {}
+		opt = { }
 	end
 	if f.MAHooked then
 		e:Reset(f, readOnly, opt)
 	end
-	
 	if UIPanelWindows[fn] and (not self:IsProtected(f) or not InCombatLockdown()) then
 		self:SyncUIPanels()
 	end
-	
 	if not readOnly then
 		e:SetUserData(nil)
 		self:ClearUserData(fn)
 	end
-	
 	if f.attachedChildren then
 		table.wipe(f.attachedChildren)
 	end
-		
 	if not dontUpdate then
 		self:UpdateGUIIfShown(true)
 	end
@@ -2521,7 +2311,6 @@ function MovAny:OnMoveCheck(button)
 end
 
 function MovAny:OnHideCheck(button)
---	print("Debug:"..tostring(self).." "..tostring(button).." ")
 	if not self:ToggleHide(API:GetItem(button:GetParent().idx).name) then
 		button:SetChecked(nil)
 		return
@@ -2559,10 +2348,9 @@ function MovAny:HideFrame(f, readOnly)
 	if not fn then
 		fn = f:GetName()
 	end
-
 	local opt
 	if readOnly then
-		opt = {}
+		opt = { }
 	else
 		opt = self:GetUserData(fn, nil, true)
 		opt.hidden = true
@@ -2574,20 +2362,16 @@ function MovAny:HideFrame(f, readOnly)
 	if not self:IsValidObject(f) or not self:HookFrame(e, f) or self:ErrorNotInCombat(f) then
 		return
 	end
-	
 	f.MAWasShown = f:IsShown()
-	
 	if f.GetAttribute then
 		opt.unit = f:GetAttribute("unit")
 		if opt.unit then
 			f:SetAttribute("unit", nil)
 		end
 	end
-	
 	if e.hideList then
 		for hIndex, hideEntry in pairs(e.hideList) do
 			local val = _G[hideEntry[1]]
-		--	print(tostring(val:GetName()))
 			local hideType
 			for i = 2, table.getn(hideEntry) do
 				hideType = hideEntry[ i ]
@@ -2617,7 +2401,6 @@ function MovAny:HideFrame(f, readOnly)
 	if f.OnMAHide then
 		f.OnMAHide(f, true)
 	end
-	
 	return true
 end
 
@@ -2625,7 +2408,7 @@ function MovAny:ShowFrame(f, readOnly, dontHook)
 	local fn
 	if type(f) == "string" then
 		fn = f
-		f = _G[ f ]
+		f = _G[f]
 	end
 	if not f then
 		if self.lVirtualMovers[fn] then
@@ -2706,7 +2489,6 @@ function MovAny:OnCheckToggleCategories(button)
 	for i, v in pairs(API.cats) do
 		v.collapsed = state
 	end
-	
 	self:UpdateGUIIfShown(true)
 end
 
@@ -2717,7 +2499,6 @@ function MovAny:OnCheckToggleModifiedFramesOnly(button)
 	else
 		MADB.modifiedFramesOnly = nil
 	end
-	
 	self:UpdateGUIIfShown(true)
 end
 
@@ -2783,9 +2564,7 @@ function MovAny:GroupScale(sender, groups, scaleMod, scale, dir)
 					end
 				end
 				e = API:GetElement(fn)
-				
 				local orgScale = opt.scale or (f and f:GetScale() or 1)
-				
 				if not e.scaleWH then
 					if opt.pos then
 						opt.pos[4] = opt.pos[4] * orgScale
@@ -2805,7 +2584,6 @@ function MovAny:GroupScale(sender, groups, scaleMod, scale, dir)
 							opt.orgHeight = f:GetHeight()
 						end
 					end
-					
 					if dir == 0 then
 						if type(opt.width) ~= "number" then
 							opt.width = opt.orgWidth
@@ -2822,8 +2600,6 @@ function MovAny:GroupScale(sender, groups, scaleMod, scale, dir)
 						end
 					end
 				end
-				
-				
 				if f then
 					self.Scale:Apply(e, f)
 					if opt.pos then
@@ -2844,7 +2620,6 @@ function MovAny:GroupAlpha(sender, groups, alphaMod, alpha)
 		for fn, opt in pairs(self.userData) do
 			if fn ~= sender.name and type(opt.groups) == "table" and opt.groups[g] then
 				f = _G[fn]
-				
 				if f then
 					mover = self:GetMoverByFrame(f)
 					if mover then
@@ -2878,7 +2653,6 @@ function MovAny:GroupBackdropAlpha(sender, groups, alphaMod, alpha)
 		for fn, opt in pairs(self.userData) do
 			if fn ~= sender.name and type(opt.groups) == "table" and opt.groups[g] then
 				f = _G[fn]
-				
 				if f then
 					mover = self:GetMoverByFrame(f)
 					if mover then
@@ -2887,6 +2661,7 @@ function MovAny:GroupBackdropAlpha(sender, groups, alphaMod, alpha)
 				end
 				e = API:GetElement(fn)
 				if not opt.backdropAlpha then
+					local _
 					_, _, _, fAlpha = f:GetBackdropColor()
 					fAlpha = fAlpha or alpha
 				else
@@ -2930,59 +2705,35 @@ function MovAny:MoverUpdatePosition(mover)
 	if mover.attaching then
 		return
 	end
-
-	local x, y, parent = nil, nil, nil
-	if mover.tagged  then
+	if mover.tagged then
 		if not mover.MAE or mover.MAE.noMove then
 			return
 		end
 		local f = mover.tagged
-		
 		local opt = mover.MAE.userData
-		
 		local p = self:GetRelativePoint({"BOTTOMLEFT", "UIParent", "BOTTOMLEFT"}, f)
-		
-		if mover.MAStartPoint and (mover.MAStartPoint[1] == p[1] and mover.MAStartPoint[2] == p[2] and mover.MAStartPoint[3] == p[3] and mover.MAStartPoint[4] * (mover.MAStartScale or 1) == p[4] and mover.MAStartPoint[5] * (mover.MAStartScale or 1) == p[5]) then
+		if mover.MAStartPoint and (mover.MAStartPoint[1] == p[1] and mover.MAStartPoint[2] == p[2] and mover.MAStartPoint[3] == p[3] and (mover.MAStartPoint[4] * (mover.MAStartScale or 1)) == p[4]  and (mover.MAStartPoint[5] * (mover.MAStartScale or 1)) == p[5]) then
 			return
 		end
-		
-		local fn = f:GetName()
-		if fn == "FramerateLabel" then
-			p =  self:GetRelativePoint({"BOTTOMLEFT", "UIParent", "BOTTOMLEFT"}, f)
-		elseif fn =="WorldStateAlwaysUpFrame" then
-			p =  self:GetRelativePoint({"BOTTOMLEFT", "UIParent", "BOTTOMLEFT"}, f)
-			
-			local m = 4.3750000977888400763751782264927 * f:GetEffectiveScale()
-			p[4] = p[4] + m
-			p[5] = p[5] + m
-		else
-			p = self:GetRelativePoint(opt.pos or self.Position:GetFirstOrgPoint(opt) or {"BOTTOMLEFT", "UIParent", "BOTTOMLEFT"}, f)
-		end
-		
+		p = self:GetRelativePoint(opt.pos or self.Position:GetFirstOrgPoint(opt) or {"BOTTOMLEFT", "UIParent", "BOTTOMLEFT"}, f)
 		if not skipGroups and opt.groups and not IsShiftKeyDown() then
 			local _, _, _, x, y = unpack(self:GetRelativePoint(p, f, true))
 			x = x - opt.pos[4]
 			y = y - opt.pos[2]
-			  
 			if not mover.MAE.scaleWH then
 				x = x * (opt.scale or (f.GetScale and f:GetScale()) or 1)
 				y = y * (opt.scale or (f.GetScale and f:GetScale()) or 1)
 			end
-			
 			MovAny:GroupMove(mover.MAE, opt.groups, x, y)
 		end
-		
 		opt.pos = p
-		
 		table.wipe(mover.MAStartPoint)
-		for i=1, 5, 1 do
-			mover.MAStartPoint[i]	= p[i]
+		for i = 1, 5, 1 do
+			mover.MAStartPoint[i] = p[i]
 		end
-		
 		if f.OnMAPosition then
 			f:OnMAPosition()
 		end
-		
 		self:UpdateGUIIfShown()
 	end
 end
@@ -3006,14 +2757,11 @@ function MovAny:MoverOnSizeChanged(mover)
 						s = mover:GetHeight() / f:GetHeight()
 						s = s / MAGetScale(f:GetParent(), 1 ) * UIParent:GetScale()
 					end
-					
 					self:GroupScale(mover.MAE, opt.groups, s - 1, s, dir)
 				end
-				
 				opt.width = mover:GetWidth()
 				opt.height = mover:GetHeight()
 				self.Scale:Apply(mover.MAE, f, opt)
-				
 				mover.skipGroups = true
 				self:MoverUpdatePosition(mover)
 				mover.skipGroups = nil
@@ -3039,33 +2787,26 @@ function MovAny:MoverOnSizeChanged(mover)
 			if s > 0.991 and s < 1 then
 				s = 1
 			end
-			
 			if f.GetScale and s ~= f:GetScale() then
 				if not mover.skipGroups and opt.groups and not IsShiftKeyDown() then
 					self:GroupScale(mover.MAE, opt.groups, s - (opt.scale or f:GetScale()), s)
 				end
-				
 				opt.scale = s
-			
 				self.Scale:Apply(mover.MAE, f)
 				--self:MoverUpdatePosition(mover)
-				
 				mover.skipGroups = true
 				self:MoverUpdatePosition(mover)
 				mover.skipGroups = nil
 			end
 			mover:SetWidth(w)
 			mover:SetHeight(h)
-			
 			local label = _G[ mover:GetName().."BackdropInfoLabel"]
 			label:SetWidth(w+100)
 			label:SetHeight(h)
 		end
-		
 		local label = _G[ mover:GetName().."BackdropInfoLabel"]
 		label:ClearAllPoints()
 		label:SetPoint("TOP", label:GetParent(), "TOP", 0, 0)
-		
 		local brief, long
 		if MovAny.Scale:CanBeScaled(f) then
 			if mover.MAE.scaleWH then
@@ -3082,11 +2823,9 @@ function MovAny:MoverOnSizeChanged(mover)
 				_G[ "MANudgerInfoLabel"]:SetText(long)
 			end
 		end
-		
 		label = _G[ mover:GetName().."BackdropMovingFrameName" ]
 		label:ClearAllPoints()
 		label:SetPoint("TOP", label:GetParent(), "TOP", 0, 20)
-		
 		self:UpdateGUIIfShown(true)
 	end
 end
@@ -3130,9 +2869,7 @@ function MovAny:MoverOnMouseWheel(mover, arg1)
 	else
 		mover.tagged.alphaAttempts = nil
 	end
-	
 	alpha = tonumber(numfor(alpha))
-	
 	local opt = mover.MAE.userData
 	if IsAltKeyDown() then
 		if not mover.skipGroups and opt.groups and not IsShiftKeyDown() then
@@ -3153,9 +2890,7 @@ function MovAny:MoverOnMouseWheel(mover, arg1)
 			opt.orgAlpha = nil
 		end
 	end
-	
 	self.Alpha:Apply(mover.tagged.MAE, mover.tagged)
-	
 	local label = _G[ mover:GetName().."BackdropInfoLabel"]
 	label:Show()
 	label:SetText(numfor(alpha* 100).."%")
@@ -3167,30 +2902,25 @@ function MovAny:MoverOnMouseWheel(mover, arg1)
 end
 
 function MovAny:CompleteReset()
-	for i,v in pairs(self.userData) do
+	for i, v in pairs(self.userData) do
 		self:ResetFrame(v.name, true, true)
 	end
 	self:ReanchorRelatives()
-	
 	if MADB.squareMM then
 		Minimap:SetMaskTexture("Textures\\MinimapMask")
 	end
-	
 	MADB = {
 		collapsed = true,
 		frameListRows = 18,
 		tooltips = true,
 	}
-	MADB.profiles = {}
-	MADB.characters = {}
-	self.userData = {}
+	MADB.profiles = { }
+	MADB.characters = { }
+	self.userData = { }
 	MADB.profiles[self:GetProfileName()] = {frames = self.userData}
-	
 	MAOptionsToggleCategories:SetChecked(true)
 	MovAny:OnCheckToggleCategories(MAOptionsToggleCategories)
-	
 	MovAny_OptionsOnShow()
-	
 	self:UpdateGUIIfShown(true)
 end
 
@@ -3198,14 +2928,11 @@ function MovAny:OnShow()
 	if MADB.playSound then
 		PlaySound("igMainMenuOpen")
 	end
-	
 	MADB.autoShowNext = true
-	
 	MANudger:Show()
 	self:NudgerFrameRefresh()
 	self:UpdateGUI()
-	
-	for i,v in pairs(self.lEnableMouse) do
+	for i, v in pairs(self.lEnableMouse) do
 		if v and v.EnableMouse and (not MovAny:IsProtected(v) or not InCombatLockdown()) then
 			v:EnableMouse(true)
 		end
@@ -3216,14 +2943,11 @@ function MovAny:OnHide()
 	if MADB.playSound then
 		PlaySound("igMainMenuClose")
 	end
-	
 	MADB.autoShowNext = nil
-	
 	if not self.currentMover then
 		MANudger:Hide()
 	end
-	
-	for i,v in pairs(self.lEnableMouse) do
+	for i, v in pairs(self.lEnableMouse) do
 		if v and v.EnableMouse and (not MovAny:IsProtected(v) or not InCombatLockdown()) then
 			v:EnableMouse(nil)
 		end
@@ -3232,14 +2956,12 @@ end
 
 function MovAny:RowTitleClicked(title)
 	local o = API:GetItem(MAGetParent(title).idx)
-
 	if o.elems then
 		if o.collapsed then
 			o.collapsed = nil
 		else
 			o.collapsed = true
 		end
-
 		self:UpdateGUI(1)
 	else
 		if self.FrameEditor then
@@ -3248,19 +2970,17 @@ function MovAny:RowTitleClicked(title)
 	end
 end
 
-local uiDisplayedFrameNames = {}
+local uiDisplayedFrameNames = { }
 
 function MovAny:CountGUIItems()
 	if API.compile then
 		API:CompileList()
 	end
-	
 	local items = 0
 	local curCatItems = 0
 	local curCat = nil
-	
 	if self.searchWord and self.searchWord ~= "" then
-		local uiDisplayedFrameNames = {}
+		local uiDisplayedFrameNames = { }
 		for i, o in pairs(API.all) do
 			if not o.elems and not uiDisplayedFrameNames[o.name] then
 				if (not MADB.dontSearchFrameNames and string.match(string.lower(o.name), self.searchWord)) or (o.displayName and string.match(string.lower(o.displayName), self.searchWord)) then
@@ -3294,11 +3014,9 @@ function MovAny:CountGUIItems()
 				end
 			end
 		end
-
 		if curCat then
 			curCat.items = curCatItems
 		end
-		
 		for i, o in pairs(API.all) do
 			if o.elems then
 				if not MADB.modifiedFramesOnly then
@@ -3323,19 +3041,16 @@ function MovAny:CountGUIItems()
 end
 
 function MovAny:UpdateGUI(recount)
-	if recount or MovAny.guiLines == -1 then
+	if recount or MovAny.guiLines == - 1 then
 		MovAny:CountGUIItems()
 	end
-	
 	FauxScrollFrame_Update(MAScrollFrame, MovAny.guiLines, MADB.frameListRows, MovAny.SCROLL_HEIGHT)
 	local topOffset = FauxScrollFrame_GetOffset(MAScrollFrame)
-
-	local displayList = {}
+	local displayList = { }
 	local lastCat = nil
-	local uiDisplayedFrameNames = {}
-	
+	local uiDisplayedFrameNames = { }
 	if MovAny.searchWord and MovAny.searchWord ~= "" then
-		local results = {}
+		local results = { }
 		local skip = topOffset
 		for i, o in pairs(API.all) do
 			if not o.elems and not uiDisplayedFrameNames[o.name] then
@@ -3372,7 +3087,6 @@ function MovAny:UpdateGUI(recount)
 				startOffset = topOffset + hidden
 				break
 			end
-
 			if o.elems then
 				lastCat = o
 				if o.items == 0 then
@@ -3391,24 +3105,21 @@ function MovAny:UpdateGUI(recount)
 				end
 			end
 		end
-		
 		if startOffset ~= 0 then
 			-- X: fix off by one
 			if startOffset > 0 then
 				startOffset = startOffset + 1
 			end
 		end
-		
 		local sepOffset, wtfOffset
 		sepOffset = 0
 		wtfOffset = 0
 		local skip = topOffset
-		
-		for i=1, MADB.frameListRows, 1 do
+		for i = 1, MADB.frameListRows, 1 do
 			local index = i + sepOffset + wtfOffset
 			local o
 			-- forward to next shown element
-			while 1 do
+			while true do
 				if index > API.allCount then
 					o = nil
 					break
@@ -3469,18 +3180,14 @@ function MovAny:UpdateGUI(recount)
 			end
 		end
 	end
-
 	local prefix, move, backdrop, hide
 	prefix = "MAMove"
 	move = "Move"
 	hide = "Hide"
-	
 	local skip = topOffset
-
 	for i = 1, MADB.frameListRows, 1 do
 		local o = displayList[i]
 		local row = _G[ prefix..i ]
-
 		if not o then
 			row:Hide()
 		else
@@ -3490,7 +3197,6 @@ function MovAny:UpdateGUI(recount)
 			local hideCheck = _G[ prefix..i..hide ]
 			local text, frameNameLabel
 			local idx = o:GetAllIndex()
-			
 			frameNameLabel = _G[ prefix..i.."FrameName" ]
 			if not frameNameLabel then
 				break
@@ -3499,8 +3205,6 @@ function MovAny:UpdateGUI(recount)
 			row.idx = idx
 			row.name = o.name
 			row:Show()
-
-			
 			if o.elems then
 				text = _G[ prefix..i.."FrameNameText" ]
 				text:Hide()
@@ -3519,10 +3223,8 @@ function MovAny:UpdateGUI(recount)
 				text:Show()
 				text:SetText((opts and opts.disabled and "*" or "")..o.displayName)
 			end
-
 			if not o.unsupported and not o.elems and fn then
 				_G[ prefix..i.."Backdrop" ]:Show()
-				
 				if o.noMove and o.noScale and o.noAlpha then
 					moveCheck:Hide()
 				else
@@ -3535,7 +3237,6 @@ function MovAny:UpdateGUI(recount)
 					hideCheck:SetChecked(opts and opts.hidden or nil)
 					hideCheck:Show()
 				end
-
 				if MovAny:IsModified(fn) then
 					_G[ prefix..i.."Reset" ]:Show()
 				else
@@ -3549,10 +3250,8 @@ function MovAny:UpdateGUI(recount)
 			end
 		end
 	end
-	
 	MAOptionsToggleCategories:SetChecked(MovAny.collapsed)
 	MAOptionsToggleModifiedFramesOnly:SetChecked(MADB.modifiedFramesOnly)
-	
 	if MovAny.searchWord and MovAny.searchWord ~= "" then
 		MAOptionsFrameNameHeader:SetText(string.format(MOVANY.LIST_HEADING_SEARCH_RESULTS, MovAny.guiLines))
 	else
@@ -3563,12 +3262,11 @@ end
 
 function MovAny:UpdateGUIIfShown(recount, dontUpdateEditors)
 	if recount then
-		self.guiLines = -1
+		self.guiLines = - 1
 	end
 	if MAOptions and MAOptions:IsShown() then
 		self:UpdateGUI()
 	end
-	
 	if not dontUpdateEditors then
 		for fn, fe in pairs(self.frameEditors) do
 			if fe:IsShown() and not fe.updating then
@@ -3576,7 +3274,6 @@ function MovAny:UpdateGUIIfShown(recount, dontUpdateEditors)
 			end
 		end
 	end
-	
 	if self.portDlg and self.portDlg:IsShown() then
 		self.portDlg:Reload()
 	end
@@ -3587,7 +3284,6 @@ function MovAny:NudgerChangeMover(dir)
 	local first, sel
 	local cur = self.currentMover
 	local matchNext = false
-	
 	for i, m in ipairs(self.movers) do
 		if not first then
 			first = m
@@ -3617,7 +3313,6 @@ function MovAny:NudgerChangeMover(dir)
 	if matchNext then
 		self.currentMover = first
 	end
-	
 	self:NudgerFrameRefresh()
 end
 
@@ -3632,11 +3327,9 @@ end
 
 function MovAny:MoverOnShow(mover)
 	local mn = mover:GetName()
-	
 	MANudger:Show()
 	self.currentMover = mover
 	self:NudgerFrameRefresh()
-	
 	mover.startAlpha = mover.tagged:GetAlpha()
 	_G[mn.."Backdrop"]:Show()
 	_G[mn.."BackdropMovingFrameName"]:SetText(mover.displayName)
@@ -3651,7 +3344,6 @@ function MovAny:MoverOnShow(mover)
 		_G[mn.."Resize_BOTTOM"]:Show()
 		_G[mn.."Resize_RIGHT"]:Show()
 	end
-	
 	_G[ mn.."BackdropInfoLabel"]:SetText("")
 	if mover == self.currentMover then
 		_G[ "MANudgerInfoLabel"]:SetText("")
@@ -3681,7 +3373,6 @@ end
 
 function MovAny:NudgerFrameRefresh()
 	local labelText = ""
-	
 	if self.currentMover ~= nil then
 		local cur = 0
 		for i, m in ipairs(self.movers) do
@@ -3690,11 +3381,9 @@ function MovAny:NudgerFrameRefresh()
 				break
 			end
 		end
-		
 		local f = self.currentMover.tagged
 		if f then
 			labelText = cur.." / "..#self.movers
-			
 			local fn = f:GetName()
 			if fn then
 				labelText = labelText.."\n"..fn
@@ -3721,7 +3410,6 @@ function MovAny:NudgerFrameRefresh()
 		MANudgerMouseOver:ClearAllPoints()
 		MANudgerMouseOver:SetPoint("BOTTOM", MANudger, "BOTTOM", 0, 6)
 		MANudgerInfoLabel:Show()
-		
 		if #self.movers > 1 then
 			MANudger_MoverMinus:Show()
 			MANudger_MoverPlus:Show()
@@ -3743,7 +3431,6 @@ function MovAny:NudgerFrameRefresh()
 		MANudgerMouseOver:SetPoint("CENTER", MANudger, "CENTER", 0, 0)
 		MANudgerInfoLabel:Hide()
 		MANudgerInfoLabel:SetText("")
-		
 		MANudger_MoverMinus:Hide()
 		MANudger_MoverPlus:Hide()
 	end
@@ -3757,7 +3444,6 @@ function MovAny:NudgerOnUpdate()
 	local label = MANudgerMouseOver
 	local labelSafe = MANudgerMouseOver
 	local name
-
 	if obj and obj ~= WorldFrame and obj:GetName() then
 		local objTest = self:GetDefaultFrameParent(obj)
 		if objTest then
@@ -3775,7 +3461,6 @@ function MovAny:NudgerOnUpdate()
 			end
 		end
 	end
-
 	if obj and obj ~= WorldFrame and obj:GetName() then
 		name = obj:GetName()
 		if name then
@@ -3794,7 +3479,6 @@ function MovAny:NudgerOnUpdate()
 			end
 		end
 	end
-
 	if not string.find(text2, "MANudger") then
 		label:SetText(text2.."\n"..text)
 	else
@@ -3816,10 +3500,9 @@ function MovAny:Center(lock)
 	else
 		x = mover:GetLeft()
 		y = mover:GetBottom()
-
 		mover:ClearAllPoints()
 		if lock == 1 then
-			--Horizontal
+			-- Horizontal
 			mover:SetPoint("CENTER",0,0)
 			x = mover:GetLeft()
 			mover:ClearAllPoints()
@@ -3840,14 +3523,11 @@ end
 function MovAny:Nudge(dir, button)
 	local x, y, offsetX, offsetY, parent, mover, offsetAmount
 	mover = self.currentMover
-
 	if not mover:IsShown() then
 		return
 	end
-
 	x = mover:GetLeft()
 	y = mover:GetBottom()
-
 	if button == "RightButton" then
 		if IsShiftKeyDown() then
 			offsetAmount = 250
@@ -3863,7 +3543,6 @@ function MovAny:Nudge(dir, button)
 			offsetAmount = 1
 		end
 	end
-
 	if dir == 1 then
 		offsetX = 0
 		offsetY = offsetAmount
@@ -3877,9 +3556,8 @@ function MovAny:Nudge(dir, button)
 		offsetX = offsetAmount
 		offsetY = 0
 	end
-
 	mover:ClearAllPoints()
-	mover:SetPoint("BOTTOMLEFT","UIParent","BOTTOMLEFT",x + offsetX, y + offsetY)
+	mover:SetPoint("BOTTOMLEFT", "UIParent", "BOTTOMLEFT", x + offsetX, y + offsetY)
 	self:MoverUpdatePosition(mover)
 end
 
@@ -3887,7 +3565,6 @@ function MovAny:SizingAnchor(button)
 	local s, e = string.find(button:GetName(), "Resize_")
 	local anchorto = string.sub(button:GetName(), e + 1)
 	local anchor
-
 	if anchorto == "LEFT"  then
 		anchor = "RIGHT"
 	elseif anchorto == "RIGHT" then
@@ -3902,7 +3579,6 @@ end
 
 function MovAny:SyncUIPanel(mn, f)
 	local mover = _G[mn]
-	
 	if f and (f ~= LootFrame or GetCVar("lootUnderMouse") ~= "1") and not MovAny:IsModified(f) and not MovAny:GetMoverByFrame(f) then
 		if self:IsModified(mn) then
 			if MovAny:IsProtected(f) and InCombatLockdown() then
@@ -3911,24 +3587,20 @@ function MovAny:SyncUIPanel(mn, f)
 						if MovAny:IsProtected(f) and InCombatLockdown() then
 							return true
 						end
-						
 						MovAny:UnlockPoint(f)
 						f:ClearAllPoints()
-						
 						local UIPOpt = UIPanelWindows[f:GetName()]
 						local x = 0
 						local y = 0
 						if not UIPOpt or not UIPOpt.xoffset then
 							x = 16
-							y  =-12
+							y  = - 12
 						end
 						f:SetPoint("TOPLEFT", mn, "TOPLEFT", x, y)
-				
 						if not f.MAOrgScale then
 							f.MAOrgScale = f:GetScale()
 						end
 						f:SetScale(mover:GetScale())
-						
 						if not f.MAOrgAlpha then
 							f.MAOrgAlpha = f:GetAlpha()
 						end
@@ -3939,7 +3611,6 @@ function MovAny:SyncUIPanel(mn, f)
 			else
 				MovAny:UnlockPoint(f)
 				f:ClearAllPoints()
-				
 				local UIPOpt = UIPanelWindows[f:GetName()]
 				local x = 0
 				local y = 0
@@ -3993,7 +3664,6 @@ end
 
 function MovAny:SyncUIPanels()
 	local self = MovAny
-	
 	local f = GetUIPanel("left")
 	if f then
 		self:SyncUIPanel("UIPanelMover1", f)
@@ -4020,7 +3690,7 @@ end
 function MovAny:GetContainerFrame(id)
 	local i = 1
 	local container
-	while 1 do
+	while true do
 		container = _G["ContainerFrame"..i]
 		if not container then
 			break
@@ -4043,26 +3713,20 @@ end
 
 function MovAny:SetBag(id, bag)
 	self.bagFrames[ id ] = bag
-	
---	print(id, bag, self.bagFrames[id])
 end
 
 function MovAny:GrabContainerFrame(container, movableBag)
 	if movableBag and MovAny:IsModified(movableBag) then
 		movableBag:Show()
-		
 		MovAny:UnlockScale(container)
 		container:SetScale(MAGetScale(movableBag))
 		MovAny:LockScale(container)
-		
 		MovAny:UnlockPoint(container)
 		container:ClearAllPoints()
 		container:SetPoint("CENTER", movableBag, "CENTER", 0, 0)
 		MovAny:LockPoint(container)
-		
-		movableBag.attachedChildren = {}
+		movableBag.attachedChildren = { }
 		tinsert(movableBag.attachedChildren, container)
-		
 		container:SetAlpha(movableBag:GetAlpha())
 	end
 end
@@ -4072,11 +3736,9 @@ local function Checkr(frame, ...)
 end
 
 function MovAny:UnanchorRelatives(e, f, opt)
-
 	if f.GetName and f:GetName() ~= nil and e.noUnanchorRelatives then
 		return
 	end
-	
 	if not f.GetParent then
 		return
 	end
@@ -4084,17 +3746,11 @@ function MovAny:UnanchorRelatives(e, f, opt)
 	if not p then
 		return
 	end
-
-	
 	opt = opt or self:GetUserData(f:GetName())
-	
-	local named = {}
-	
+	local named = { }
 	self:_AddNamedChildren(named, f)
-	
 	local relatives = MA_tcopy(named)
 	relatives[ f ] = f
-	
 	if p.GetRegions then
 		local children = {p:GetRegions()}
 		if children ~= nil then
@@ -4103,15 +3759,12 @@ function MovAny:UnanchorRelatives(e, f, opt)
 			end
 		end
 	end
-
 	local num = p:GetNumChildren()
-	
---	assert((num < 8000), "Too much childrens stuck in owerflow")
-
+	--assert((num < 8000), "Too much childrens stuck in owerflow")
 	if p.GetChildren then
 		if p.GetNumChildren then	
 			if p:GetNumChildren() > 7999 then 
-			--	maPrint("Too much childrens for "..(p:GetName() or UNKNOWN)..".Find-("..p:GetNumChildren()..") childrens. Some of your addon create too much unnecessary frame.")
+			-- maPrint("Too much childrens for "..(p:GetName() or UNKNOWN)..".Find-("..p:GetNumChildren()..") childrens. Some of your addon create too much unnecessary frame.")
 			else			
 				local children = {p:GetChildren()}
 				if children ~= nil then
@@ -4122,27 +3775,24 @@ function MovAny:UnanchorRelatives(e, f, opt)
 			end
 		end
 	end
-	
 	relatives[ f ] = nil
 	relatives[GameTooltip] = nil
-	
 	for i, v in pairs(named) do
 		relatives[ v ] = nil
 	end
-	
-	--local fRel = self:ForcedDetachFromParent(f:GetName())
+	-- local fRel = self:ForcedDetachFromParent(f:GetName())
 	local fRel = select(2, opt.orgPos)
 	if fRel == nil then
 		fRel = select(2, f:GetPoint(1))
 	end
 	local size = tlen(relatives)
 	if size > 0 then
-		local unanchored = {}
+		local unanchored = { }
 		local x, y, i
 		for i, v in pairs(relatives) do
-			if v:GetName() ~= nil and not self:IsContainer(v:GetName()) and not string.match(v:GetName(), "BagFrame[1-9][0-9]*") and not self.NoUnanchoring[ v:GetName() ] and not v.MAPoint then -- alternatively use not self:GetUserData(v:GetName()) instead of v.MAPoint
+			if v:GetName() ~= nil and not self:IsContainer(v:GetName()) and not string.match(v:GetName(), "BagFrame[1-9][0-9]*") and not self.NoUnanchoring[ v:GetName() ] and not v.MAPoint then
+			-- alternatively use not self:GetUserData(v:GetName()) instead of v.MAPoint
 				if v:GetRight() ~= nil and v:GetTop() ~= nil then
-					
 					local p = {v:GetPoint(1)}
 					p[2] = fRel
 					p = MovAny:GetRelativePoint(p, v, true)
@@ -4174,7 +3824,6 @@ end
 
 function MovAny:_AddNamedChildren(l, f)
 	local n
-	
 	if f.GetChildren then
 		local children = {f:GetChildren()}
 		if children ~= nil then
@@ -4189,7 +3838,6 @@ function MovAny:_AddNamedChildren(l, f)
 			end
 		end
 	end
-	
 	if f.attachedChildren then
 		local children = f.attachedChildren
 		if children ~= nil then
@@ -4198,7 +3846,7 @@ function MovAny:_AddNamedChildren(l, f)
 				if v.GetName then
 					n = v:GetName()
 					if n then
-						l[ v ] = v
+						l[v] = v
 					end
 				end
 			end
@@ -4207,9 +3855,8 @@ function MovAny:_AddNamedChildren(l, f)
 end
 
 function MovAny:ReanchorRelatives()
-	local f
-	for i,v in pairs(self.userData) do
-		f = _G[ v.name ]
+	for i, v in pairs(self.userData) do
+		local f = _G[v.name]
 		if f and f.MAUnanchoredRelatives then
 			for k, r in pairs(f.MAUnanchoredRelatives) do
 				if not MovAny:IsModified(r) then
@@ -4276,10 +3923,8 @@ function MovAny:GetRelativePoint(o, f, lockRel)
 	if not rel then
 		return
 	end
-	
 	local point = o[1]
 	local relPoint = o[3]
-	
 	if not lockRel then
 		local newRel = self:ForcedDetachFromParent(f:GetName())
 		if newRel then
@@ -4291,9 +3936,7 @@ function MovAny:GetRelativePoint(o, f, lockRel)
 			return
 		end
 	end
-	
 	local rX, rY, pX, pY
-	
 	if rel:GetLeft() ~= nil then
 		if relPoint == "TOPRIGHT" then
 			rY = rel:GetTop()
@@ -4325,7 +3968,6 @@ function MovAny:GetRelativePoint(o, f, lockRel)
 		else
 			return
 		end
-		
 		if rel.GetEffectiveScale then
 			rY = rY * rel:GetEffectiveScale()
 			rX = rX * rel:GetEffectiveScale()
@@ -4334,7 +3976,6 @@ function MovAny:GetRelativePoint(o, f, lockRel)
 			rX = rX * UIParent:GetEffectiveScale()
 		end
 	end
-	
 	if f:GetLeft() ~= nil then
 		if point == "TOPRIGHT" then
 			pY = f:GetTop()
@@ -4366,7 +4007,6 @@ function MovAny:GetRelativePoint(o, f, lockRel)
 		else
 			return
 		end
-		
 		if f.GetEffectiveScale then
 			pY = pY * f:GetEffectiveScale()
 			pX = pX * f:GetEffectiveScale()
@@ -4375,11 +4015,9 @@ function MovAny:GetRelativePoint(o, f, lockRel)
 			pX = pX * UIParent:GetEffectiveScale()
 		end
 	end
-	
 	if rY ~= nil and rX ~= nil and pY ~= nil and pX ~= nil then
 		rX = pX - rX
 		rY = pY - rY
-		
 		if f.GetEffectiveScale then
 			rY = rY / f:GetEffectiveScale()
 			rX = rX / f:GetEffectiveScale()
@@ -4391,22 +4029,19 @@ function MovAny:GetRelativePoint(o, f, lockRel)
 		rX = 0
 		rY = 0
 	end
-	
 	return {point, rel:GetName(), relPoint, rX, rY}
 end
 
 -- modfied version of blizzards updateContainerFrameAnchors
-local MARefBlizzBags = {}
+local MARefBlizzBags = { }
 function MovAny:hUpdateContainerFrameAnchors()
 	if MADB.noBags then
 		return
 	end
 	local bagsMover = _G.BagsMover
 	local bagsHooked = bagsMover and bagsMover.MAHooked or nil
-	
 	local xRemaining, yRemaining, column, frame, frameHeight, visibleSpacing, bag, xOffset, yOffset, containerScale, xAvail, yAvail
 	local highestFrame = 0
-	
 	if bagsHooked then
 		containerScale = BagsMover:GetScale()
 		xOffset, yOffset = math.abs(BagsMover:GetRight() * containerScale - GetScreenWidth()), BagsMover:GetBottom() * containerScale
@@ -4414,25 +4049,21 @@ function MovAny:hUpdateContainerFrameAnchors()
 		containerScale = 1
 		xOffset, yOffset = CONTAINER_OFFSET_X , CONTAINER_OFFSET_Y --/ containerScale
 	end
-	
 	while containerScale > 0.02 do
 		xAvail, yAvail = (GetScreenWidth() - xOffset) / containerScale, (GetScreenHeight() - yOffset) / containerScale
 		if BankFrame:IsShown() and not BankFrame.MAHooked then
 			xAvail = xAvail + (20 / containerScale) - (BankFrame:GetRight() * BankFrame:GetScale()) / containerScale
 		end
-		
 		yRemaining = yAvail
 		column = 1
 		highestFrame = 0
 		--visibleSpacing = VISIBLE_CONTAINER_SPACING * containerScale
-		
 		for index, frameName in ipairs(ContainerFrame1.bags) do
 			frame = MARefBlizzBags[frameName]
 			if frame == nil then
 				frame = _G[frameName]
 				MARefBlizzBags[frameName] = frame
 			end
-			
 			bag = MovAny:GetBagInContainerFrame(frame)
 			if not bag or (bag and not MovAny:IsModified(bag, "pos") and not MovAny:GetMoverByFrame(bag)) then
 				frameHeight = frame:GetHeight() --* containerScale
@@ -4453,14 +4084,11 @@ function MovAny:hUpdateContainerFrameAnchors()
 			break
 		end
 	end
-	
 	if not bagsHooked and containerScale < CONTAINER_SCALE then
 		containerScale = CONTAINER_SCALE
 	end
-	
 	column = 0
 	yRemaining = yAvail
-	
 	local lastFrame, firstFrame, skippedFrame = nil, nil, nil
 	for i = 1, 13, 1 do
 		frame = _G["ContainerFrame"..i]
@@ -4471,15 +4099,13 @@ function MovAny:hUpdateContainerFrameAnchors()
 			frame:ClearAllPoints()
 			frame:SetScale(containerScale)
 			frame:SetAlpha(1)
-			
 			frameHeight = frame:GetHeight() --* containerScale
-			
 			if firstFrame == nil then
 				firstFrame = frame
 				if bagsHooked then
 					frame:SetPoint("BOTTOMRIGHT", BagsMover, "BOTTOMRIGHT", 0, 0)
 				else
-					frame:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -xOffset, yOffset );
+					frame:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -xOffset, yOffset )
 				end
 			elseif yRemaining < frameHeight then
 				yRemaining = yAvail
@@ -4494,7 +4120,6 @@ function MovAny:hUpdateContainerFrameAnchors()
 	end
 end
 
-----------------------------------------------------------------
 -- X: slash commands
 
 SLASH_MAMOVE1 = "/move"
@@ -4534,7 +4159,6 @@ SlashCmdList["MAIMPORT"] = function(msg)
 		maPrint(MOVANY.CMD_SYNTAX_IMPORT)
 		return
 	end
-
 	if InCombatLockdown() then
 		maPrint(MOVANY.DISABLED_DURING_COMBAT)
 		return
@@ -4544,7 +4168,6 @@ SlashCmdList["MAIMPORT"] = function(msg)
 		maPrint(string.format(MOVANY.PROFILE_UNKNOWN, msg))
 		return
 	end
-
 	MovAny:CopyProfile(msg, MovAny:GetProfileName())
 	MovAny:UpdateProfile()
 	maPrint(string.format(MOVANY.PROFILE_IMPORTED, msg, MovAny:GetProfileName()))
@@ -4560,7 +4183,6 @@ SlashCmdList["MAEXPORT"] = function(msg)
 	MovAny:CopyProfile(MovAny:GetProfileName(), msg)
 	maPrint(string.format(MOVANY.PROFILE_EXPORTED, MovAny:GetProfileName(), msg))
 end
-
 
 SLASH_MALIST1 = "/movelist"
 SlashCmdList["MALIST"] = function(msg)
@@ -4581,12 +4203,10 @@ SlashCmdList["MADELETE"] = function(msg)
 		maPrint(MOVANY.CMD_SYNTAX_DELETE)
 		return
 	end
-	
 	if MADB.profiles[msg] == nil then
 		maPrint(string.format(MOVANY.PROFILE_UNKNOWN, msg))
 		return
 	end
-
 	if msg == MovAny:GetProfileName() and InCombatLockdown() then
 		maPrint(MOVANY.PROFILE_CANT_DELETE_CURRENT_IN_COMBAT)
 		return
@@ -4605,7 +4225,6 @@ SlashCmdList["MAMAFE"] = function(msg)
 	end
 end
 
-----------------------------------------------------------------
 -- X: global functions
 
 function numfor(n, decimals)
@@ -4636,7 +4255,6 @@ function MAGetParent(f)
 	if p == nil then
 		return UIParent
 	end
-
 	return p
 end
 
@@ -4665,11 +4283,10 @@ function maPrint(msgKey, msgHighlight, msgAdditional, r, g, b, frame)
 	else
 		msgOutput = DEFAULT_CHAT_FRAME
 	end
-
-	if msgKey				 == "" then
+	if msgKey == "" then
 		return
 	end
-	if msgKey        == nil then
+	if msgKey == nil then
 		msgKey = "<nomsg>"
 	end
 	if msgHighlight == nil or msgHighlight == "" then
@@ -4683,9 +4300,8 @@ function maPrint(msgKey, msgHighlight, msgAdditional, r, g, b, frame)
 	end
 end
 
-----------------------------------------------------------------
 function MovAny:ToggleEnableFrame(fn, opt)
-	f = _G[fn]
+	local f = _G[fn]
 	if f and fn ~= f:GetName() then
 		fn = f:GetName()
 	end
@@ -4702,13 +4318,11 @@ function MovAny:EnableFrame(fn)
 	if fn == nil then
 		return
 	end
-
 	local opt = f.MAE.userData
 	if not opt then
 		return
 	end
 	opt.disabled = nil
-	
 	local f = _G[fn]
 	if not f then
 		return
@@ -4721,21 +4335,18 @@ function MovAny:EnableFrame(fn)
 end
 
 function MovAny:DisableFrame(fn)
-	if fn==nil then
+	if fn == nil then
 		return
 	end
 	self:StopMoving(fn)
-
 	local opt = self:GetUserData(fn, nil, true)
 	if not opt then
 		return
 	end
-
 	local f = _G[fn]
 	if f then
 		self:ResetFrame(f, nil, true)
 	end
-	
 	opt.disabled = true
 end
 
@@ -4762,22 +4373,17 @@ function MovAny:HookTooltip(mover)
 	end
 	local l, r, t, b, anchor
 	local tooltip = _G.GameTooltip
-	
 	self:UnhookTooltip()
-	
 	--local opt = MovAny:GetUserData(mover:GetName())
 	opt = mover.MAE.userData
 	if type(opt) ~= "table" then
 		return
 	end
-	
 	tooltip.MAMover = mover
-	
 	l = mover:GetLeft() * mover:GetEffectiveScale()
 	r = mover:GetRight() * mover:GetEffectiveScale()
 	t = mover:GetTop() * mover:GetEffectiveScale()
 	b = mover:GetBottom() * mover:GetEffectiveScale()
-	
 	anchor = "CENTER"
 	if ((b + t) / 2) < ((UIParent:GetTop() * UIParent:GetScale()) / 2) - 25 then
 		anchor = "BOTTOM"
@@ -4791,12 +4397,10 @@ function MovAny:HookTooltip(mover)
 			anchor = anchor.."LEFT"
 		end
 	end
-
 	--MovAny:UnlockPoint(tooltip)
 	tooltip:ClearAllPoints()
 	tooltip:SetPoint(anchor, mover, anchor, 0, 0)
 	--MovAny:LockPoint(tooltip)
-	
 	if opt.hidden then
 		self:LockVisibility(tooltip)
 	end
@@ -4874,16 +4478,14 @@ function MovAny:GetFrameTooltipLines(fn)
 	if not fn then
 		return
 	end
-	
 	local o = API:GetElement(fn)
 	if not o then
 		return
 	end
 	local opts = o.userData
-	local msgs = {}
+	local msgs = { }
 	local enough = nil
 	local added = nil
-	
 	tinsert(msgs, o.displayName or fn)
 	if opts then
 		if opts.hidden then
@@ -4924,7 +4526,6 @@ function MovAny:GetFrameTooltipLines(fn)
 			enough = true
 			added = true
 		end
-		
 		added = nil
 		if opts.scale then
 			if not added then
@@ -4943,32 +4544,30 @@ function MovAny:GetFrameTooltipLines(fn)
 			added = true
 		end
 	end
-	--[[-- enable this to only show tooltips if actual modifications have been made to the frame
-	if not enough then
+	-- enable this to only show tooltips if actual modifications have been made to the frame
+	--[[if not enough then
 		table.wipe(msgs)
-	end
-	--]]
+	end]]
 	return msgs
 end
 
-----------------------------------------------------------------
 -- X: debugging code
 
 function echo(...)
 	local msg = ""
 	for k,v in pairs({...}) do
-		msg = msg .. k .. "=[" .. tostring(v) .."] "
+		msg = msg..k.."=["..tostring(v) .."] "
 	end
 	DEFAULT_CHAT_FRAME:AddMessage(msg)
 end
 
 function decho(ar, limit)
 	local msg = ""
-	for k,v in pairs(ar) do
+	for k, v in pairs(ar) do
 		if type(v) == "table" then
-			msg = msg .. k .. "=[" .. dechoSub(v, 1, limit) .."] \n"
+			msg = msg..k.."=["..dechoSub(v, 1, limit) .."] \n"
 		else
-			msg = msg .. k .. "=[" .. tostring(v) .."] \n"
+			msg = msg..k.."=["..tostring(v) .."] \n"
 		end
 	end
 	DEFAULT_CHAT_FRAME:AddMessage(msg)
@@ -4979,11 +4578,11 @@ function dechoSub(t, d, limit)
 	if d > 10 or (type(limit) == "number" and d <= limit) then
 		return msg
 	end
-	for k,v in pairs(t) do
+	for k, v in pairs(t) do
 		if type(v) == "table" then
-			msg = msg .. k .. "=[" .. dechoSub(v, d + 1) .."] \n"
+			msg = msg..k.."=["..dechoSub(v, d + 1) .."] \n"
 		else
-			msg = msg .. k .. "=[" .. tostring(v) .."] \n"
+			msg = msg..k.."=["..tostring(v) .."] \n"
 		end
 	end
 	return msg
@@ -4994,7 +4593,7 @@ function necho(...)
 	for k,v in pairs({...}) do
 		if type(v) == "table" then
 			for k2,v2 in pairs(v) do
-				msg = msg .. k2 .. "=(" .. type(v2) ..") "
+				msg = msg..k2.."=("..type(v2) ..") "
 			end
 		end
 	end
@@ -5009,7 +4608,6 @@ function MovAny:DebugFrameAtCursor()
 				o = o.tagged
 			end
 		end
-		
 		if o ~= WorldFrame and o ~= UIParent then
 			MovAny:Dump(o)
 		end
@@ -5022,11 +4620,9 @@ function MovAny:Dump(o)
 		return
 	end
 	local s = " Name: "..o:GetName()
-	
 	if o.GetObjectType then
 		s = s.."  Type: "..o:GetObjectType()
 	end
-	
 	local p = o:GetParent()
 	if p == nil then
 		p = UIParent
@@ -5034,11 +4630,9 @@ function MovAny:Dump(o)
 	if o ~= p then
 		s = s.."  Parent: "..(p:GetName() or "unnamed")
 	end
-	
 	if o.MAParent then
 		s = s.." MA Parent: "..((type(o.MAParent) == "table" and o.MAParent:GetName()) or (type(o.MAParent) == "string" and o.MAParent) or "unnamed")
 	end
-	
 	if s ~= "" then
 		maPrint(s)
 	end
@@ -5047,7 +4641,6 @@ function MovAny:Dump(o)
 	elseif o.MAProtected then
 		maPrint(" Virtually protected: true")
 	end
-	
 	s = ""
 	if o.IsShown then
 		if o:IsShown() then
@@ -5075,7 +4668,6 @@ function MovAny:Dump(o)
 	if s ~= "" then
 		maPrint(s)
 	end
-	
 	local point = {o:GetPoint()}
 	if point and point[1] and point[2] and point[3] and point[4] and point[5] then
 		if not point[2] then
@@ -5083,7 +4675,6 @@ function MovAny:Dump(o)
 		end
 		maPrint(" Point: "..point[1]..", "..point[2]:GetName()..", "..point[3]..", "..point[4]..", "..point[5])
 	end
-	
 	s = ""
 	if o:GetTop() then
 		s = " Top: "..o:GetTop()
@@ -5107,7 +4698,7 @@ function MovAny:Dump(o)
 	if o:GetWidth() then
 		s = s.." Width: "..o:GetWidth()
 	end
-	if s~= "" then
+	if s ~= "" then
 		maPrint(s)
 	end
 	s = ""
@@ -5117,7 +4708,7 @@ function MovAny:Dump(o)
 	if o.GetEffectiveScale then
 		s = s.." Effective: "..o:GetEffectiveScale()
 	end
-	if s~= "" then
+	if s ~= "" then
 		maPrint(s)
 	end
 	s = ""
@@ -5127,7 +4718,7 @@ function MovAny:Dump(o)
 	if o.GetEffectiveAlpha then
 		s = s.." Effective: "..o:GetEffectiveAlpha()
 	end
-	if s~= "" then
+	if s ~= "" then
 		maPrint(s)
 	end
 	s = ""
@@ -5152,7 +4743,7 @@ function MovAny:Dump(o)
 			s = s.." Resizable: false"
 		end
 	end
-	if s~= "" then
+	if s ~= "" then
 		maPrint(s)
 	end
 	s = ""
@@ -5177,19 +4768,13 @@ function MovAny:Dump(o)
 			s = s.." MouseWheelEnabled: false"
 		end
 	end
-	if s~= "" then
+	if s ~= "" then
 		maPrint(s)
 	end
-
 	local opts = self:GetUserData(o:GetName())
 	if opts ~= nil then
 		maPrint(" MA stored variables:")
-		for i,v in pairs(opts) do
---[[
-			if i == "cat" then
-				maPrint("  category: "..v.displayName)
-			elseif i ~= "name" then
-			]]
+		for i, v in pairs(opts) do
 			if i ~= "cat" and i ~= "name" then
 				if v == nil then
 					maPrint("   "..i..": nil")
@@ -5243,7 +4828,7 @@ end
 
 MovAny.dbg = dbg
 
--- x: Blizzard Interface Options functions
+-- X: Blizzard Interface Options functions
 function MovAny:OptionCheckboxChecked(button, var)
 	if var == "squareMM" then
 		if button:GetChecked() then
@@ -5287,9 +4872,7 @@ function MovAny:SetOptions()
 	MADB.dontSyncWhenLeavingCombat = MAOptDontSyncWhenLeavingCombat:GetChecked()
 	MADB.dontSearchFrameNames = MAOptDontSearchFrameNames:GetChecked()
 	MADB.disableErrorMessages = MAOptDisableErrorMessages:GetChecked()
-	
 	MADB.frameListRows = MAOptRowsSlider:GetValue()
-	
 	if MADB.closeGUIOnEscape then
 		tinsert(UISpecialFrames, MAOptions)
 	end
@@ -5299,8 +4882,6 @@ function MovAny:SetDefaultOptions()
 	if MADB.squareMM then
 		Minimap:SetMaskTexture("Textures\\MinimapMask")
 	end
-	
-	
 	if MADB.closeGUIOnEscape then
 		for i, v in pairs(UISpecialFrames) do
 			if v == "MAOptions" then
@@ -5309,7 +4890,6 @@ function MovAny:SetDefaultOptions()
 			end
 		end
 	end
-	
 	MADB.alwaysShowNudger = nil
 	MADB.noBags = nil
 	MADB.noMMMW = nil
@@ -5321,7 +4901,6 @@ function MovAny:SetDefaultOptions()
 	MADB.dontSyncWhenLeavingCombat = nil
 	MADB.dontSearchFrameNames = nil
 	MADB.frameListRows = 18
-	
 	MovAny_OptionsOnShow()
 	MovAny:UpdateGUIIfShown()
 end
@@ -5349,13 +4928,10 @@ function MovAny_OptionsOnShow()
 	if MADB.frameListRows then
 		MAOptRowsSlider:SetValue(MADB.frameListRows)
 	end
-	
 	if type(MADB.characters) == "table" then
 		local profile = MovAny:GetProfileName()
-		
 		UIDropDownMenu_Initialize(MAOptProfileDropDown, MovAny.ProfileDropDownInit)
 		UIDropDownMenu_SetSelectedValue(MAOptProfileDropDown, profile)
-		
 		if "default" == profile then
 			MAOptProfileRename:Disable()
 			MAOptProfileDelete:Disable()
@@ -5365,8 +4941,8 @@ function MovAny_OptionsOnShow()
 		end
 	end
 end
---[[
-function MovAny:ProfileRenameClicked(b)
+
+--[[function MovAny:ProfileRenameClicked(b)
 	MoveAny_ProfileRename:Show()
 	MoveAny_ProfileRename.editBox:SetText(MovAny:GetProfileName())
 end
@@ -5387,8 +4963,7 @@ end
 function MovAny.ProfileDropDownClicked(b)
 	MovAny:ChangeProfile(b.value)
 	MovAny_OptionsOnShow()
-end
-]]
+end]]
 
 function MovAny:ProfileRenameClicked(b)
 	local dlg = StaticPopup_Show("MOVEANYTHING_PROFILE_RENAME", MovAny:GetProfileName())
@@ -5424,15 +4999,13 @@ function MovAny.ProfileDropDownInit()
 		info.checked = true
 	end
 	UIDropDownMenu_AddButton(info)
-	
-	local names = {}
+	local names = { }
 	for name, _ in pairs(MADB.profiles) do
 		tinsert(names, name)
 	end
 	table.sort(names, function(o1, o2)
 		return o1:lower() < o2:lower()
 	end)
-	
 	for _, name in pairs(names) do
 		if "default" ~= name then
 			info = UIDropDownMenu_CreateInfo()
@@ -5452,14 +5025,11 @@ function MovAny:SetNumRows(num, dontUpdate)
 		return
 	end
 	MADB.frameListRows = num
-	
 	local base = 0
 	local h = 24
-	
 	MAOptions:SetHeight(base + 81 + (num * h))
 	MAScrollFrame:SetHeight(base + 11 + (num * h))
 	MAScrollBorder:SetHeight(base - 22 + (num * h))
-	
 	for i = 1, 100, 1 do
 		local row = _G["MAMove"..i]
 		if num >= i then
@@ -5470,7 +5040,6 @@ function MovAny:SetNumRows(num, dontUpdate)
 				else
 					row:SetPoint("TOPLEFT", "MAMove"..(i - 1), "BOTTOMLEFT")
 				end
-				
 				local label = _G[ "MAMove"..i.."FrameName" ]
 				label:SetScript("OnEnter", MovAny_TooltipShowMultiline)
 				label:SetScript("OnLeave", MovAny_TooltipHide)
@@ -5481,9 +5050,7 @@ function MovAny:SetNumRows(num, dontUpdate)
 			end
 		end
 	end
-	
 	_G["MAOptRowsSliderText"]:SetText(num)
-	
 	if not dontUpdate then
 		self:UpdateGUIIfShown(true)
 	end
@@ -5552,209 +5119,236 @@ function MovAny_OnEvent(self, event, arg1)
 		elseif arg1 == "Blizzard_AchievementUI" then
 			setfenv(AchievementFrame_OnShow, setmetatable({UpdateMicroButtons=function()
 				if (AchievementFrame and AchievementFrame:IsShown()) then
-					AchievementMicroButton:SetButtonState("PUSHED", 1);
+					AchievementMicroButton:SetButtonState("PUSHED", 1)
 				end
 			end }, { __index = _G}))
 		elseif arg1 == "Blizzard_PetJournal" then
 			setfenv(PetJournalParent_OnShow, setmetatable({UpdateMicroButtons=function()
 				if (PetJournalParent and PetJournalParent:IsShown()) then
-					CompanionsMicroButton:Enable();
-					CompanionsMicroButton:SetButtonState("PUSHED", 1);
+					CompanionsMicroButton:Enable()
+					CompanionsMicroButton:SetButtonState("PUSHED", 1)
 				end
 			end }, { __index = _G}))		
 		elseif arg1 == "Blizzard_ArenaUI" then
 			ArenaEnemyFrame_UpdatePet = function() end		
 			ArenaEnemyFrames_UpdateWatchFrame = function()				
 				local _, instanceType = IsInInstance()
-				if ( not WatchFrame:IsUserPlaced() ) then
-					if ( ArenaEnemyFrames:IsShown() ) then
-						if ( WatchFrame_RemoveObjectiveHandler(WatchFrame_DisplayTrackedQuests) ) then
-							ArenaEnemyFrames.hidWatchedQuests = true;
+				if not WatchFrame:IsUserPlaced() then
+					if ArenaEnemyFrames:IsShown() then
+						if WatchFrame_RemoveObjectiveHandler(WatchFrame_DisplayTrackedQuests) then
+							ArenaEnemyFrames.hidWatchedQuests = true
 						end
-					elseif (( instanceType == "arena" ) or ( instanceType == "pvp" )) then
-						if ( WatchFrame_RemoveObjectiveHandler(WatchFrame_DisplayTrackedQuests) ) then
-							ArenaEnemyFrames.hidWatchedQuests = true;
+					elseif instanceType == "arena" or instanceType == "pvp" then
+						if WatchFrame_RemoveObjectiveHandler(WatchFrame_DisplayTrackedQuests) then
+							ArenaEnemyFrames.hidWatchedQuests = true
 						end
 					else
-						if ( ArenaEnemyFrames.hidWatchedQuests ) then
-							WatchFrame_AddObjectiveHandler(WatchFrame_DisplayTrackedQuests);
-							ArenaEnemyFrames.hidWatchedQuests = false;
+						if ArenaEnemyFrames.hidWatchedQuests then
+							WatchFrame_AddObjectiveHandler(WatchFrame_DisplayTrackedQuests)
+							ArenaEnemyFrames.hidWatchedQuests = false
 						end
 					end
-					WatchFrame_ClearDisplay();
-					WatchFrame_Update();
-				elseif ( ArenaEnemyFrames.hidWatchedQuests ) then
-					WatchFrame_AddObjectiveHandler(WatchFrame_DisplayTrackedQuests);
-					ArenaEnemyFrames.hidWatchedQuests = false;
-					WatchFrame_ClearDisplay();
-					WatchFrame_Update();
+					WatchFrame_ClearDisplay()
+					WatchFrame_Update()
+				elseif ArenaEnemyFrames.hidWatchedQuests then
+					WatchFrame_AddObjectiveHandler(WatchFrame_DisplayTrackedQuests)
+					ArenaEnemyFrames.hidWatchedQuests = false
+					WatchFrame_ClearDisplay()
+					WatchFrame_Update()
 				end
 			end
-			
 			ArenaPrepFrames_UpdateWatchFrame = function()			
 				local _, instanceType = IsInInstance()
-				if ( not WatchFrame:IsUserPlaced() ) then
-					if ( ArenaPrepFrames:IsShown() ) then
-						if ( WatchFrame_RemoveObjectiveHandler(WatchFrame_DisplayTrackedQuests) ) then
-							ArenaPrepFrames.hidWatchedQuests = true;
+				if not WatchFrame:IsUserPlaced() then
+					if ArenaPrepFrames:IsShown() then
+						if WatchFrame_RemoveObjectiveHandler(WatchFrame_DisplayTrackedQuests) then
+							ArenaPrepFrames.hidWatchedQuests = true
 						end
-					elseif (( instanceType == "arena" ) or ( instanceType == "pvp" )) then
-						if ( WatchFrame_RemoveObjectiveHandler(WatchFrame_DisplayTrackedQuests) ) then
-							ArenaPrepFrames.hidWatchedQuests = true;
+					elseif instanceType == "arena" or instanceType == "pvp" then
+						if WatchFrame_RemoveObjectiveHandler(WatchFrame_DisplayTrackedQuests) then
+							ArenaPrepFrames.hidWatchedQuests = true
 						end
 					else
-						if ( ArenaPrepFrames.hidWatchedQuests ) then
-							WatchFrame_AddObjectiveHandler(WatchFrame_DisplayTrackedQuests);
-							ArenaPrepFrames.hidWatchedQuests = false;
+						if ArenaPrepFrames.hidWatchedQuests then
+							WatchFrame_AddObjectiveHandler(WatchFrame_DisplayTrackedQuests)
+							ArenaPrepFrames.hidWatchedQuests = false
 						end
 					end
-					WatchFrame_ClearDisplay();
-					WatchFrame_Update();
-				elseif ( ArenaPrepFrames.hidWatchedQuests ) then
-					WatchFrame_AddObjectiveHandler(WatchFrame_DisplayTrackedQuests);
-					ArenaPrepFrames.hidWatchedQuests = false;
-					WatchFrame_ClearDisplay();
-					WatchFrame_Update();
+					WatchFrame_ClearDisplay()
+					WatchFrame_Update()
+				elseif ArenaPrepFrames.hidWatchedQuests then
+					WatchFrame_AddObjectiveHandler(WatchFrame_DisplayTrackedQuests)
+					ArenaPrepFrames.hidWatchedQuests = false
+					WatchFrame_ClearDisplay()
+					WatchFrame_Update()
 				end
 			end
-
-
 			hooksecurefunc("ArenaEnemyFrame_UpdatePlayer", MovAny.hookArenaEnemyFrames15)
 			hooksecurefunc("UpdatePrepFrames", MovAny.hookArenaEnemyFrames15)
 			hooksecurefunc("ArenaEnemyFrames_UpdateVisible", MovAny.hookArenaEnemyFrames15)
-			
 			hooksecurefunc("ArenaEnemyFrames_Enable", MovAny.hArenaEnemyFrames_Enable)
 			hooksecurefunc("ArenaEnemyFrames_Disable", MovAny.hArenaEnemyFrames_Disable)
-			
-		--	hooksecurefunc("ArenaEnemyFrames_UpdateWatchFrame", MovAny.hWatchFrameExpand)
-
-			
+			--hooksecurefunc("ArenaEnemyFrames_UpdateWatchFrame", MovAny.hWatchFrameExpand)
 			if ArenaPrepFrames and not ArenaPrepFrames.hooked_ma then
 				ArenaPrepFrames.hooked_ma = true
 				ArenaPrepFrames.ma_Show = ArenaPrepFrames.Show
-			--	ArenaPrepFrames.Show = function(self) if not InCombatLockdown() then self:ma_Show() end end
-				
-				ArenaPrepFrames.Hide = function() 
-						ArenaPrepFrames.ma_isshown = false
-						ArenaPrepFrames_UpdateWatchFrame()
+				--[[ArenaPrepFrames.Show = function(self)
+					if not InCombatLockdown() then
+						self:ma_Show()
 					end
-				
+				end]]
+				ArenaPrepFrames.Hide = function() 
+					ArenaPrepFrames.ma_isshown = false
+					ArenaPrepFrames_UpdateWatchFrame()
+				end
 				ArenaPrepFrames.IsShown = function()
 					local _, instanceType = IsInInstance()
-					if ( instanceType == "arena" ) or ( instanceType == "pvp" ) then
+					if instanceType == "arena" or instanceType == "pvp" then
 						return true
 					else
-						if ArenaPrepFrame1:IsShown() then return true end
-						if ArenaPrepFrame2:IsShown() then return true end
-						if ArenaPrepFrame3:IsShown() then return true end
-						if ArenaPrepFrame4:IsShown() then return true end
-						if ArenaPrepFrame5:IsShown() then return true end					
+						if ArenaPrepFrame1:IsShown() then
+							return true
+						end
+						if ArenaPrepFrame2:IsShown() then
+							return true
+						end
+						if ArenaPrepFrame3:IsShown() then
+							return true
+						end
+						if ArenaPrepFrame4:IsShown() then
+							return true
+						end
+						if ArenaPrepFrame5:IsShown() then
+							return true
+						end					
 					end
 					return false
 				end
-				
-				if ( GetCVarBool("showArenaEnemyFrames") ) then
+				if GetCVarBool("showArenaEnemyFrames") then
 					ArenaPrepFrames:Show()
 				else
 					ArenaPrepFrames:Hide()
 				end
-
 				ArenaPrepFrames.Show = function() 
 						ArenaPrepFrames.ma_isshown = true
 						ArenaPrepFrames_UpdateWatchFrame()
 					end
 				ArenaPrepFrames.ma_Hide = ArenaPrepFrames.Hide
-			--	ArenaPrepFrames.Hide = function(self) if not InCombatLockdown() then self:ma_Hide() end end
-
-				
+				--[[ArenaPrepFrames.Hide = function(self)
+					if not InCombatLockdown() then
+						self:ma_Hide()
+					end 
+				end]]
 				ArenaPrepFrames.clear_all_points = ArenaPrepFrames.ClearAllPoints
-				ArenaPrepFrames.ClearAllPoints = function(self) if not InCombatLockdown() then self:clear_all_points() end end
-				
+				ArenaPrepFrames.ClearAllPoints = function(self)
+					if not InCombatLockdown() then
+						self:clear_all_points()
+					end
+				end
 				ArenaPrepFrames.set_points = ArenaPrepFrames.SetPoint
-				ArenaPrepFrames.SetPoint = function(self, ...) if not InCombatLockdown() then self:set_points(...) end end
+				ArenaPrepFrames.SetPoint = function(self, ...)
+					if not InCombatLockdown() then
+						self:set_points(...)
+					end
+				end
 			end
-			
 			if ArenaEnemyFrames and not ArenaEnemyFrames.hooked_ma then
 				ArenaEnemyFrames.hooked_ma = true
-				
 				ArenaEnemyFrames.ma_Show = ArenaEnemyFrames.Show
-			--	ArenaEnemyFrames.Show = function(self) if not InCombatLockdown() then self:ma_Show() end end
-				
+				--[[ArenaEnemyFrames.Show = function(self)
+					if not InCombatLockdown() then
+						self:ma_Show()
+					end
+				end]]
 				ArenaEnemyFrames.IsShown = function()
 					local _, instanceType = IsInInstance()
-					if ( instanceType == "arena" ) or ( instanceType == "pvp" ) then
+					if instanceType == "arena" or instanceType == "pvp" then
 						return true
 					else
-						if ArenaEnemyFrame1:IsShown() then return true end
-						if ArenaEnemyFrame2:IsShown() then return true end
-						if ArenaEnemyFrame3:IsShown() then return true end
-						if ArenaEnemyFrame4:IsShown() then return true end
-						if ArenaEnemyFrame5:IsShown() then return true end					
+						if ArenaEnemyFrame1:IsShown() then
+							return true
+						end
+						if ArenaEnemyFrame2:IsShown() then
+							return true
+						end
+						if ArenaEnemyFrame3:IsShown() then
+							return true
+						end
+						if ArenaEnemyFrame4:IsShown() then
+							return true
+						end
+						if ArenaEnemyFrame5:IsShown() then
+							return true
+						end					
 					end
 					return false
 				end
-				
 				ArenaEnemyFrames.ma_Hide = ArenaEnemyFrames.Hide
-			--	ArenaEnemyFrames.Hide = function(self) if not InCombatLockdown() then self:ma_Hide() end end
-				
+				--[[ArenaEnemyFrames.Hide = function(self)
+					if not InCombatLockdown() then
+						self:ma_Hide()
+					end
+				end]]
 				ArenaEnemyFrames.Hide = function() 
 					ArenaEnemyFrames.ma_isshown = false
 					ArenaEnemyFrames_UpdateWatchFrame() 
 				end
-				
-				if ( GetCVarBool("showArenaEnemyFrames") ) then
+				if GetCVarBool("showArenaEnemyFrames") then
 					ArenaEnemyFrames:Show()
 				else
 					ArenaEnemyFrames:Hide()
 				end
-
 				ArenaEnemyFrames.Show = function()
 					ArenaEnemyFrames.ma_isshown = true
 					ArenaEnemyFrames_UpdateWatchFrame()
 				end
-				
 				ArenaEnemyFrames.clear_all_points = ArenaEnemyFrames.ClearAllPoints
-				ArenaEnemyFrames.ClearAllPoints = function(self) if not InCombatLockdown() then self:clear_all_points() end end
+				ArenaEnemyFrames.ClearAllPoints = function(self)
+					if not InCombatLockdown() then
+						self:clear_all_points()
+					end
+				end
 				ArenaEnemyFrames.set_points = ArenaEnemyFrames.SetPoint
-				ArenaEnemyFrames.SetPoint = function(self, ...) if not InCombatLockdown() then self:set_points(...) end end
+				ArenaEnemyFrames.SetPoint = function(self, ...)
+					if not InCombatLockdown() then
+						self:set_points(...)
+					end
+				end
 			end
-			
-		--	ArenaEnemyFrame1:ClearAllPoints()
-			ArenaEnemyFrame1:SetPoint("TOP", UIParent, "TOP", 400, -200)
-			ArenaEnemyFrame2:SetPoint("TOP", ArenaEnemyFrame1, "BOTTOM", 0, -20)
-			ArenaEnemyFrame3:SetPoint("TOP", ArenaEnemyFrame2, "BOTTOM", 0, -20)
-			ArenaEnemyFrame4:SetPoint("TOP", ArenaEnemyFrame3, "BOTTOM", 0, -20)
-			ArenaEnemyFrame5:SetPoint("TOP", ArenaEnemyFrame4, "BOTTOM", 0, -20)
-			
-			
-			for i=1,5 do
+			--ArenaEnemyFrame1:ClearAllPoints()
+			ArenaEnemyFrame1:SetPoint("TOP", UIParent, "TOP", 400, - 200)
+			ArenaEnemyFrame2:SetPoint("TOP", ArenaEnemyFrame1, "BOTTOM", 0, - 20)
+			ArenaEnemyFrame3:SetPoint("TOP", ArenaEnemyFrame2, "BOTTOM", 0, - 20)
+			ArenaEnemyFrame4:SetPoint("TOP", ArenaEnemyFrame3, "BOTTOM", 0, - 20)
+			ArenaEnemyFrame5:SetPoint("TOP", ArenaEnemyFrame4, "BOTTOM", 0, - 20)
+			for i = 1, 5 do
 				local frame = "ArenaEnemyFrame"..i
-
 				if _G[frame] and not _G[frame].hooked_ma then
 					_G[frame].hooked_ma = true
 					_G[frame].clear_all_points = _G[frame].ClearAllPoints
 					_G[frame].ClearAllPoints = function(self)
-						if InCombatLockdown() then return end
+						if InCombatLockdown() then
+							return
+						end
 						self:clear_all_points()
 					end
 					_G[frame].set_point = _G[frame].SetPoint
 					_G[frame].SetPoint = function(self, ...)
-						if InCombatLockdown() then return end
+						if InCombatLockdown() then
+							return
+						end
 						self:set_point(...)
 					end
 				end
-				
-			--	local arg1,arg2, arg3, arg4, arg5 =  _G[frame]:GetPoint()
-			--	print(_G[frame]:GetPoint())
-				
+				--local arg1,arg2, arg3, arg4, arg5 = _G[frame]:GetPoint()
+				--print(_G[frame]:GetPoint())
 				MovAny.API:SyncElement(frame)
 				local frame = "ArenaEnemyFrame"..i.."PetFrame"
-				
 				if _G[frame] and not _G[frame].hooked_ma then
 					_G[frame].hooked_ma = true
 					_G[frame]:SetAttribute("unit", "arenapet"..i)
 					stateMonitor:WrapScript(_G[frame], "OnAttributeChanged", [[
-						if( name == "state-unitexists" ) then
+						if name == "state-unitexists" then
 							if UnitExists(self:GetAttribute("unit")) then
 								self:Show()
 							else
@@ -5763,17 +5357,16 @@ function MovAny_OnEvent(self, event, arg1)
 						end
 					]])
 					RegisterUnitWatch(_G[frame], true)
-				--	RegisterStateDriver(_G[frame], "visibility", "[@arenapet"..i", exists] show; hide")
+					--RegisterStateDriver(_G[frame], "visibility", "[@arenapet"..i", exists] show hide")
 				end
-				
 				MovAny.API:SyncElement(frame)
 			end		
 		end
 		MovAny:SyncFrames()
 	elseif event == "GROUP_ROSTER_UPDATE" then
-		
-		if InCombatLockdown() then return end
-		
+		if InCombatLockdown() then
+			return
+		end
 		local f = _G["CompactRaidFrameManager"]
 		if f then
 			f.MAParent = "RaidUnitFramesManagerMover"
@@ -5782,26 +5375,25 @@ function MovAny_OnEvent(self, event, arg1)
 		if f then
 			f.MAParent = "RaidUnitFramesMover"
 		end
-		
 		MovAny.API:SyncElement("RaidUnitFramesManagerMover")
 		MovAny.API:SyncElement("RaidUnitFramesMover")
 	elseif event == "PLAYER_FOCUS_CHANGED" then
 		MovAny.API:SyncElement("FocusFrame")
 	elseif event == "BANKFRAME_OPENED" then
 		local e
-		for i=1, 7, 1 do
+		for i = 1, 7, 1 do
 			e = API:GetElement("BankBagFrame"..i)
 			if e then
 				e.refuseSync = nil
 			end
 		end
 		MovAny:SyncFrames()
-		for i=1, 7, 1 do
+		for i = 1, 7, 1 do
 			MovAny:CreateVM("BankBagFrame"..i)
 		end
 	elseif event == "BANKFRAME_CLOSED" then
 		local e
-		for i=1, 7, 1 do
+		for i = 1, 7, 1 do
 			e = API:GetElement("BankBagFrame"..i)
 			if e then
 				e.refuseSync = MOVANY.FRAME_ONLY_WHEN_BANK_IS_OPEN
@@ -5824,7 +5416,7 @@ function MovAny_OnEvent(self, event, arg1)
 				e:Sync()
 			end
 		else
-			for i=1, 5, 1 do
+			for i = 1, 5, 1 do
 				e = API:GetElement("BagFrame"..(arg1))
 				if e then
 					e.refuseSync = nil
@@ -5860,20 +5452,15 @@ function MovAny:CreateVM(name)
 	end
 	local vm = CreateFrame("Frame", name, UIParent, data.inherits, "MADontHook")
 	vm.MAEVM = API:GetElement(name)
-	--[[
-	if vm.MAEVM and vm.MAEVM.runOnce then
+	--[[if vm.MAEVM and vm.MAEVM.runOnce then
 		vm.MAEVM:runOnce()
 		vm.MAEVM.runOnce = nil
-	end
-	]]
+	end]]
 	vm.opt = MovAny:GetUserData(name)
-	
 	if data.id then
 		vm:SetID(data.id)
 	end
 	vm.data = data
-	
-	
 	if data.linkedSize then
 		local ref = _G[data.linkedSize]
 		if ref then
@@ -5888,18 +5475,15 @@ function MovAny:CreateVM(name)
 			vm:SetHeight(data.h)
 		end
 	end
-	
 	if data.s then
 		vm:SetScale(data.s)
 	end
-	
 	if data.dontLock then
 		vm.MADontLock = true
 	end
 	if data.dontHide then
 		vm.MADontHide = true
 	end
-	
 	vm.FoundChild = function(self, index, child)
 		if not self.firstChild then
 			self.firstChild = child
@@ -5907,26 +5491,23 @@ function MovAny:CreateVM(name)
 		child.MAParent = self
 		if data.OnMAFoundChild then
 			data.OnMAFoundChild(self, index, child)
-			--[[
-			xpcall(function()
+			--[[xpcall(function()
 				data.OnMAFoundChild(self, index, child)
-			end, function()
-				--print("Error: "..debugstack(2, 20,20))
-			end)
-			--]]
+			end,
+			function()
+				--print("Error: "..debugstack(2, 20, 20))
+			end)]]
 		end
 		if not self.MADontLock then
 			MovAny:LockPoint(child)
 		end
 		if self.MAHidden and not child.MAHidden then
 			MovAny:LockVisibility(child)
-		--	print("Hide")
 		end
 		self.attachedChildren[index] = child
 		self.lastChild = child
 		return child
 	end
-	
 	vm.ReleaseChild = function(self, index)
 		local child = self.attachedChildren[index]
 		if not child then
@@ -5940,7 +5521,6 @@ function MovAny:CreateVM(name)
 		end
 		self.lastChild = child
 	end
-	
 	vm.ReleaseChildByName = function(self, name)
 		for i, c in pairs(self.attachedChildren) do
 			if c:GetName() == name then
@@ -5950,7 +5530,6 @@ function MovAny:CreateVM(name)
 		end
 		return false
 	end
-	
 	local MAScanForChildren = function (self, dontCallNewChild, dontSync)
 		if not self.attachedChildren then
 			return
@@ -6037,11 +5616,12 @@ function MovAny:CreateVM(name)
 		end
 	end
 	vm.MAScanForChildren = function(vm, dontCallNewChild, dontSync)
-		--[[
-		xpcall(function() MAScanForChildren(vm, dontCallNewChild, dontSync) end, function()
+		--[[xpcall(function()
+			MAScanForChildren(vm, dontCallNewChild, dontSync)
+		end,
+		function()
 			--print("Error: "..debugstack(2, 20, 20))
-		end)
-		]]
+		end)]]
 		xpcall(function()
 			MAScanForChildren(vm, dontCallNewChild, dontSync)
 		end, MovAny.SyncErrorHandler)
@@ -6073,11 +5653,9 @@ function MovAny:CreateVM(name)
 	elseif data.point then
 		opt.orgPos = data.point
 	end
-	
 	if opt and opt.pos and data.point and not opt.orgPos then
 		opt.orgPos = data.point
 	end
-	
 	if data.protected then
 		vm.MAProtected = true
 	end
@@ -6087,11 +5665,9 @@ function MovAny:CreateVM(name)
 	if data.dontAlpha then
 		vm.MADontAlphaChildren = true
 	end
-	
 	if data.frameStrata and (not opt or not opt.frameStrata) then
 		vm:SetFrameStrata(data.frameStrata)
 	end
-	
 	vm.orgOnMAAttach = vm.OnMAAttach
 	vm.OnMAAttach = function(self, mover)
 		if data.linkedSize then
@@ -6179,14 +5755,14 @@ function MovAny:CreateVM(name)
 			MovAny:ResetFrame(data.excludes)
 			MovAny:UpdateGUIIfShown(true)
 		end
-	--[[	if data.excludes2 and MovAny:IsModified(data.excludes2) then
+		--[[if data.excludes2 and MovAny:IsModified(data.excludes2) then
 			MovAny:ResetFrame(data.excludes2)
 			MovAny:UpdateGUIIfShown(true)
 		end]]
 		if self.attachedChildren then
 			table.wipe(self.attachedChildren)
 		else
-			self.attachedChildren = {}
+			self.attachedChildren = { }
 		end
 		self:MAScanForChildren(true, true)
 		if data.OnMAHook then
@@ -6194,8 +5770,6 @@ function MovAny:CreateVM(name)
 		end
 		self:Show()
 	end
-	
-	
 	if vm.OnMAPostReset and not data.OnMAPostReset then
 		data.OnMAPreReset = vm.OnMAPreReset
 	end
@@ -6234,17 +5808,13 @@ function MovAny:CreateVM(name)
 		end
 		self:Hide()
 	end
-	
 	if data.OnMAScanForChildren then
 		vm.OnMAScanForChildren = data.OnMAScanForChildren
 	end
-	
 	vm.OnMANewChild = data.OnMANewChild
-	
 	vm.MAOnEnable = function(self)
 		self:MAScanForChildren()
 	end
-
 	if data.inherits then
 		local super = _G[data.inherits]
 		if super and super.OnMACreateVM then
@@ -6258,15 +5828,12 @@ function MovAny:CreateVM(name)
 		vm:MAOnLoad()
 		vm.MAOnLoad = nil
 	end
-	
 	if data.OnMACreateVM then
 		data.OnMACreateVM(vm)
 	end
-	
 	if vm.OnMACreateVM then
 		vm:OnMACreateVM()
 	end
-	
 	data.created = true
 	return vm
 end
@@ -6279,13 +5846,11 @@ function MovAny:UnserializeProfile(str)
 	for i, v in string.gmatch(str, ",name:\"(.-)\"") do
 		sName = i
 	end
-	
 	if not sName then
 		maPrint(MOVANY.UNSERIALIZE_PROFILE_NO_NAME)
 		return
 	end
-	
-	local frames = {}
+	local frames = { }
 	local opt
 	str = str..","
 	for i in string.gmatch(str, "frames:{(.+)}") do
@@ -6296,7 +5861,6 @@ function MovAny:UnserializeProfile(str)
 			end
 		end
 	end
-	
 	local tName = sName
 	local ct = 1
 	while MADB.profiles[tName] do
@@ -6305,7 +5869,6 @@ function MovAny:UnserializeProfile(str)
 	end
 	MovAny:AddProfile(tName)
 	MADB.profiles[tName].frames = frames
-	
 	maPrint(string.format(MOVANY.UNSERIALIZE_PROFILE_COMPLETED, tlen(frames), tName))
 	return true
 end
@@ -6315,14 +5878,14 @@ function MovAny:UnserializeFrame(str, name)
 	str = string.gsub(str, "%s+$", "")
 	str = string.gsub(str, "[\r\n]", "")
 	str = string.match(str, "%[(.+)%]")
-	--[s:0.70035458463692,h:1,p:("CENTER","UIParent","CENTER",1028.675318659,84.760391583122),n:"MAOptions"]
+	--[[s:0.70035458463692, h:1, p:("CENTER", "UIParent", "CENTER", 1028.675318659, 84.760391583122), n:"MAOptions"]]
 	if not str then
 		maPrint(MOVANY.UNSERIALIZE_FRAME_INVALID_FORMAT)
 		return nil
 	end
 	str = str..","
 	local scannedName
-	local opt = {}
+	local opt = { }
 	for m1, m2, m3 in string.gmatch(str, "(%a+):(.-),") do
 		if m1 == "s" then
 			opt.scale = tonumber(m2)
@@ -6335,7 +5898,7 @@ function MovAny:UnserializeFrame(str, name)
 		elseif m1 == "h" then
 			opt.height = tonumber(m2)
 		elseif m1 == "fs" then
-			opt.frameStrata = string.sub(m2, 2, -2)
+			opt.frameStrata = string.sub(m2, 2, - 2)
 		elseif m1 == "cts" then
 			opt.clampToScreen = true
 		elseif m1 == "em" then
@@ -6355,30 +5918,24 @@ function MovAny:UnserializeFrame(str, name)
 		elseif m1 == "dlo" then
 			opt.disableLayerOverlay = true
 		elseif m1 == "n" then
-			scannedName = string.sub(m2, 2, -2)
+			scannedName = string.sub(m2, 2, - 2)
 		end
 		-- XXX: what to do about groups?
 	end
-	--,
 	for m1, m2, m3, m4, m5 in string.gmatch(str, "p:%(\"(.-)\",\"(.-)\",\"(.-)\",(-?%d+%.*%d*),(-?%d+%.*%d*)%)") do
 		opt.pos = {m1, m2, m3, tonumber(m4), tonumber(m5)}
 	end
-	
 	if name and name ~= scannedName then
 		maPrint(MOVANY.UNSERIALIZE_FRAME_NAME_DIFFERS)
 		return
 	end
-	
 	opt.name = scannedName or name
-	
 	return opt
 end
 
 function MovAny:SerializeProfile(pn)
 	local p = MADB.profiles[pn]
-	
 	local s = ""
-	
 	for i, v in pairs(p.frames) do
 		s = s..","..self:SerializeFrame(i, v)
 	end
@@ -6388,9 +5945,7 @@ end
 
 function MovAny:SerializeFrame(fn, opt)
 	opt = opt or self:GetUserData(fn)
-	
 	local s = "["
-	
 	for i, v in pairs(opt) do
 		if i == "pos" then
 			s = s.."p:(\""..v[1].."\",\""..v[2].."\",\""..v[3].."\","..v[4]..","..v[5].."),"
@@ -6430,21 +5985,14 @@ function MovAny:SerializeFrame(fn, opt)
 	return s
 end
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
--- version 12 rewrites
-
----------------------------------------------------------------
--- new stuff
-
-MovAny.core = {}
+MovAny.core = { }
 function MovAny:AddCore(name, m)
 	m.name = name
 	tinsert(self.core, m)
 	self[name] = m
 	return m
 end
-MovAny.modules = {}
+MovAny.modules = { }
 function MovAny:AddModule(name, m)
 	m.name = name
 	tinsert(self.modules, m)

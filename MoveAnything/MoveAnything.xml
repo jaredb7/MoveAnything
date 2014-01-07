@@ -132,8 +132,17 @@
 	<Button name="GameMenuButtonMoveAnything" parent="GameMenuFrame" inherits="GameMenuButtonTemplate" text="MoveAnything">
 		<Scripts>
 			<OnLoad>
-				self:ClearAllPoints()
-				self:SetPoint("TOP", GameMenuButtonContinue, "BOTTOM", 0, -25)
+				if GameMenuFrame_UpdateVisibleButtons then
+					hooksecurefunc("GameMenuFrame_UpdateVisibleButtons", function()
+						GameMenuFrame:SetHeight(GameMenuFrame:GetHeight() + 25)
+					end)
+				end
+				local point, relativeTo, relativePoint, x, y = GameMenuButtonMacros:GetPoint(1)
+				if (relativeTo and relativeTo ~= self) then
+					self:SetPoint(point, relativeTo, relativePoint, x, y)
+				end
+				GameMenuButtonMacros:ClearAllPoints()
+				GameMenuButtonMacros:SetPoint("TOP", self, "BOTTOM", 0, - 1)
 			</OnLoad>
 			<OnClick>
 				if IsShiftKeyDown() and IsControlKeyDown() and IsAltKeyDown() then

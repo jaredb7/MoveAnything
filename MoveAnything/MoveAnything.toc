@@ -1,7 +1,7 @@
 ## Interface: 50400
 ## Title: MoveAnything - MoP
-## Notes: 13.8.3 by Resike
-## Version: 13.8.3
+## Notes: 13.8.4 by Resike
+## Version: 13.8.4
 ## Author: Wagthaa
 ## SavedVariables: MADB
 

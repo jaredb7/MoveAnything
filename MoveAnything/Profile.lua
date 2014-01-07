@@ -1,7 +1,6 @@
 local MovAny = _G.MovAny
 local MOVANY = _G.MOVANY
 local _G = _G
-local _
 
 StaticPopupDialogs["MOVEANYTHING_PROFILE_RESET_CONFIRM"] = {
 	text = MOVANY.PROFILE_RESET_CONFIRM,
@@ -286,9 +285,8 @@ end
 function MovAny:CleanProfile(pn)
 	local p = MADB.profiles[pn]
 	if type(p) == "table" and type(p.frames) == "table" then
-		local f
 		for i, v in pairs(p.frames) do
-			f = _G[i]
+			local f = _G[i]
 			if f and f.IsUserPlaced and f:IsUserPlaced() and (f:IsMovable() or f:IsResizable()) then
 				if f:IsUserPlaced() then
 					if not f.MAWasUserPlaced then

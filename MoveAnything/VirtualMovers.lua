@@ -1,6 +1,5 @@
 ﻿local MovAny = _G.MovAny
-local MOVANY = _G.MOVANY
-local _
+
 local HidenFrame = CreateFrame("Frame", "HidenFrame", UIParent)
 HidenFrame.frameinfo = {}
 HidenFrame:Hide()

@@ -1,6 +1,5 @@
 local MovAny = _G.MovAny
 local MOVANY = _G.MOVANY
-local _
 
 local m = {
 	var = "pos",

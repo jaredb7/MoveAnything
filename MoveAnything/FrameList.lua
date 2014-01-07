@@ -1,6 +1,5 @@
 local MovAny = _G.MovAny
 local MOVANY = _G.MOVANY
-local _
 
 local cats = {
 	{name = "Achievements & Quests"},
@@ -31,8 +30,7 @@ local cats = {
 
 local API
 
-local m
-m = {
+local m = {
 	Enable = function(self)
 		API = MovAny.API
 		
@@ -626,9 +624,9 @@ m = {
 		API:AddElement({name = "StartSplash", displayName = "StartSplash"},c)
 		
 		c = API:AddCategory({name = "MA Internal Elements"})
-		API:AddElement({name = "AlwaysUpFrame1", hidden = 1, onlyOnceCreated = 1}, c)
-		API:AddElement({name = "AlwaysUpFrame2", hidden = 1, onlyOnceCreated = 1}, c)
-		API:AddElement({name = "AlwaysUpFrame3", hidden = 1, onlyOnceCreated = 1}, c)
+		--API:AddElement({name = "AlwaysUpFrame1", hidden = 1, onlyOnceCreated = 1}, c)
+		--API:AddElement({name = "AlwaysUpFrame2", hidden = 1, onlyOnceCreated = 1}, c)
+		--API:AddElement({name = "AlwaysUpFrame3", hidden = 1, onlyOnceCreated = 1}, c)
 		API:AddElement({name = "MainMenuBarArtFrame", hidden = 1, noScale = 1}, c)
 		API:AddElement({name = "WorldMapFrame", hidden = 1, refuseSync = "Unsuppported", unsupported = 1}, c)
 		API:AddElement({name = "PaperDollFrame", hidden = 1, unsupported = 1},c)
