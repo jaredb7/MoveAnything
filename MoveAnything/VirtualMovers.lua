@@ -336,14 +336,14 @@ MovAny.lVirtualMovers = {
 		w = 200,
 		h = 150,
 		point = {"CENTER", "UIParent", "CENTER", 0, 0},
-	--	inherits = WatchFrame,
+		--inherits = WatchFrame,
 		OnMAHook = function(self)
 			local b = PlayerPowerBarAlt
 			MovAny:UnlockPoint(b)
 			b:ClearAllPoints(PlayerPowerBarAltMover)
 			b:SetPoint("CENTER", PlayerPowerBarAltMover, "CENTER")
 			MovAny:LockPoint(b)
-		--	b.ignoreFramePositionManager = true
+			--b.ignoreFramePositionManager = true
 			b:SetMovable(true)
 			b:SetUserPlaced(true)
 			self.sbf = b
@@ -351,6 +351,29 @@ MovAny.lVirtualMovers = {
 		OnMAPostReset = function(self)
 			MovAny:UnlockPoint(WatchFrame)
 			local b = PlayerPowerBarAlt
+			b:ClearAllPoints()
+			b:SetPoint("TOPRIGHT", "UIParent", "BOTTOMRIGHT", 0, 0)
+		end,
+	},
+	TargetFramePowerBarAltMover = {
+		w = 100,
+		h = 20,
+		point = {"CENTER", "UIParent", "CENTER", 0, 0},
+		--inherits = WatchFrame,
+		OnMAHook = function(self)
+			local b = TargetFramePowerBarAlt
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints(TargetFramePowerBarAltMover)
+			b:SetPoint("CENTER", TargetFramePowerBarAltMover, "CENTER")
+			MovAny:LockPoint(b)
+			--b.ignoreFramePositionManager = true
+			b:SetMovable(true)
+			b:SetUserPlaced(true)
+			self.sbf = b
+		end,
+		OnMAPostReset = function(self)
+			MovAny:UnlockPoint(WatchFrame)
+			local b = TargetFramePowerBarAlt
 			b:ClearAllPoints()
 			b:SetPoint("TOPRIGHT", "UIParent", "BOTTOMRIGHT", 0, 0)
 		end,
@@ -511,20 +534,21 @@ MovAny.lVirtualMovers = {
 		h = 37,
 		relPoint = {"BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 549, 2},
 		excludes = "MicroButtonsVerticalMover",
-	--	excludes2 = "MicroButtonsVehicleMover",
+		--excludes2 = "MicroButtonsVehicleMover",
 		children = {
-			"CharacterMicroButton", 
+			"CharacterMicroButton",
 			"SpellbookMicroButton",
-			"TalentMicroButton", 
-			"AchievementMicroButton", 
+			"TalentMicroButton",
+			"AchievementMicroButton",
 			"QuestLogMicroButton",
-			"GuildMicroButton", 
-			"PVPMicroButton", 
+			"GuildMicroButton",
+			"PVPMicroButton",
 			"LFDMicroButton",
 			"CompanionsMicroButton",
-			"EJMicroButton", 
-			"MainMenuMicroButton", 
-			"HelpMicroButton"},
+			"EJMicroButton",
+			"StoreMicroButton",
+			"MainMenuMicroButton"
+		},
 		OnMAFoundChild = function(self, index, child)
 			if child == self.firstChild then
 				child:ClearAllPoints()
@@ -533,9 +557,9 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAReleaseChild = function(self, index, child)
 			if child == self.firstChild then
-				child:SetPoint("BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 546, 2)
+				child:SetPoint("BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 549, 2)
 			else
-				child:SetPoint("BOTTOMLEFT", self.lastChild, "BOTTOMRIGHT", -2, 0)
+				child:SetPoint("BOTTOMLEFT", self.lastChild, "BOTTOMRIGHT", - 3, 0)
 			end
 		end,
 		OnMAScale = genericFunctions.OnMAScaleChildren,
@@ -544,21 +568,23 @@ MovAny.lVirtualMovers = {
 	MicroButtonsVerticalMover = {
 		w = 28,
 		h = 405,
-		relPoint = {"BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 546, 2},
+		relPoint = {"BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 549, 2},
 		excludes = "MicroButtonsMover",
 		notMAParent = true,
-		children = {"CharacterMicroButton", 
+		children = {
+			"CharacterMicroButton",
 			"SpellbookMicroButton",
-			"TalentMicroButton", 
-			"AchievementMicroButton", 
+			"TalentMicroButton",
+			"AchievementMicroButton",
 			"QuestLogMicroButton",
 			"GuildMicroButton",
-			"PVPMicroButton", 
+			"PVPMicroButton",
 			"LFDMicroButton",
 			"CompanionsMicroButton",
 			"EJMicroButton",
-			"MainMenuMicroButton", 
-			"HelpMicroButton"},
+			"StoreMicroButton",
+			"MainMenuMicroButton"
+		},
 		OnMAFoundChild = function(self, index, child)
 			child:ClearAllPoints()
 			if child == self.firstChild then
@@ -571,9 +597,9 @@ MovAny.lVirtualMovers = {
 			child.MAParent = "MicroButtonsMover"
 			child:ClearAllPoints()
 			if child == self.firstChild then
-				child:SetPoint("BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 546, 2)
+				child:SetPoint("BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 549, 2)
 			else
-				child:SetPoint("BOTTOMLEFT", self.lastChild, "BOTTOMRIGHT", -2, 0)
+				child:SetPoint("BOTTOMLEFT", self.lastChild, "BOTTOMRIGHT", - 3, 0)
 			end
 		end,
 		OnMAScale = genericFunctions.OnMAScaleChildren,

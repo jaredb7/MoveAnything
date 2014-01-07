@@ -3388,7 +3388,7 @@ function MovAny:NudgerFrameRefresh()
 			if fn then
 				labelText = labelText.."\n"..fn
 				MANudger.idx = API:GetElement(fn).idx
-				if self.currentMover.MAE.noHide then
+				if self.currentMover.MAE and self.currentMover.MAE.noHide then
 					MANudger_Hide:Hide()
 				else
 					MANudger_Hide:Show()
@@ -3817,8 +3817,8 @@ end
 
 function MovAny:_AddDependents(l, f)
 	local p = select(2, f:GetPoint(1))
-	if p and l[ p ] then
-		l[ f ] = f
+	if p and l[p] then
+		l[f] = f
 	end
 end
 
