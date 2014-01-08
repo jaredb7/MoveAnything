@@ -4225,6 +4225,11 @@ SlashCmdList["MAMAFE"] = function(msg)
 	end
 end
 
+SLASH_MAINFO1 = "/info"
+SlashCmdList["MAINFO"] = function(msg)
+	GetParentInfoFromCursor()
+end
+
 -- X: global functions
 
 function numfor(n, decimals)
@@ -5992,6 +5997,7 @@ function MovAny:AddCore(name, m)
 	self[name] = m
 	return m
 end
+
 MovAny.modules = { }
 function MovAny:AddModule(name, m)
 	m.name = name
@@ -5999,6 +6005,7 @@ function MovAny:AddModule(name, m)
 	self[name] = m
 	return m
 end
+
 function MovAny:DeleteModule(m)
 	for i, v in ipairs(self.modules) do
 		if v == m then
@@ -6007,4 +6014,17 @@ function MovAny:DeleteModule(m)
 		end
 	end
 	self[m.name] = nil
+end
+
+function GetParentInfoFromCursor()
+	local fn = GetMouseFocus():GetName()
+	local f = _G[fn]
+	print("|cFF50C0FF".."<---------------------------------------------->".."|r")
+	print("|cFF50C0FF".."Frame:".."|r", fn)
+	for i = 1, f:GetNumPoints() do
+		local point, relativeTo, relativePoint, xOfs, yOfs = f:GetPoint(i)
+		print(i..".", "|cFF50C0FF".."p:".."|r", point, "|cFF50C0FF".."rfn:".."|r", relativeTo:GetName(), "|cFF50C0FF".."rf:".."|r", relativeTo, "|cFF50C0FF".."rp:".."|r", relativePoint, "|cFF50C0FF".."x:".."|r", xOfs, "|cFF50C0FF".."y:".."|r", yOfs)
+	end
+	print("|cFF50C0FF".."Width:".."|r", f:GetWidth())
+	print("|cFF50C0FF".."Height:".."|r", f:GetHeight())
 end

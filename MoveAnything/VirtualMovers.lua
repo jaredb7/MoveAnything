@@ -274,24 +274,21 @@ MovAny.lVirtualMovers = {
 		w = 200,
 		h = 450,
 		point = {"TOPRIGHT", "UIParent", "TOPRIGHT", -200, -200},
-	--	inherits = WatchFrame,
 		OnMAHook = function(self)
 			self:SetFrameStrata("LOW")
 			local b = WatchFrame
 			local bbb = b:GetHeight()
 			MovAny:UnlockPoint(b)
 			b:ClearAllPoints()	
-		--	print("Done")
 			b:SetPoint("TOPLEFT", self, "TOPLEFT")
-		--	b:SetPoint("LEFT", WatchFrameMover, "LEFT")
-		--	b:SetPoint("TOP", WatchFrameMover, "TOP")
-		--	b:SetPoint("BOTTOM", WatchFrameMover, "BOTTOM")
-			
+			--b:SetPoint("LEFT", WatchFrameMover, "LEFT")
+			--b:SetPoint("TOP", WatchFrameMover, "TOP")
+			--b:SetPoint("BOTTOM", WatchFrameMover, "BOTTOM")
 			MovAny:LockPoint(b)
-		--	b.ignoreFramePositionManager = true
-		--	b:SetMovable(true)
+			--b.ignoreFramePositionManager = true
+			--b:SetMovable(true)
 			b:SetHeight(self:GetHeight())
-		--	b:SetUserPlaced(true)
+			--b:SetUserPlaced(true)
 			self.sbf = b
 			
 			_G["InterfaceOptionsObjectivesPanelWatchFrameWidth"]:SetEnabled(false)
@@ -333,10 +330,9 @@ MovAny.lVirtualMovers = {
 		end,
 	},
 	PlayerPowerBarAltMover = {
-		w = 200,
-		h = 150,
-		point = {"CENTER", "UIParent", "CENTER", 0, 0},
-		--inherits = WatchFrame,
+		w = 256,
+		h = 64,
+		point = {"BOTTOM", "UIParent", "BOTTOM", 0, 155},
 		OnMAHook = function(self)
 			local b = PlayerPowerBarAlt
 			MovAny:UnlockPoint(b)
@@ -352,14 +348,13 @@ MovAny.lVirtualMovers = {
 			MovAny:UnlockPoint(WatchFrame)
 			local b = PlayerPowerBarAlt
 			b:ClearAllPoints()
-			b:SetPoint("TOPRIGHT", "UIParent", "BOTTOMRIGHT", 0, 0)
+			b:SetPoint("BOTTOM", "UIParent", "BOTTOM", 0, 155)
 		end,
 	},
 	TargetFramePowerBarAltMover = {
 		w = 100,
-		h = 20,
+		h = 19,
 		point = {"CENTER", "UIParent", "CENTER", 0, 0},
-		--inherits = WatchFrame,
 		OnMAHook = function(self)
 			local b = TargetFramePowerBarAlt
 			MovAny:UnlockPoint(b)
@@ -375,7 +370,7 @@ MovAny.lVirtualMovers = {
 			MovAny:UnlockPoint(WatchFrame)
 			local b = TargetFramePowerBarAlt
 			b:ClearAllPoints()
-			b:SetPoint("TOPRIGHT", "UIParent", "BOTTOMRIGHT", 0, 0)
+			b:SetPoint("CENTER", "UIParent", "CENTER", 0, 0)
 		end,
 	},
 	PetBattleMover6 = {
@@ -417,7 +412,7 @@ MovAny.lVirtualMovers = {
 	BagButtonsMover = {
 		w = 160,
 		h = 38,
-		relPoint = {"RIGHT", "MainMenuBarArtFrame", "RIGHT", - 4, - 6},
+		relPoint = {"RIGHT", "MainMenuBarArtFrame", "RIGHT", - 4, - 5.5},
 		excludes = "BagButtonsVerticalMover",
 		children = {
 			"MainMenuBarBackpackButton",
@@ -437,7 +432,7 @@ MovAny.lVirtualMovers = {
 		OnMAReleaseChild = function(self, index, child)
 			child:ClearAllPoints()
 			if child == self.firstChild then
-				child:SetPoint("RIGHT", "MainMenuBarArtFrame", "RIGHT", - 4, - 6)
+				child:SetPoint("RIGHT", "MainMenuBarArtFrame", "RIGHT", - 4, - 5.5)
 			else
 				child:SetPoint("RIGHT", self.lastChild, "LEFT", - 2, 0)
 			end
@@ -448,7 +443,7 @@ MovAny.lVirtualMovers = {
 	BagButtonsVerticalMover = {
 		w = 38,
 		h = 160,
-		relPoint = {"BOTTOMRIGHT", "MainMenuBarArtFrame", "BOTTOMRIGHT", - 4, - 6},
+		relPoint = {"BOTTOMRIGHT", "MainMenuBarArtFrame", "BOTTOMRIGHT", 0, 6},
 		excludes = "BagButtonsMover",
 		notMAParent = true,
 		children = {
@@ -470,7 +465,7 @@ MovAny.lVirtualMovers = {
 		OnMAReleaseChild = function(self, index, child)
 			child:ClearAllPoints()
 			if child == self.firstChild then
-				child:SetPoint("RIGHT", "MainMenuBarArtFrame", "RIGHT", - 4, - 6)
+				child:SetPoint("RIGHT", "MainMenuBarArtFrame", "RIGHT", - 4, - 5.5)
 			else
 				child:SetPoint("RIGHT", self.lastChild, "LEFT", - 2, 0)
 			end

@@ -115,7 +115,7 @@ local m = {
 		--API:AddElement({name = "BattlefieldFrame", displayName = "Battleground Queue"}, c)
 		API:AddElement({name = "WorldStateScoreFrame", displayName = "Battleground Scoreboard"}, c)
 		API:AddElement({name = "WorldStateCaptureBar1", displayName = "Flag Capture Timer Bar", onlyOnceCreated = 1}, c)
-		local wsauf = API:AddElement({name = "WorldStateAlwaysUpFrame", displayName = "Top Center Status Display", noUnanchorRelatives = 1, noScale = 1}, c)
+		local wsauf = API:AddElement({name = "WorldStateAlwaysUpFrame", displayName = "Top Center Status Display", noUnanchorRelatives = 1}, c)
 		API:AddElement({name = "AlwaysUpFrame1", displayName = "AlwaysUp Frame 1", create = "WorldStateAlwaysUpTemplate", onlyOnceCreated = 1}, c)
 		API:AddElement({name = "AlwaysUpFrame2", displayName = "AlwaysUp Frame 2", create = "WorldStateAlwaysUpTemplate", onlyOnceCreated = 1}, c)
 		API:AddElement({name = "AlwaysUpFrame3", displayName = "AlwaysUp Frame 3", create = "WorldStateAlwaysUpTemplate", onlyOnceCreated = 1}, c)
