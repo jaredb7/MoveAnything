@@ -400,8 +400,6 @@ MovAny.lVirtualMovers = {
 			b:SetPoint("CENTER", "UIParent", "BOTTOM", 0, 50)
 		end,
 	},
-	
-	
 	BagItemTooltipMover = {
 		frameStrata = "TOOLTIP",
 		w = 150,
@@ -417,38 +415,40 @@ MovAny.lVirtualMovers = {
 		end
 	},
 	BagButtonsMover = {
-		w = 196,
-		h = 44,
-		relPoint = {"BOTTOMRIGHT", "MainMenuBarArtFrame", "BOTTOMRIGHT", -6, -2},
+		w = 160,
+		h = 38,
+		relPoint = {"RIGHT", "MainMenuBarArtFrame", "RIGHT", - 4, - 6},
 		excludes = "BagButtonsVerticalMover",
 		children = {
 			"MainMenuBarBackpackButton",
 			"CharacterBag0Slot",
 			"CharacterBag1Slot",
 			"CharacterBag2Slot",
-			"CharacterBag3Slot",
+			"CharacterBag3Slot"
 		},
 		OnMAFoundChild = function(self, index, child)
 			child:ClearAllPoints()
 			if child == self.firstChild then
 				child:SetPoint("RIGHT", self, "RIGHT", 0, 0)
 			else
-				child:SetPoint("RIGHT", self.lastChild, "LEFT", -4, 0)
+				child:SetPoint("RIGHT", self.lastChild, "LEFT", - 2, 0)
 			end
 		end,
 		OnMAReleaseChild = function(self, index, child)
 			child:ClearAllPoints()
 			if child == self.firstChild then
-				child:SetPoint("BOTTOMRIGHT", "MainMenuBarArtFrame", "BOTTOMRIGHT", -6, -2)
+				child:SetPoint("RIGHT", "MainMenuBarArtFrame", "RIGHT", - 4, - 6)
 			else
-				child:SetPoint("RIGHT", self.lastChild, "LEFT", -4, 0)
+				child:SetPoint("RIGHT", self.lastChild, "LEFT", - 2, 0)
 			end
 		end,
+		OnMAScale = genericFunctions.OnMAScaleChildren,
+		OnMAPreReset = genericFunctions.OnMAResetChildrenScale
 	},
 	BagButtonsVerticalMover = {
-		w = 44,
-		h = 173,
-		relPoint = {"BOTTOMRIGHT", "MainMenuBarArtFrame", "BOTTOMRIGHT", -6, -2},
+		w = 38,
+		h = 160,
+		relPoint = {"BOTTOMRIGHT", "MainMenuBarArtFrame", "BOTTOMRIGHT", - 4, - 6},
 		excludes = "BagButtonsMover",
 		notMAParent = true,
 		children = {
@@ -456,26 +456,28 @@ MovAny.lVirtualMovers = {
 			"CharacterBag0Slot",
 			"CharacterBag1Slot",
 			"CharacterBag2Slot",
-			"CharacterBag3Slot",
+			"CharacterBag3Slot"
 		},
 		OnMAFoundChild = function(self, index, child)
 			child:ClearAllPoints()
 			if child == self.firstChild then
 				child:SetPoint("BOTTOM", self, "BOTTOM", 0, 0)
 			else
-				child:SetPoint("BOTTOM", self.lastChild, "TOP", 0, 3)
+				child:SetPoint("BOTTOM", self.lastChild, "TOP", 0, 2)
 			end
 			child.MAParent = self
 		end,
 		OnMAReleaseChild = function(self, index, child)
 			child:ClearAllPoints()
 			if child == self.firstChild then
-				child:SetPoint("BOTTOMRIGHT", "MainMenuBarArtFrame", "BOTTOMRIGHT", -6, -2)
+				child:SetPoint("RIGHT", "MainMenuBarArtFrame", "RIGHT", - 4, - 6)
 			else
-				child:SetPoint("RIGHT", self.lastChild, "LEFT", -4, 0)
+				child:SetPoint("RIGHT", self.lastChild, "LEFT", - 2, 0)
 			end
 			child.MAParent = "BagButtonsMover"
 		end,
+		OnMAScale = genericFunctions.OnMAScaleChildren,
+		OnMAPreReset = genericFunctions.OnMAResetChildrenScale
 	},
 	BagFrame1 = {
 		inherits = "MovableBagFrame",
