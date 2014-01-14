@@ -1429,7 +1429,7 @@ function MovAny:LockScale(f)
 end
 
 function MovAny:UnlockScale(f)
-	f.MAScaled = nil
+	f.MAScaled = f:GetScale()
 end
 
 function MovAny:Rescale(f, scale)
@@ -4241,7 +4241,7 @@ function numfor(n, decimals)
 		decimals = 2
 	end
 	while decimals > 0 do
-		if string.sub(n, -1) == "0" then
+		if string.sub(n, - 1) == "0" then
 			n = string.sub(n, 1, -2)
 		end
 		decimals = decimals - 1
@@ -5623,15 +5623,11 @@ function MovAny:CreateVM(name)
 	vm.MAScanForChildren = function(vm, dontCallNewChild, dontSync)
 		--[[xpcall(function()
 			MAScanForChildren(vm, dontCallNewChild, dontSync)
-		end,
-		function()
-			--print("Error: "..debugstack(2, 20, 20))
-		end)]]
+		end,]]
 		xpcall(function()
 			MAScanForChildren(vm, dontCallNewChild, dontSync)
 		end, MovAny.SyncErrorHandler)
 	end
-	
 	if not vm.MAPoint then
 		if data.point then
 			vm:SetPoint(unpack(data.point))
@@ -6014,6 +6010,18 @@ function MovAny:DeleteModule(m)
 		end
 	end
 	self[m.name] = nil
+end
+
+function GetParentInfo(f)
+	local fn = f:GetName()
+	print("|cFF50C0FF".."<---------------------------------------------->".."|r")
+	print("|cFF50C0FF".."Frame:".."|r", fn)
+	for i = 1, f:GetNumPoints() do
+		local point, relativeTo, relativePoint, xOfs, yOfs = f:GetPoint(i)
+		print(i..".", "|cFF50C0FF".."p:".."|r", point, "|cFF50C0FF".."rfn:".."|r", relativeTo:GetName(), "|cFF50C0FF".."rf:".."|r", relativeTo, "|cFF50C0FF".."rp:".."|r", relativePoint, "|cFF50C0FF".."x:".."|r", xOfs, "|cFF50C0FF".."y:".."|r", yOfs)
+	end
+	print("|cFF50C0FF".."Width:".."|r", f:GetWidth())
+	print("|cFF50C0FF".."Height:".."|r", f:GetHeight())
 end
 
 function GetParentInfoFromCursor()

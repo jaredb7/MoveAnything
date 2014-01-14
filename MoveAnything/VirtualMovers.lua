@@ -1,27 +1,22 @@
 ﻿local MovAny = _G.MovAny
 
 local HidenFrame = CreateFrame("Frame", "HidenFrame", UIParent)
-HidenFrame.frameinfo = {}
+HidenFrame.frameinfo = { }
 HidenFrame:Hide()
 
-local genericFunctions
-genericFunctions = {
-	OnMAScaleChildren = function(self, scale)
-		if type(scale) ~= "number" then
-			return
+local function ScaleChildren(self, scale)
+	if self.attachedChildren then
+		for i, child in pairs(self.attachedChildren) do
+			child:SetScale(scale)
 		end
-		if self.attachedChildren then
-			for i, child in pairs(self.attachedChildren) do
-				child:SetScale(scale)
-			end
-		end
-	end,
-	OnMAResetChildrenScale = function(self, readOnly)
-		if not readOnly and self.opt.scale and self.opt.scale ~= 1 then
-			genericFunctions.OnMAScaleChildren(self, 1)
-		end
-	end,
-}
+	end
+end
+
+local function ResetScaleChildren(self, readOnly)
+	if not readOnly then
+		ScaleChildren(self, 1)
+	end
+end
 
 MovAny.lVirtualMovers = {
 	UIPanelMover1 = {
@@ -31,7 +26,7 @@ MovAny.lVirtualMovers = {
 		OnMAAttach = MovAny.SyncUIPanels,
 		OnMAPosition = MovAny.SyncUIPanels,
 		OnMAAlpha = MovAny.SyncUIPanels,
-		OnMAScale = MovAny.SyncUIPanels,
+		OnMAScale = MovAny.SyncUIPanels
 	},
 	UIPanelMover2 = {
 		w = 384,
@@ -40,7 +35,7 @@ MovAny.lVirtualMovers = {
 		OnMAAttach = MovAny.SyncUIPanels,
 		OnMAPosition = MovAny.SyncUIPanels,
 		OnMAAlpha = MovAny.SyncUIPanels,
-		OnMAScale = MovAny.SyncUIPanels,
+		OnMAScale = MovAny.SyncUIPanels
 	},
 	UIPanelMover3 = {
 		w = 384,
@@ -49,7 +44,7 @@ MovAny.lVirtualMovers = {
 		OnMAAttach = MovAny.SyncUIPanels,
 		OnMAPosition = MovAny.SyncUIPanels,
 		OnMAAlpha = MovAny.SyncUIPanels,
-		OnMAScale = MovAny.SyncUIPanels,
+		OnMAScale = MovAny.SyncUIPanels
 	},
 	TooltipMover = {
 		frameStrata = "TOOLTIP",
@@ -59,22 +54,18 @@ MovAny.lVirtualMovers = {
 		OnShow = function()
 			self:SetFrameLevel(GameTooltip:GetFrameLevel() + 1)
 		end,
-		--[[
-		OnMAPostHook = function(self)
+		--[[OnMAPostHook = function(self)
 			--MovAny:HookTooltip(self)
 		end,
 		OnMAPosition = function(self)
 			--MovAny:HookTooltip(self)
-		end,
-		]]
+		end,]]
 		OnMAPreReset = function(self)
 			local f = _G.GameTooltip
 			self.MAE:Reset(f, true)
 			f.MAHidden = nil
-		end,
+		end
 	},
-	
-	
 	PetBattleMover1 = {
 		w = 270,
 		h = 80,
@@ -95,9 +86,8 @@ MovAny.lVirtualMovers = {
 			local b = PetBattleFrame.ActiveAlly
 			b:ClearAllPoints()
 			b:SetPoint("TOPLEFT", PetBattleFrame.TopArtLeft, "TOPLEFT", 115, -5)
-		end,
+		end
 	},
-	
 	PetBattleMover11 = {
 		w = 40,
 		h = 80,
@@ -118,9 +108,8 @@ MovAny.lVirtualMovers = {
 			local b = PetBattleFrame.Ally2
 			b:ClearAllPoints()
 			b:SetPoint("TOPLEFT", PetBattleFrame.TopArtLeft, "TOPLEFT", 65, -2)
-		end,
+		end
 	},
-	
 	PetBattleMover2 = {
 		w = 270,
 		h = 80,
@@ -141,9 +130,8 @@ MovAny.lVirtualMovers = {
 			local b = PetBattleFrame.ActiveEnemy
 			b:ClearAllPoints()
 			b:SetPoint("TOPRIGHT", PetBattleFrame.TopArtRight, "TOPRIGHT", -115, -5)
-		end,
+		end
 	},
-	
 	PetBattleMover22 = {
 		w = 40,
 		h = 80,
@@ -164,9 +152,8 @@ MovAny.lVirtualMovers = {
 			local b = PetBattleFrame.Enemy2
 			b:ClearAllPoints()
 			b:SetPoint("TOPLEFT", PetBattleFrame.TopArtRight, "TOPLEFT", -65, -2)
-		end,
+		end
 	},
-	
 	PetBattleMover3 = {
 		w = 170,
 		h = 40,
@@ -187,9 +174,8 @@ MovAny.lVirtualMovers = {
 			local b = PetBattleFrame.WeatherFrame
 			b:ClearAllPoints()
 			b:SetPoint("TOPLEFT", PetBattleFrame, "TOP", -70, -60)
-		end,
+		end
 	},
-	
 	PetBattleMover4 = {
 		w = 140,
 		h = 27,
@@ -210,9 +196,8 @@ MovAny.lVirtualMovers = {
 			local b = PetBattleFrame.BottomFrame.TurnTimer
 			b:ClearAllPoints()
 			b:SetPoint("CENTER", PetBattleFrame.BottomFrame, "TOP", 0, -5)
-		end,
+		end
 	},
-	
 	PetBattleMover5 = {
 		w = 644,
 		h = 320,
@@ -233,9 +218,8 @@ MovAny.lVirtualMovers = {
 			local b = PetBattleFrame.BottomFrame.PetSelectionFrame
 			b:ClearAllPoints()
 			b:SetPoint("CENTER", "UIParent", "BOTTOM", 0, 200)
-		end,
+		end
 	},
-	
 	PetBattleMover7 = {
 		w = 0,
 		h = 0,
@@ -251,7 +235,7 @@ MovAny.lVirtualMovers = {
 			else
 				MovAny:UnlockVisibility(self.sbf)
 			end
-		end,
+		end
 	},
 	PetBattleMover8 = {
 		w = 0,
@@ -268,7 +252,7 @@ MovAny.lVirtualMovers = {
 			else
 				MovAny:UnlockVisibility(self.sbf)
 			end
-		end,
+		end
 	},
 	WatchFrameMover = {
 		w = 200,
@@ -290,7 +274,6 @@ MovAny.lVirtualMovers = {
 			b:SetHeight(self:GetHeight())
 			--b:SetUserPlaced(true)
 			self.sbf = b
-			
 			_G["InterfaceOptionsObjectivesPanelWatchFrameWidth"]:SetEnabled(false)
 		end,
 		OnMAPostReset = function(self)
@@ -305,15 +288,13 @@ MovAny.lVirtualMovers = {
 			local scaleS = self:GetScale()
 			local scaleH = self:GetHeight()
 			local scaleW = self:GetWidth()
-			
-			if scaleH*scaleS < 150 then
+			if scaleH * scaleS < 150 then
 				scaleH = 150
 			end
 			
-			if scaleW*scaleS < 150 then
+			if scaleW * scaleS < 150 then
 				scaleW = 150
 			end
-			
 			b:SetHeight(scaleH)
 			b:SetWidth(scaleW)
 			SetCVar("watchFrameWidth", 0)
@@ -327,7 +308,7 @@ MovAny.lVirtualMovers = {
 			else
 				MovAny:UnlockVisibility(_G["WatchFrame"])
 			end
-		end,
+		end
 	},
 	PlayerPowerBarAltMover = {
 		w = 256,
@@ -349,12 +330,12 @@ MovAny.lVirtualMovers = {
 			local b = PlayerPowerBarAlt
 			b:ClearAllPoints()
 			b:SetPoint("BOTTOM", "UIParent", "BOTTOM", 0, 155)
-		end,
+		end
 	},
 	TargetFramePowerBarAltMover = {
-		w = 100,
-		h = 19,
-		point = {"CENTER", "UIParent", "CENTER", 0, 0},
+		w = 128,
+		h = 32,
+		point = {"LEFT", "TargetFrame", "RIGHT", - 25, 5},
 		OnMAHook = function(self)
 			local b = TargetFramePowerBarAlt
 			MovAny:UnlockPoint(b)
@@ -370,8 +351,8 @@ MovAny.lVirtualMovers = {
 			MovAny:UnlockPoint(WatchFrame)
 			local b = TargetFramePowerBarAlt
 			b:ClearAllPoints()
-			b:SetPoint("CENTER", "UIParent", "CENTER", 0, 0)
-		end,
+			b:SetPoint("LEFT", "TargetFrame", "RIGHT", - 25, 5)
+		end
 	},
 	PetBattleMover6 = {
 		w = 650,
@@ -393,7 +374,7 @@ MovAny.lVirtualMovers = {
 			local b = PetBattleFrame.BottomFrame
 			b:ClearAllPoints()
 			b:SetPoint("CENTER", "UIParent", "BOTTOM", 0, 50)
-		end,
+		end
 	},
 	BagItemTooltipMover = {
 		frameStrata = "TOOLTIP",
@@ -410,16 +391,16 @@ MovAny.lVirtualMovers = {
 		end
 	},
 	BagButtonsMover = {
-		w = 160,
-		h = 38,
-		relPoint = {"RIGHT", "MainMenuBarArtFrame", "RIGHT", - 4, - 5.5},
+		w = 158,
+		h = 30,
+		relPoint = {"BOTTOMRIGHT", "MainMenuBarArtFrame", "BOTTOMRIGHT", - 4, 6},
 		excludes = "BagButtonsVerticalMover",
 		children = {
 			"MainMenuBarBackpackButton",
-			"CharacterBag0Slot",
-			"CharacterBag1Slot",
+			"CharacterBag3Slot",
 			"CharacterBag2Slot",
-			"CharacterBag3Slot"
+			"CharacterBag1Slot",
+			"CharacterBag0Slot"
 		},
 		OnMAFoundChild = function(self, index, child)
 			child:ClearAllPoints()
@@ -432,18 +413,18 @@ MovAny.lVirtualMovers = {
 		OnMAReleaseChild = function(self, index, child)
 			child:ClearAllPoints()
 			if child == self.firstChild then
-				child:SetPoint("RIGHT", "MainMenuBarArtFrame", "RIGHT", - 4, - 5.5)
+				child:SetPoint("BOTTOMRIGHT", "MainMenuBarArtFrame", "BOTTOMRIGHT", - 4, 6)
 			else
 				child:SetPoint("RIGHT", self.lastChild, "LEFT", - 2, 0)
 			end
 		end,
-		OnMAScale = genericFunctions.OnMAScaleChildren,
-		OnMAPreReset = genericFunctions.OnMAResetChildrenScale
+		OnMAScale = ScaleChildren,
+		OnMAPreReset = ResetScaleChildren
 	},
 	BagButtonsVerticalMover = {
-		w = 38,
-		h = 160,
-		relPoint = {"BOTTOMRIGHT", "MainMenuBarArtFrame", "BOTTOMRIGHT", 0, 6},
+		w = 30,
+		h = 158,
+		relPoint = {"BOTTOMRIGHT", "MainMenuBarArtFrame", "BOTTOMRIGHT", - 4, 6},
 		excludes = "BagButtonsMover",
 		notMAParent = true,
 		children = {
@@ -465,14 +446,14 @@ MovAny.lVirtualMovers = {
 		OnMAReleaseChild = function(self, index, child)
 			child:ClearAllPoints()
 			if child == self.firstChild then
-				child:SetPoint("RIGHT", "MainMenuBarArtFrame", "RIGHT", - 4, - 5.5)
+				child:SetPoint("BOTTOMRIGHT", "MainMenuBarArtFrame", "BOTTOMRIGHT", - 4, 6)
 			else
 				child:SetPoint("RIGHT", self.lastChild, "LEFT", - 2, 0)
 			end
 			child.MAParent = "BagButtonsMover"
 		end,
-		OnMAScale = genericFunctions.OnMAScaleChildren,
-		OnMAPreReset = genericFunctions.OnMAResetChildrenScale
+		OnMAScale = ScaleChildren,
+		OnMAPreReset = ResetScaleChildren
 	},
 	BagFrame1 = {
 		inherits = "MovableBagFrame",
@@ -524,7 +505,7 @@ MovAny.lVirtualMovers = {
 	},
 	KeyRingFrame = {
 		inherits = "MovableBagFrame",
-		id = -2,
+		id = - 2,
 	},
 	MicroButtonsMover = {
 		w = 303,
@@ -559,8 +540,8 @@ MovAny.lVirtualMovers = {
 				child:SetPoint("BOTTOMLEFT", self.lastChild, "BOTTOMRIGHT", - 3, 0)
 			end
 		end,
-		OnMAScale = genericFunctions.OnMAScaleChildren,
-		OnMAPreReset = genericFunctions.OnMAResetChildrenScale,
+		OnMAScale = ScaleChildren,
+		OnMAPreReset = ResetScaleChildren
 	},
 	MicroButtonsVerticalMover = {
 		w = 28,
@@ -599,8 +580,8 @@ MovAny.lVirtualMovers = {
 				child:SetPoint("BOTTOMLEFT", self.lastChild, "BOTTOMRIGHT", - 3, 0)
 			end
 		end,
-		OnMAScale = genericFunctions.OnMAScaleChildren,
-		OnMAPreReset = genericFunctions.OnMAResetChildrenScale,
+		OnMAScale = ScaleChildren,
+		OnMAPreReset = ResetScaleChildren
 	},
 	BasicActionButtonsMover = {
 		w = 498,
@@ -610,19 +591,16 @@ MovAny.lVirtualMovers = {
 		excludes = "BasicActionButtonsVerticalMover",
 		prefix = "ActionButton",
 		count = 12,
-	--	prefix1 = "ActionButton",
+		--prefix1 = "ActionButton",
 		OnMAFoundChild = function(self, index, child)
 			child:ClearAllPoints()
 			if prefix == nil then
-			--	print("test:"..tostring(child:GetName()).." "..tostring(prefix).." "..tostring(self))
 				if not self.lastChild then
 					child:SetPoint("LEFT", self, "LEFT")
 				else
 					child:SetPoint("LEFT", self.lastChild, "RIGHT", 6, 0)
 				end
 			else
-			--	print("test:"..tostring(child:GetName()).." "..tostring(prefix).." "..tostring(self))
-			--	table.foreach(self, print)
 				child:SetPoint("CENTER", self.prefix..index, "CENTER")
 			end
 		end,
@@ -690,29 +668,25 @@ MovAny.lVirtualMovers = {
 			for i = 1, 12 do
 				_G["ActionButton"..i]:SetScale(scale)
 			end
-		end,
+		end
 	},
-	
 	OverrideActionButtonsMover = {
 		w = 340,
-		h = 54,
-		relPoint = {"BOTTOM", "OverrideActionBar", "BOTTOM", -128, 17},
+		h = 52,
+		relPoint = {"BOTTOM", "OverrideActionBar", "BOTTOM", - 133, 17},
 		protected = true,
 		prefix = "OverrideActionBarButton",
 		count = 6,
-	--	prefix1 = "ActionButton",
+		--prefix1 = "ActionButton",
 		OnMAFoundChild = function(self, index, child)
 			child:ClearAllPoints()
 			if prefix == nil then
-			--	print("test:"..tostring(child:GetName()).." "..tostring(prefix).." "..tostring(self))
 				if not self.lastChild then
 					child:SetPoint("LEFT", self, "LEFT")
 				else
 					child:SetPoint("LEFT", self.lastChild, "RIGHT", 6, 0)
 				end
 			else
-			--	print("test:"..tostring(child:GetName()).." "..tostring(prefix).." "..tostring(self))
-			--	table.foreach(self, print)
 				child:SetPoint("CENTER", self.prefix..index, "CENTER")
 			end
 		end,
@@ -721,7 +695,7 @@ MovAny.lVirtualMovers = {
 			if child == self.firstChild then
 				child:SetPoint("BOTTOMLEFT", "OverrideActionBar", "BOTTOMLEFT", 546, 2)
 			else
-				child:SetPoint("BOTTOMLEFT", prefix, "BOTTOMRIGHT", -2, 0)
+				child:SetPoint("BOTTOMLEFT", prefix, "BOTTOMRIGHT", - 2, 0)
 			end
 		end,
 		OnMAHook = function(self)
@@ -736,7 +710,7 @@ MovAny.lVirtualMovers = {
 				b = _G["OverrideActionBarButton"..i]
 				if i > 1 then
 					b:ClearAllPoints()
-					b:SetPoint("LEFT", "OverrideActionBarButton"..(i-1), "RIGHT", 7, 0)
+					b:SetPoint("LEFT", "OverrideActionBarButton"..(i - 1), "RIGHT", 6, 0)
 				end
 				b.MAParent = self
 			end
@@ -749,16 +723,17 @@ MovAny.lVirtualMovers = {
 			if b.MASetPoint then
 				b:MASetPoint("BOTTOM", "OverrideActionBar", "BOTTOM", 277, 17)
 			else
-				b:SetPoint("BOTTOM", "OverrideActionBar", "BOTTOM", -277, 17)
+				b:SetPoint("BOTTOM", "OverrideActionBar", "BOTTOM", - 277, 17)
 			end
 			for i = 2, 6, 1 do
 				b = _G[ "OverrideActionBarButton"..i ]
 				b:ClearAllPoints()
-				b:SetPoint("LEFT", "OverrideActionBarButton"..(i-1), "RIGHT", 6, 0)
+				b:SetPoint("LEFT", "OverrideActionBarButton"..(i - 1), "RIGHT", 6, 0)
 			end
 		end,
+		OnMAScale = ScaleChildren,
+		OnMAPreReset = ResetScaleChildren
 	},
-	
 	BasicActionButtonsVerticalMover = {
 		w = 38,
 		h = 475,
@@ -809,7 +784,7 @@ MovAny.lVirtualMovers = {
 				b:ClearAllPoints()
 				b:SetPoint("LEFT", "ActionButton"..(i-1), "RIGHT", 6, 0)
 			end
-		end,
+		end
 	},
 	PetActionButtonsMover = {
 		w = 375,
@@ -843,13 +818,13 @@ MovAny.lVirtualMovers = {
 			if type(scale) ~= "number" then
 				return
 			end
-		--[[	for i = 1, 10 do
+			--[[for i = 1, 10 do
 				_G["PetActionButton"..i]:SetScale(scale)
 			end]]
 			PetActionBarFrame:SetScale(scale)
 		end,
 		OnMAPostReset = function(self)
-		--[[	for i = 1, 10 do
+			--[[for i = 1, 10 do
 				_G["PetActionButton"..i]:SetScale(1)
 				self:SetScale(1)
 			end]]
@@ -857,25 +832,20 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAHide = function(self, hidden)
 			if hidden then
-				
-				for i=1, 10 do
-			--	local frame = _G["PetActionButton"..i]
+				for i = 1, 10 do
+				--local frame = _G["PetActionButton"..i]
 					HidenFrame.frameinfo["PetActionBarFrame"] = PetActionBarFrame:GetParent()
 					PetActionBarFrame:SetParent("HidenFrame")
 					PetActionBarFrame:Hide()
 					PetActionBarFrame:UnregisterAllEvents()
 				end
-		--		print("Hide ButtONS!")
 			else
-				
 				if HidenFrame.frameinfo["PetActionBarFrame"] then
 					PetActionBarFrame:SetParent(HidenFrame.frameinfo["PetActionBarFrame"])
 				end	
-					PetActionBarFrame:Show()
-				
-				
+				PetActionBarFrame:Show()
 			end
-		end,
+		end
 	},
 	PetActionButtonsVerticalMover = {
 		w = 36,
@@ -917,7 +887,7 @@ MovAny.lVirtualMovers = {
 				_G["PetActionButton"..i]:SetScale(1)
 				self:SetScale(1)
 			end
-		end,
+		end
 	},
 	ExtraActionBarFrameMover = {
 		w = 52,
@@ -956,10 +926,8 @@ MovAny.lVirtualMovers = {
 			else
 				MovAny:UnlockVisibility(self.sbf)
 			end
-		end,
+		end
 	},
-	--MonkHarmonyBar
-	
 	MonkHarmonyBarMover = {
 		w = 100,
 		h = 30,
@@ -971,7 +939,7 @@ MovAny.lVirtualMovers = {
 			b:ClearAllPoints()
 			b:SetPoint("CENTER", MonkHarmonyBarMover, "CENTER", 0, 0)
 			MovAny:LockPoint(b)
-		--	b.ignoreFramePositionManager = true
+			--b.ignoreFramePositionManager = true
 			b:SetMovable(true)
 			b:SetUserPlaced(true)
 			self.sbf = b
@@ -987,9 +955,8 @@ MovAny.lVirtualMovers = {
 			local b = MonkHarmonyBar
 			b:ClearAllPoints()
 			b:SetPoint("TOP", PlayerFrame, "TOP", 49, -46)
-		end,
+		end
 	},
-	
 	StanceButtonsMover = {
 		w = 225,
 		h = 37,
@@ -998,7 +965,7 @@ MovAny.lVirtualMovers = {
 		protected = true,
 		prefix = "StanceButton",
 		count = 10,
-	--	dontLock = true,
+		--dontLock = true,
 		OnMAHook = function(self)
 			local b = _G.StanceBarFrame
 			b:DisableDrawLayer("BACKGROUND")
@@ -1030,14 +997,14 @@ MovAny.lVirtualMovers = {
 				MovAny:UnlockVisibility(self.sbf)
 				RegisterStateDriver(StanceBarFrame, "visibility", "show");
 			end
-		end,
+		end
 	},
 	StanceButtonsVerticalMover = {
 		w = 32,
 		h = 225,
 		point = {"BOTTOMLEFT", "MainMenuBar", "TOPLEFT", 45, 30},
 		excludes = "StanceButtonsMover",
-	--	notMAParent = true,
+		--notMAParent = true,
 		protected = true,
 		prefix = "StanceButton",
 		count = 10,
@@ -1088,14 +1055,14 @@ MovAny.lVirtualMovers = {
 				MovAny:UnlockVisibility(self.sbf)
 				RegisterStateDriver(StanceBarFrame, "visibility", "show");
 			end
-		end,
+		end
 	},
 	MultiBarRightMover = {
 		w = 38,
 		h = 498,
 		point = {"BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", 0, 98},
 		excludes = "MultiBarRightHorizontalMover",
-	--	notMAParent = true,
+		--notMAParent = true,
 		protected = true,
 		prefix = "MultiBarRightButton",
 		count = 12,
@@ -1125,7 +1092,6 @@ MovAny.lVirtualMovers = {
 				_G["MultiBarRightButton"..i]:SetScale(1)
 			end
 			MultiBarRight.MAHooked = nil
-	--		print("PreReset")
 		end,
 		OnMAPostReset = function(self)
 			MultiBarRight:SetScale(1)
@@ -1133,25 +1099,23 @@ MovAny.lVirtualMovers = {
 				_G["MultiBarRightButton"..i]:SetScale(1)
 			end
 			MultiBarRight.MAHooked = nil
-	--		print("PostReset")
 		end,
 		OnMAScale = function(self, scale)
 			if type(scale) ~= "number" then
 				return
 			end
-		--	MultiBarRight:SetScale(scale)
-			for i=1, 12 do
+			--MultiBarRight:SetScale(scale)
+			for i = 1, 12 do
 				_G["MultiBarRightButton"..i]:SetScale(scale)
 			end
-	--		print("OnScale")
-		end,
+		end
 	},
 	MultiBarRightHorizontalMover = {
 		w = 498,
 		h = 38,
 		point = {"BOTTOM", "UIParent", "BOTTOM", 0, 250},
 		excludes = "MultiBarRightMover",
-	--	notMAParent = true,
+		--notMAParent = true,
 		protected = true,
 		prefix = "MultiBarRightButton",
 		count = 12,
@@ -1196,14 +1160,14 @@ MovAny.lVirtualMovers = {
 			for i=1, 12 do
 				_G["MultiBarRightButton"..i]:SetScale(scale)
 			end
-		end,
+		end
 	},
 	MultiBarLeftMover = {
 		w = 38,
 		h = 498,
 		point = {"BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -38, 98},
 		excludes = "MultiBarLeftHorizontalMover",
-	--	notMAParent = true,
+		--notMAParent = true,
 		protected = true,
 		prefix = "MultiBarLeftButton",
 		count = 12,
@@ -1232,7 +1196,7 @@ MovAny.lVirtualMovers = {
 			for i=1, 12 do
 				_G["MultiBarLeftButton"..i]:SetScale(1)
 			end
-		--	MultiBarLeft:SetParent("MultiBarRight")
+			--MultiBarLeft:SetParent("MultiBarRight")
 			MultiBarLeft.MAHooked = nil
 		end,
 		OnMAPostReset = function(self)
@@ -1240,7 +1204,7 @@ MovAny.lVirtualMovers = {
 			for i=1, 12 do
 				_G["MultiBarLeftButton"..i]:SetScale(1)
 			end
-		--	MultiBarLeft:SetParent("MultiBarRight")
+			--MultiBarLeft:SetParent("MultiBarRight")
 			MultiBarLeft.MAHooked = nil
 		end,
 		OnMAScale = function(self, scale)
@@ -1250,14 +1214,14 @@ MovAny.lVirtualMovers = {
 			for i=1, 12 do
 				_G["MultiBarLeftButton"..i]:SetScale(scale)
 			end
-		end,
+		end
 	},
 	MultiBarLeftHorizontalMover = {
 		w = 498,
 		h = 38,
 		point = {"BOTTOM", "UIParent", "BOTTOM", 0, 285},
 		excludes = "MultiBarLeftMover",
-	--	notMAParent = true,
+		--notMAParent = true,
 		protected = true,
 		prefix = "MultiBarLeftButton",
 		count = 12,
@@ -1283,7 +1247,7 @@ MovAny.lVirtualMovers = {
 			for i=1, 12 do
 				_G["MultiBarLeftButton"..i]:SetScale(1)
 			end
-		--	MultiBarLeft:SetParent("MultiBarRight")
+			--MultiBarLeft:SetParent("MultiBarRight")
 			MultiBarLeft.MAHooked = nil
 		end,
 		OnMAPostReset = function(self)
@@ -1291,7 +1255,7 @@ MovAny.lVirtualMovers = {
 			for i=1, 12 do
 				_G["MultiBarLeftButton"..i]:SetScale(1)
 			end
-		--	MultiBarLeft:SetParent("MultiBarRight")
+			--MultiBarLeft:SetParent("MultiBarRight")
 			MultiBarLeft.MAHooked = nil
 		end,
 		OnMAHook = function(self)	
@@ -1304,7 +1268,7 @@ MovAny.lVirtualMovers = {
 			for i=1, 12 do
 				_G["MultiBarLeftButton"..i]:SetScale(scale)
 			end
-		end,
+		end
 	},
 	PartyMember1DebuffsMover = {
 		w = 66,
@@ -1329,7 +1293,7 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAHook = function(self)
 			self:SetScale(_G["PartyMemberFrame1"]:GetEffectiveScale() / UIParent:GetScale())
-		end,
+		end
 	},
 	PartyMember2DebuffsMover = {
 		w = 66,
@@ -1354,7 +1318,7 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAHook = function(self)
 			self:SetScale(_G["PartyMemberFrame2"]:GetEffectiveScale() / UIParent:GetScale())
-		end,
+		end
 	},
 	PartyMember3DebuffsMover = {
 		w = 66,
@@ -1379,7 +1343,7 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAHook = function(self)
 			self:SetScale(_G["PartyMemberFrame3"]:GetEffectiveScale() / UIParent:GetScale())
-		end,
+		end
 	},
 	PartyMember4DebuffsMover = {
 		w = 66,
@@ -1404,7 +1368,7 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAHook = function(self)
 			self:SetScale(_G["PartyMemberFrame4"]:GetEffectiveScale() / UIParent:GetScale())
-		end,
+		end
 	},
 	PetDebuffsMover = {
 		w = 66,
@@ -1426,10 +1390,10 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAHook = function(self)
 			self:SetScale(_G["PetFrame"]:GetEffectiveScale() / UIParent:GetScale())
-		end,
+		end
 	},
 	TargetBuffsMover = {
-		w = 122,
+		w = 118,
 		h = 21,
 		point = {"TOPLEFT", "TargetFrame", "BOTTOMLEFT", 5, 32},
 		prefix = "TargetFrameBuff",
@@ -1461,11 +1425,13 @@ MovAny.lVirtualMovers = {
 		OnMAHook = function(self)
 			self:SetScale(_G["TargetFrame"]:GetEffectiveScale() / UIParent:GetScale())
 		end,
+		OnMAScale = ScaleChildren,
+		OnMAPreReset = ResetScaleChildren
 	},
 	TargetDebuffsMover = {
-		w = 122,
-		h = 23,
-		point = {"TOPLEFT", "TargetFrame", "BOTTOMLEFT", 5, 35},
+		w = 118,
+		h = 21,
+		point = {"TOPLEFT", "TargetFrameBuffs", "BOTTOMLEFT", 0, - 6},
 		prefix = "TargetFrameDebuff",
 		count = MAX_TARGET_DEBUFFS,
 		dontLock = true,
@@ -1481,29 +1447,27 @@ MovAny.lVirtualMovers = {
 		OnMAFoundChild = function(self, index, child)
 			if self.firstChild == child then
 				child:ClearAllPoints()
-				child:SetPoint("TOPLEFT", self, "TOPLEFT", 1, -1)
+				child:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
 				MovAny:LockPoint(child)
 			end
-		--[[	
-			if child.GetName then
-				print(self:GetScale(), index, child:GetName())
-			end]]
 		end,
 		OnMAReleaseChild = function(self, index, child)
 			if self.firstChild == child then
 				MovAny:UnlockPoint(child)
 				child:ClearAllPoints()
-				child:SetPoint("TOPLEFT", TargetFrame, "BOTTOMLEFT", 5, 35)
+				child:SetPoint("TOPLEFT", "TargetFrameBuffs", "BOTTOMLEFT", 0, - 6)
 			end
 		end,
 		OnMAHook = function(self)
 			self:SetScale(_G["TargetFrame"]:GetEffectiveScale() / UIParent:GetScale())
 		end,
+		OnMAScale = ScaleChildren,
+		OnMAPreReset = ResetScaleChildren
 	},
 	FocusBuffsMover = {
-		w = 124,
-		h = 23,
-		point = {"TOPLEFT", "FocusFrame", "BOTTOMLEFT", 4, 33},
+		w = 118,
+		h = 21,
+		point = {"TOPLEFT", "FocusFrame", "BOTTOMLEFT", 5, 32},
 		prefix = "FocusFrameBuff",
 		count = MAX_TARGET_BUFFS,
 		dontLock = true,
@@ -1519,7 +1483,7 @@ MovAny.lVirtualMovers = {
 		OnMAFoundChild = function(self, index, child)
 			if index == 1 then
 				child:ClearAllPoints()
-				child:SetPoint("TOPLEFT", self, "TOPLEFT", 1, -1)
+				child:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
 				MovAny:LockPoint(child)
 			end
 		end,
@@ -1527,24 +1491,26 @@ MovAny.lVirtualMovers = {
 			if index == 1 then
 				MovAny:UnlockPoint(child)
 				child:ClearAllPoints()
-				child:SetPoint("TOPLEFT", FocusFrame, "BOTTOMLEFT", 5, 35)
+				child:SetPoint("TOPLEFT", FocusFrame, "BOTTOMLEFT", 5, 32)
 			end
 		end,
 		OnMAHook = function(self)
 			self:SetScale(_G["FocusFrame"]:GetEffectiveScale() / UIParent:GetScale())
 		end,
+		OnMAScale = ScaleChildren,
+		OnMAPreReset = ResetScaleChildren
 	},
 	FocusDebuffsMover = {
-		w = 124,
+		w = 118,
 		h = 21,
-		point = {"TOPLEFT", "FocusFrame", "BOTTOMLEFT", 4, 33},
+		point = {"TOPLEFT", "FocusFrameBuffs", "BOTTOMLEFT", 0, - 6},
 		prefix = "FocusFrameDebuff",
 		count = MAX_TARGET_DEBUFFS,
 		dontLock = true,
 		OnLoad = function(self)
 			if TargetFrame_UpdateAuras then
 				hooksecurefunc("TargetFrame_UpdateAuras", function(frame)
-					if frame == FocusFrame and self.MAHooked then
+					if frame == FocusFrameBuffs and self.MAHooked then
 						self:MAScanForChildren()
 					end
 				end)
@@ -1553,7 +1519,7 @@ MovAny.lVirtualMovers = {
 		OnMAFoundChild = function(self, index, child)
 			if index == 1 then
 				child:ClearAllPoints()
-				child:SetPoint("TOPLEFT", self, "TOPLEFT", 1, -1)
+				child:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
 				MovAny:LockPoint(child)
 			end
 		end,
@@ -1561,17 +1527,19 @@ MovAny.lVirtualMovers = {
 			if index == 1 then
 				MovAny:UnlockPoint(child)
 				child:ClearAllPoints()
-				child:SetPoint("TOPLEFT", FocusFrame, "BOTTOMLEFT", 4, 33)
+				child:SetPoint("TOPLEFT", FocusFrameBuffs, "BOTTOMLEFT", 0, - 6)
 			end
 		end,
 		OnMAHook = function(self)
 			self:SetScale(_G["FocusFrame"]:GetEffectiveScale() / UIParent:GetScale())
 		end,
+		OnMAScale = ScaleChildren,
+		OnMAPreReset = ResetScaleChildren
 	},
 	TargetFrameToTDebuffsMover = {
-		w = 23,
-		h = 23,
-		point = {"TOPLEFT", "TargetFrameToT", "TOPRIGHT", 3, -9},
+		w = 25,
+		h = 25,
+		point = {"TOPLEFT", "TargetFrameToT", "TOPRIGHT", 4, - 10},
 		prefix = "TargetFrameToTDebuff",
 		count = 4,
 		OnLoad = function(self)
@@ -1586,18 +1554,20 @@ MovAny.lVirtualMovers = {
 		OnMAFoundChild = function(self, index, child)
 			if index == 1 then
 				child:ClearAllPoints()
-				child:SetPoint("TOPLEFT", self, "TOPLEFT", 1, -1)
+				child:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
 			end
 		end,
 		OnMAReleaseChild = function(self, index, child)
 			if index == 1 then
 				child:ClearAllPoints()
-				child:SetPoint("TOPLEFT", TargetFrameToT, "TOPRIGHT", 4, -10)
+				child:SetPoint("TOPLEFT", TargetFrameToT, "TOPRIGHT", 4, - 10)
 			end
 		end,
 		OnMAHook = function(self)
 			self:SetScale(_G["TargetFrameToT"]:GetEffectiveScale() / UIParent:GetScale())
 		end,
+		OnMAScale = ScaleChildren,
+		OnMAPreReset = ResetScaleChildren
 	},
 	PlayerBuffsMover = {
 		w = 31,
@@ -1648,16 +1618,12 @@ MovAny.lVirtualMovers = {
 						MovAny:LockPoint(vm.tef)
 					end
 				end
-				local hBuffFrame_ErrorHandler = function()
-					--print("Error: "..debugstack(2, 20, 20))
-				end
 				hooksecurefunc("BuffFrame_Update", function()
 					xpcall(hBuffFrame_Update, hBuffFrame_ErrorHandler)
 				end)
 			end
 		end,
-		--[[
-		OnMAFoundChild = function(self, index, child)
+		--[[OnMAFoundChild = function(self, index, child)
 			if self.opt and self.opt.scale then
 				--MovAny:UnlockScale(child)
 				if child:GetParent():GetName() ~= "ConsolidatedBuffsContainer" then
@@ -1667,14 +1633,7 @@ MovAny.lVirtualMovers = {
 				end
 				--MovAny:LockScale(child)
 			end
-			--print(index.."  OnMAFoundChild  "..self:GetName().."  "..child:GetName())
-		end,
-		]]
-		--[[
-		OnMAReleaseChild = function(self, index, child)
-			--print(index.."  OnMAReleaseChild  "..self:GetName().."  "..child:GetName())
-		end,
-		]]
+		end]]
 		OnMAScale = function(self, scale)
 			if type(scale) ~= "number" then
 				return
@@ -1766,7 +1725,7 @@ MovAny.lVirtualMovers = {
 				MovAny:UnlockVisibility(_G["BuffFrame"])
 				MovAny:UnlockVisibility(_G["TemporaryEnchantFrame"])
 			end
-		end,
+		end
 	},
 	PlayerBuffsMover2 = {
 		w = 31,
@@ -1817,15 +1776,11 @@ MovAny.lVirtualMovers = {
 						MovAny:LockPoint(vm.tef)
 					end
 				end
-				local hBuffFrame_ErrorHandler = function()
-					--print("Error: "..debugstack(2, 20, 20))
-				end
 				hooksecurefunc("BuffFrame_Update", function()
 					xpcall(hBuffFrame_Update, hBuffFrame_ErrorHandler)
 				end)
 			end
 		end,
-		
 		OnMAFoundChild = function(self, index, child)
 			if self.opt and self.opt.scale then
 				--MovAny:UnlockScale(child)
@@ -1834,40 +1789,31 @@ MovAny.lVirtualMovers = {
 				else
 					child:SetScale(1)
 				end
-				--MovAny:LockScale(child)
 			end
-			
 			if GetCVar("consolidateBuffs") then
 				SetCVar("consolidateBuffs", 0)
 			end
-			
-				if index == 1 then
-					child:ClearAllPoints()
-					if child:GetParent():GetName() ~= "ConsolidatedBuffsContainer" then
-						child:SetPoint("TOPLEFT", self, "TOPLEFT")					
-					else
-						child:SetPoint("TOPLEFT", "ConsolidatedBuffsContainer", "TOPRIGHT")
-					end
+			if index == 1 then
+				child:ClearAllPoints()
+				if child:GetParent():GetName() ~= "ConsolidatedBuffsContainer" then
+					child:SetPoint("TOPLEFT", self, "TOPLEFT")					
 				else
-					if string.match(child:GetName(), "BuffButton") then
-						if index == 9 or index == 17 then
+					child:SetPoint("TOPLEFT", "ConsolidatedBuffsContainer", "TOPRIGHT")
+				end
+			else
+				if string.match(child:GetName(), "BuffButton") then
+					if index == 9 or index == 17 then
+					
+						child:ClearAllPoints()
+						child:SetPoint("TOPLEFT", "BuffButton"..(index - 8), "BOTTOMLEFT", 0, - 15)
+					else
 						
-							child:ClearAllPoints()
-							child:SetPoint("TOPLEFT", "BuffButton"..(index-8), "BOTTOMLEFT", 0, -15)
-						else
-							
-							child:ClearAllPoints()
-							child:SetPoint("TOPLEFT", "BuffButton"..(index-1), "TOPRIGHT", 5, 0)
-						end
+						child:ClearAllPoints()
+						child:SetPoint("TOPLEFT", "BuffButton"..(index - 1), "TOPRIGHT", 5, 0)
 					end
 				end
+			end
 		end,
-		
-		--[[
-		OnMAReleaseChild = function(self, index, child)
-			--print(index.."  OnMAReleaseChild  "..self:GetName().."  "..child:GetName())
-		end,
-		]]
 		OnMAScale = function(self, scale)
 			if type(scale) ~= "number" then
 				return
@@ -1931,11 +1877,11 @@ MovAny.lVirtualMovers = {
 			local b = _G["BuffFrame"]
 			MovAny:UnlockPoint(b)
 			b:ClearAllPoints()
-			b:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -205, -13)
+			b:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", - 205, - 13)
 			b = _G["ConsolidatedBuffs"]
 			MovAny:UnlockPoint(b)
 			b:ClearAllPoints()
-			b:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -180, -13)
+			b:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", - 180, - 13)
 			
 			for i, v in pairs(self.attachedChildren) do
 				MovAny:UnlockScale(v)
@@ -1957,7 +1903,7 @@ MovAny.lVirtualMovers = {
 				MovAny:UnlockVisibility(_G["BuffFrame"])
 				MovAny:UnlockVisibility(_G["TemporaryEnchantFrame"])
 			end
-		end,
+		end
 	},
 	PlayerDebuffsMover = {
 		w = 31,
@@ -1965,7 +1911,7 @@ MovAny.lVirtualMovers = {
 		prefix = "DebuffButton",
 		excludes = "PlayerDebuffsMover2",
 		count = 16,
-		point = {"TOPRIGHT", "BuffFrame", "BOTTOMRIGHT", 0, -50},
+		point = {"TOPRIGHT", "BuffFrame", "BOTTOMRIGHT", 0, - 50},
 		OnLoad = function(self)
 			if BuffFrame_Update then
 				hooksecurefunc("BuffFrame_Update", function()
@@ -1978,20 +1924,18 @@ MovAny.lVirtualMovers = {
 		OnMAFoundChild = function(self, index, child)
 			if index == 1 then
 				child:ClearAllPoints()
-				child:SetPoint("TOPRIGHT", self, "TOPRIGHT", -1, -1)
+				child:SetPoint("TOPRIGHT", self, "TOPRIGHT", - 1, - 1)
 			end
-			
-		--		print(index.."  OnMAFoundChild  "..self:GetName().."  "..child:GetName())
 		end,
 		OnMAReleaseChild = function(self, index, child)
 			if index == 1 then
 				child:ClearAllPoints()
-				child:SetPoint("TOPRIGHT", ConsolidatedBuffs, "BOTTOMRIGHT", 0, -TempEnchant1:GetHeight()*3)
+				child:SetPoint("TOPRIGHT", ConsolidatedBuffs, "BOTTOMRIGHT", 0, - TempEnchant1:GetHeight() * 3)
 			end
 		end,
 		OnMAHook = function(self)
 			self:SetScale(_G["BuffFrame"]:GetEffectiveScale() / UIParent:GetScale())
-		end,
+		end
 	},
 	PlayerDebuffsMover2 = {
 		w = 31,
@@ -1999,7 +1943,7 @@ MovAny.lVirtualMovers = {
 		prefix = "DebuffButton",
 		excludes = "PlayerDebuffsMover",
 		count = 16,
-		point = {"TOPRIGHT", "BuffFrame", "BOTTOMRIGHT", 0, -50},
+		point = {"TOPRIGHT", "BuffFrame", "BOTTOMRIGHT", 0, - 50},
 		OnLoad = function(self)
 			if BuffFrame_Update then
 				hooksecurefunc("BuffFrame_Update", function()
@@ -2018,11 +1962,11 @@ MovAny.lVirtualMovers = {
 					if index == 9 then
 					
 						child:ClearAllPoints()
-						child:SetPoint("TOPLEFT", "DebuffButton"..(index-8), "BOTTOMRIGHT", 0, -15)
+						child:SetPoint("TOPLEFT", "DebuffButton"..(index - 8), "BOTTOMRIGHT", 0, - 15)
 					else
 						
 						child:ClearAllPoints()
-						child:SetPoint("TOPLEFT", "DebuffButton"..(index-1), "TOPRIGHT", 5, 0)
+						child:SetPoint("TOPLEFT", "DebuffButton"..(index - 1), "TOPRIGHT", 5, 0)
 					end
 				end
 			end
@@ -2036,29 +1980,31 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAHook = function(self)
 			self:SetScale(_G["BuffFrame"]:GetEffectiveScale() / UIParent:GetScale())
-		end,
+		end
 	},
 	FocusFrameToTDebuffsMover = {
-		w = 23,
-		h = 23,
-		point = {"TOPLEFT", "FocusFrameToT", "TOPRIGHT", 3, -9},
+		w = 25,
+		h = 25,
+		point = {"TOPLEFT", "FocusFrameToT", "TOPRIGHT", 4, - 10},
 		prefix = "FocusFrameToTDebuff",
 		count = 8,
 		OnMAFoundChild = function(self, index, child)
 			if index == 1 then
 				child:ClearAllPoints()
-				child:SetPoint("TOPLEFT", self, 1, -1)
+				child:SetPoint("TOPLEFT", self, 0, 0)
 			end
 		end,
 		OnMAReleaseChild = function(self, index, child)
 			if index == 1 then
 				child:ClearAllPoints()
-				child:SetPoint("TOPLEFT", "FocusFrameToT", "TOPRIGHT", 4, -10)
+				child:SetPoint("TOPLEFT", "FocusFrameToT", "TOPRIGHT", 4, - 10)
 			end
 		end,
 		OnMAHook = function(self)
 			self:SetScale(_G["FocusFrameToT"]:GetEffectiveScale() / UIParent:GetScale())
 		end,
+		OnMAScale = ScaleChildren,
+		OnMAPreReset = ResetScaleChildren
 	},
 	RaidUnitFramesMover = {
 		linkedSize = "CompactRaidFrameContainer",
@@ -2092,7 +2038,7 @@ MovAny.lVirtualMovers = {
 		OnMAPreReset = function(self)
 			if self.con then
 				MovAny:UnlockPoint(self.con)
-				self.con:SetPoint("TOPLEFT", "CompactRaidFrameManagerContainerResizeFrame", "TOPLEFT", 4, -7)
+				self.con:SetPoint("TOPLEFT", "CompactRaidFrameManagerContainerResizeFrame", "TOPLEFT", 4, - 7)
 				self.con = nil
 			end
 		end,
@@ -2106,19 +2052,18 @@ MovAny.lVirtualMovers = {
 			end
 		end,
 		OnMAAlpha = function(self, alpha)
-			local bg
 			if self.con then
 				if alpha > 0.999 then
-					for i=1, GetNumGroupMembers(), 1 do
-						bg = _G["CompactRaidFrame"..i]
+					for i = 1, GetNumGroupMembers(), 1 do
+						local bg = _G["CompactRaidFrame"..i]
 						if bg then
 							bg:EnableDrawLayer("BACKGROUND")
 							bg:EnableDrawLayer("BORDER")
 						end
 					end
 				else
-					for i=1, GetNumGroupMembers(), 1 do
-						bg = _G["CompactRaidFrame"..i]
+					for i = 1, GetNumGroupMembers(), 1 do
+						local bg = _G["CompactRaidFrame"..i]
 						if bg then
 							bg:DisableDrawLayer("BACKGROUND")
 							bg:DisableDrawLayer("BORDER")
@@ -2128,9 +2073,9 @@ MovAny.lVirtualMovers = {
 				
 				if self.con.groupMode == "discrete" then
 					if alpha > 0.999 then
-						for i=1, 8, 1 do
-							for j=1, 5, 1 do
-								bg = _G["CompactRaidGroup"..i.."Member"..j]
+						for i = 1, 8, 1 do
+							for j = 1, 5, 1 do
+								local bg = _G["CompactRaidGroup"..i.."Member"..j]
 								if bg then
 									bg:EnableDrawLayer("BACKGROUND")
 									bg:EnableDrawLayer("BORDER")
@@ -2138,9 +2083,9 @@ MovAny.lVirtualMovers = {
 							end
 						end
 					else
-						for i=1, 8, 1 do
-							for j=1, 5, 1 do
-								bg = _G["CompactRaidGroup"..i.."Member"..j]
+						for i = 1, 8, 1 do
+							for j = 1, 5, 1 do
+								local bg = _G["CompactRaidGroup"..i.."Member"..j]
 								if bg then
 									bg:DisableDrawLayer("BACKGROUND")
 									bg:DisableDrawLayer("BORDER")
@@ -2150,11 +2095,11 @@ MovAny.lVirtualMovers = {
 					end
 				end
 			end
-		end,
+		end
 	},
 	RaidUnitFramesManagerMover = {
 		linkedSize = "CompactRaidFrameManager",
-		point = {"TOPLEFT", "UIParent", "TOPLEFT", -7, -140},
+		point = {"TOPLEFT", "UIParent", "TOPLEFT", - 7, - 140},
 		children = {"CompactRaidFrameManager"},
 		dontLock = true,
 		OnLoad = function(self)
@@ -2180,7 +2125,7 @@ MovAny.lVirtualMovers = {
 			b:SetScript("OnClick", function() CompactRaidFrameManager_Expand(CompactRaidFrameManager) end) --CompactRaidFrameManager_Expand
 			
 			local man = _G["CompactRaidFrameManager"]
-			p = {"TOPLEFT", "UIParent", "TOPLEFT", -5, -225}
+			p = {"TOPLEFT", "UIParent", "TOPLEFT", - 5, - 225}
 			b:SetPoint(unpack(p))
 			local e = MovAny.API:GetElement(b:GetName())
 			if e:IsModified() then
@@ -2240,17 +2185,18 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAPreReset = function(self)
 			local e = MovAny.API:GetElement(self:GetName())
-			if InCombatLockdown() then return end
-			
+			if InCombatLockdown() then
+				return
+			end
 			MovAny.Position:Reset(e, self.man, true)
 			self.button:Hide()
 			self.man = nil
-		end,
+		end
 	},
 	BagsMover = {
 		w = 100,
 		h = 100,
-		point = {"BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -93, 125},
+		point = {"BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", - 93, 125},
 		prefix = "ContainerFrame",
 		count = 13,
 		dontLock = true,
@@ -2260,7 +2206,7 @@ MovAny.lVirtualMovers = {
 			if MovAny:IsModified(MovAny.lTransContainerToBag[child:GetName()]) then
 				return
 			end
-		--	child:SetParent(self)
+			--child:SetParent(self)
 			MovAny:UnlockScale(child)
 			child:SetScale(1)
 			MovAny:LockScale(child)
@@ -2283,12 +2229,12 @@ MovAny.lVirtualMovers = {
 			if not readOnly then
 				UpdateContainerFrameAnchors()
 			end
-		end,
+		end
 	},
 	ChatEditBoxesMover = {
-	--	h = 18,
-	--	w = 200,
-		relPoint = {"TOPLEFT", "ChatFrame1", "BOTTOMLEFT", -5, -2},
+		--h = 18,
+		--w = 200,
+		relPoint = {"TOPLEFT", "ChatFrame1", "BOTTOMLEFT", - 5, - 2},
 		prefix = "ChatFrame",
 		postfix = "EditBox",
 		count = 10,
@@ -2296,8 +2242,6 @@ MovAny.lVirtualMovers = {
 		OnMAHook = function(self)
 			self:SetWidth(ChatFrame1:GetWidth())
 			self:SetHeight(20)
-		--	print("1:"..ChatFrame1:GetWidth())
-		--	print("2:"..ChatFrame1EditBox:GetHeight())
 			local b = ChatFrame1EditBox
 			if MovAny:IsModified(b) then
 				b:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
@@ -2306,14 +2250,13 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAFoundChild = function(self, index, child)
 			MovAny.Position:StoreOrgPoints(child, child)
-		--	child:SetWidth(self:GetWidth())
+			--child:SetWidth(self:GetWidth())
 			child.MAOrgParent = child:GetParent()
 			child:SetParent(self)
 			child:ClearAllPoints()
 			child:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
 			child:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 0, 0)
 			MovAny:LockPoint(child)
-		--	print(child:GetName())
 		end,
 		OnMAReleaseChild = function(self, index, child)
 			child:SetParent(child.MAOrgParent)
@@ -2323,12 +2266,11 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAPostReset = function(self)
 			for i = 1, 10 do
-				_G["ChatFrame"..i.."EditBox"]:SetPoint("TOPLEFT", "ChatFrame"..i, "BOTTOMLEFT", -5, -2)
+				_G["ChatFrame"..i.."EditBox"]:SetPoint("TOPLEFT", "ChatFrame"..i, "BOTTOMLEFT", - 5, - 2)
 			end
-		end,
-	},
-	
---[[	LootWonAlertMover1 = {
+		end
+	}
+	--[[LootWonAlertMover1 = {
 		w = 270,
 		h = 80,
 		point = {"CENTER", "UIParent", "CENTER", 0, 0},
@@ -2374,7 +2316,7 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAPostReset = function(self)
 			wipe(LOOT_WON_ALERT_FRAMES)
-		end,
+		end
 	},
 	LootWonAlertMover2 = {
 		w = 270,
@@ -2423,7 +2365,7 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAPostReset = function(self)
 			wipe(LOOT_WON_ALERT_FRAMES)
-		end,
+		end
 	},
 	LootWonAlertMover3 = {
 		w = 270,
@@ -2472,7 +2414,7 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAPostReset = function(self)
 			wipe(LOOT_WON_ALERT_FRAMES)
-		end,
+		end
 	},
 	LootWonAlertMover4 = {
 		w = 270,
@@ -2521,7 +2463,7 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAPostReset = function(self)
 			wipe(LOOT_WON_ALERT_FRAMES)
-		end,
+		end
 	},
 	LootWonAlertMover5 = {
 		w = 270,
@@ -2570,9 +2512,8 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAPostReset = function(self)
 			wipe(LOOT_WON_ALERT_FRAMES)
-		end,
+		end
 	},
-	
 	MoneyWonAlertMover1 = {
 		w = 270,
 		h = 80,
@@ -2620,7 +2561,7 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAPostReset = function(self)
 			wipe(MONEY_WON_ALERT_FRAMES)
-		end,
+		end
 	},
 	MoneyWonAlertMover2 = {
 		w = 270,
@@ -2669,7 +2610,7 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAPostReset = function(self)
 			wipe(MONEY_WON_ALERT_FRAMES)
-		end,
+		end
 	},
 	MoneyWonAlertMover3 = {
 		w = 270,
@@ -2677,7 +2618,7 @@ MovAny.lVirtualMovers = {
 		point = {"CENTER", "UIParent", "CENTER", 0, 0},
 		OnMAHook = function(self)
 			if MONEY_WON_ALERT_FRAMES[3] then
-			--	local b = MONEY_WON_ALERT_FRAMES[3]
+				--local b = MONEY_WON_ALERT_FRAMES[3]
 				MovAny:UnlockPoint(MONEY_WON_ALERT_FRAMES[3])
 				MONEY_WON_ALERT_FRAMES[3]:ClearAllPoints()
 				MONEY_WON_ALERT_FRAMES[3]:SetPoint("BOTTOMLEFT", "MoneyWonAlertMover3", "BOTTOMLEFT", 0, 0)
@@ -2688,7 +2629,7 @@ MovAny.lVirtualMovers = {
 				self.sbf = MONEY_WON_ALERT_FRAMES[3]
 			else
 				MONEY_WON_ALERT_FRAMES[3] = CreateFrame("Button", nil, UIParent, "MoneyWonAlertFrameTemplate")
-			--	local b = MONEY_WON_ALERT_FRAMES[3]
+				--local b = MONEY_WON_ALERT_FRAMES[3]
 				MovAny:UnlockPoint(MONEY_WON_ALERT_FRAMES[3])
 				MONEY_WON_ALERT_FRAMES[3]:ClearAllPoints()
 				MONEY_WON_ALERT_FRAMES[3]:SetPoint("BOTTOMLEFT", "MoneyWonAlertMover3", "BOTTOMLEFT", 0, 0)
@@ -2717,22 +2658,22 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAPostReset = function(self)
 			wipe(MONEY_WON_ALERT_FRAMES)
-		end,
-	},]]
---[[	GroupLootFrameMover1 = {
+		end
+	},
+	GroupLootFrameMover1 = {
 		w = 270,
 		h = 80,
 		point = {"CENTER", "UIParent", "CENTER", 0, 0},
 		OnMAHook = function(self)
-				local b = _G["GroupLootFrame1"]
-				MovAny:UnlockPoint(b)
-				b:ClearAllPoints()
-				b:SetPoint("BOTTOMLEFT", GroupLootFrameMover1, "BOTTOMLEFT", 0, 0)
-				MovAny:LockPoint(b)
-				b.ignoreFramePositionManager = true
-				b:SetMovable(true)
-				b:SetUserPlaced(true)
-				self.sbf = b
+			local b = _G["GroupLootFrame1"]
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("BOTTOMLEFT", GroupLootFrameMover1, "BOTTOMLEFT", 0, 0)
+			MovAny:LockPoint(b)
+			b.ignoreFramePositionManager = true
+			b:SetMovable(true)
+			b:SetUserPlaced(true)
+			self.sbf = b
 		end,
 		OnMAScale = function(self, scale)
 			local b = _G["GroupLootFrame1"]
@@ -2740,22 +2681,22 @@ MovAny.lVirtualMovers = {
 				return
 			end
 			b:SetScale(scale)
-		end,
+		end
 	},
 	GroupLootFrameMover2 = {
 		w = 270,
 		h = 80,
 		point = {"CENTER", "UIParent", "CENTER", 0, 0},
 		OnMAHook = function(self)
-				local b = _G["GroupLootFrame2"]
-				MovAny:UnlockPoint(b)
-				b:ClearAllPoints()
-				b:SetPoint("BOTTOMLEFT", GroupLootFrameMover2, "BOTTOMLEFT", 0, 0)
-				MovAny:LockPoint(b)
-				b.ignoreFramePositionManager = true
-				b:SetMovable(true)
-				b:SetUserPlaced(true)
-				self.sbf = b
+			local b = _G["GroupLootFrame2"]
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("BOTTOMLEFT", GroupLootFrameMover2, "BOTTOMLEFT", 0, 0)
+			MovAny:LockPoint(b)
+			b.ignoreFramePositionManager = true
+			b:SetMovable(true)
+			b:SetUserPlaced(true)
+			self.sbf = b
 		end,
 		OnMAScale = function(self, scale)
 			local b = _G["GroupLootFrame2"]
@@ -2763,22 +2704,22 @@ MovAny.lVirtualMovers = {
 				return
 			end
 			b:SetScale(scale)
-		end,
+		end
 	},
 	GroupLootFrameMover3 = {
 		w = 270,
 		h = 80,
 		point = {"CENTER", "UIParent", "CENTER", 0, 0},
 		OnMAHook = function(self)
-				local b = _G["GroupLootFrame3"]
-				MovAny:UnlockPoint(b)
-				b:ClearAllPoints()
-				b:SetPoint("BOTTOMLEFT", GroupLootFrameMover3, "BOTTOMLEFT", 0, 0)
-				MovAny:LockPoint(b)
-			  b.ignoreFramePositionManager = true
-				b:SetMovable(true)
-				b:SetUserPlaced(true)
-				self.sbf = b
+			local b = _G["GroupLootFrame3"]
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("BOTTOMLEFT", GroupLootFrameMover3, "BOTTOMLEFT", 0, 0)
+			MovAny:LockPoint(b)
+			b.ignoreFramePositionManager = true
+			b:SetMovable(true)
+			b:SetUserPlaced(true)
+			self.sbf = b
 		end,
 		OnMAScale = function(self, scale)
 			local b = _G["GroupLootFrame3"]
@@ -2786,22 +2727,22 @@ MovAny.lVirtualMovers = {
 				return
 			end
 			b:SetScale(scale)
-		end,
+		end
 	},
 	GroupLootFrameMover4 = {
 		w = 270,
 		h = 80,
 		point = {"CENTER", "UIParent", "CENTER", 0, 0},
 		OnMAHook = function(self)
-				local b = _G["GroupLootFrame4"]
-				MovAny:UnlockPoint(b)
-				b:ClearAllPoints()
-				b:SetPoint("BOTTOMLEFT", GroupLootFrameMover4, "BOTTOMLEFT", 0, 0)
-				MovAny:LockPoint(b)
-				b.ignoreFramePositionManager = true
-				b:SetMovable(true)
-				b:SetUserPlaced(true)
-				self.sbf = b
+			local b = _G["GroupLootFrame4"]
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("BOTTOMLEFT", GroupLootFrameMover4, "BOTTOMLEFT", 0, 0)
+			MovAny:LockPoint(b)
+			b.ignoreFramePositionManager = true
+			b:SetMovable(true)
+			b:SetUserPlaced(true)
+			self.sbf = b
 		end,
 		OnMAScale = function(self, scale)
 			local b = _G["GroupLootFrame4"]
@@ -2809,6 +2750,6 @@ MovAny.lVirtualMovers = {
 				return
 			end
 			b:SetScale(scale)
-		end,
-	},]]
+		end
+	}]]
 }

@@ -1,7 +1,4 @@
 local MovAny = _G.MovAny
-local MOVANY = _G.MOVANY
-local _
-local emptyTable = {}
 
 local m = {
 	var = "scale",
@@ -195,7 +192,6 @@ local m = {
 		if not mode and e.scaleWH then
 			return true
 		end
-		
 		if not f or not f.GetScale or e.noScale or f:GetObjectType() == "FontString" then
 			return nil
 		end

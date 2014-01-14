@@ -179,7 +179,7 @@ local m = {
 			if not MovAny:IsModified(OverrideActionBar, pos) then
 				local v = _G["OverrideActionBar"]
 				v:ClearAllPoints()
-				v:SetPoint(BOTTOMLEFT, UIParent, BOTTOMLEFT, UIParentGetWidth()/2 - vGetWidth()/2, 0)
+				v:SetPoint(BOTTOMLEFT, UIParent, BOTTOMLEFT, (UIParentGetWidth() / 2) - (v:GetWidth() / 2), 0)
 			end
 		end, hideList = {
 			{"MainMenuBarArtFrame", "BACKGROUND","ARTWORK"},
