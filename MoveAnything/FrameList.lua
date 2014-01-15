@@ -166,6 +166,8 @@ local m = {
 		API:AddElement({name = "StanceButtonsVerticalMover", displayName = "Stance Buttons - Vertical"}, c)
 		c = API:GetCategory("Blizzard Bank and VoidStorage")
 		local bf = API:AddElement({name = "BankFrame", displayName = "Bank"}, c)
+		API:AddElement({name = "BankBagItemsMover", displayName = "Bank Bag Items"}, c)
+		API:AddElement({name = "BankBagSlotsMover", displayName = "Bank Bag Slots"}, c)
 		API:AddElement({name = "BankBagFrame1", displayName = "Bank Bag 1", refuseSync = MOVANY.FRAME_ONLY_WHEN_BANK_IS_OPEN}, c)
 		API:AddElement({name = "BankBagFrame2", displayName = "Bank Bag 2", refuseSync = MOVANY.FRAME_ONLY_WHEN_BANK_IS_OPEN}, c)
 		API:AddElement({name = "BankBagFrame3", displayName = "Bank Bag 3", refuseSync = MOVANY.FRAME_ONLY_WHEN_BANK_IS_OPEN}, c)

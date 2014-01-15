@@ -475,6 +475,103 @@ MovAny.lVirtualMovers = {
 		inherits = "MovableBagFrame",
 		id = 4,
 	},
+	BankBagItemsMover = {
+		w = 331,
+		h = 169,
+		relPoint = {"TOPLEFT", "BankFrame", "TOPLEFT", 28, - 75},
+		children = {
+			"BankFrameItem1",
+			"BankFrameItem2",
+			"BankFrameItem3",
+			"BankFrameItem4",
+			"BankFrameItem5",
+			"BankFrameItem6",
+			"BankFrameItem7",
+			"BankFrameItem8",
+			"BankFrameItem9",
+			"BankFrameItem10",
+			"BankFrameItem11",
+			"BankFrameItem12",
+			"BankFrameItem13",
+			"BankFrameItem14",
+			"BankFrameItem15",
+			"BankFrameItem16",
+			"BankFrameItem17",
+			"BankFrameItem18",
+			"BankFrameItem19",
+			"BankFrameItem20",
+			"BankFrameItem21",
+			"BankFrameItem22",
+			"BankFrameItem23",
+			"BankFrameItem24",
+			"BankFrameItem25",
+			"BankFrameItem26",
+			"BankFrameItem27",
+			"BankFrameItem28"
+		},
+		OnMAFoundChild = function(self, index, child)
+			child:ClearAllPoints()
+			if child == self.firstChild then
+				child:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
+			elseif child == BankFrameItem8 then
+				child:SetPoint("TOPLEFT", "BankFrameItem1", "BOTTOMLEFT", 0, - 7)
+			elseif child == BankFrameItem15 then
+				child:SetPoint("TOPLEFT", "BankFrameItem8", "BOTTOMLEFT", 0, - 7)
+			elseif child == BankFrameItem22 then
+				child:SetPoint("TOPLEFT", "BankFrameItem15", "BOTTOMLEFT", 0, - 7)
+			else
+				child:SetPoint("TOPLEFT", self.lastChild, "TOPRIGHT", 12, 0)
+			end
+		end,
+		OnMAReleaseChild = function(self, index, child)
+			child:ClearAllPoints()
+			if child == self.firstChild then
+				child:SetPoint("TOPLEFT", "BankFrame", "TOPLEFT", 28, - 75)
+			elseif child == BankFrameItem8 then
+				child:SetPoint("TOPLEFT", "BankFrameItem1", "BOTTOMLEFT", 0, - 7)
+			elseif child == BankFrameItem15 then
+				child:SetPoint("TOPLEFT", "BankFrameItem8", "BOTTOMLEFT", 0, - 7)
+			elseif child == BankFrameItem22 then
+				child:SetPoint("TOPLEFT", "BankFrameItem15", "BOTTOMLEFT", 0, - 7)
+			else
+				child:SetPoint("TOPLEFT", self.lastChild, "TOPRIGHT", 12, 0)
+			end
+		end,
+		OnMAScale = ScaleChildren,
+		OnMAPreReset = ResetScaleChildren
+	},
+	BankBagSlotsMover = {
+		w = 331,
+		h = 37,
+		relPoint = {"TOPLEFT", "BankFrameItem1", "BOTTOMLEFT", 0, - 164},
+		children = {
+			"BankFrameBag1",
+			"BankFrameBag2",
+			"BankFrameBag3",
+			"BankFrameBag4",
+			"BankFrameBag5",
+			"BankFrameBag6",
+			"BankFrameBag7"
+		},
+		OnMAFoundChild = function(self, index, child)
+			child:ClearAllPoints()
+			if child == self.firstChild then
+				child:SetPoint("LEFT", self, "LEFT", 0, 0)
+			else
+				child:SetPoint("TOPLEFT", self.lastChild, "TOPRIGHT", 12, 0)
+			end
+		end,
+		OnMAReleaseChild = function(self, index, child)
+			child:ClearAllPoints()
+			if child == self.firstChild then
+				child:SetPoint("TOPLEFT", "BankFrameItem1", "BOTTOMLEFT", 0, - 164)
+			else
+				child:SetPoint("TOPLEFT", self.lastChild, "TOPRIGHT", 12, 0)
+			end
+		end,
+		OnMAScale = ScaleChildren,
+		OnMAPreReset = ResetScaleChildren
+	},
 	BankBagFrame1 = {
 		inherits = "MovableBagFrame",
 		id = 5,

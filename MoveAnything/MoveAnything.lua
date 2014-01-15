@@ -2348,6 +2348,9 @@ function MovAny:HideFrame(f, readOnly)
 	if not fn then
 		fn = f:GetName()
 	end
+	if fn == "PaladinPowerBar" then
+		PaladinPowerBar:UnregisterAllEvents()
+	end
 	local opt
 	if readOnly then
 		opt = { }
@@ -2419,6 +2422,14 @@ function MovAny:ShowFrame(f, readOnly, dontHook)
 	end
 	if not fn then
 		fn = f:GetName()
+	end
+	if fn == "PaladinPowerBar" then
+		if UnitLevel("player") < PALADINPOWERBAR_SHOW_LEVEL then
+			self:RegisterEvent("PLAYER_LEVEL_UP")
+		end
+		PaladinPowerBar:RegisterEvent("UNIT_POWER")
+		PaladinPowerBar:RegisterEvent("PLAYER_ENTERING_WORLD")
+		PaladinPowerBar:RegisterEvent("UNIT_DISPLAYPOWER")
 	end
 	local e = API:GetElement(fn)
 	local opt = e.userData
@@ -5122,13 +5133,13 @@ function MovAny_OnEvent(self, event, arg1)
 		elseif arg1 == "Blizzard_TalentUI" and MovAny.hBlizzard_TalentUI then
 			MovAny:hBlizzard_TalentUI()
 		elseif arg1 == "Blizzard_AchievementUI" then
-			setfenv(AchievementFrame_OnShow, setmetatable({UpdateMicroButtons=function()
+			setfenv(AchievementFrame_OnShow, setmetatable({UpdateMicroButtons = function()
 				if (AchievementFrame and AchievementFrame:IsShown()) then
 					AchievementMicroButton:SetButtonState("PUSHED", 1)
 				end
 			end }, { __index = _G}))
 		elseif arg1 == "Blizzard_PetJournal" then
-			setfenv(PetJournalParent_OnShow, setmetatable({UpdateMicroButtons=function()
+			setfenv(PetJournalParent_OnShow, setmetatable({UpdateMicroButtons = function()
 				if (PetJournalParent and PetJournalParent:IsShown()) then
 					CompanionsMicroButton:Enable()
 					CompanionsMicroButton:SetButtonState("PUSHED", 1)
