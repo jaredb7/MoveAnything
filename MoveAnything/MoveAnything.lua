@@ -378,13 +378,13 @@ local MovAny = {
 	hReputationWatchBar_Update = function()
 		API:SyncElement("ReputationWatchBar")
 	end,
-	hChatFrame_OnUpdate = function()
+	hChatFrame_OnUpdate = function(arg1)
 		local b = arg1
-			if MovAny:IsModified(b) then
-				b:SetWidth(200)
-				b:SetPoint("TOPLEFT", ChatEditBoxesMover, "TOPLEFT", 0, 0)
-				b:SetPoint("BOTTOMRIGHT", ChatEditBoxesMover, "BOTTOMRIGHT", 0, 0)
-			end
+		if MovAny:IsModified(b) then
+			b:SetWidth(200)
+			b:SetPoint("TOPLEFT", ChatEditBoxesMover, "TOPLEFT", 0, 0)
+			b:SetPoint("BOTTOMRIGHT", ChatEditBoxesMover, "BOTTOMRIGHT", 0, 0)
+		end
 	end,
 	hCaptureBar_Create = function(id)
 		local f = MovAny.oCaptureBar_Create(id)
@@ -532,7 +532,7 @@ local MovAny = {
 		end				
 	end,
 	hFocusFrame_Update = function()
-		if MovAny:IsModified(FocusFrame, opt, hidden) then
+		if MovAny:IsModified(FocusFrame) then
 			RegisterStateDriver("FocusFrame", "visibility", "hide")
 		else
 			RegisterStateDriver("FocusFrame", "visibility", "show")
@@ -551,12 +551,12 @@ local MovAny = {
 	hRemoveFrameLock = function()
 		if SHOW_MULTI_ACTIONBAR_1 then
 			MultiBarBottomLeft:Show()
-		elseif (MovAny:IsModified(MultiBarBottomLeft) and not MovAny:IsModified(MultiBarBottomLeft, opt, hidden)) then
+		elseif (MovAny:IsModified(MultiBarBottomLeft) and not MovAny:IsModified(MultiBarBottomLeft)) then
 			MultiBarBottomLeft:Show()
 		end
 		if SHOW_MULTI_ACTIONBAR_2 then
 			MultiBarBottomRight:Show()
-		elseif (MovAny:IsModified(MultiBarBottomRight) and not MovAny:IsModified(MultiBarBottomRight, opt, hidden)) then
+		elseif (MovAny:IsModified(MultiBarBottomRight) and not MovAny:IsModified(MultiBarBottomRight)) then
 			MultiBarBottomRight:Show()
 		end
 	end,
@@ -769,7 +769,7 @@ function MovAny:Boot()
 	if WatchFrame_Update then
 		hooksecurefunc("WatchFrame_Update", self.hWatchFrameExpand)
 	end
-	setfenv(WorldMapFrame_OnShow, setmetatable({UpdateMicroButtons = function() end }, { __index = _G}))
+	--setfenv(WorldMapFrame_OnShow, setmetatable({UpdateMicroButtons = function() end }, { __index = _G}))
 	--[[hooksecurefunc("PetActionBar_UpdatePositionValues", function()
 		if MovAny:IsModified(PetActionButtonsVerticalMover) or MovAny:IsModified(PetActionButtonsMover) then
 			--print("PetActionBar_UpdatePositionValues()", MovAny:IsModified(PetActionButtonsVerticalMover), MovAny:IsModified(PetActionButtonsMover))
@@ -1732,7 +1732,7 @@ end
 
 function MovAny:ToggleHide(fn)
 	local ret = nil
-	f = _G[fn]
+	local f = _G[fn]
 	if f and type(f) ~= "table" then
 		maPrint(string.format(MOVANY.ERROR_NOT_A_TABLE, fn))
 		return
@@ -2112,6 +2112,9 @@ function MovAny:GetMoverByFrameName(fn)
 end
 
 function MovAny:AttachMoverToFrame(mover, f)
+	if not f:IsShown() then
+		return
+	end
 	self:UnlockPoint(f)
 	local e = f.MAE
 	if not e then
@@ -2119,6 +2122,9 @@ function MovAny:AttachMoverToFrame(mover, f)
 		return
 	end
 	mover.MAE = e
+	--[[if not string.find(e.name, "Mover") then
+		self:ShowFrame(f)
+	end]]
 	local opt = e.userData or MovAny:GetUserData(e.name, nil, true)
 	mover.displayName = e.displayName or f:GetName()
 	f.MAMover = mover
@@ -2141,8 +2147,8 @@ function MovAny:AttachMoverToFrame(mover, f)
 	opt.disabled = nil
 	mover:ClearAllPoints()
 	mover:SetAllPoints(f)
-	mover:SetWidth(f:GetWidth() * MAGetScale(f , 1) / UIParent:GetScale())
-	mover:SetHeight(f:GetHeight()  * MAGetScale(f , 1) / UIParent:GetScale())
+	mover:SetWidth(f:GetWidth() * MAGetScale(f))
+	mover:SetHeight(f:GetHeight() * MAGetScale(f))
 	if f.GetFrameLevel then
 		mover:SetFrameLevel(f:GetFrameLevel() + 1)
 	end
@@ -2153,7 +2159,6 @@ function MovAny:AttachMoverToFrame(mover, f)
 		local p = self:GetRelativePoint({"BOTTOMLEFT", UIParent, "BOTTOMLEFT"}, mover)
 		mover:ClearAllPoints()
 		mover:SetPoint(unpack(p))
-		
 		mover.MAStartPoint = self:GetRelativePoint({"BOTTOMLEFT", UIParent, "BOTTOMLEFT"}, f)
 		if f.GetScale then
 			mover.MAStartScale = f:GetScale()
@@ -2179,8 +2184,8 @@ end
 
 function MovAny:DetachMover(mover)
 	mover.detaching = true
-	if mover.tagged and not mover.attaching then
-		local f = mover.tagged
+	local f = mover.tagged
+	if mover.tagged and not mover.attaching and f:IsShown() then
 		if not mover.MAE.noMove and not mover.dontUpdate then
 			if mover.MAStartPoint then
 				self:MoverUpdatePosition(mover)
@@ -2261,6 +2266,7 @@ function MovAny:ResetFrame(f, dontUpdate, readOnly)
 	if self:ErrorNotInCombat(f) or (InCombatLockdown() and f.UMFP) then
 		return
 	end
+	self:ShowFrame(f)
 	self:StopMoving(fn)
 	self.lastFrameName = fn
 	if not f then
@@ -2351,6 +2357,13 @@ function MovAny:HideFrame(f, readOnly)
 	if fn == "PaladinPowerBar" then
 		PaladinPowerBar:UnregisterAllEvents()
 	end
+	local e = API:GetElement(fn)
+	--[[local mover = self:GetMoverByFrame(f)
+	if mover then
+		if not string.find(e.name, "Mover") then
+			self:DetachMover(mover)
+		end
+	end]]
 	local opt
 	if readOnly then
 		opt = { }
@@ -2361,7 +2374,6 @@ function MovAny:HideFrame(f, readOnly)
 	if not f then
 		return true
 	end
-	local e = API:GetElement(fn)
 	if not self:IsValidObject(f) or not self:HookFrame(e, f) or self:ErrorNotInCombat(f) then
 		return
 	end
@@ -2424,13 +2436,14 @@ function MovAny:ShowFrame(f, readOnly, dontHook)
 		fn = f:GetName()
 	end
 	if fn == "PaladinPowerBar" then
-		if UnitLevel("player") < PALADINPOWERBAR_SHOW_LEVEL then
-			self:RegisterEvent("PLAYER_LEVEL_UP")
-		end
-		PaladinPowerBar:RegisterEvent("UNIT_POWER")
-		PaladinPowerBar:RegisterEvent("PLAYER_ENTERING_WORLD")
-		PaladinPowerBar:RegisterEvent("UNIT_DISPLAYPOWER")
+		PaladinPowerBar_OnLoad(PaladinPowerBar)
 	end
+	--[[local mover = self:GetMoverByFrame(f)
+	if mover then
+		if not string.find(e.name, "Mover") then
+			self:AttachMoverToFrame(mover, f)
+		end
+	end]]
 	local e = API:GetElement(fn)
 	local opt = e.userData
 	if readOnly == nil and opt then
@@ -2450,9 +2463,8 @@ function MovAny:ShowFrame(f, readOnly, dontHook)
 	if e.hideList then
 		for hIndex, hideEntry in pairs(e.hideList) do
 			local val = _G[hideEntry[1]]
-			local hideType
 			for i = 2, table.getn(hideEntry) do
-				hideType = hideEntry[i]
+				local hideType = hideEntry[i]
 				if type(hideType) == "function" then
 					hideType(true)
 				elseif hideType == "DISABLEMOUSE" then
@@ -2856,6 +2868,7 @@ function MovAny:MoverOnMouseWheel(mover, arg1)
 	if type(alpha) ~= "number" then
 		return
 	end
+	local alphaMod
 	if arg1 > 0 then
 		alphaMod = .05
 	else
@@ -3773,10 +3786,10 @@ function MovAny:UnanchorRelatives(e, f, opt)
 	local num = p:GetNumChildren()
 	--assert((num < 8000), "Too much childrens stuck in owerflow")
 	if p.GetChildren then
-		if p.GetNumChildren then	
-			if p:GetNumChildren() > 7999 then 
+		if p.GetNumChildren then
+			if p:GetNumChildren() > 7999 then
 			-- maPrint("Too much childrens for "..(p:GetName() or UNKNOWN)..".Find-("..p:GetNumChildren()..") childrens. Some of your addon create too much unnecessary frame.")
-			else			
+			else
 				local children = {p:GetChildren()}
 				if children ~= nil then
 					for i, v in ipairs(children) do
@@ -3843,7 +3856,7 @@ function MovAny:_AddNamedChildren(l, f)
 				if v.GetName then
 					n = v:GetName()
 					if n then
-						l[ v ] = v
+						l[v] = v
 					end
 				end
 			end
@@ -3903,6 +3916,7 @@ function MovAny:AddPendingPoint(f, p)
 			MovAny:LockPoint(f)
 		end
 	end
+	local fn = f:GetName()
 	MovAny.pendingActions[fn..":Point"] = closure(f, p)
 end
 
@@ -4283,7 +4297,6 @@ function MAGetScale(f, effective)
 		if not f.GetScale or f:GetScale() == nil then
 			return 1
 		end
-
 		if effective then
 			return f:GetEffectiveScale()
 		else
@@ -4331,7 +4344,11 @@ function MovAny:ToggleEnableFrame(fn, opt)
 end
 
 function MovAny:EnableFrame(fn)
-	if fn == nil then
+	local f = _G[fn]
+	if not fn then
+		return
+	end
+	if not f then
 		return
 	end
 	local opt = f.MAE.userData
@@ -4339,10 +4356,6 @@ function MovAny:EnableFrame(fn)
 		return
 	end
 	opt.disabled = nil
-	local f = _G[fn]
-	if not f then
-		return
-	end
 	local e = API:GetElement(fn)
 	e:Sync(f)
 	if f.MAOnEnable then
@@ -4390,11 +4403,11 @@ function MovAny:HookTooltip(mover)
 	local l, r, t, b, anchor
 	local tooltip = _G.GameTooltip
 	self:UnhookTooltip()
-	--local opt = MovAny:GetUserData(mover:GetName())
+	--[[local opt = MovAny:GetUserData(mover:GetName())
 	opt = mover.MAE.userData
 	if type(opt) ~= "table" then
 		return
-	end
+	end]]
 	tooltip.MAMover = mover
 	l = mover:GetLeft() * mover:GetEffectiveScale()
 	r = mover:GetRight() * mover:GetEffectiveScale()
@@ -4417,9 +4430,9 @@ function MovAny:HookTooltip(mover)
 	tooltip:ClearAllPoints()
 	tooltip:SetPoint(anchor, mover, anchor, 0, 0)
 	--MovAny:LockPoint(tooltip)
-	if opt.hidden then
+	--[[if opt.hidden then
 		self:LockVisibility(tooltip)
-	end
+	end]]
 	MovAny.Alpha:Apply(mover.MAE, tooltip)
 	MovAny.Scale:Apply(mover.MAE, tooltip)
 	MovAny.Misc:Apply(mover.MAE, tooltip)
@@ -5473,6 +5486,7 @@ function MovAny:CreateVM(name)
 		vm.MAEVM.runOnce = nil
 	end]]
 	vm.opt = MovAny:GetUserData(name)
+	local opt = vm.opt
 	if data.id then
 		vm:SetID(data.id)
 	end
@@ -5616,7 +5630,7 @@ function MovAny:CreateVM(name)
 		end
 		if type(data.children) == "table" then
 			for i, v in pairs(data.children) do
-				child = type(v) == "string" and _G[v] or v
+				local child = type(v) == "string" and _G[v] or v
 				if type(child) == "table" and not self.attachedChildren[child:GetName()] then
 					if not MovAny:IsModified(child) then
 						newChild = self:FoundChild(child:GetName(), child)

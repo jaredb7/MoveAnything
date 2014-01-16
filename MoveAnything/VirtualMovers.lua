@@ -1235,14 +1235,14 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAPostReset = function(self)
 			MultiBarRight:SetScale(1)
-			for i=1, 12 do
+			for i = 1, 12 do
 				_G["MultiBarRightButton"..i]:SetScale(1)
 			end
 			MultiBarRight.MAHooked = nil
 		end,
 		OnMAPreReset = function(self)
 			MultiBarRight:SetScale(1)
-			for i=1, 12 do
+			for i = 1, 12 do
 				_G["MultiBarRightButton"..i]:SetScale(1)
 			end
 			MultiBarRight.MAHooked = nil
