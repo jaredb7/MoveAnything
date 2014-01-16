@@ -80,7 +80,7 @@ local m = {
 		c = API:GetCategory("Arena")
 		--API:AddElement({name = "ArenaEnemyFrames", displayName = "ArenaEnemyFrames", noScale = 1}, c)
 		--API:AddElement({name = "ArenaPrepFrames", displayName = "ArenaPrepFrames", noScale = 1}, c)
-		API:AddElement({name = "ArenaEnemyFrame1", displayName = "Arena Enemy 1", create = "ArenaEnemyFrameTemplate", runOnce = Arena_LoadUI}, c) --, runOnce = Arena_LoadUI
+		API:AddElement({name = "ArenaEnemyFrame1", displayName = "Arena Enemy 1", create = "ArenaEnemyFrameTemplate", runOnce = Arena_LoadUI}, c)
 		API:AddElement({name = "ArenaEnemyFrame2", displayName = "Arena Enemy 2", create = "ArenaEnemyFrameTemplate", runOnce = Arena_LoadUI}, c)
 		API:AddElement({name = "ArenaEnemyFrame3", displayName = "Arena Enemy 3", create = "ArenaEnemyFrameTemplate", runOnce = Arena_LoadUI}, c)
 		API:AddElement({name = "ArenaEnemyFrame4", displayName = "Arena Enemy 4", create = "ArenaEnemyFrameTemplate", runOnce = Arena_LoadUI}, c)
@@ -100,7 +100,7 @@ local m = {
 		API:AddElement({name = "ArenaFrame", displayName = "Arena Queue List"}, c)
 		--API:AddElement({name = "ArenaRegistrarFrame", displayName = "Arena Registrar"}, c)
 		--API:AddElement({name = "PVPBannerFrame", displayName = "Arena Banner"}, c)
-		API:AddElement({name = "ArenaPrepFrame1", displayName = "Arena Prep 1", create = "ArenaPrepFrameTemplate", runOnce = Arena_LoadUI}, c) --, runOnce = Arena_LoadUI
+		API:AddElement({name = "ArenaPrepFrame1", displayName = "Arena Prep 1", create = "ArenaPrepFrameTemplate", runOnce = Arena_LoadUI}, c)
 		API:AddElement({name = "ArenaPrepFrame2", displayName = "Arena Prep 2", create = "ArenaPrepFrameTemplate", runOnce = Arena_LoadUI}, c)
 		API:AddElement({name = "ArenaPrepFrame3", displayName = "Arena Prep 3", create = "ArenaPrepFrameTemplate", runOnce = Arena_LoadUI}, c)
 		API:AddElement({name = "ArenaPrepFrame4", displayName = "Arena Prep 4", create = "ArenaPrepFrameTemplate", runOnce = Arena_LoadUI}, c)
@@ -119,8 +119,6 @@ local m = {
 		API:AddElement({name = "AlwaysUpFrame1", displayName = "AlwaysUp Frame 1", create = "WorldStateAlwaysUpTemplate", onlyOnceCreated = 1}, c)
 		API:AddElement({name = "AlwaysUpFrame2", displayName = "AlwaysUp Frame 2", create = "WorldStateAlwaysUpTemplate", onlyOnceCreated = 1}, c)
 		API:AddElement({name = "AlwaysUpFrame3", displayName = "AlwaysUp Frame 3", create = "WorldStateAlwaysUpTemplate", onlyOnceCreated = 1}, c)
-		API:AddElement({name = "AlwaysUpFrame4", displayName = "AlwaysUp Frame 4", create = "WorldStateAlwaysUpTemplate", onlyOnceCreated = 1}, c)
-		API:AddElement({name = "AlwaysUpFrame5", displayName = "AlwaysUp Frame 5", create = "WorldStateAlwaysUpTemplate", onlyOnceCreated = 1}, c)
 		c = API:GetCategory("Blizzard Bags")
 		API:AddElement({name = "BagsMover", displayName = "All Bags", noHide = 1}, c)
 		API:AddElement({name = "BagButtonsMover", displayName = "Bag Buttons"}, c)

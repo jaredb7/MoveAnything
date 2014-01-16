@@ -103,6 +103,10 @@ local MovAny = {
 	lForceProtected = {
 		["ArenaPrepFrames"] = "ArenaPrepFrames",
 		["ArenaEnemyFrames"] = "ArenaEnemyFrames",
+		["WorldStateAlwaysUpFrame"] = "WorldStateAlwaysUpFrame",
+		["AlwaysUpFrame1"] = "AlwaysUpFrame1",
+		["AlwaysUpFrame2"] = "AlwaysUpFrame2",
+		["AlwaysUpFrame3"] = "AlwaysUpFrame3"
 	},
 	lForcedLock = {
 		Boss1TargetFrame = "Boss1TargetFrame",
@@ -462,19 +466,29 @@ local MovAny = {
 		if InCombatLockdown() then
 			return
 		end
-		if not MovAny:IsModified("ArenaEnemyFrame1") then 
-			ArenaEnemyFrame1:SetPoint("TOP", UIParent, "TOP", 600, - 300) 
+		if not MovAny:IsModified("ArenaEnemyFrame1") then
+			ArenaEnemyFrame1:SetPoint("TOP", UIParent, "TOP", 600, - 300)
+			ArenaEnemyFrame1:SetPoint("RIGHT", ArenaEnemyFrames, "RIGHT", - 18, 0)
 			ArenaEnemyFrame2:SetPoint("TOP", ArenaEnemyFrame1, "BOTTOM", 0, - 20)
+			ArenaEnemyFrame2:SetPoint("RIGHT", ArenaEnemyFrames, "RIGHT", - 18, 0)
 			ArenaEnemyFrame3:SetPoint("TOP", ArenaEnemyFrame2, "BOTTOM", 0, - 20)
+			ArenaEnemyFrame3:SetPoint("RIGHT", ArenaEnemyFrames, "RIGHT", - 18, 0)
 			ArenaEnemyFrame4:SetPoint("TOP", ArenaEnemyFrame3, "BOTTOM", 0, - 20)
+			ArenaEnemyFrame4:SetPoint("RIGHT", ArenaEnemyFrames, "RIGHT", - 18, 0)
 			ArenaEnemyFrame5:SetPoint("TOP", ArenaEnemyFrame4, "BOTTOM", 0, - 20)
+			ArenaEnemyFrame5:SetPoint("RIGHT", ArenaEnemyFrames, "RIGHT", - 18, 0)
 		end
-		if not MovAny:IsModified("ArenaPrepFrame1") then 
-			ArenaPrepFrame1:SetPoint("TOP", UIParent, "TOP", 600, - 300) 
+		if not MovAny:IsModified("ArenaPrepFrame1") then
+			ArenaPrepFrame1:SetPoint("TOP", UIParent, "TOP", 600, - 300)
+			ArenaPrepFrame1:SetPoint("RIGHT", ArenaEnemyFrames, "RIGHT", - 18, 0)
 			ArenaPrepFrame2:SetPoint("TOP", ArenaPrepFrame1, "BOTTOM", 0, - 20)
+			ArenaPrepFrame2:SetPoint("RIGHT", ArenaEnemyFrames, "RIGHT", - 18, 0)
 			ArenaPrepFrame3:SetPoint("TOP", ArenaPrepFrame2, "BOTTOM", 0, - 20)
+			ArenaPrepFrame3:SetPoint("RIGHT", ArenaEnemyFrames, "RIGHT", - 18, 0)
 			ArenaPrepFrame4:SetPoint("TOP", ArenaPrepFrame3, "BOTTOM", 0, - 20)
+			ArenaPrepFrame4:SetPoint("RIGHT", ArenaEnemyFrames, "RIGHT", - 18, 0)
 			ArenaPrepFrame5:SetPoint("TOP", ArenaPrepFrame4, "BOTTOM", 0, - 20)
+			ArenaPrepFrame5:SetPoint("RIGHT", ArenaEnemyFrames, "RIGHT", - 18, 0)
 		end
 	end,
 	hookArenaEnemyPets15 = function() end,
@@ -1102,7 +1116,6 @@ function MovAny:SyncFrames(dontReset)
 	for fn, e in pairs(self.pendingFrames) do
 		if not self:GetMoverByFrame(fn) then
 			self.curSync = e
-			
 			local _, ret = xpcall(function()
 				return e:Sync()
 			end, self.SyncErrorHandler, self)
@@ -1157,6 +1170,9 @@ function MovAny.SyncErrorHandler(msg, frame, stack,  ...)
 end
 
 function MovAny:IsProtected(f)
+	if not f then
+		return
+	end
 	return f:IsProtected() or f.MAProtected or MovAny.lForceProtected[f:GetName()]
 end
 
@@ -1260,8 +1276,10 @@ function MovAny.hSetPoint(f, ...)
 					local p = f.MAPoint
 					f.MAPoint = nil
 					f:ClearAllPoints()
-					f:SetPoint(unpack(p))
-					f.MAPoint = p
+					if p then
+						f:SetPoint(unpack(p))
+						f.MAPoint = p
+					end
 					p = nil
 				end
 			end
@@ -2112,7 +2130,7 @@ function MovAny:GetMoverByFrameName(fn)
 end
 
 function MovAny:AttachMoverToFrame(mover, f)
-	if not f:IsShown() then
+	if f.MAHidden == true then
 		return
 	end
 	self:UnlockPoint(f)
@@ -2146,7 +2164,7 @@ function MovAny:AttachMoverToFrame(mover, f)
 	end
 	opt.disabled = nil
 	mover:ClearAllPoints()
-	mover:SetAllPoints(f)
+	mover:SetPoint("CENTER", f, "CENTER")
 	mover:SetWidth(f:GetWidth() * MAGetScale(f))
 	mover:SetHeight(f:GetHeight() * MAGetScale(f))
 	if f.GetFrameLevel then
@@ -2185,8 +2203,8 @@ end
 function MovAny:DetachMover(mover)
 	mover.detaching = true
 	local f = mover.tagged
-	if mover.tagged and not mover.attaching and f:IsShown() then
-		if not mover.MAE.noMove and not mover.dontUpdate then
+	if mover.tagged and not mover.attaching and not f.MAHidden then
+		if mover.MAE and not mover.MAE.noMove and not mover.dontUpdate then
 			if mover.MAStartPoint then
 				self:MoverUpdatePosition(mover)
 			end
@@ -3007,7 +3025,7 @@ function MovAny:CountGUIItems()
 		local uiDisplayedFrameNames = { }
 		for i, o in pairs(API.all) do
 			if not o.elems and not uiDisplayedFrameNames[o.name] then
-				if (not MADB.dontSearchFrameNames and string.match(string.lower(o.name), self.searchWord)) or (o.displayName and string.match(string.lower(o.displayName), self.searchWord)) then
+				if (not MADB.dontSearchFrameNames and string.match(string.lower(tostring(o.name)), self.searchWord)) or (o.displayName and string.match(string.lower(tostring(o.displayName)), self.searchWord)) then
 					if MADB.modifiedFramesOnly then
 						if MovAny:IsModified(o.name) then
 							uiDisplayedFrameNames[o.name] = 1
@@ -5345,11 +5363,16 @@ function MovAny_OnEvent(self, event, arg1)
 				end
 			end
 			--ArenaEnemyFrame1:ClearAllPoints()
-			ArenaEnemyFrame1:SetPoint("TOP", UIParent, "TOP", 400, - 200)
+			ArenaEnemyFrame1:SetPoint("TOP", UIParent, "TOP", 600, - 300)
+			ArenaEnemyFrame1:SetPoint("RIGHT", ArenaEnemyFrames, "RIGHT", - 18, 0)
 			ArenaEnemyFrame2:SetPoint("TOP", ArenaEnemyFrame1, "BOTTOM", 0, - 20)
+			ArenaEnemyFrame2:SetPoint("RIGHT", ArenaEnemyFrames, "RIGHT", - 18, 0)
 			ArenaEnemyFrame3:SetPoint("TOP", ArenaEnemyFrame2, "BOTTOM", 0, - 20)
+			ArenaEnemyFrame3:SetPoint("RIGHT", ArenaEnemyFrames, "RIGHT", - 18, 0)
 			ArenaEnemyFrame4:SetPoint("TOP", ArenaEnemyFrame3, "BOTTOM", 0, - 20)
+			ArenaEnemyFrame4:SetPoint("RIGHT", ArenaEnemyFrames, "RIGHT", - 18, 0)
 			ArenaEnemyFrame5:SetPoint("TOP", ArenaEnemyFrame4, "BOTTOM", 0, - 20)
+			ArenaEnemyFrame5:SetPoint("RIGHT", ArenaEnemyFrames, "RIGHT", - 18, 0)
 			for i = 1, 5 do
 				local frame = "ArenaEnemyFrame"..i
 				if _G[frame] and not _G[frame].hooked_ma then
