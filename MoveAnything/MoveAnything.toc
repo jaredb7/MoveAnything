@@ -5,9 +5,6 @@
 ## Author: Wagthaa
 ## SavedVariables: MADB
 
-Libs\NoTaint\embeds.xml
-Libs\NoTaint\Code.lua
-
 Localizations\Localization.br.lua
 Localizations\Localization.cn.lua
 Localizations\Localization.de.lua
