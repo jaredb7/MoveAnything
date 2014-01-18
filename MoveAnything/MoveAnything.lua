@@ -491,6 +491,24 @@ local MovAny = {
 			ArenaPrepFrame5:SetPoint("RIGHT", ArenaEnemyFrames, "RIGHT", - 18, 0)
 		end
 	end,
+	hooksecurefunc("CompactRaidFrameManager_Expand", function(self)
+		if MovAny:IsModified(self) then
+			MovAny:UnlockPoint(self)
+			local point, relativeTo, relativePoint, xOfs, yOfs = self:GetPoint(1)
+			self:ClearAllPoints()
+			self:SetPoint("TOPLEFT", UIParent, "TOPLEFT", xOfs + 175, yOfs)
+			MovAny:LockPoint(self)
+		end
+	end),
+	hooksecurefunc("CompactRaidFrameManager_Collapse", function(self)
+		if MovAny:IsModified(self) then
+			MovAny:UnlockPoint(self)
+			local point, relativeTo, relativePoint, xOfs, yOfs = self:GetPoint(1)
+			self:ClearAllPoints()
+			self:SetPoint("TOPLEFT", UIParent, "TOPLEFT", xOfs - 175, yOfs)
+			MovAny:LockPoint(self)
+		end
+	end),
 	hookArenaEnemyPets15 = function() end,
 	hArenaEnemyFrames_Enable = function()
 		ArenaPrepFrames:ma_Show()
@@ -1208,7 +1226,7 @@ function MovAny.hShow(f, ...)
 		if MovAny:IsProtected(f) and InCombatLockdown() then
 			local e = API:GetElement(f:GetName())
 			if e ~= nil and e.userData then
-				MovAny.pendingFrames[ f:GetName() ] = e
+				MovAny.pendingFrames[f:GetName()] = e
 			end
 		else
 			f.MAHidden = nil
@@ -2374,6 +2392,13 @@ function MovAny:HideFrame(f, readOnly)
 	end
 	if fn == "PaladinPowerBar" then
 		PaladinPowerBar:UnregisterAllEvents()
+		elseif fn == "CompactRaidFrameManager" then
+		if InCombatLockdown() or UnitAffectingCombat("player") then
+			self:ErrorNotInCombat(f)
+			return
+		end
+		f:UnregisterAllEvents()
+		CompactRaidFrameContainer:SetParent(UIParent)
 	end
 	local e = API:GetElement(fn)
 	--[[local mover = self:GetMoverByFrame(f)
@@ -2454,7 +2479,24 @@ function MovAny:ShowFrame(f, readOnly, dontHook)
 		fn = f:GetName()
 	end
 	if fn == "PaladinPowerBar" then
-		PaladinPowerBar_OnLoad(PaladinPowerBar)
+		PaladinPowerBar_OnLoad(f)
+		elseif fn == "CompactRaidFrameManager" then
+		if InCombatLockdown() or UnitAffectingCombat("player") then
+			return
+		end
+		f:RegisterEvent("DISPLAY_SIZE_CHANGED")
+		f:RegisterEvent("UI_SCALE_CHANGED")
+		f:RegisterEvent("GROUP_ROSTER_UPDATE")
+		f:RegisterEvent("UNIT_FLAGS")
+		f:RegisterEvent("PLAYER_FLAGS_CHANGED")
+		f:RegisterEvent("PLAYER_ENTERING_WORLD")
+		f:RegisterEvent("PARTY_LEADER_CHANGED")
+		f:RegisterEvent("RAID_TARGET_UPDATE")
+		f:RegisterEvent("PLAYER_TARGET_CHANGED")
+		CompactRaidFrameContainer:ClearAllPoints()
+		CompactRaidFrameContainer:SetParent(f)
+		MovAny:UnlockPoint(CompactRaidFrameContainer)
+		CompactRaidFrameContainer:SetPoint("TOPLEFT", CompactRaidFrameManagerContainerResizeFrame, "TOPLEFT", 4, - 7)
 	end
 	--[[local mover = self:GetMoverByFrame(f)
 	if mover then
@@ -5156,14 +5198,14 @@ function MovAny_OnEvent(self, event, arg1)
 			MovAny:SyncFrames()
 		end
 	elseif event == "ADDON_LOADED" then
-		if arg1 == "MoveAnything" then		
+		if arg1 == "MoveAnything" then
 			if MovAny.Load ~= nil then
 				MovAny:Load()
 				MovAny.Load = nil
 			end			
 		elseif arg1 == "Blizzard_TalentUI" and MovAny.hBlizzard_TalentUI then
 			MovAny:hBlizzard_TalentUI()
-		elseif arg1 == "Blizzard_AchievementUI" then
+		--[[elseif arg1 == "Blizzard_AchievementUI" then
 			setfenv(AchievementFrame_OnShow, setmetatable({UpdateMicroButtons = function()
 				if (AchievementFrame and AchievementFrame:IsShown()) then
 					AchievementMicroButton:SetButtonState("PUSHED", 1)
@@ -5175,10 +5217,10 @@ function MovAny_OnEvent(self, event, arg1)
 					CompanionsMicroButton:Enable()
 					CompanionsMicroButton:SetButtonState("PUSHED", 1)
 				end
-			end }, { __index = _G}))		
+			end }, { __index = _G}))]]
 		elseif arg1 == "Blizzard_ArenaUI" then
-			ArenaEnemyFrame_UpdatePet = function() end		
-			ArenaEnemyFrames_UpdateWatchFrame = function()				
+			ArenaEnemyFrame_UpdatePet = function() end
+			ArenaEnemyFrames_UpdateWatchFrame = function()
 				local _, instanceType = IsInInstance()
 				if not WatchFrame:IsUserPlaced() then
 					if ArenaEnemyFrames:IsShown() then
@@ -5204,7 +5246,7 @@ function MovAny_OnEvent(self, event, arg1)
 					WatchFrame_Update()
 				end
 			end
-			ArenaPrepFrames_UpdateWatchFrame = function()			
+			ArenaPrepFrames_UpdateWatchFrame = function()
 				local _, instanceType = IsInInstance()
 				if not WatchFrame:IsUserPlaced() then
 					if ArenaPrepFrames:IsShown() then
@@ -5415,7 +5457,7 @@ function MovAny_OnEvent(self, event, arg1)
 			end		
 		end
 		MovAny:SyncFrames()
-	elseif event == "GROUP_ROSTER_UPDATE" then
+	--[[elseif event == "GROUP_ROSTER_UPDATE" then
 		if InCombatLockdown() then
 			return
 		end
@@ -5428,7 +5470,7 @@ function MovAny_OnEvent(self, event, arg1)
 			f.MAParent = "RaidUnitFramesMover"
 		end
 		MovAny.API:SyncElement("RaidUnitFramesManagerMover")
-		MovAny.API:SyncElement("RaidUnitFramesMover")
+		MovAny.API:SyncElement("RaidUnitFramesMover")]]
 	elseif event == "PLAYER_FOCUS_CHANGED" then
 		MovAny.API:SyncElement("FocusFrame")
 	elseif event == "BANKFRAME_OPENED" then
@@ -6064,6 +6106,8 @@ function GetParentInfo(f)
 	local fn = f:GetName()
 	print("|cFF50C0FF".."<---------------------------------------------->".."|r")
 	print("|cFF50C0FF".."Frame:".."|r", fn)
+	local p = f:GetParent()
+	print("|cFF50C0FF".."Parent:".."|r", p:GetName())
 	for i = 1, f:GetNumPoints() do
 		local point, relativeTo, relativePoint, xOfs, yOfs = f:GetPoint(i)
 		print(i..".", "|cFF50C0FF".."p:".."|r", point, "|cFF50C0FF".."rfn:".."|r", relativeTo:GetName(), "|cFF50C0FF".."rf:".."|r", relativeTo, "|cFF50C0FF".."rp:".."|r", relativePoint, "|cFF50C0FF".."x:".."|r", xOfs, "|cFF50C0FF".."y:".."|r", yOfs)
@@ -6077,6 +6121,8 @@ function GetParentInfoFromCursor()
 	local f = _G[fn]
 	print("|cFF50C0FF".."<---------------------------------------------->".."|r")
 	print("|cFF50C0FF".."Frame:".."|r", fn)
+	local p = f:GetParent()
+	print("|cFF50C0FF".."Parent:".."|r", p:GetName())
 	for i = 1, f:GetNumPoints() do
 		local point, relativeTo, relativePoint, xOfs, yOfs = f:GetPoint(i)
 		print(i..".", "|cFF50C0FF".."p:".."|r", point, "|cFF50C0FF".."rfn:".."|r", relativeTo:GetName(), "|cFF50C0FF".."rf:".."|r", relativeTo, "|cFF50C0FF".."rp:".."|r", relativePoint, "|cFF50C0FF".."x:".."|r", xOfs, "|cFF50C0FF".."y:".."|r", yOfs)

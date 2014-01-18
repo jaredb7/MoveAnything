@@ -2194,7 +2194,7 @@ MovAny.lVirtualMovers = {
 			end
 		end
 	},
-	RaidUnitFramesManagerMover = {
+	--[[RaidUnitFramesManagerMover = {
 		linkedSize = "CompactRaidFrameManager",
 		point = {"TOPLEFT", "UIParent", "TOPLEFT", - 7, - 140},
 		children = {"CompactRaidFrameManager"},
@@ -2219,17 +2219,17 @@ MovAny.lVirtualMovers = {
 			b:SetScript("OnMouseUp", function(self)
 				self:GetNormalTexture():SetAllPoints()
 			end)
-			b:SetScript("OnClick", function() CompactRaidFrameManager_Expand(CompactRaidFrameManager) end) --CompactRaidFrameManager_Expand
-			
+			b:SetScript("OnClick", function()
+				CompactRaidFrameManager_Expand(CompactRaidFrameManager)
+			end)
 			local man = _G["CompactRaidFrameManager"]
-			p = {"TOPLEFT", "UIParent", "TOPLEFT", - 5, - 225}
+			local p = {"TOPLEFT", "UIParent", "TOPLEFT", - 5, - 225}
 			b:SetPoint(unpack(p))
 			local e = MovAny.API:GetElement(b:GetName())
 			if e:IsModified() then
 				e:Sync()
 			end
 			self.button = b
-			
 			hooksecurefunc("CompactRaidFrameManager_Expand", function(man)
 				if not self.MAHooked then
 					return
@@ -2289,7 +2289,7 @@ MovAny.lVirtualMovers = {
 			self.button:Hide()
 			self.man = nil
 		end
-	},
+	},]]
 	BagsMover = {
 		w = 100,
 		h = 100,
