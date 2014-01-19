@@ -1,0 +1,11 @@
+
+**13.8.5**
+* 
+
+**13.8.4**
+* Fixed a major issue, which caued some frames and it's movers to change positions.
+* Fixed a taint caused by "AlwaysUpFrame" most likely in battlegrounds.
+* Code cleanup round one.
+
+**13.8.3**
+* Localization updates.

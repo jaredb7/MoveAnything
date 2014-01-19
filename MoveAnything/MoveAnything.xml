@@ -50,7 +50,6 @@
 				end
 				self.OnMAPosition = posFunc
 				self.OnMAPreReset = posFunc
-				
 				self.OnMAPostReset = function(self, readOnly)
 					local container = MovAny:GetContainerFrame(self.realID)
 					if container then
@@ -71,8 +70,6 @@
 					end
 					UpdateContainerFrameAnchors()
 				end
-				
-				
 				self.OnMAAttach = function(self)
 					local container = MovAny:GetContainerFrame(self.realID)
 					if container then
@@ -106,14 +103,12 @@
 					]]
 					UpdateContainerFrameAnchors()
 				end
-				
 				self.OnMAAlpha = function(ref, alpha)
 					local con = MovAny:GetContainerFrame(ref.realID)
 					if con then
 						con:SetAlpha(alpha)
 					end
 				end
-				
 				self.OnMAScale = function(ref, scale)
 					if scale and scale >= 0 then
 						local con = MovAny:GetContainerFrame(ref.realID)
@@ -224,14 +219,18 @@
 		<Size>
 			<AbsDimension x="100" y="100"/>
 		</Size>
+		<Anchors>
+			<Anchor point="BOTTOMLEFT">
+				<Offset>
+					<AbsDimension x="0" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
 		<ResizeBounds>
 			<minResize>
 				<AbsDimension x="8" y="8"/>
 			</minResize>
 		</ResizeBounds>
-		<Anchors>
-			<Anchor point="BOTTOMLEFT"/>
-		</Anchors>
 		<Scripts>
 			<OnLoad>
 				self.neverShowTooltip = true
@@ -245,7 +244,6 @@
 					local label = _G[self:GetName().."BackdropInfoLabel"]
 					label:Show()
 					label:SetText(str)
-					
 					if self == MovAny.currentMover then
 						_G["MANudgerInfoLabel"]:Show()
 						_G["MANudgerInfoLabel"]:SetText(str)
@@ -381,26 +379,26 @@
 		<Size>
 			<AbsDimension x="20" y="20"/>
 		</Size>
-		<NormalText inherits="GameFontHighlight"/>
-		<DisabledText inherits="GameFontDisable"/>
-		<HighlightText inherits="GameFontHighlight"/>
 		<Scripts>
 			<OnEnter function="MovAny_TooltipShow"/>
 			<OnLeave function="MovAny_TooltipHide"/>
 		</Scripts>
+		<NormalTexture inherits="GameFontHighlight"/>
+		<DisabledTexture inherits="GameFontDisable"/>
+		<HighlightTexture inherits="GameFontHighlight"/>
 	</Button>
 
 	<CheckButton name="MACheckButtonTemplate" inherits="UICheckButtonTemplate" virtual="true">
 		<Size>
 			<AbsDimension x="20" y="20"/>
 		</Size>
-		<NormalText inherits="GameFontHighlight"/>
-		<DisabledText inherits="GameFontDisable"/>
-		<HighlightText inherits="GameFontHighlight"/>
 		<Scripts>
 			<OnEnter function="MovAny_TooltipShow"/>
 			<OnLeave function="MovAny_TooltipHide"/>
 		</Scripts>
+		<NormalTexture inherits="GameFontHighlight"/>
+		<DisabledTexture inherits="GameFontDisable"/>
+		<HighlightTexture inherits="GameFontHighlight"/>
 	</CheckButton>
 
 	<CheckButton name="MAListCheckButtonTemplate" inherits="MACheckButtonTemplate" virtual="true">
@@ -513,24 +511,28 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<NormalText inherits="GameFontHighlight"/>
 				<Scripts>
 					<OnClick>
 						MovAny:OnResetCheck(self)
 					</OnClick>
 				</Scripts>
+				<NormalTexture inherits="GameFontHighlight"/>
 			</Button>
 		</Frames>
 	</Frame>
 
 	<Frame name="MAOptions" toplevel="true" frameStrata="HIGH" movable="true" enableMouse="true" hidden="true" parent="UIParent">
-		<TitleRegion setAllPoints="true"/>
 		<Size>
 			<AbsDimension x="497" y="513"/>
 		</Size>
 		<Anchors>
-			<Anchor point="CENTER"/>
+			<Anchor point="CENTER">
+				<Offset>
+					<AbsDimension x="0" y="0"/>
+				</Offset>
+			</Anchor>
 		</Anchors>
+		<TitleRegion setAllPoints="true"/>
 		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
 			<BackgroundInsets>
 				<AbsInset left="11" right="12" top="12" bottom="11"/>
@@ -905,13 +907,17 @@
 		</Scripts>
 	</Frame>
 	<Button name="MA_NudgeButton" inherits="UIPanelButtonTemplate" virtual="true" hidden="false">
-		<Size><AbsDimension x="24" y="24"/></Size>
+		<Size>
+			<AbsDimension x="24" y="24"/>
+		</Size>
 		<Scripts>
 			<OnClick function="MANudgeButton_OnClick"/>
 		</Scripts>
 	</Button>
 	<Button name="MA_MoverButton" inherits="UIPanelButtonTemplate" virtual="true" hidden="false">
-		<Size><AbsDimension x="15" y="15"/></Size>
+		<Size>
+			<AbsDimension x="15" y="15"/>
+		</Size>
 		<Scripts>
 			<OnLoad>
 				self:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp")

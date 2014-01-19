@@ -1,6 +1,7 @@
+local _G = _G
+
 local MovAny = _G.MovAny
 local MOVANY = _G.MOVANY
-local _
 
 function MovAny:ToggleFrameEditors(show)
 	show = show ~= nil and show or MAOptionsToggleFrameEditors:GetChecked()
@@ -1114,7 +1115,7 @@ function MovAny:CreateFrameEditor(id, name)
 		if v < 1 then
 			v = 1
 		end
-		lowV = v - 200
+		local lowV = v - 200
 		if lowV < 1 then
 			lowV = 1
 		end
@@ -1128,7 +1129,7 @@ function MovAny:CreateFrameEditor(id, name)
 		if v < 1 then
 			v = 1
 		end
-		lowV = v - 200
+		local lowV = v - 200
 		if lowV < 1 then
 			lowV = 1
 		end
@@ -1159,7 +1160,8 @@ function MovAny:CreateFrameEditor(id, name)
 	widthPlusButton:SetText("+")
 	widthPlusButton:SetScript("OnClick", widthPlusFunc)
 	
-	
+	local heightSlider = CreateFrame("Slider", fn.."HeightSlider", fe, "OptionsSliderTemplate")
+
 	local widthResetButton = CreateFrame("Button", fn.."WidthResetButton", fe, "MAButtonTemplate")
 	widthResetButton:SetSize(20, 20)
 	widthResetButton:SetPoint("TOPLEFT", widthPlusButton, "TOPRIGHT", 3, 0)
@@ -1195,8 +1197,6 @@ function MovAny:CreateFrameEditor(id, name)
 	
 	
 	local heightEdit = CreateFrame("EditBox", fn.."HeightEdit", fe, "InputBoxTemplate")
-	
-	local heightSlider = CreateFrame("Slider", fn.."HeightSlider", fe, "OptionsSliderTemplate")
 	
 	heightEdit:SetFontObject("GameFontHighlightSmall")
 	heightEdit:SetMaxLetters(10)
@@ -1278,7 +1278,7 @@ function MovAny:CreateFrameEditor(id, name)
 		if v < 1 then
 			v = 1
 		end
-		lowV = v - 200
+		local lowV = v - 200
 		if lowV < 1 then
 			lowV = 1
 		end
@@ -1292,7 +1292,7 @@ function MovAny:CreateFrameEditor(id, name)
 		if v < 1 then
 			v = 1
 		end
-		lowV = v - 200
+		local lowV = v - 200
 		if lowV < 1 then
 			lowV = 1
 		end
@@ -1673,7 +1673,7 @@ function MovAny:CreateFrameEditor(id, name)
 		if fe.editFrame and opt then
 			if opt.disabled then
 				opt.disableLayerArtwork = nil
-				opt.disableLayerBackground = ni
+				opt.disableLayerBackground = nil
 				opt.disableLayerBorder = nil
 				opt.disableLayerHighlight = nil
 				opt.disableLayerOverlay = nil
@@ -2100,6 +2100,7 @@ function MovAny:CreateFrameEditor(id, name)
 		
 		fe.updating = true
 		
+		local p
 		if fe.editFrame then
 			local mover = MovAny:GetMoverByFrame(fe.e.name)
 			if mover then

@@ -1,3 +1,5 @@
+local _G = _G
+
 local MovAny = _G.MovAny
 local MOVANY = _G.MOVANY
 
@@ -56,7 +58,7 @@ local m = {
 			print("Test1")
 		end}, c)
 		API:AddElement({name = "WatchFrameMover", displayName = "Objectives window", scaleWH = 1, run = function()
-			if not MovAny:IsModified(WatchFrameMover, pos) then
+			if not MovAny:IsModified(WatchFrameMover) then
 				_G["InterfaceOptionsObjectivesPanelWatchFrameWidth"]:SetEnabled(false)
 			end
 		end}, c) --, noScale = 1
@@ -97,7 +99,7 @@ local m = {
 		API:AddElement({name = "ArenaEnemyFrame4CastingBar", displayName = "Arena Enemy Casting Bar 4", create = "ArenaCastingBarFrameTemplate", runOnce = Arena_LoadUI}, c)
 		API:AddElement({name = "ArenaEnemyFrame5CastingBar", displayName = "Arena Enemy Casting Bar 5", create = "ArenaCastingBarFrameTemplate", runOnce = Arena_LoadUI}, c)
 		--API:AddElement({name = "PVPTeamDetails", displayName = "Arena Team Details"}, c)
-		API:AddElement({name = "ArenaFrame", displayName = "Arena Queue List"}, c)
+		--API:AddElement({name = "ArenaFrame", displayName = "Arena Queue List"}, c)
 		--API:AddElement({name = "ArenaRegistrarFrame", displayName = "Arena Registrar"}, c)
 		--API:AddElement({name = "PVPBannerFrame", displayName = "Arena Banner"}, c)
 		API:AddElement({name = "ArenaPrepFrame1", displayName = "Arena Prep 1", create = "ArenaPrepFrameTemplate", runOnce = Arena_LoadUI}, c)
@@ -190,10 +192,10 @@ local m = {
 		API:AddElement({name = "VoidStorageFrame", displayName = "Void Storage"}, c) --refuseSync = MOVANY.FRAME_ONLY_WHEN_VOIDSTORAGE_IS_OPEN
 		c = API:GetCategory("Blizzard Bottom Bar")
 		API:AddElement({name = "MainMenuBar", displayName = "Main Bar", run = function ()
-			if not MovAny:IsModified(OverrideActionBar, pos) then
+			if not MovAny:IsModified(OverrideActionBar) then
 				local v = _G["OverrideActionBar"]
 				v:ClearAllPoints()
-				v:SetPoint(BOTTOMLEFT, UIParent, BOTTOMLEFT, (UIParentGetWidth() / 2) - (v:GetWidth() / 2), 0)
+				v:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", (UIParentGetWidth() / 2) - (v:GetWidth() / 2), 0)
 			end
 		end, hideList = {
 			{"MainMenuBarArtFrame", "BACKGROUND","ARTWORK"},
@@ -565,7 +567,7 @@ local m = {
 			}
 		}, c)
 		API:AddElement({name = "OverrideActionButtonsMover", displayName = "Vehicle Action Bar", runOnce = function()
-			OverrideActionBarButtonFrame:SetSize((OverrideActionBarButton1:GetWidth() + 2) * VEHICLE_MAX_ACTIONBUTTONS, VOverrideActionBarButton1:GetHeight() + 2)
+			OverrideActionBarButtonFrame:SetSize((OverrideActionBarButton1:GetWidth() + 2) * VEHICLE_MAX_ACTIONBUTTONS, OverrideActionBarButton1:GetHeight() + 2)
 		 end}, c)
 		API:AddElement({name = "OverrideActionBarHealthBar", displayName = "Vehicle Health Bar", onlyOnceCreated = 1}, c)
 		API:AddElement({name = "OverrideActionBarPowerBar", displayName = "Vehicle Power Bar", onlyOnceCreated = 1}, c)

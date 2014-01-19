@@ -1,4 +1,6 @@
-﻿local MovAny = _G.MovAny
+﻿local _G = _G
+
+local MovAny = _G.MovAny
 
 local HidenFrame = CreateFrame("Frame", "HidenFrame", UIParent)
 HidenFrame.frameinfo = { }
@@ -51,7 +53,7 @@ MovAny.lVirtualMovers = {
 		w = 150,
 		h = 80,
 		point = {"TOP", "UIParent", 0, 0},
-		OnShow = function()
+		OnShow = function(self)
 			self:SetFrameLevel(GameTooltip:GetFrameLevel() + 1)
 		end,
 		--[[OnMAPostHook = function(self)
@@ -691,7 +693,7 @@ MovAny.lVirtualMovers = {
 		--prefix1 = "ActionButton",
 		OnMAFoundChild = function(self, index, child)
 			child:ClearAllPoints()
-			if prefix == nil then
+			if self.prefix == nil then
 				if not self.lastChild then
 					child:SetPoint("LEFT", self, "LEFT")
 				else
@@ -777,7 +779,7 @@ MovAny.lVirtualMovers = {
 		--prefix1 = "ActionButton",
 		OnMAFoundChild = function(self, index, child)
 			child:ClearAllPoints()
-			if prefix == nil then
+			if self.prefix == nil then
 				if not self.lastChild then
 					child:SetPoint("LEFT", self, "LEFT")
 				else
@@ -2072,7 +2074,7 @@ MovAny.lVirtualMovers = {
 		OnMAReleaseChild = function(self, index, child)
 			if index == 1 then
 				child:ClearAllPoints()
-				child:SetPoint("TOPRIGHT", ConsolidatedBuffs, "BOTTOMRIGHT", 0, -TempEnchant1:GetHeight()*3)
+				child:SetPoint("TOPRIGHT", ConsolidatedBuffs, "BOTTOMRIGHT", 0, - TempEnchant1:GetHeight() * 3)
 			end
 		end,
 		OnMAHook = function(self)

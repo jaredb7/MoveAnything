@@ -3,10 +3,12 @@
 	FanUpdate by Alea @ Gordynni EU
 	Vanilla & TBC versions by: Skrag, Jason, Vincent
 ]]
+
+local _G = _G
+
 local MOVANY = _G.MOVANY
 local MAOptions
 
--- X: http://lua-users.org/wiki/CopyTable
 function MA_tdeepcopy(object)
 	local lookup_table = { }
 	local function _copy(object)
@@ -101,12 +103,13 @@ local MovAny = {
 		"BagFrame5",
 	},
 	lForceProtected = {
-		["ArenaPrepFrames"] = "ArenaPrepFrames",
-		["ArenaEnemyFrames"] = "ArenaEnemyFrames",
-		["WorldStateAlwaysUpFrame"] = "WorldStateAlwaysUpFrame",
-		["AlwaysUpFrame1"] = "AlwaysUpFrame1",
-		["AlwaysUpFrame2"] = "AlwaysUpFrame2",
-		["AlwaysUpFrame3"] = "AlwaysUpFrame3"
+		["ArenaPrepFrames"] = true,
+		["ArenaEnemyFrames"] = true,
+		["WorldStateAlwaysUpFrame"] = true,
+		["AlwaysUpFrame1"] = true,
+		["AlwaysUpFrame2"] = true,
+		["AlwaysUpFrame3"] = true,
+		["CompactRaidFrameManager"] = true,
 	},
 	lForcedLock = {
 		Boss1TargetFrame = "Boss1TargetFrame",
@@ -211,8 +214,8 @@ local MovAny = {
 		ContainerFrame13 = "KeyRingFrame",
 	},
 	lFrameNameRewrites = {
-		CompactRaidFrameContainer = "RaidUnitFramesMover",
-		CompactRaidFrameManager = "RaidUnitFramesManagerMover",
+		--CompactRaidFrameContainer = "RaidUnitFramesMover",
+		--CompactRaidFrameManager = "RaidUnitFramesManagerMover",
 		TargetOfFocusDebuffsMover = "FocusFrameToTDebuffsMover",
 	},
 	lDeleteFrameNames = {
@@ -323,7 +326,7 @@ local MovAny = {
 		MANudger = "MANudger",
 		MAPortDialog = "MAPortDialog",
 		GameMenuButtonMoveAnything = "GameMenuButtonMoveAnything",
-		MACompactRaidFrameManagerToggleButton = "MACompactRaidFrameManagerToggleButton",
+		--MACompactRaidFrameManagerToggleButton = "MACompactRaidFrameManagerToggleButton",
 		MA_FEMover = "MA_FEMover",
 	},
 	CONTAINER_FRAME_TABLE = {
@@ -1191,7 +1194,12 @@ function MovAny:IsProtected(f)
 	if not f then
 		return
 	end
-	return f:IsProtected() or f.MAProtected or MovAny.lForceProtected[f:GetName()]
+	local isProtected = f:IsProtected()
+	if isProtected or f.MAProtected or MovAny.lForceProtected[f:GetName()] then
+		return true
+	else
+		return nil
+	end
 end
 
 function MovAny:GetCharacterIndex()
@@ -1591,6 +1599,10 @@ function MovAny:IsModified(fn, var, opt)
 end
 
 function MovAny:AttachMover(fn, displayName)
+	local f = _G[fn]
+	if self:ErrorNotInCombat(f) then
+		return
+	end
 	local e = API:AddElementIfNew(fn)
 	if e.unsupported then
 		string.format(MOVANY.UNSUPPORTED_FRAME, fn)
@@ -1600,7 +1612,6 @@ function MovAny:AttachMover(fn, displayName)
 		maPrint(string.format(MOVANY.FRAME_VISIBILITY_ONLY, fn))
 		return
 	end
-	local f = _G[fn]
 	if e.onlyOnceCreated and (f == nil or not f:IsShown()) then
 		maPrint(string.format(MOVANY.ONLY_ONCE_CREATED, fn))
 		return
@@ -1613,9 +1624,6 @@ function MovAny:AttachMover(fn, displayName)
 	end
 	if f and type(f) ~= "table" then
 		maPrint(string.format(MOVANY.ERROR_NOT_A_TABLE, fn))
-		return
-	end
-	if self:ErrorNotInCombat(f) then
 		return
 	end
 	if not self:GetMoverByFrame(f) then
@@ -1699,7 +1707,7 @@ function MovAny:GetDefaultFrameParent(f)
 			if m then
 				local bag = self:GetBagInContainerFrame(_G[ m ])
 				if bag and self:IsModified(bag:GetName()) then
-					return _G[ bag:GetName() ]
+					return _G[bag:GetName()]
 				end
 			end
 			local maParent = c.MAParent
@@ -2083,7 +2091,7 @@ function MovAny:IsContainer(fn)
 	end
 end
 
-function MovAny:Translate(f,secondary,nofirst)
+function MovAny:Translate(f, secondary, nofirst)
 	if not nofirst and self.lTranslate[f] then
 		return self.lTranslate[f]
 	end
@@ -2346,16 +2354,22 @@ function MovAny:ToggleGUI()
 end
 
 function MovAny:OnMoveCheck(button)
-	if not self:ToggleMove(API:GetItem(button:GetParent().idx).name) then
-		button:SetChecked(nil)
-		return
+	local fn = API:GetItem(button:GetParent().idx).name
+	if not self:ToggleMove(fn) then
+		local f = _G[fn]
+		if self:IsProtected(f) and not InCombatLockdown() then
+			button:SetChecked(nil)
+		end
 	end
 end
 
 function MovAny:OnHideCheck(button)
-	if not self:ToggleHide(API:GetItem(button:GetParent().idx).name) then
-		button:SetChecked(nil)
-		return
+	local fn = API:GetItem(button:GetParent().idx).name
+	if not self:ToggleHide(fn) then
+		local f = _G[fn]
+		if self:IsProtected(f) and not InCombatLockdown() then
+			button:SetChecked(nil)
+		end
 	end
 end
 
@@ -2380,6 +2394,9 @@ function MovAny:HideFrame(f, readOnly)
 		fn = f
 		f = _G[fn]
 	end
+	if self:ErrorNotInCombat(f) then
+		return
+	end
 	if not f then
 		if self.lVirtualMovers[fn] then
 			f = self:CreateVM(fn)
@@ -2392,21 +2409,15 @@ function MovAny:HideFrame(f, readOnly)
 	end
 	if fn == "PaladinPowerBar" then
 		PaladinPowerBar:UnregisterAllEvents()
-		elseif fn == "CompactRaidFrameManager" then
-		if InCombatLockdown() or UnitAffectingCombat("player") then
-			self:ErrorNotInCombat(f)
-			return
-		end
+	elseif fn == "CompactRaidFrameManager" then
 		f:UnregisterAllEvents()
 		CompactRaidFrameContainer:SetParent(UIParent)
 	end
 	local e = API:GetElement(fn)
-	--[[local mover = self:GetMoverByFrame(f)
+	local mover = self:GetMoverByFrame(f)
 	if mover then
-		if not string.find(e.name, "Mover") then
-			self:DetachMover(mover)
-		end
-	end]]
+		self:DetachMover(mover)
+	end
 	local opt
 	if readOnly then
 		opt = { }
@@ -2468,6 +2479,9 @@ function MovAny:ShowFrame(f, readOnly, dontHook)
 		fn = f
 		f = _G[f]
 	end
+	if self:ErrorNotInCombat(f) then
+		return
+	end
 	if not f then
 		if self.lVirtualMovers[fn] then
 			f = self:CreateVM(fn)
@@ -2480,10 +2494,7 @@ function MovAny:ShowFrame(f, readOnly, dontHook)
 	end
 	if fn == "PaladinPowerBar" then
 		PaladinPowerBar_OnLoad(f)
-		elseif fn == "CompactRaidFrameManager" then
-		if InCombatLockdown() or UnitAffectingCombat("player") then
-			return
-		end
+	elseif fn == "CompactRaidFrameManager" then
 		f:RegisterEvent("DISPLAY_SIZE_CHANGED")
 		f:RegisterEvent("UI_SCALE_CHANGED")
 		f:RegisterEvent("GROUP_ROSTER_UPDATE")
@@ -2930,9 +2941,9 @@ function MovAny:MoverOnMouseWheel(mover, arg1)
 	end
 	local alphaMod
 	if arg1 > 0 then
-		alphaMod = .05
+		alphaMod = 0.05
 	else
-		alphaMod = -.05
+		alphaMod = - 0.05
 	end
 	alpha = alpha + alphaMod
 	if alpha < 0 then
@@ -3632,9 +3643,9 @@ function MovAny:Nudge(dir, button)
 		offsetY = offsetAmount
 	elseif dir == 2 then
 		offsetX = 0
-		offsetY = -offsetAmount
+		offsetY = - offsetAmount
 	elseif dir == 3 then
-		offsetX = -offsetAmount
+		offsetX = - offsetAmount
 		offsetY = 0
 	elseif dir == 4 then
 		offsetX = offsetAmount
@@ -4206,7 +4217,6 @@ function MovAny:hUpdateContainerFrameAnchors()
 end
 
 -- X: slash commands
-
 SLASH_MAMOVE1 = "/move"
 SlashCmdList["MAMOVE"] = function(msg)
 	if msg == nil or string.len(msg) == 0 then
@@ -4316,7 +4326,6 @@ SlashCmdList["MAINFO"] = function(msg)
 end
 
 -- X: global functions
-
 function numfor(n, decimals)
 	if n == nil then
 		return "nil"
@@ -4327,12 +4336,12 @@ function numfor(n, decimals)
 	end
 	while decimals > 0 do
 		if string.sub(n, - 1) == "0" then
-			n = string.sub(n, 1, -2)
+			n = string.sub(n, 1, - 2)
 		end
 		decimals = decimals - 1
 	end
-	if string.sub(n, -1) == "." then
-		n = string.sub(n, 1, -2)
+	if string.sub(n, - 1) == "." then
+		n = string.sub(n, 1, - 2)
 	end
 	return n
 end
@@ -4641,10 +4650,9 @@ function MovAny:GetFrameTooltipLines(fn)
 end
 
 -- X: debugging code
-
 function echo(...)
 	local msg = ""
-	for k,v in pairs({...}) do
+	for k, v in pairs({...}) do
 		msg = msg..k.."=["..tostring(v) .."] "
 	end
 	DEFAULT_CHAT_FRAME:AddMessage(msg)
@@ -5145,15 +5153,15 @@ function MovAny:SetNumRows(num, dontUpdate)
 	end
 end
 
-function MovAny_TooltipShow(a,b,c,d,e)
+function MovAny_TooltipShow(a, b, c, d, e)
 	MovAny:TooltipShow(a,b,c,d,e)
 end
 
-function MovAny_TooltipHide(a,b,c,d,e)
+function MovAny_TooltipHide(a, b, c, d, e)
 	MovAny:TooltipHide(a,b,c,d,e)
 end
 
-function MovAny_TooltipShowMultiline(a,b,c,d,e)
+function MovAny_TooltipShowMultiline(a, b, c, d, e)
 	MovAny:TooltipShowMultiline(a,b,c,d,e)
 end
 
@@ -5434,8 +5442,6 @@ function MovAny_OnEvent(self, event, arg1)
 						self:set_point(...)
 					end
 				end
-				--local arg1,arg2, arg3, arg4, arg5 = _G[frame]:GetPoint()
-				--print(_G[frame]:GetPoint())
 				MovAny.API:SyncElement(frame)
 				local frame = "ArenaEnemyFrame"..i.."PetFrame"
 				if _G[frame] and not _G[frame].hooked_ma then
