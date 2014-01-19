@@ -2813,7 +2813,7 @@ function MovAny:MoverUpdatePosition(mover)
 		if not skipGroups and opt.groups and not IsShiftKeyDown() then
 			local _, _, _, x, y = unpack(self:GetRelativePoint(p, f, true))
 			x = x - opt.pos[4]
-			y = y - opt.pos[2]
+			y = y - opt.pos[5]
 			if not mover.MAE.scaleWH then
 				x = x * (opt.scale or (f.GetScale and f:GetScale()) or 1)
 				y = y * (opt.scale or (f.GetScale and f:GetScale()) or 1)

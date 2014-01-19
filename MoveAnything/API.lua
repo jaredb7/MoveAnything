@@ -215,7 +215,7 @@ elemMetaTable = {__index = {
 				if opt[var] then
 					return true
 				end
-			elseif opt.pos or opt.hidden or opt.scale ~= nil or opt.alpha ~= nil or opt.frameStrata ~= nil oropt.disableLayerArtwork ~= nil or opt.disableLayerBackground ~= nil or opt.disableLayerBorder ~= nil or opt.disableLayerHighlight ~= nil or opt.disableLayerOverlay ~= nil or opt.unregisterAllEvents ~= nil or opt.groups ~= nil or opt.forcedLock ~= nil then
+			elseif opt.pos or opt.hidden or opt.scale ~= nil or opt.alpha ~= nil or opt.frameStrata ~= nil or opt.disableLayerArtwork ~= nil or opt.disableLayerBackground ~= nil or opt.disableLayerBorder ~= nil or opt.disableLayerHighlight ~= nil or opt.disableLayerOverlay ~= nil or opt.unregisterAllEvents ~= nil or opt.groups ~= nil or opt.forcedLock ~= nil then
 				return true
 			end
 		end

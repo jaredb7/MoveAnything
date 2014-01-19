@@ -383,9 +383,6 @@
 			<OnEnter function="MovAny_TooltipShow"/>
 			<OnLeave function="MovAny_TooltipHide"/>
 		</Scripts>
-		<NormalTexture inherits="GameFontHighlight"/>
-		<DisabledTexture inherits="GameFontDisable"/>
-		<HighlightTexture inherits="GameFontHighlight"/>
 	</Button>
 
 	<CheckButton name="MACheckButtonTemplate" inherits="UICheckButtonTemplate" virtual="true">
@@ -396,9 +393,6 @@
 			<OnEnter function="MovAny_TooltipShow"/>
 			<OnLeave function="MovAny_TooltipHide"/>
 		</Scripts>
-		<NormalTexture inherits="GameFontHighlight"/>
-		<DisabledTexture inherits="GameFontDisable"/>
-		<HighlightTexture inherits="GameFontHighlight"/>
 	</CheckButton>
 
 	<CheckButton name="MAListCheckButtonTemplate" inherits="MACheckButtonTemplate" virtual="true">
@@ -516,7 +510,6 @@
 						MovAny:OnResetCheck(self)
 					</OnClick>
 				</Scripts>
-				<NormalTexture inherits="GameFontHighlight"/>
 			</Button>
 		</Frames>
 	</Frame>

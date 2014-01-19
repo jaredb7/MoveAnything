@@ -1,6 +1,4 @@
 local MovAny = _G.MovAny
-local MOVANY = _G.MOVANY
-local _
 local alpha
 
 local m = {

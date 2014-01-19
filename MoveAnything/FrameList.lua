@@ -18,6 +18,7 @@ local cats = {
 	{name = "Guild"},
 	{name = "Info Panels"},
 	{name = "Loot"},
+	{name = "Map"},
 	{name = "Minimap"},
 	{name = "Miscellaneous"},
 	{name = "MoveAnything"},
@@ -426,6 +427,10 @@ local m = {
 		API:AddElement({name = "GroupLootFrame2", displayName = "Loot Roll 2", create = "GroupLootFrameTemplate"}, c)
 		API:AddElement({name = "GroupLootFrame3", displayName = "Loot Roll 3", create = "GroupLootFrameTemplate"}, c)
 		API:AddElement({name = "GroupLootFrame4", displayName = "Loot Roll 4", create = "GroupLootFrameTemplate"}, c)
+		c = API:GetCategory("Map")
+		API:AddElement({name = "WorldMapFrame", displayName = "World Map"}, c)
+		API:AddElement({name = "WorldMapShowDropDown", displayName = "Map Options"}, c)
+		API:AddElement({name = "WorldMapPositioningGuide", displayName = "Map Coordinates"}, c)
 		c = API:GetCategory("Minimap")
 		API:AddElement({name = "MinimapCluster", displayName = "MiniMap"}, c)
 		API:AddElement({name = "MinimapBorder", displayName = "MiniMap Border Texture"}, c)
@@ -596,7 +601,7 @@ local m = {
 		--API:AddElement({name = "AlwaysUpFrame2", hidden = 1, onlyOnceCreated = 1}, c)
 		--API:AddElement({name = "AlwaysUpFrame3", hidden = 1, onlyOnceCreated = 1}, c)
 		API:AddElement({name = "MainMenuBarArtFrame", hidden = 1, noScale = 1}, c)
-		API:AddElement({name = "WorldMapFrame", hidden = 1, refuseSync = "Unsuppported", unsupported = 1}, c)
+		--API:AddElement({name = "WorldMapFrame", hidden = 1, refuseSync = "Unsuppported", unsupported = 1}, c)
 		API:AddElement({name = "PaperDollFrame", hidden = 1, unsupported = 1}, c)
 		API.default = nil
 		API.customCat = API:AddCategory({name = "Custom Frames"})

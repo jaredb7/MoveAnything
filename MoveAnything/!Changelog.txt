@@ -1,6 +1,51 @@
-
 **13.8.5**
-* 
+* Hiding a frame not automatically gonna detach it's mover.
+* Hided frames can't be reattached untill you show the frame again.
+* Fixed a major scaling issue.
+* Fixed an issue with groups.
+* Fixed an issue with Always Protected frames.
+* Fixed a taint with PetJourname, when you opened Mounts and Pets info panel while in combat.
+* Removed NoTaint lib.
+* Fixed a taint issue with: AlwaysUpFrame1, AlwaysUpFrame2, AlwaysUpFrame3, WorldStateAlwaysUpFrame.
+* Fixed the position of ArenaEnemyFrames and ArenaPrepFrames.
+* CompactRaidFrameManager's toggle button is going to work properly, when you moved the frame. You can also properly hide the frame.
+* The addon automatically going to unregister and reregister event for PaladinPowerBar frame when it hidden/shown/reset. (More powerbar frames will be added later.)
+* Xml validation fixes.
+* Added Categorys:
+	* Map (Experimental)
+* Fixed frames:
+	* PlayerPowerBarAltMover
+	* CompactRaidFrameManager
+	* CompactRaidFrameManagerToggleButton
+	* MicroButtons
+	* MicroButtonsVertical
+	* BagButtons
+	* WorldStateAlwaysUpFrame
+* Added frames:
+	* AlwaysUpFrame3
+	* MainMenuBarBackpackButton
+	* TargetFramePowerBarAltMover
+	* BankBagItems
+	* BankBagSlots
+	* BankItemSearchBox
+	* GuildItemSearchBox
+	* GuildBankInfoSaveButton
+	* GuildBankFrameWithdrawButton
+	* GuildBankFrameDepositButton
+	* GuildBankWithdrawMoneyFrame
+	* GuildBankWithdrawMoneyFrameGoldButton
+	* GuildBankWithdrawMoneyFrameSilverButton
+	* GuildBankWithdrawMoneyFrameCopperButton
+	* GuildBankMoneyFrame
+	* GuildBankMoneyFrameGoldButton
+	* GuildBankMoneyFrameSilverButton
+	* GuildBankMoneyFrameCopperButton
+	* WorldMapFrame (Experimental)
+	* WorldMapShowDropDown (Experimental)
+	* WorldMapPositioningGuide (Experimental)
+* Removed frames:
+	* PVPTeamDetails
+* Fixed a lot of other smaller issues.
 
 **13.8.4**
 * Fixed a major issue, which caued some frames and it's movers to change positions.

@@ -1,5 +1,6 @@
+local _G, type, pairs, unpack, table, tinsert, tremove, string = _G, type, pairs, unpack, table, tinsert, tremove, string
+
 local MovAny = _G.MovAny
-local MOVANY = _G.MOVANY
 
 local m = {
 	var = "pos",
@@ -37,16 +38,13 @@ local m = {
 					end
 				end
 			end
-			
 			local fn = f:GetName()
 			if opt.orgPos == nil and not MovAny:IsContainer(f:GetName()) and string.match("BagFrame", f:GetName()) ~= nil then
 				self:StoreOrgPoints(f, opt)
 			end
-			
 			if UIPARENT_MANAGED_FRAME_POSITIONS[fn] then
 				f.ignoreFramePositionManager = true
 			end
-			
 			MovAny:UnlockPoint(f)
 			f:ClearAllPoints()
 			if f.MASetPoint then
@@ -54,17 +52,13 @@ local m = {
 			else
 				f:SetPoint(unpack(opt.pos))
 			end
-			
 			MovAny:LockPoint(f, opt)
-			
 			if f.OnMAPosition then
 				f.OnMAPosition(f)
 			end
-			
 			if e.onPosition then
 				e.onPosition(f)
 			end
-			
 			if f.attachedChildren then
 				for i, v in pairs(f.attachedChildren) do
 					if not v.ignoreFramePositionManager and v.GetName and UIPARENT_MANAGED_FRAME_POSITIONS[v:GetName()] and not v.ignoreFramePositionManager and not MovAny:IsModified(v) and v.GetName and UIPARENT_MANAGED_FRAME_POSITIONS[v:GetName()] then
@@ -73,11 +67,9 @@ local m = {
 					end
 				end
 			end
-			
 			if UIPanelWindows[fn] and f ~= GameMenuFrame then
 				local left = GetUIPanel("left")
 				local center = GetUIPanel("center")
-
 				if f == left then
 					UIParent.left = nil
 					if center then
@@ -87,40 +79,30 @@ local m = {
 				elseif f == center then
 					UIParent.center = nil
 				end
-				
 				local wasShown = f:IsShown()
 				if f ~= TaxiFrame and f ~= MerchantFrame and f ~= BankFrame and f ~= QuestFrame and f ~= ClassTrainerFrame and (not MovAny:IsProtected(f) or not InCombatLockdown()) then
-					--[[
-					if MovAny.rendered then
+					--[[if MovAny.rendered then
 						--HideUIPanel(f)
-					else
-					]]
-						--[[
-						local sfx = GetCVar("Sound_EnableSFX")
+					else]]
+						--[[local sfx = GetCVar("Sound_EnableSFX")
 						if sfx then
 							SetCVar("Sound_EnableSFX", 0)
-						end
-						]]
+						end]]
 						if not MovAny.rendered and wasShown then
 							ShowUIPanel(f)
 						end
-						
 						HideUIPanel(f)
-						--[[
-						if sfx then
+						--[[if sfx then
 							SetCVar("Sound_EnableSFX", 1)
-						end
-						]]
+						end]]
 					--end
 				end
-				
 				if opt then
 					opt.UIPanelWindows = UIPanelWindows[fn]
 				end
 				UIPanelWindows[fn] = nil
 				f:SetAttribute("UIPanelLayout-enabled", false)
 				tinsert(UISpecialFrames, f:GetName())
-				
 				if wasShown and f ~= TaxiFrame and f ~= MerchantFrame and f ~= BankFrame and f ~= QuestFrame and f ~= ClassTrainerFrame and (not MovAny:IsProtected(f) or not InCombatLockdown()) then
 					f:Show()
 				end
@@ -133,7 +115,6 @@ local m = {
 			return
 		end
 		MovAny:UnlockPoint(f)
-		
 		local umfp = nil
 		if f.ignoreFramePositionManager then
 			umfp = true
@@ -146,8 +127,7 @@ local m = {
 			--f:ClearAllPoints()
 			return
 		end
-		--[[
-		if not readOnly and f.MAUnanchoredRelatives then
+		--[[if not readOnly and f.MAUnanchoredRelatives then
 			--dbg(f:GetName().." got unanchored relatives")
 			for i, v in pairs(f.MAUnanchoredRelatives) do
 				if not MovAny:IsModified(v) then
@@ -162,8 +142,7 @@ local m = {
 				end
 			end
 			f.MAUnanchoredRelatives = nil
-		end
-		--]]
+		end]]
 		if e.positionReset then
 			e:positionReset(f, opt, readOnly)
 		end
@@ -173,7 +152,6 @@ local m = {
 		if not readOnly then
 			opt.pos = nil
 		end
-
 		if f.attachedChildren then
 			for i, v in pairs(f.attachedChildren) do
 				if v and not MovAny:IsModified(v) and v.GetName and v.UMFP then
@@ -183,7 +161,6 @@ local m = {
 				end
 			end
 		end
-		
 		if opt.UIPanelWindows and not readOnly then
 			for i, v in pairs(UISpecialFrames) do
 				if v == e.name then
@@ -191,12 +168,10 @@ local m = {
 					break
 				end
 			end
-			
 			if not readOnly then
 				UIPanelWindows[ f:GetName() ] = opt.UIPanelWindows
 				opt.UIPanelWindows = nil
 			end
-			
 			if not readOnly and f:IsShown() and f ~= MerchantFrame and f ~= BankFrame and f ~= QuestFrame and f ~= ClassTrainerFrame and (not MovAny:IsProtected(f) or not InCombatLockdown()) then
 				f:SetAttribute("UIPanelLayout-enabled", true)
 				ShowUIPanel(f)
@@ -204,11 +179,9 @@ local m = {
 				f:SetAttribute("UIPanelLayout-enabled", true)
 			end
 		end
-		
 		if umfp and not InCombatLockdown() then
 			UIParent_ManageFramePositions()
 		end
-		
 		f.MAOrgParent = nil
 	end,
 	StoreOrgPoints = function(self, f, opt)
@@ -232,13 +205,11 @@ local m = {
 				opt.orgPos = {"BOTTOMRIGHT", "VehicleMenuBarArtFrame", "BOTTOMRIGHT", -119, 3}
 			elseif f == VehicleMenuBarLeaveButton then
 				opt.orgPos = {"BOTTOMRIGHT", "VehicleMenuBar", "BOTTOMRIGHT", 177, 15}
-			--[[
-			elseif f == LFDDungeonReadyDialog then
+			--[[elseif f == LFDDungeonReadyDialog then
 				opt.orgPos = {"TOP", "UIParent", "TOP", 0, -135}
 			elseif f == LFDDungeonReadyPopup then
 				opt.orgPos = {"TOP", "UIParent", "TOP", 0, -135}
-			elseif f == LFDDungeonReadyStatus then
-			]]
+			elseif f == LFDDungeonReadyStatus then]]
 			else
 				--dbg("Unable to generate restore point for "..f:GetName()..". OrgPos set to default")
 				opt.orgPos = {"TOP", "UIParent", "TOP", 0, -135}
@@ -248,7 +219,6 @@ local m = {
 	RestoreOrgPoints = function(self, f, opt, readOnly)
 		--dbg("Restoring point to "..f:GetName().."")
 		f:ClearAllPoints()
-		
 		if opt then -- and not opt.UIPanelWindows
 			if type(opt.orgPos) == "table" then
 				if type(opt.orgPos[1]) == "table" then
@@ -282,7 +252,7 @@ local m = {
 				end
 			end
 		end
-	end,
+	end
 }
 
 MovAny:AddModule("Position", m)

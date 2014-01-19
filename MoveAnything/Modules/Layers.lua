@@ -1,5 +1,6 @@
+local _G = _G
+
 local MovAny = _G.MovAny
-local MOVANY = _G.MOVANY
 
 local m = {
 	vars = {"disableLayerArtwork", "disableLayerBackground", "disableLayerBorder", "disableLayerHighlight", "disableLayerOverlay"},
@@ -66,7 +67,7 @@ local m = {
 				opt.disableLayerOverlay = nil
 			end
 		end
-	end,
+	end
 }
 
 MovAny:AddModule("Layers", m)
