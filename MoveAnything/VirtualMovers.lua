@@ -24,7 +24,7 @@ MovAny.lVirtualMovers = {
 	UIPanelMover1 = {
 		w = 384,
 		h = 512,
-		point = {"TOPLEFT", "UIParent", "TOPLEFT", 0, -104},
+		point = {"TOPLEFT", "UIParent", "TOPLEFT", 0, - 104},
 		OnMAAttach = MovAny.SyncUIPanels,
 		OnMAPosition = MovAny.SyncUIPanels,
 		OnMAAlpha = MovAny.SyncUIPanels,
@@ -33,7 +33,7 @@ MovAny.lVirtualMovers = {
 	UIPanelMover2 = {
 		w = 384,
 		h = 512,
-		point = {"TOPLEFT", "UIParent", "TOPLEFT", 384, -104},
+		point = {"TOPLEFT", "UIParent", "TOPLEFT", 384, - 104},
 		OnMAAttach = MovAny.SyncUIPanels,
 		OnMAPosition = MovAny.SyncUIPanels,
 		OnMAAlpha = MovAny.SyncUIPanels,
@@ -42,7 +42,7 @@ MovAny.lVirtualMovers = {
 	UIPanelMover3 = {
 		w = 384,
 		h = 512,
-		point = {"TOPLEFT", "UIParent", "TOPLEFT", 772, -104},
+		point = {"TOPLEFT", "UIParent", "TOPLEFT", 772, - 104},
 		OnMAAttach = MovAny.SyncUIPanels,
 		OnMAPosition = MovAny.SyncUIPanels,
 		OnMAAlpha = MovAny.SyncUIPanels,
@@ -1796,11 +1796,11 @@ MovAny.lVirtualMovers = {
 			local b = _G["BuffFrame"]
 			MovAny:UnlockPoint(b)
 			b:ClearAllPoints()
-			b:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -205, -13)
+			b:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", - 205, - 13)
 			b = _G["ConsolidatedBuffs"]
 			MovAny:UnlockPoint(b)
 			b:ClearAllPoints()
-			b:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -180, -13)
+			b:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", - 180, - 13)
 			
 			for i, v in pairs(self.attachedChildren) do
 				MovAny:UnlockScale(v)

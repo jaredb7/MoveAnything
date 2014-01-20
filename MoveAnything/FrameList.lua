@@ -429,6 +429,7 @@ local m = {
 		API:AddElement({name = "GroupLootFrame4", displayName = "Loot Roll 4", create = "GroupLootFrameTemplate"}, c)
 		c = API:GetCategory("Map")
 		API:AddElement({name = "WorldMapFrame", displayName = "World Map"}, c)
+		API:AddElement({name = "WorldMapLevelDropDown", displayName = "Map Level"}, c)
 		API:AddElement({name = "WorldMapShowDropDown", displayName = "Map Options"}, c)
 		API:AddElement({name = "WorldMapPositioningGuide", displayName = "Map Coordinates"}, c)
 		c = API:GetCategory("Minimap")

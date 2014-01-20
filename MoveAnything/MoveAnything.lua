@@ -112,32 +112,36 @@ local MovAny = {
 		["CompactRaidFrameManager"] = true,
 	},
 	lForcedLock = {
-		Boss1TargetFrame = "Boss1TargetFrame",
-		Boss2TargetFrame = "Boss2TargetFrame",
-		Boss3TargetFrame = "Boss3TargetFrame",
-		Boss4TargetFrame = "Boss4TargetFrame",
-		Boss5TargetFrame = "Boss5TargetFrame",
-		ActionButton1 = "ActionButton1",
-		ArenaEnemyFrame1 = "ArenaEnemyFrame1",
-		ArenaEnemyFrame2 = "ArenaEnemyFrame2",
-		ArenaEnemyFrame3 = "ArenaEnemyFrame3",
-		ArenaEnemyFrame4 = "ArenaEnemyFrame4",
-		ArenaEnemyFrame5 = "ArenaEnemyFrame5",
-		ArenaPrepFrame1 = "ArenaPrepFrame1",
-		ArenaPrepFrame2 = "ArenaPrepFrame2",
-		ArenaPrepFrame3 = "ArenaPrepFrame3",
-		ArenaPrepFrame4 = "ArenaPrepFrame4",
-		ArenaPrepFrame5 = "ArenaPrepFrame5",
-		ArenaPrepFrames = "ArenaPrepFrames",
-		ArenaEnemyFrames = "ArenaEnemyFrames",
-		ArenaEnemyFrame1PetFrame = "ArenaEnemyFrame1PetFrame",
-		ArenaEnemyFrame2PetFrame = "ArenaEnemyFrame2PetFrame",
-		ArenaEnemyFrame3PetFrame = "ArenaEnemyFrame3PetFrame",
-		ArenaEnemyFrame4PetFrame = "ArenaEnemyFrame4PetFrame",
-		ArenaEnemyFrame5PetFrame = "ArenaEnemyFrame5PetFrame",
-		PetFrame = "PetFrame",
-		BuffFrame = "BuffFrame",
-		MinimapCluster = "MinimapCluster"
+		Boss1TargetFrame = true,
+		Boss2TargetFrame = true,
+		Boss3TargetFrame = true,
+		Boss4TargetFrame = true,
+		Boss5TargetFrame = true,
+		ActionButton1 = true,
+		ArenaEnemyFrame1 = true,
+		ArenaEnemyFrame2 = true,
+		ArenaEnemyFrame3 = true,
+		ArenaEnemyFrame4 = true,
+		ArenaEnemyFrame5 = true,
+		ArenaPrepFrame1 = true,
+		ArenaPrepFrame2 = true,
+		ArenaPrepFrame3 = true,
+		ArenaPrepFrame4 = true,
+		ArenaPrepFrame5 = true,
+		ArenaPrepFrames = true,
+		ArenaEnemyFrames = true,
+		ArenaEnemyFrame1PetFrame = true,
+		ArenaEnemyFrame2PetFrame = true,
+		ArenaEnemyFrame3PetFrame = true,
+		ArenaEnemyFrame4PetFrame = true,
+		ArenaEnemyFrame5PetFrame = true,
+		PetFrame = true,
+		BuffFrame = true,
+		MinimapCluster = true,
+		["WorldStateAlwaysUpFrame"] = true,
+		["AlwaysUpFrame1"] = true,
+		["AlwaysUpFrame2"] = true,
+		["AlwaysUpFrame3"] = true
 	},
 	lEnableMouse = {
 		--WatchFrame,
@@ -1272,7 +1276,6 @@ function MovAny:UnlockVisibility(f)
 	if f.MAWasShown then
 		f.MAWasShown = nil
 		if f.my_real_parent then
-			
 			f:SetParent(f.my_real_parent)
 		end
 		f:Show()
@@ -1450,11 +1453,17 @@ function MovAny.hSetScale(f)
 				return
 			end
 			fn = bag:GetName()
-		end
-		if MovAny:IsProtected(f) and InCombatLockdown() then
-			MovAny.pendingFrames[fn] = API:GetElement(fn)
+			if MovAny:IsProtected(f) and InCombatLockdown() then
+				MovAny.pendingFrames[fn] = API:GetElement(fn)
+			else
+				MovAny:Rescale(f, f.MAScaled)
+			end
 		else
-			MovAny:Rescale(f, f.MAScaled)
+			if MovAny:IsProtected(f) and InCombatLockdown() then
+				MovAny.pendingFrames[fn] = API:GetElement(fn)
+			else
+				MovAny:Rescale(f, f:GetScale())
+			end
 		end
 	end
 end
@@ -1473,7 +1482,7 @@ function MovAny:LockScale(f)
 end
 
 function MovAny:UnlockScale(f)
-	f.MAScaled = f:GetScale()
+	f.MAScaled = nil
 end
 
 function MovAny:Rescale(f, scale)
@@ -2594,28 +2603,6 @@ function MovAny:OnCheckToggleModifiedFramesOnly(button)
 		MADB.modifiedFramesOnly = nil
 	end
 	self:UpdateGUIIfShown(true)
-end
-
-function MovAny:LockPoint(f, opt)
-	if not f.MAPoint then
-		if f:GetName() and (MovAny.lForcedLock[f:GetName()] or (opt and opt.forcedLock))  then
-			if not f.MASetPoint then
-				f.MASetPoint = f.SetPoint
-				f.SetPoint = MovAny.fVoid
-			end
-		else
-			if not f.MALockPointHook then
-				hooksecurefunc(f, "SetPoint", MovAny.hSetPoint)
-				--hooksecurefunc(f, "ClearAllPoints", MovAny.hSetPoint)
-				f.MALockPointHook = true
-			end
-			f.MAPoint = {f:GetPoint(1)}
-		end
-	end
-end
-
-function MovAny:UnlockPoint(f)
-	f.MAPoint = nil
 end
 
 function MovAny:GroupMove(sender, groups, x, y)
@@ -3803,11 +3790,11 @@ function MovAny:GetBagInContainerFrame(f)
 end
 
 function MovAny:GetBag(id)
-	return self.bagFrames[ id ]
+	return self.bagFrames[id]
 end
 
 function MovAny:SetBag(id, bag)
-	self.bagFrames[ id ] = bag
+	self.bagFrames[id] = bag
 end
 
 function MovAny:GrabContainerFrame(container, movableBag)
