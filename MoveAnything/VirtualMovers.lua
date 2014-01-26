@@ -399,10 +399,10 @@ MovAny.lVirtualMovers = {
 		excludes = "BagButtonsVerticalMover",
 		children = {
 			"MainMenuBarBackpackButton",
-			"CharacterBag3Slot",
-			"CharacterBag2Slot",
+			"CharacterBag0Slot",
 			"CharacterBag1Slot",
-			"CharacterBag0Slot"
+			"CharacterBag2Slot",
+			"CharacterBag3Slot"
 		},
 		OnMAFoundChild = function(self, index, child)
 			child:ClearAllPoints()

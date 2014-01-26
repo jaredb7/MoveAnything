@@ -2864,7 +2864,7 @@ function MovAny:MoverOnSizeChanged(mover)
 				end
 			end
 			s = mover:GetWidth() / f:GetWidth()
-			s = s / MAGetScale(f:GetParent(), 1 ) * UIParent:GetScale()
+			s = s / MAGetScale(f:GetParent(), 1) * UIParent:GetScale()
 			if s > 0.991 and s < 1 then
 				s = 1
 			end

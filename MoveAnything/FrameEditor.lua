@@ -134,7 +134,7 @@ function MovAny:CreateFrameEditor(id, name)
 	fe:SetBackdropColor(0, 0, 0)
 	fe:SetBackdropBorderColor(0, 0, 0)
 	
-	MovAny.API:SyncElement("MA_FEMover")
+	--MovAny.API:SyncElement("MA_FEMover")
 	
 	local pointDropDownButton = CreateFrame("Button", fn.."Point", fe, "UIDropDownMenuTemplate")
 	local pointFunc = function(self)
