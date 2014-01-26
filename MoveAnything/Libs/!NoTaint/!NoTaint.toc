@@ -12,7 +12,6 @@
 ## OptionalDeps: LibChatAnims
 ## X-Embeds: LibChatAnims
 
-embeds.xml
+!NoTaint.xml
 
-Code.lua
-
+!NoTaint.lua
