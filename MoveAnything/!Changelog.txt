@@ -1,6 +1,6 @@
 **Issues**
 * Toggling the Raid Frame Manager in combat causing taints.
-* Reseting bags while the bag is not opened won't not reset it's scale to default.
+* Reseting bags while the bag is not opened won't reset it's scale to default.
 
 **13.8.6**
 * Fixed an issue with scaling.

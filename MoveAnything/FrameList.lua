@@ -437,12 +437,8 @@ local m = {
 		API:AddElement({name = "MinimapBorder", displayName = "MiniMap Border Texture"}, c)
 		API:AddElement({name = "MinimapZoneTextButton", displayName = "Zone Text"}, c)
 		API:AddElement({name = "MinimapBorderTop", displayName = "Top Border", noScale = 1}, c)
-		API:AddElement({name = "MinimapBackdrop", displayName = "Round Border", noAlpha = 1, noMove = 1, noScale = 1,
-			hideList = {
-				{"MinimapBackdrop", "ARTWORK"}
-			}
-		}, c)
-		API:AddElement({name = "MinimapNorthTag", displayName = "North Indicator", noAlpha = 1, noMove = 1, noScale = 1}, c)
+		API:AddElement({name = "MinimapBackdrop", displayName = "Round Border", noAlpha = 1, noScale = 1, hideList = {{"MinimapBackdrop", "ARTWORK"}}}, c)
+		API:AddElement({name = "MinimapNorthTag", displayName = "North Indicator", noAlpha = 1, noScale = 1}, c)
 		API:AddElement({name = "GameTimeFrame", displayName = "Calendar Button"}, c)
 		API:AddElement({name = "TimeManagerClockButton", displayName = "Clock Button"}, c)
 		API:AddElement({name = "MiniMapInstanceDifficulty", displayName = "Dungeon Difficulty"}, c)
@@ -511,7 +507,7 @@ local m = {
 				{"MAOptions", "ARTWORK","BORDER"},
 			}
 		}, c)
-		API:AddElement({name = "MA_FEMover", displayName = "MoveAnything Frame Editor Config", noHide = 1, noMove = 1}, c)
+		--API:AddElement({name = "MA_FEMover", displayName = "MoveAnything Frame Editor Config", noHide = 1}, c)
 		API:AddElement({name = "MANudger", displayName = "MoveAnything Nudger"}, c)
 		API:AddElement({name = "GameMenuButtonMoveAnything", displayName = "MoveAnything Game Menu Button"}, c)
 		c = API:GetCategory("Unit: Focus")

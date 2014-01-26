@@ -58,7 +58,7 @@ MADB = {
 
 local MovAny = {
 	fVoid = function() end,
-	guiLines = -1,
+	guiLines = - 1,
 	resetConfirm = "",
 	bagFrames = { },
 	cats = { },
@@ -71,29 +71,29 @@ local MovAny = {
 	lastFrameName = nil,
 	lSafeRelatives = { },
 	lAllowedTypes = {
-		Frame = "Frame",
-		FontString = "FontString",
-		Texture = "Texture",
-		Button = "Button",
-		CheckButton = "CheckButton",
-		StatusBar = "StatusBar",
-		GameTooltip = "GameTooltip",
-		MessageFrame = "MessageFrame",
-		PlayerModel = "PlayerModel",
-		ColorSelect = "ColorSelect",
-		EditBox = "EditBox",
-		ScrollingMessageFrame = "ScrollingMessageFrame",
-		Slider = "Slider",
-		Minimap = "Minimap",
+		["Frame"] = true,
+		["FontString"] = true,
+		["Texture"] = true,
+		["Button"] = true,
+		["CheckButton"] = true,
+		["StatusBar"] = true,
+		["GameTooltip"] = true,
+		["MessageFrame"] = true,
+		["PlayerModel"] = true,
+		["ColorSelect"] = true,
+		["EditBox"] = true,
+		["ScrollingMessageFrame"] = true,
+		["Slider"] = true,
+		["Minimap"] = true
 	},
 	lDisallowedFrames = {
-		UIParent = "UIParent",
-		WorldFrame = "WorldFrame",
-		CinematicFrame = "CinematicFrame",
-		ArenaPrepFrames = "ArenaPrepFrames",
-		ArenaEnemyFrames = "ArenaEnemyFrames",
-		PetBattleFrame = "PetBattleFrame",
-		StoreFrame = "StoreFrame",
+		["UIParent"] = true,
+		["WorldFrame"] = true,
+		["CinematicFrame"] = true,
+		["ArenaPrepFrames"] = true,
+		["ArenaEnemyFrames"] = true,
+		["PetBattleFrame"] = true,
+		["StoreFrame"] = true
 	},
 	lCreateVMs = {
 		"BagFrame1",
@@ -112,32 +112,32 @@ local MovAny = {
 		["CompactRaidFrameManager"] = true,
 	},
 	lForcedLock = {
-		Boss1TargetFrame = true,
-		Boss2TargetFrame = true,
-		Boss3TargetFrame = true,
-		Boss4TargetFrame = true,
-		Boss5TargetFrame = true,
-		ActionButton1 = true,
-		ArenaEnemyFrame1 = true,
-		ArenaEnemyFrame2 = true,
-		ArenaEnemyFrame3 = true,
-		ArenaEnemyFrame4 = true,
-		ArenaEnemyFrame5 = true,
-		ArenaPrepFrame1 = true,
-		ArenaPrepFrame2 = true,
-		ArenaPrepFrame3 = true,
-		ArenaPrepFrame4 = true,
-		ArenaPrepFrame5 = true,
-		ArenaPrepFrames = true,
-		ArenaEnemyFrames = true,
-		ArenaEnemyFrame1PetFrame = true,
-		ArenaEnemyFrame2PetFrame = true,
-		ArenaEnemyFrame3PetFrame = true,
-		ArenaEnemyFrame4PetFrame = true,
-		ArenaEnemyFrame5PetFrame = true,
-		PetFrame = true,
-		BuffFrame = true,
-		MinimapCluster = true,
+		["Boss1TargetFrame"] = true,
+		["Boss2TargetFrame"] = true,
+		["Boss3TargetFrame"] = true,
+		["Boss4TargetFrame"] = true,
+		["Boss5TargetFrame"] = true,
+		["ActionButton1"] = true,
+		["ArenaEnemyFrame1"] = true,
+		["ArenaEnemyFrame2"] = true,
+		["ArenaEnemyFrame3"] = true,
+		["ArenaEnemyFrame4"] = true,
+		["ArenaEnemyFrame5"] = true,
+		["ArenaPrepFrame1"] = true,
+		["ArenaPrepFrame2"] = true,
+		["ArenaPrepFrame3"] = true,
+		["ArenaPrepFrame4"] = true,
+		["ArenaPrepFrame5"] = true,
+		["ArenaPrepFrames"] = true,
+		["ArenaEnemyFrames"] = true,
+		["ArenaEnemyFrame1PetFrame"] = true,
+		["ArenaEnemyFrame2PetFrame"] = true,
+		["ArenaEnemyFrame3PetFrame"] = true,
+		["ArenaEnemyFrame4PetFrame"] = true,
+		["ArenaEnemyFrame5PetFrame"] = true,
+		["PetFrame"] = true,
+		["BuffFrame"] = true,
+		["MinimapCluster"] = true,
 		["WorldStateAlwaysUpFrame"] = true,
 		["AlwaysUpFrame1"] = true,
 		["AlwaysUpFrame2"] = true,
@@ -331,7 +331,7 @@ local MovAny = {
 		MAPortDialog = "MAPortDialog",
 		GameMenuButtonMoveAnything = "GameMenuButtonMoveAnything",
 		--MACompactRaidFrameManagerToggleButton = "MACompactRaidFrameManagerToggleButton",
-		MA_FEMover = "MA_FEMover",
+		--MA_FEMover = "MA_FEMover",
 	},
 	CONTAINER_FRAME_TABLE = {
 		[0] = {"Interface\\ContainerFrame\\UI-BackpackBackground", 256, 256, 239},
@@ -364,9 +364,7 @@ local MovAny = {
 		[38] = {"Interface\\ContainerFrame\\UI-Bag-5x4", 256, 256, 439},
 		[40] = {"Interface\\ContainerFrame\\UI-Bag-5x4", 256, 256, 459},
 	},
-
--- X: hook replacements
-
+	-- X: hook replacements
 	ContainerFrame_GenerateFrame = function (frame, size, id)
 		MovAny:GrabContainerFrame(frame, MovAny:GetBag(id))
 	end,
@@ -598,7 +596,7 @@ local MovAny = {
 		elseif (MovAny:IsModified(MultiBarBottomRight) and not MovAny:IsModified(MultiBarBottomRight)) then
 			MultiBarBottomRight:Show()
 		end
-	end,
+	end
 }
 
 _G.MovAny = MovAny
@@ -617,7 +615,7 @@ StaticPopupDialogs["MOVEANYTHING_RESET_ALL_CONFIRM"] = {
 	exclusive = 0,
 	showAlert = 1,
 	whileDead = 1,
-	hideOnEscape = 1,
+	hideOnEscape = 1
 }
 
 function MovAny:Load()
@@ -775,7 +773,6 @@ function MovAny:Boot()
 	if UpdateUIPanelPositions then
 		hooksecurefunc("UpdateUIPanelPositions", self.SyncUIPanels)
 	end
-	--UIParentManageFramePositions
 	if GameTooltip_SetDefaultAnchor then
 		hooksecurefunc("GameTooltip_SetDefaultAnchor", self.hGameTooltip_SetDefaultAnchor)
 	end
@@ -2398,6 +2395,9 @@ function MovAny:OnResetCheck(button)
 end
 
 function MovAny:HideFrame(f, readOnly)
+	if not self:IsModified(f) then
+		return
+	end
 	local fn
 	if type(f) == "string" then
 		fn = f
@@ -3872,7 +3872,7 @@ function MovAny:UnanchorRelatives(e, f, opt)
 		local unanchored = { }
 		local x, y, i
 		for i, v in pairs(relatives) do
-			if v:GetName() ~= nil and not self:IsContainer(v:GetName()) and not string.match(v:GetName(), "BagFrame[1-9][0-9]*") and not self.NoUnanchoring[ v:GetName() ] and not v.MAPoint then
+			if v:GetName() ~= nil and not self:IsContainer(v:GetName()) and not string.match(v:GetName(), "BagFrame[1-9][0-9]*") and not self.NoUnanchoring[v:GetName()] and not v.MAPoint then
 			-- alternatively use not self:GetUserData(v:GetName()) instead of v.MAPoint
 				if v:GetRight() ~= nil and v:GetTop() ~= nil then
 					local p = {v:GetPoint(1)}
