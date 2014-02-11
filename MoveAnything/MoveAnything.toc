@@ -1,8 +1,9 @@
 ## Interface: 50400
-## Title: MoveAnything - MoP
-## Notes: 13.8.6 by Resike
-## Version: 13.8.6
+## Title: MoveAnything
+## Version: 13.8.7
 ## Author: Wagthaa
+## Notes: Move, scale, hide and adjust transparency of just about any screen element in the game.
+## DefaultState: Enabled
 ## SavedVariables: MADB
 
 Libs\!NoTaint\!NoTaint.xml

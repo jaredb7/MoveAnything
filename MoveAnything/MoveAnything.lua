@@ -496,24 +496,6 @@ local MovAny = {
 			ArenaPrepFrame5:SetPoint("RIGHT", ArenaEnemyFrames, "RIGHT", - 18, 0)
 		end
 	end,
-	hooksecurefunc("CompactRaidFrameManager_Expand", function(self)
-		if MovAny:IsModified(self) then
-			MovAny:UnlockPoint(self)
-			local point, relativeTo, relativePoint, xOfs, yOfs = self:GetPoint(1)
-			self:ClearAllPoints()
-			self:SetPoint("TOPLEFT", UIParent, "TOPLEFT", xOfs + 175, yOfs)
-			MovAny:LockPoint(self)
-		end
-	end),
-	hooksecurefunc("CompactRaidFrameManager_Collapse", function(self)
-		if MovAny:IsModified(self) then
-			MovAny:UnlockPoint(self)
-			local point, relativeTo, relativePoint, xOfs, yOfs = self:GetPoint(1)
-			self:ClearAllPoints()
-			self:SetPoint("TOPLEFT", UIParent, "TOPLEFT", xOfs - 175, yOfs)
-			MovAny:LockPoint(self)
-		end
-	end),
 	hookArenaEnemyPets15 = function() end,
 	hArenaEnemyFrames_Enable = function()
 		ArenaPrepFrames:ma_Show()
@@ -598,6 +580,29 @@ local MovAny = {
 		end
 	end
 }
+
+if CompactRaidFrameManager_Expand then
+	hooksecurefunc("CompactRaidFrameManager_Expand", function(self)
+		if MovAny:IsModified(self) then
+			MovAny:UnlockPoint(self)
+			local point, relativeTo, relativePoint, xOfs, yOfs = self:GetPoint(1)
+			self:ClearAllPoints()
+			self:SetPoint("TOPLEFT", UIParent, "TOPLEFT", xOfs + 175, yOfs)
+			MovAny:LockPoint(self)
+		end
+	end)
+end
+if CompactRaidFrameManager_Collapse then
+	hooksecurefunc("CompactRaidFrameManager_Collapse", function(self)
+		if MovAny:IsModified(self) then
+			MovAny:UnlockPoint(self)
+			local point, relativeTo, relativePoint, xOfs, yOfs = self:GetPoint(1)
+			self:ClearAllPoints()
+			self:SetPoint("TOPLEFT", UIParent, "TOPLEFT", xOfs - 175, yOfs)
+			MovAny:LockPoint(self)
+		end
+	end)
+end
 
 _G.MovAny = MovAny
 

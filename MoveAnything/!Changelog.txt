@@ -2,6 +2,16 @@
 * Toggling the Raid Frame Manager in combat causing taints.
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
+**13.8.7**
+* Workaround for HideRaidFrame addon's "Hard Disable" function.
+* Readded !NoTaint, seems like it was too early to remove it.
+* Fixed an issue with hiding frames.
+* Fixed incorrent bag order with "Bag Buttons".
+* Some other smaller fixes.
+* Fixed frames:
+	* Round Border
+	* North Indicator
+
 **13.8.6**
 * Fixed an issue with scaling.
 * Fixed a taint with AlwaysUpFrames.

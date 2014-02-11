@@ -535,7 +535,7 @@ local m = {
 		API:AddElement({name = "PartyMemberFrame4PetFrame", displayName = "Party Pet 4"}, c)
 		c = API:GetCategory("Unit: Player")
 		API:AddElement({name = "PlayerFrame", displayName = "Player"}, c)
-		API:AddElement({name = "PlayerBuffsMover", displayName = "Player Buffs Defaul"}, c)
+		API:AddElement({name = "PlayerBuffsMover", displayName = "Player Buffs Default"}, c)
 		API:AddElement({name = "PlayerBuffsMover2", displayName = "Player Buffs From Right to Left"}, c)
 		API:AddElement({name = "ConsolidatedBuffsTooltip", displayName = "Player Buffs - Consolidated Buffs Tooltip"}, c)
 		API:AddElement({name = "PlayerDebuffsMover", displayName = "Player Debuffs Default"}, c)
