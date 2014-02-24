@@ -1,5 +1,4 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
-..\FrameXML\UI.xsd">
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
 	<Frame name="MovableBagFrame" virtual="true" enableMouse="false">
 		<Size>
 			<AbsDimension x="1" y="1"/>
@@ -92,15 +91,13 @@
 				end
 				self.OnMAPostAttach = function(self)
 					posFunc(self)
-					--[[
-					local mover = _G.BagsMover
+					--[[local mover = _G.BagsMover
 					if mover then
 						if mover.attachedChildren then
 							table.wipe(mover.attachedChildren)
 						end
 						mover:MAScanForChildren()
-					end
-					]]
+					end]]
 					UpdateContainerFrameAnchors()
 				end
 				self.OnMAAlpha = function(ref, alpha)
@@ -178,7 +175,7 @@
 			<OnMouseDown>
 				local button = GetMouseButtonClicked()
 				if button == "RightButton" then
-					local t = _G[ self:GetParent():GetName().."Backdrop" ]
+					local t = _G[self:GetParent():GetName().."Backdrop"]
 					if IsShiftKeyDown() then
 						if t:IsVisible() then
 							t:Hide()
@@ -634,7 +631,7 @@
 						if InterfaceOptionsFrame:IsVisible() and MoveAnythingOptions:IsVisible() then
 							HideUIPanel(InterfaceOptionsFrame)
 						else
-							InterfaceOptionsFrame_OpenToCategory("MoveAnything - MoP")
+							InterfaceOptionsFrame_OpenToCategory("MoveAnything")
 						end
 					</OnClick>
 				</Scripts>
@@ -676,7 +673,7 @@
 					</OnLoad>
 					<OnClick>
 						if IsShiftKeyDown() then
-							for i,fe in pairs(MovAny.frameEditors) do
+							for i, fe in pairs(MovAny.frameEditors) do
 								fe:CloseDialog()
 							end
 						end

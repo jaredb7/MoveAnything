@@ -156,7 +156,7 @@ MovAny.lVirtualMovers = {
 			local b = PetBattleFrame.Ally2
 			MovAny:UnlockPoint(b)
 			b:ClearAllPoints()
-			b:SetPoint("TOPLEFT", "UIParent", "TOP", - 509, - 2)
+			b:SetPoint("TOPLEFT", PetBattleFrame.TopArtLeft, "TOPLEFT", 65, - 2)
 		end
 	},
 	PetBattleMover12 = {
@@ -926,7 +926,7 @@ MovAny.lVirtualMovers = {
 	MicroButtonsMover = {
 		w = 303,
 		h = 37,
-		relPoint = {"BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 549, 2},
+		relPoint = {"BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 550, 2},
 		excludes = "MicroButtonsSplitMover",
 		excludes2 = "MicroButtonsVerticalMover",
 		children = {
@@ -951,7 +951,7 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAReleaseChild = function(self, index, child)
 			if child == self.firstChild then
-				child:SetPoint("BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 549, 2)
+				child:SetPoint("BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 550, 2)
 			else
 				child:SetPoint("LEFT", self.lastChild, "RIGHT", - 3, 0)
 			end
@@ -962,7 +962,7 @@ MovAny.lVirtualMovers = {
 	MicroButtonsSplitMover = {
 		w = 154,
 		h = 74,
-		relPoint = {"BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 549, 2},
+		relPoint = {"BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 550, 2},
 		excludes = "MicroButtonsMover",
 		excludes2 = "MicroButtonsVerticalMover",
 		notMAParent = true,
@@ -994,7 +994,7 @@ MovAny.lVirtualMovers = {
 			child.MAParent = "MicroButtonsMover"
 			child:ClearAllPoints()
 			if child == self.firstChild then
-				child:SetPoint("BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 549, 2)
+				child:SetPoint("BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 550, 2)
 			else
 				child:SetPoint("LEFT", self.lastChild, "RIGHT", - 3, 0)
 			end
@@ -1005,7 +1005,7 @@ MovAny.lVirtualMovers = {
 	MicroButtonsVerticalMover = {
 		w = 29,
 		h = 413,
-		relPoint = {"BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 549, 2},
+		relPoint = {"BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 550, 2},
 		excludes = "MicroButtonsMover",
 		excludes2 = "MicroButtonsSplitMover",
 		notMAParent = true,
@@ -1035,7 +1035,7 @@ MovAny.lVirtualMovers = {
 			child.MAParent = "MicroButtonsMover"
 			child:ClearAllPoints()
 			if child == self.firstChild then
-				child:SetPoint("BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 549, 2)
+				child:SetPoint("BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 550, 2)
 			else
 				child:SetPoint("LEFT", self.lastChild, "RIGHT", - 3, 0)
 			end

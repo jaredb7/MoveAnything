@@ -604,6 +604,52 @@ if CompactRaidFrameManager_Collapse then
 	end)
 end
 
+OverrideActionBar:HookScript("OnShow", function(self)
+	if not MovAny:IsModified(MicroButtonsMover) and not MovAny:IsModified(MicroButtonsSplitMover) and not MovAny:IsModified(MicroButtonsVerticalMover) then
+		return
+	end
+	local children = {
+		CharacterMicroButton,
+		SpellbookMicroButton,
+		TalentMicroButton,
+		AchievementMicroButton,
+		QuestLogMicroButton,
+		GuildMicroButton,
+		PVPMicroButton,
+		LFDMicroButton,
+		CompanionsMicroButton,
+		EJMicroButton,
+		StoreMicroButton,
+		MainMenuMicroButton
+	}
+	for i = 1, #children, 1 do
+		MovAny:UnlockPoint(children[i])
+		children[i]:ClearAllPoints()
+		children[i]:SetScale(1)
+		if i == 1 then
+			children[i]:SetPoint("LEFT", OverrideActionBarLeaveFrame, "LEFT", - 165, 20)
+		elseif children[i] == PVPMicroButton then
+			children[i]:SetPoint("LEFT", CharacterMicroButton, "LEFT", 0, - 34)
+		else
+			children[i]:SetPoint("LEFT", children[i - 1], "RIGHT", - 3, 0)
+		end
+		MovAny:LockPoint(children[i])
+	end
+end)
+
+OverrideActionBar:HookScript("OnHide", function(self)
+	if not MovAny:IsModified(MicroButtonsMover) and not MovAny:IsModified(MicroButtonsSplitMover) and not MovAny:IsModified(MicroButtonsVerticalMover) then
+		return
+	end
+	if MovAny:IsModified(MicroButtonsMover) then
+		MovAny.API:SyncElement("MicroButtonsMover")
+	elseif MovAny:IsModified(MicroButtonsSplitMover) then
+		MovAny.API:SyncElement("MicroButtonsSplitMover")
+	elseif MovAny:IsModified(MicroButtonsVerticalMover) then
+		MovAny.API:SyncElement("MicroButtonsVerticalMover")
+	end
+end)
+
 _G.MovAny = MovAny
 
 BINDING_HEADER_MOVEANYTHING = "MoveAnything"
@@ -757,6 +803,8 @@ function MovAny:Load()
 		MAOptions:RegisterEvent("BANKFRAME_CLOSED")
 	end
 	MAOptions:RegisterEvent("BAG_UPDATE")
+	MAOptions:RegisterEvent("PET_BATTLE_OPENING_START")
+	MAOptions:RegisterEvent("PET_BATTLE_CLOSE")
 end
 
 function MovAny:Boot()
@@ -3868,9 +3916,9 @@ function MovAny:UnanchorRelatives(e, f, opt)
 		relatives[ v ] = nil
 	end
 	-- local fRel = self:ForcedDetachFromParent(f:GetName())
-	local fRel = select(2, opt.orgPos)
+	local fRel = (select(2, opt.orgPos))
 	if fRel == nil then
-		fRel = select(2, f:GetPoint(1))
+		fRel = (select(2, f:GetPoint(1)))
 	end
 	local size = tlen(relatives)
 	if size > 0 then
@@ -3878,7 +3926,7 @@ function MovAny:UnanchorRelatives(e, f, opt)
 		local x, y, i
 		for i, v in pairs(relatives) do
 			if v:GetName() ~= nil and not self:IsContainer(v:GetName()) and not string.match(v:GetName(), "BagFrame[1-9][0-9]*") and not self.NoUnanchoring[v:GetName()] and not v.MAPoint then
-			-- alternatively use not self:GetUserData(v:GetName()) instead of v.MAPoint
+				-- alternatively use not self:GetUserData(v:GetName()) instead of v.MAPoint
 				if v:GetRight() ~= nil and v:GetTop() ~= nil then
 					local p = {v:GetPoint(1)}
 					p[2] = fRel
@@ -3903,8 +3951,8 @@ function MovAny:UnanchorRelatives(e, f, opt)
 end
 
 function MovAny:_AddDependents(l, f)
-	local p = select(2, f:GetPoint(1))
-	if p and l[p] then
+	local _, relativeTo = f:GetPoint(1)
+	if relativeTo and l[relativeTo] then
 		l[f] = f
 	end
 end
@@ -5455,7 +5503,7 @@ function MovAny_OnEvent(self, event, arg1)
 			end		
 		end
 		MovAny:SyncFrames()
-	--[[elseif event == "GROUP_ROSTER_UPDATE" then
+	elseif event == "GROUP_ROSTER_UPDATE" then
 		if InCombatLockdown() then
 			return
 		end
@@ -5468,7 +5516,49 @@ function MovAny_OnEvent(self, event, arg1)
 			f.MAParent = "RaidUnitFramesMover"
 		end
 		MovAny.API:SyncElement("RaidUnitFramesManagerMover")
-		MovAny.API:SyncElement("RaidUnitFramesMover")]]
+		MovAny.API:SyncElement("RaidUnitFramesMover")
+	elseif event == "PET_BATTLE_OPENING_START" then
+		if not MovAny:IsModified(MicroButtonsMover) and not MovAny:IsModified(MicroButtonsSplitMover) and not MovAny:IsModified(MicroButtonsVerticalMover) then
+			return
+		end
+		local children = {
+			CharacterMicroButton,
+			SpellbookMicroButton,
+			TalentMicroButton,
+			AchievementMicroButton,
+			QuestLogMicroButton,
+			GuildMicroButton,
+			PVPMicroButton,
+			LFDMicroButton,
+			CompanionsMicroButton,
+			EJMicroButton,
+			StoreMicroButton,
+			MainMenuMicroButton
+		}
+		for i = 1, #children, 1 do
+			MovAny:UnlockPoint(children[i])
+			children[i]:ClearAllPoints()
+			children[i]:SetScale(1)
+			if i == 1 then
+				children[i]:SetPoint("TOPLEFT", PetBattleFrame.BottomFrame, "TOPRIGHT", - 180, 0)
+			elseif children[i] == PVPMicroButton then
+				children[i]:SetPoint("LEFT", CharacterMicroButton, "LEFT", 0, - 34)
+			else
+				children[i]:SetPoint("LEFT", children[i - 1], "RIGHT", - 3, 0)
+			end
+			MovAny:LockPoint(children[i])
+		end
+	elseif event == "PET_BATTLE_CLOSE" then
+		if not MovAny:IsModified(MicroButtonsMover) and not MovAny:IsModified(MicroButtonsSplitMover) and not MovAny:IsModified(MicroButtonsVerticalMover) then
+			return
+		end
+		if MovAny:IsModified(MicroButtonsMover) then
+			MovAny.API:SyncElement("MicroButtonsMover")
+		elseif MovAny:IsModified(MicroButtonsSplitMover) then
+			MovAny.API:SyncElement("MicroButtonsSplitMover")
+		elseif MovAny:IsModified(MicroButtonsVerticalMover) then
+			MovAny.API:SyncElement("MicroButtonsVerticalMover")
+		end
 	elseif event == "PLAYER_FOCUS_CHANGED" then
 		MovAny.API:SyncElement("FocusFrame")
 	elseif event == "BANKFRAME_OPENED" then

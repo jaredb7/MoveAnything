@@ -2,6 +2,18 @@
 * Toggling the Raid Frame Manager in combat causing taints.
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
+**13.8.9**
+* Workaround to set Micro Menu buttons to the default postion in pet battles, and vehicle frames.
+* Xml fixes.
+* Added frames:
+	* Other Raids
+	* WorldMapTrackQuest
+* Fixed frames:
+	* Micro Menu
+	* Micro Menu - Split
+	* Micro Menu - Vertical
+	* Ally Pet 2
+
 **13.8.8**
 * Fixed an issue which caused frames children's alpha not to reset properly.
 * Added frames:
