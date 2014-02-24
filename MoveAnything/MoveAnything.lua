@@ -5844,10 +5844,10 @@ function MovAny:CreateVM(name)
 			MovAny:ResetFrame(data.excludes)
 			MovAny:UpdateGUIIfShown(true)
 		end
-		--[[if data.excludes2 and MovAny:IsModified(data.excludes2) then
+		if data.excludes2 and MovAny:IsModified(data.excludes2) then
 			MovAny:ResetFrame(data.excludes2)
 			MovAny:UpdateGUIIfShown(true)
-		end]]
+		end
 		if self.attachedChildren then
 			table.wipe(self.attachedChildren)
 		else

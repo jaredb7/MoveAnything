@@ -2,6 +2,33 @@
 * Toggling the Raid Frame Manager in combat causing taints.
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
+**13.8.8**
+* Fixed an issue which caused frames children's alpha not to reset properly.
+* Added frames:
+	* Micro Menu - Split
+	* Bank Money
+	* Bank Money Gold
+	* Bank Money Silver
+	* Bank Money Copper
+	* Bank Money Border
+	* Bank Money Inset
+	* Top Left Center
+	* Ally Pet 2
+	* Ally Pet 3
+	* Enemy Pet 2
+	* Enemy Pet 3
+* Fixed frames:
+	* Top Right Art
+	* Top Left Art
+	* Weather
+	* Player Pet Frame
+	* Enemy Pet Frame
+	* Bottom Frame
+	* Pet Selection Frame
+	* Pass Button
+	* Bottom Frame
+	* Pet Selection Frame
+
 **13.8.7**
 * Workaround for HideRaidFrame addon's "Hard Disable" function.
 * Readded !NoTaint, seems like it was too early to remove it.
