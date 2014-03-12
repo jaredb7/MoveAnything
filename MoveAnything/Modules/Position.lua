@@ -217,7 +217,6 @@ local m = {
 		end
 	end,
 	RestoreOrgPoints = function(self, f, opt, readOnly)
-		--dbg("Restoring point to "..f:GetName().."")
 		f:ClearAllPoints()
 		if opt then -- and not opt.UIPanelWindows
 			if type(opt.orgPos) == "table" then

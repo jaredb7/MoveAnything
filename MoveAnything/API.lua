@@ -27,7 +27,6 @@ local m = {
 	CompileList = function(self)
 		self.allCount = 0
 		table.wipe(self.all)
-		
 		for ci, c in pairs(self.cats) do
 			if not c.hidden and not c.disabled then
 				self.allCount = self.allCount + 1
@@ -40,7 +39,6 @@ local m = {
 				end
 			end
 		end
-		
 		self.compile = nil
 	end,
 	GetItem = function(self, idx)
@@ -86,13 +84,11 @@ local m = {
 		local e = self:GetElement(name)
 		if not e then
 			displayName = displayName or name
-			
 			e = self:AddElement({name = name, displayName = displayName}, cat)
 			if MovAny.inited then
 				if MovAny.userData[name] then
 					e:SetUserData(MovAny.userData[name])
 				end
-				
 				self.compile = true
 				MovAny.guiLines = -1
 				MovAny:UpdateGUIIfShown()

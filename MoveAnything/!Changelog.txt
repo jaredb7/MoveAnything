@@ -2,6 +2,31 @@
 * Toggling the Raid Frame Manager in combat causing taints.
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
+**13.9.0**
+* Fixed an issue with profile handling.
+* Some global cleanups.
+* Some other smaller fixes.
+* Added frames:
+	* Raid Frame Buff Tooltips
+	* Raid Frame Debuff Tooltips
+	* Consolidated Buffs
+	* Ally Pet Buffs
+	* Ally Pet Debuffs
+	* Ally Pet Pad Buffs
+	* Ally Pet Pad Debuffs
+	* Enemy Pet Buffs
+	* Enemy Pet Debuffs
+	* Enemy Pet Pad Buffs
+	* Enemy Pet Pad Debuffs
+* Fixed frames:
+	* Objectives Window
+	* Objectives Window Scale
+	* Focus Buffs
+	* Player Buffs Default
+	* Player Buffs From Right to Left
+	* Player Debuffs Default
+	* Player Debuffs From Right to Left
+
 **13.8.9**
 * Workaround to set Micro Menu buttons to the default postion in pet battles, and vehicle frames.
 * Xml fixes.

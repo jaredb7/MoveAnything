@@ -595,20 +595,336 @@ MovAny.lVirtualMovers = {
 			c:SetPoint("TOP", PetBattleFrame.TopVersus, "TOP", 0, - 6)
 		end
 	},
+	PetBattleMover24 = {
+		w = 222,
+		h = 30,
+		point = {"TOPLEFT", "UIParent", "TOP", - 504, - 98},
+		OnMAHook = function(self)
+			local b = PetBattleFrame.AllyBuffFrame
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
+			MovAny:LockPoint(b)
+			b.ignoreFramePositionManager = true
+			self.sbf = b
+		end,
+		OnMAScale = function(self, scale)
+			if type(scale) ~= "number" then
+				return
+			end
+			local b = PetBattleFrame.AllyBuffFrame
+			b:SetScale(scale)
+			if not MovAny:IsModified(PetBattleMover25) then
+				local c = PetBattleFrame.AllyDebuffFrame
+				c:SetScale(scale)
+			end
+		end,
+		OnMAAlpha = function(self, alpha)
+			local b = PetBattleFrame.AllyBuffFrame
+			b:SetAlpha(alpha)
+		end,
+		OnMAHide = function(self, hidden)
+			if hidden then
+				MovAny:LockVisibility(self.sbf)
+			else
+				MovAny:UnlockVisibility(self.sbf)
+			end
+		end,
+		OnMAPostReset = function(self)
+			local b = PetBattleFrame.AllyBuffFrame
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("TOPLEFT", PetBattleFrame.TopArtLeft, "BOTTOMLEFT", 70, 20)
+		end
+	},
+	PetBattleMover25 = {
+		w = 222,
+		h = 30,
+		point = {"TOPLEFT", "UIParent", "TOP", - 504, - 147},
+		OnMAHook = function(self)
+			local b = PetBattleFrame.AllyDebuffFrame
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
+			MovAny:LockPoint(b)
+			b.ignoreFramePositionManager = true
+			self.sbf = b
+		end,
+		OnMAScale = function(self, scale)
+			if type(scale) ~= "number" then
+				return
+			end
+			local b = PetBattleFrame.AllyDebuffFrame
+			b:SetScale(scale)
+		end,
+		OnMAAlpha = function(self, alpha)
+			local b = PetBattleFrame.AllyDebuffFrame
+			b:SetAlpha(alpha)
+		end,
+		OnMAHide = function(self, hidden)
+			if hidden then
+				MovAny:LockVisibility(self.sbf)
+			else
+				MovAny:UnlockVisibility(self.sbf)
+			end
+		end,
+		OnMAPostReset = function(self)
+			local b = PetBattleFrame.AllyDebuffFrame
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("TOPLEFT", PetBattleFrame.AllyBuffFrame, "BOTTOMLEFT", 0, 0)
+		end
+	},
+	PetBattleMover26 = {
+		w = 222,
+		h = 30,
+		point = {"TOPLEFT", "UIParent", "TOP", - 396, - 98},
+		OnMAHook = function(self)
+			local b = PetBattleFrame.AllyPadBuffFrame
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 0)
+			MovAny:LockPoint(b)
+			b.ignoreFramePositionManager = true
+			self.sbf = b
+		end,
+		OnMAScale = function(self, scale)
+			if type(scale) ~= "number" then
+				return
+			end
+			local b = PetBattleFrame.AllyPadBuffFrame
+			b:SetScale(scale)
+			if not MovAny:IsModified(PetBattleMover27) then
+				local c = PetBattleFrame.AllyPadDebuffFrame
+				c:SetScale(scale)
+			end
+		end,
+		OnMAAlpha = function(self, alpha)
+			local b = PetBattleFrame.AllyPadBuffFrame
+			b:SetAlpha(alpha)
+		end,
+		OnMAHide = function(self, hidden)
+			if hidden then
+				MovAny:LockVisibility(self.sbf)
+			else
+				MovAny:UnlockVisibility(self.sbf)
+			end
+		end,
+		OnMAPostReset = function(self)
+			local b = PetBattleFrame.AllyPadBuffFrame
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("TOPRIGHT", PetBattleFrame.TopArtLeft, "BOTTOMLEFT", 400, 20)
+		end
+	},
+	PetBattleMover27 = {
+		w = 222,
+		h = 30,
+		point = {"TOPLEFT", "UIParent", "TOP", - 396, - 147},
+		OnMAHook = function(self)
+			local b = PetBattleFrame.AllyPadDebuffFrame
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 0)
+			MovAny:LockPoint(b)
+			b.ignoreFramePositionManager = true
+			self.sbf = b
+		end,
+		OnMAScale = function(self, scale)
+			if type(scale) ~= "number" then
+				return
+			end
+			local b = PetBattleFrame.AllyPadDebuffFrame
+			b:SetScale(scale)
+		end,
+		OnMAAlpha = function(self, alpha)
+			local b = PetBattleFrame.AllyPadDebuffFrame
+			b:SetAlpha(alpha)
+		end,
+		OnMAHide = function(self, hidden)
+			if hidden then
+				MovAny:LockVisibility(self.sbf)
+			else
+				MovAny:UnlockVisibility(self.sbf)
+			end
+		end,
+		OnMAPostReset = function(self)
+			local b = PetBattleFrame.AllyPadDebuffFrame
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("TOPRIGHT", PetBattleFrame.AllyPadBuffFrame, "BOTTOMRIGHT", 0, 0)
+		end
+	},
+	PetBattleMover28 = {
+		w = 222,
+		h = 30,
+		point = {"TOPRIGHT", "UIParent", "TOP", 504, - 98},
+		OnMAHook = function(self)
+			local b = PetBattleFrame.EnemyBuffFrame
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 0)
+			MovAny:LockPoint(b)
+			b.ignoreFramePositionManager = true
+			self.sbf = b
+		end,
+		OnMAScale = function(self, scale)
+			if type(scale) ~= "number" then
+				return
+			end
+			local b = PetBattleFrame.EnemyBuffFrame
+			b:SetScale(scale)
+			if not MovAny:IsModified(PetBattleMover29) then
+				local c = PetBattleFrame.EnemyDebuffFrame
+				c:SetScale(scale)
+			end
+		end,
+		OnMAAlpha = function(self, alpha)
+			local b = PetBattleFrame.EnemyBuffFrame
+			b:SetAlpha(alpha)
+		end,
+		OnMAHide = function(self, hidden)
+			if hidden then
+				MovAny:LockVisibility(self.sbf)
+			else
+				MovAny:UnlockVisibility(self.sbf)
+			end
+		end,
+		OnMAPostReset = function(self)
+			local b = PetBattleFrame.EnemyBuffFrame
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("TOPRIGHT", PetBattleFrame.TopArtRight, "BOTTOMRIGHT", - 70, 20)
+		end
+	},
+	PetBattleMover29 = {
+		w = 222,
+		h = 30,
+		point = {"TOPRIGHT", "UIParent", "TOP", 504, - 147},
+		OnMAHook = function(self)
+			local b = PetBattleFrame.EnemyDebuffFrame
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 0)
+			MovAny:LockPoint(b)
+			b.ignoreFramePositionManager = true
+			self.sbf = b
+		end,
+		OnMAScale = function(self, scale)
+			if type(scale) ~= "number" then
+				return
+			end
+			local b = PetBattleFrame.EnemyDebuffFrame
+			b:SetScale(scale)
+		end,
+		OnMAAlpha = function(self, alpha)
+			local b = PetBattleFrame.EnemyDebuffFrame
+			b:SetAlpha(alpha)
+		end,
+		OnMAHide = function(self, hidden)
+			if hidden then
+				MovAny:LockVisibility(self.sbf)
+			else
+				MovAny:UnlockVisibility(self.sbf)
+			end
+		end,
+		OnMAPostReset = function(self)
+			local b = PetBattleFrame.EnemyDebuffFrame
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("TOPRIGHT", PetBattleFrame.EnemyBuffFrame, "BOTTOMRIGHT", 0, 0)
+		end
+	},
+	PetBattleMover30 = {
+		w = 222,
+		h = 30,
+		point = {"TOPRIGHT", "UIParent", "TOP", 396, - 98},
+		OnMAHook = function(self)
+			local b = PetBattleFrame.EnemyPadBuffFrame
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
+			MovAny:LockPoint(b)
+			b.ignoreFramePositionManager = true
+			self.sbf = b
+		end,
+		OnMAScale = function(self, scale)
+			if type(scale) ~= "number" then
+				return
+			end
+			local b = PetBattleFrame.EnemyPadBuffFrame
+			b:SetScale(scale)
+			if not MovAny:IsModified(PetBattleMover31) then
+				local c = PetBattleFrame.EnemyPadDebuffFrame
+				c:SetScale(scale)
+			end
+		end,
+		OnMAAlpha = function(self, alpha)
+			local b = PetBattleFrame.EnemyPadBuffFrame
+			b:SetAlpha(alpha)
+		end,
+		OnMAHide = function(self, hidden)
+			if hidden then
+				MovAny:LockVisibility(self.sbf)
+			else
+				MovAny:UnlockVisibility(self.sbf)
+			end
+		end,
+		OnMAPostReset = function(self)
+			local b = PetBattleFrame.EnemyPadBuffFrame
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("TOPLEFT", PetBattleFrame.TopArtRight, "BOTTOMRIGHT", - 400, 20)
+		end
+	},
+	PetBattleMover31 = {
+		w = 222,
+		h = 30,
+		point = {"TOPRIGHT", "UIParent", "TOP", 396, - 147},
+		OnMAHook = function(self)
+			local b = PetBattleFrame.EnemyPadDebuffFrame
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
+			MovAny:LockPoint(b)
+			b.ignoreFramePositionManager = true
+			self.sbf = b
+		end,
+		OnMAScale = function(self, scale)
+			if type(scale) ~= "number" then
+				return
+			end
+			local b = PetBattleFrame.EnemyPadDebuffFrame
+			b:SetScale(scale)
+		end,
+		OnMAAlpha = function(self, alpha)
+			local b = PetBattleFrame.EnemyPadDebuffFrame
+			b:SetAlpha(alpha)
+		end,
+		OnMAHide = function(self, hidden)
+			if hidden then
+				MovAny:LockVisibility(self.sbf)
+			else
+				MovAny:UnlockVisibility(self.sbf)
+			end
+		end,
+		OnMAPostReset = function(self)
+			local b = PetBattleFrame.EnemyPadDebuffFrame
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("TOPLEFT", PetBattleFrame.EnemyPadBuffFrame, "BOTTOMLEFT", 0, 0)
+		end
+	},
 	WatchFrameMover = {
 		w = 200,
 		h = 450,
-		point = {"TOPRIGHT", "UIParent", "TOPRIGHT", -200, -200},
+		point = {"TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", 0, 0},
 		OnMAHook = function(self)
 			self:SetFrameStrata("LOW")
 			local b = WatchFrame
-			local bbb = b:GetHeight()
 			MovAny:UnlockPoint(b)
 			b:ClearAllPoints()	
-			b:SetPoint("TOPLEFT", self, "TOPLEFT")
-			--b:SetPoint("LEFT", WatchFrameMover, "LEFT")
-			--b:SetPoint("TOP", WatchFrameMover, "TOP")
-			--b:SetPoint("BOTTOM", WatchFrameMover, "BOTTOM")
+			b:SetPoint("TOPRIGHT", self, "TOPRIGHT")
 			MovAny:LockPoint(b)
 			--b.ignoreFramePositionManager = true
 			--b:SetMovable(true)
@@ -618,8 +934,8 @@ MovAny.lVirtualMovers = {
 			_G["InterfaceOptionsObjectivesPanelWatchFrameWidth"]:SetEnabled(false)
 		end,
 		OnMAPostReset = function(self)
-			MovAny:UnlockPoint(WatchFrame)
 			local b = WatchFrame
+			MovAny:UnlockPoint(b)
 			b:SetPoint("TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", 0, 0)
 			b:SetHeight(700)			
 			_G["InterfaceOptionsObjectivesPanelWatchFrameWidth"]:SetEnabled(true)		
@@ -632,13 +948,14 @@ MovAny.lVirtualMovers = {
 			if scaleH * scaleS < 150 then
 				scaleH = 150
 			end
-			
 			if scaleW * scaleS < 150 then
 				scaleW = 150
 			end
 			b:SetHeight(scaleH)
 			b:SetWidth(scaleW)
-			SetCVar("watchFrameWidth", 0)
+			if GetCVar("watchFrameWidth") ~= "0" then
+				SetCVar("watchFrameWidth", 0)
+			end
 			WATCHFRAME_EXPANDEDWIDTH = scaleW
 			WATCHFRAME_MAXLINEWIDTH = scaleW
 			WatchFrame_Update()
@@ -667,8 +984,8 @@ MovAny.lVirtualMovers = {
 			self.sbf = b
 		end,
 		OnMAPostReset = function(self)
-			MovAny:UnlockPoint(WatchFrame)
 			local b = PlayerPowerBarAlt
+			MovAny:UnlockPoint(b)
 			b:ClearAllPoints()
 			b:SetPoint("BOTTOM", "UIParent", "BOTTOM", 0, 155)
 		end
@@ -689,8 +1006,8 @@ MovAny.lVirtualMovers = {
 			self.sbf = b
 		end,
 		OnMAPostReset = function(self)
-			MovAny:UnlockPoint(WatchFrame)
 			local b = TargetFramePowerBarAlt
+			MovAny:UnlockPoint(b)
 			b:ClearAllPoints()
 			b:SetPoint("LEFT", "TargetFrame", "RIGHT", - 25, 5)
 		end
@@ -1617,7 +1934,7 @@ MovAny.lVirtualMovers = {
 			if type(scale) ~= "number" then
 				return
 			end
-			for i=1, 12 do
+			for i = 1, 12 do
 				_G["MultiBarRightButton"..i]:SetScale(scale)
 			end
 		end
@@ -1871,7 +2188,7 @@ MovAny.lVirtualMovers = {
 		OnMAFoundChild = function(self, index, child)
 			if index == 1 then
 				child:ClearAllPoints()
-				child:SetPoint("TOPLEFT", self)
+				child:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
 				MovAny:LockPoint(child)
 			end
 		end,
@@ -1905,14 +2222,14 @@ MovAny.lVirtualMovers = {
 			end
 		end,
 		OnMAFoundChild = function(self, index, child)
-			if self.firstChild == child then
+			if index == 1 then
 				child:ClearAllPoints()
 				child:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
 				MovAny:LockPoint(child)
 			end
 		end,
 		OnMAReleaseChild = function(self, index, child)
-			if self.firstChild == child then
+			if index == 1 then
 				MovAny:UnlockPoint(child)
 				child:ClearAllPoints()
 				child:SetPoint("TOPLEFT", "TargetFrameBuffs", "BOTTOMLEFT", 0, - 6)
@@ -2030,9 +2347,9 @@ MovAny.lVirtualMovers = {
 		OnMAPreReset = ResetChildren
 	},
 	PlayerBuffsMover = {
-		w = 31,
-		h = 31,
-		point = {"TOPRIGHT", "UIParent", "TOPRIGHT", -205, -13},
+		w = 30,
+		h = 30,
+		point = {"TOPRIGHT", "UIParent", "TOPRIGHT", - 205, - 13},
 		children = {"TemporaryEnchantFrame", "ConsolidatedBuffs"},
 		prefix = "BuffButton",
 		excludes = "PlayerBuffsMover2",
@@ -2042,15 +2359,12 @@ MovAny.lVirtualMovers = {
 		dontScale = true,
 		OnLoad = function(vm)
 			if BuffFrame_Update then
-				local opt, e, cb
-				
 				local hBuffFrame_Update = function()
-					opt = vm.opt
+					local opt = vm.opt
 					if opt and not opt.disabled and vm.MAE and vm.MAE:IsModified() then
 						vm:MAScanForChildren(true, true)
-						
 						if opt.scale then
-							cb = GetCVar("consolidateBuffs")
+							local cb = GetCVar("consolidateBuffs")
 							if not opt.hidden and vm.attachedChildren then
 								if cb == "1" then
 									for i, v in pairs(vm.attachedChildren) do
@@ -2070,11 +2384,10 @@ MovAny.lVirtualMovers = {
 						MovAny:UnlockPoint(vm.tef)
 						vm.tef:ClearAllPoints()
 						if IsInGroup() and GetCVarBool("consolidateBuffs") then
-							vm.tef:SetPoint("TOPRIGHT", ConsolidatedBuffs, "TOPLEFT", -6, 0)
+							vm.tef:SetPoint("TOPRIGHT", ConsolidatedBuffs, "TOPLEFT", - 6, 0)
 						else
 							vm.tef:SetPoint("TOPRIGHT", ConsolidatedBuffs, "TOPRIGHT", 0, 0)
 						end
-						
 						MovAny:LockPoint(vm.tef)
 					end
 				end
@@ -2094,6 +2407,59 @@ MovAny.lVirtualMovers = {
 				--MovAny:LockScale(child)
 			end
 		end]]
+		OnMAFoundChild = function(self, index, child)
+			if index == 1 then
+				MovAny:UnlockPoint(child)
+				child:ClearAllPoints()
+				local hasMainHandEnchant = GetWeaponEnchantInfo()
+				if ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and TempEnchant3:IsVisible() then
+					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", - 148, 0)
+				elseif ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", - 111, 0)
+				elseif ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", - 74, 0)
+				elseif ConsolidatedBuffs:IsVisible() and not hasMainHandEnchant and not TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", - 37, 0)
+				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and TempEnchant3:IsVisible() then
+					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", - 111, 0)
+				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", - 74, 0)
+				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", - 37, 0)
+				else
+					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 0)
+				end
+			end
+		end,
+		OnMAReleaseChild = function(self, index, child)
+			if index == 1 then
+				child:ClearAllPoints()
+				local hasMainHandEnchant = GetWeaponEnchantInfo()
+				if ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and TempEnchant3:IsVisible() then
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 353, - 13)
+				elseif ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 316, - 13)
+				elseif ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 279, - 13)
+				elseif ConsolidatedBuffs:IsVisible() and not hasMainHandEnchant  and not TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 242, - 13)
+				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and TempEnchant3:IsVisible() then
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 316, - 13)
+				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 279, - 13)
+				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 242, - 13)
+				else
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 205, - 13)
+				end
+				MovAny:LockPoint(child)
+			end
+			--DebuffButton1:ClearAllPoints()
+			--DebuffButton1:SetPoint("TOPRIGHT", ConsolidatedBuffs, "BOTTOMRIGHT", 0, - 60)
+		end,
+		OnMAAlpha = function(self, alpha)
+			BuffFrame:SetAlpha(alpha)
+		end,
 		OnMAScale = function(self, scale)
 			if type(scale) ~= "number" then
 				return
@@ -2119,11 +2485,9 @@ MovAny.lVirtualMovers = {
 			b:ClearAllPoints()
 			b:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 0)
 			MovAny:LockPoint(b)
-			
 			b = _G["TemporaryEnchantFrame"]
 			MovAny:LockPoint(b)
 			self.tef = b
-			
 			b = _G["ConsolidatedBuffs"]
 			b:ClearAllPoints()
 			b:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 0)
@@ -2131,7 +2495,6 @@ MovAny.lVirtualMovers = {
 			if BuffFrame.numConsolidated == 0 then
 				b:Hide()
 			end
-			
 			if self.attachedChildren and self.opt and self.opt.scale then
 				if GetCVar("consolidateBuffs") == "1" then
 					for i, v in pairs(self.attachedChildren) do
@@ -2153,7 +2516,6 @@ MovAny.lVirtualMovers = {
 				return true
 			end
 			MovAny:UnlockPoint(self.tef)
-			
 			local b = _G["BuffFrame"]
 			MovAny:UnlockPoint(b)
 			b:ClearAllPoints()
@@ -2161,13 +2523,11 @@ MovAny.lVirtualMovers = {
 			b = _G["ConsolidatedBuffs"]
 			MovAny:UnlockPoint(b)
 			b:ClearAllPoints()
-			b:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", - 180, - 13)
-			
+			b:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", - 205, - 13)
 			for i, v in pairs(self.attachedChildren) do
 				MovAny:UnlockScale(v)
 				v:SetScale(1)
 			end
-			
 			self.tef = nil
 		end,
 		OnMAPostReset = function(self, readOnly)
@@ -2188,9 +2548,9 @@ MovAny.lVirtualMovers = {
 		end
 	},
 	PlayerBuffsMover2 = {
-		w = 31,
-		h = 31,
-		point = {"TOPRIGHT", "UIParent", "TOPRIGHT", -205, -13},
+		w = 30,
+		h = 30,
+		point = {"TOPRIGHT", "UIParent", "TOPRIGHT", - 205, - 13},
 		children = {"TemporaryEnchantFrame", "ConsolidatedBuffs"},
 		prefix = "BuffButton",
 		excludes = "PlayerBuffsMover",
@@ -2200,15 +2560,12 @@ MovAny.lVirtualMovers = {
 		dontScale = true,
 		OnLoad = function(vm)
 			if BuffFrame_Update then
-				local opt, e, cb
-				
 				local hBuffFrame_Update = function()
-					opt = vm.opt
+					local opt = vm.opt
 					if opt and not opt.disabled and vm.MAE and vm.MAE:IsModified() then
 						vm:MAScanForChildren(true, true)
-						
 						if opt.scale then
-							cb = GetCVar("consolidateBuffs")
+							local cb = GetCVar("consolidateBuffs")
 							if not opt.hidden and vm.attachedChildren then
 								if cb == "1" then
 									for i, v in pairs(vm.attachedChildren) do
@@ -2228,11 +2585,10 @@ MovAny.lVirtualMovers = {
 						MovAny:UnlockPoint(vm.tef)
 						vm.tef:ClearAllPoints()
 						if IsInGroup() and GetCVarBool("consolidateBuffs") then
-							vm.tef:SetPoint("TOPLEFT", ConsolidatedBuffs, "TOPRIGHT", -6, 0)
+							vm.tef:SetPoint("TOPLEFT", ConsolidatedBuffs, "TOPRIGHT", - 6, 0)
 						else
 							vm.tef:SetPoint("TOPLEFT", ConsolidatedBuffs, "TOPLEFT", 0, 0)
 						end
-						
 						MovAny:LockPoint(vm.tef)
 					end
 				end
@@ -2252,27 +2608,95 @@ MovAny.lVirtualMovers = {
 			end
 			if GetCVar("consolidateBuffs") then
 				SetCVar("consolidateBuffs", 0)
+				ConsolidatedBuffs:Hide()
 			end
 			if index == 1 then
+				MovAny:UnlockPoint(child)
 				child:ClearAllPoints()
 				if child:GetParent():GetName() ~= "ConsolidatedBuffsContainer" then
-					child:SetPoint("TOPLEFT", self, "TOPLEFT")					
+					local hasMainHandEnchant = GetWeaponEnchantInfo()
+					if ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and TempEnchant3:IsVisible() then
+						child:SetPoint("TOPLEFT", self, "TOPLEFT", 148, 0)
+					elseif ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+						child:SetPoint("TOPLEFT", self, "TOPLEFT", 111, 0)
+					elseif ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+						TempEnchant1:ClearAllPoints()
+						TempEnchant1:SetPoint("TOPLEFT", self, "TOPLEFT", 37, 0)
+						child:SetPoint("TOPLEFT", self, "TOPLEFT", 74, 0)
+					elseif ConsolidatedBuffs:IsVisible() and not hasMainHandEnchant and not TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+						child:SetPoint("TOPLEFT", self, "TOPLEFT", 37, 0)
+					elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and TempEnchant3:IsVisible() then
+						child:SetPoint("TOPLEFT", self, "TOPLEFT", 111, 0)
+					elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+						child:SetPoint("TOPLEFT", self, "TOPLEFT", 74, 0)
+					elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+						TempEnchant1:ClearAllPoints()
+						TempEnchant1:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
+						child:SetPoint("TOPLEFT", self, "TOPLEFT", 37, 0)
+					else
+						child:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
+					end
 				else
-					child:SetPoint("TOPLEFT", "ConsolidatedBuffsContainer", "TOPRIGHT")
+					child:SetPoint("TOPLEFT", "ConsolidatedBuffsContainer", "TOPRIGHT", 0, 0)
 				end
 			else
 				if string.match(child:GetName(), "BuffButton") then
-					if index == 9 or index == 17 then
-					
+					if index == 9 then
 						child:ClearAllPoints()
-						child:SetPoint("TOPLEFT", "BuffButton"..(index - 8), "BOTTOMLEFT", 0, - 15)
+						child:SetPoint("TOP", ConsolidatedBuffs, "BOTTOM", 0, - 15)
+					elseif index == 17 then
+						child:ClearAllPoints()
+						child:SetPoint("TOP", "BuffButton"..(index - 8), "BOTTOM", 0, - 15)
 					else
-						
 						child:ClearAllPoints()
-						child:SetPoint("TOPLEFT", "BuffButton"..(index - 1), "TOPRIGHT", 5, 0)
+						child:SetPoint("LEFT", "BuffButton"..(index - 1), "RIGHT", 5, 0)
 					end
 				end
 			end
+		end,
+		OnMAReleaseChild = function(self, index, child)
+			if index == 1 then
+				child:ClearAllPoints()
+				local hasMainHandEnchant = GetWeaponEnchantInfo()
+				if ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and TempEnchant3:IsVisible() then
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 353, - 13)
+				elseif ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 316, - 13)
+				elseif ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+					TempEnchant1:ClearAllPoints()
+					TempEnchant1:SetPoint("TOPRIGHT", TemporaryEnchantFrame, "TOPRIGHT", 0, 0)
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 279, - 13)
+				elseif ConsolidatedBuffs:IsVisible() and not hasMainHandEnchant  and not TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 242, - 13)
+				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and TempEnchant3:IsVisible() then
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 316, - 13)
+				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 279, - 13)
+				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+					TempEnchant1:ClearAllPoints()
+					TempEnchant1:SetPoint("TOPRIGHT", TemporaryEnchantFrame, "TOPRIGHT", 0, 0)
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 242, - 13)
+				else
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 205, - 13)
+				end
+				MovAny:LockPoint(child)
+			else
+				if string.match(child:GetName(), "BuffButton") then
+					if index == 9 then
+						child:ClearAllPoints()
+						child:SetPoint("TOP", ConsolidatedBuffs, "BOTTOM", 0, - 15)
+					elseif index == 17 then
+						child:ClearAllPoints()
+						child:SetPoint("TOP", "BuffButton"..(index - 8), "BOTTOM", 0, - 15)
+					else
+						child:ClearAllPoints()
+						child:SetPoint("RIGHT", "BuffButton"..(index - 1), "LEFT", - 5, 0)
+					end
+				end
+			end
+		end,
+		OnMAAlpha = function(self, alpha)
+			BuffFrame:SetAlpha(alpha)
 		end,
 		OnMAScale = function(self, scale)
 			if type(scale) ~= "number" then
@@ -2299,11 +2723,9 @@ MovAny.lVirtualMovers = {
 			b:ClearAllPoints()
 			b:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
 			MovAny:LockPoint(b)
-			
-			b = _G["TemporaryEnchantFrame"]
-			MovAny:LockPoint(b)
+			--b = _G["TemporaryEnchantFrame"]
+			--MovAny:LockPoint(b)
 			self.tef = b
-			
 			b = _G["ConsolidatedBuffs"]
 			b:ClearAllPoints()
 			b:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
@@ -2311,7 +2733,6 @@ MovAny.lVirtualMovers = {
 			if BuffFrame.numConsolidated == 0 then
 				b:Hide()
 			end
-			
 			if self.attachedChildren and self.opt and self.opt.scale then
 				if GetCVar("consolidateBuffs") == "1" then
 					for i, v in pairs(self.attachedChildren) do
@@ -2333,7 +2754,6 @@ MovAny.lVirtualMovers = {
 				return true
 			end
 			MovAny:UnlockPoint(self.tef)
-			
 			local b = _G["BuffFrame"]
 			MovAny:UnlockPoint(b)
 			b:ClearAllPoints()
@@ -2341,17 +2761,17 @@ MovAny.lVirtualMovers = {
 			b = _G["ConsolidatedBuffs"]
 			MovAny:UnlockPoint(b)
 			b:ClearAllPoints()
-			b:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", - 180, - 13)
-			
+			b:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", - 205, - 13)
 			for i, v in pairs(self.attachedChildren) do
 				MovAny:UnlockScale(v)
 				v:SetScale(1)
 			end
-			
 			self.tef = nil
 		end,
 		OnMAPostReset = function(self, readOnly)
-			BuffFrame_Update()
+			if readOnly then
+				return true
+			end
 		end,
 		OnMAHide = function(self, hidden)
 			if hidden then
@@ -2366,12 +2786,12 @@ MovAny.lVirtualMovers = {
 		end
 	},
 	PlayerDebuffsMover = {
-		w = 31,
-		h = 31,
+		w = 30,
+		h = 30,
 		prefix = "DebuffButton",
 		excludes = "PlayerDebuffsMover2",
 		count = 16,
-		point = {"TOPRIGHT", "BuffFrame", "BOTTOMRIGHT", 0, - 50},
+		point = {"TOPRIGHT", "ConsolidatedBuffs", "BOTTOMRIGHT", 0, - 60},
 		OnLoad = function(self)
 			if BuffFrame_Update then
 				hooksecurefunc("BuffFrame_Update", function()
@@ -2384,26 +2804,27 @@ MovAny.lVirtualMovers = {
 		OnMAFoundChild = function(self, index, child)
 			if index == 1 then
 				child:ClearAllPoints()
-				child:SetPoint("TOPRIGHT", self, "TOPRIGHT", - 1, - 1)
+				child:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 0)
 			end
 		end,
 		OnMAReleaseChild = function(self, index, child)
 			if index == 1 then
 				child:ClearAllPoints()
-				child:SetPoint("TOPRIGHT", ConsolidatedBuffs, "BOTTOMRIGHT", 0, - TempEnchant1:GetHeight() * 3)
+				child:SetPoint("TOPRIGHT", ConsolidatedBuffs, "BOTTOMRIGHT", 0, - 60)
 			end
+			child:SetAlpha(1)
 		end,
 		OnMAHook = function(self)
 			self:SetScale(_G["BuffFrame"]:GetEffectiveScale() / UIParent:GetScale())
 		end
 	},
 	PlayerDebuffsMover2 = {
-		w = 31,
-		h = 31,
+		w = 30,
+		h = 30,
 		prefix = "DebuffButton",
 		excludes = "PlayerDebuffsMover",
 		count = 16,
-		point = {"TOPRIGHT", "BuffFrame", "BOTTOMRIGHT", 0, - 50},
+		point = {"TOPRIGHT", "ConsolidatedBuffs", "BOTTOMRIGHT", 0, - 60},
 		OnLoad = function(self)
 			if BuffFrame_Update then
 				hooksecurefunc("BuffFrame_Update", function()
@@ -2420,23 +2841,31 @@ MovAny.lVirtualMovers = {
 			else
 				if string.match(child:GetName(), "DebuffButton") then
 					if index == 9 then
-					
 						child:ClearAllPoints()
-						child:SetPoint("TOPLEFT", "DebuffButton"..(index - 8), "BOTTOMRIGHT", 0, - 15)
+						child:SetPoint("TOPLEFT", "DebuffButton"..(index - 8), "BOTTOMLEFT", 0, - 15)
 					else
-						
 						child:ClearAllPoints()
-						child:SetPoint("TOPLEFT", "DebuffButton"..(index - 1), "TOPRIGHT", 5, 0)
+						child:SetPoint("LEFT", "DebuffButton"..(index - 1), "RIGHT", 5, 0)
 					end
 				end
 			end
-			
 		end,
 		OnMAReleaseChild = function(self, index, child)
 			if index == 1 then
 				child:ClearAllPoints()
-				child:SetPoint("TOPRIGHT", ConsolidatedBuffs, "BOTTOMRIGHT", 0, - TempEnchant1:GetHeight() * 3)
+				child:SetPoint("TOPRIGHT", ConsolidatedBuffs, "BOTTOMRIGHT", 0, - 60)
+			else
+				if string.match(child:GetName(), "DebuffButton") then
+					if index == 9 then
+						child:ClearAllPoints()
+						child:SetPoint("TOPRIGHT", "DebuffButton"..(index - 8), "BOTTOMRIGHT", 0, - 15)
+					else
+						child:ClearAllPoints()
+						child:SetPoint("RIGHT", "DebuffButton"..(index - 1), "LEFT", 5, 0)
+					end
+				end
 			end
+			child:SetAlpha(1)
 		end,
 		OnMAHook = function(self)
 			self:SetScale(_G["BuffFrame"]:GetEffectiveScale() / UIParent:GetScale())
@@ -2552,6 +2981,98 @@ MovAny.lVirtualMovers = {
 								end
 							end
 						end
+					end
+				end
+			end
+		end
+	},
+	CompactRaidFrameBuffTooltipsMover = {
+		w = 100,
+		h = 100,
+		point = {"CENTER", "UIParent", "CENTER", 0, 0},
+		OnMAHide = function(self, hidden)
+			if hidden then
+				for i = 1, 40 do
+					for k = 1, 3 do
+						if _G["CompactRaidFrame"..i.."Buff"..k] then
+							_G["CompactRaidFrame"..i.."Buff"..k]:SetScript("OnEnter", function()
+								GameTooltip:Hide()
+							end)
+						end
+						if _G["CompactRaidFrame"..i.."Debuff"..k] then
+							_G["CompactRaidFrame"..i.."Debuff"..k]:SetScript("OnEnter", function()
+								GameTooltip:Hide()
+							end)
+						end
+					end
+				end
+			else
+				for i = 1, 40 do
+					for k = 1, 3 do
+						if _G["CompactRaidFrame"..i.."Buff"..k] then
+							_G["CompactRaidFrame"..i.."Buff"..k]:SetScript("OnEnter", nil)
+						end
+						if _G["CompactRaidFrame"..i.."Debuff"..k] then
+							_G["CompactRaidFrame"..i.."Debuff"..k]:SetScript("OnEnter", nil)
+						end
+					end
+				end
+			end
+		end,
+		OnMAPostReset = function(self)
+			for i = 1, 40 do
+				for k = 1, 3 do
+					if _G["CompactRaidFrame"..i.."Buff"..k] then
+						_G["CompactRaidFrame"..i.."Buff"..k]:SetScript("OnEnter", nil)
+					end
+					if _G["CompactRaidFrame"..i.."Debuff"..k] then
+						_G["CompactRaidFrame"..i.."Debuff"..k]:SetScript("OnEnter", nil)
+					end
+				end
+			end
+		end
+	},
+	CompactRaidFrameDebuffTooltipsMover = {
+		w = 100,
+		h = 100,
+		point = {"CENTER", "UIParent", "CENTER", 0, 0},
+		OnMAHide = function(self, hidden)
+			if hidden then
+				for i = 1, 40 do
+					for k = 1, 3 do
+						if _G["CompactRaidFrame"..i.."Buff"..k] then
+							_G["CompactRaidFrame"..i.."Buff"..k]:SetScript("OnEnter", function()
+								GameTooltip:Hide()
+							end)
+						end
+						if _G["CompactRaidFrame"..i.."Debuff"..k] then
+							_G["CompactRaidFrame"..i.."Debuff"..k]:SetScript("OnEnter", function()
+								GameTooltip:Hide()
+							end)
+						end
+					end
+				end
+			else
+				for i = 1, 40 do
+					for k = 1, 3 do
+						if _G["CompactRaidFrame"..i.."Buff"..k] then
+							_G["CompactRaidFrame"..i.."Buff"..k]:SetScript("OnEnter", nil)
+						end
+						if _G["CompactRaidFrame"..i.."Debuff"..k] then
+							_G["CompactRaidFrame"..i.."Debuff"..k]:SetScript("OnEnter", nil)
+						end
+					end
+				end
+			end
+		end,
+		OnMAPostReset = function(self)
+			for i = 1, 40 do
+				for k = 1, 3 do
+					if _G["CompactRaidFrame"..i.."Buff"..k] then
+						_G["CompactRaidFrame"..i.."Buff"..k]:SetScript("OnEnter", nil)
+					end
+					if _G["CompactRaidFrame"..i.."Debuff"..k] then
+						_G["CompactRaidFrame"..i.."Debuff"..k]:SetScript("OnEnter", nil)
 					end
 				end
 			end

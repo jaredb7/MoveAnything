@@ -592,6 +592,7 @@ if CompactRaidFrameManager_Expand then
 		end
 	end)
 end
+
 if CompactRaidFrameManager_Collapse then
 	hooksecurefunc("CompactRaidFrameManager_Collapse", function(self)
 		if MovAny:IsModified(self) then
@@ -802,6 +803,7 @@ function MovAny:Load()
 		MAOptions:RegisterEvent("BANKFRAME_OPENED")
 		MAOptions:RegisterEvent("BANKFRAME_CLOSED")
 	end
+	MAOptions:RegisterUnitEvent("UNIT_AURA", "player")
 	MAOptions:RegisterEvent("BAG_UPDATE")
 	MAOptions:RegisterEvent("PET_BATTLE_OPENING_START")
 	MAOptions:RegisterEvent("PET_BATTLE_CLOSE")
@@ -952,11 +954,11 @@ function MovAny:OnPlayerLogout()
 			self:StopMoving(v.tagged:GetName())
 		end
 	end
-	if type(MADB.profiles) == "table" then
+	--[[if type(MADB.profiles) == "table" then
 		for i, v in pairs(MADB.profiles) do
 			MovAny:CleanProfile(i)
 		end
-	end
+	end]]
 end
 
 function MovAny:VerifyData()
@@ -3885,7 +3887,7 @@ function MovAny:UnanchorRelatives(e, f, opt)
 	local named = { }
 	self:_AddNamedChildren(named, f)
 	local relatives = MA_tcopy(named)
-	relatives[ f ] = f
+	relatives[f] = f
 	if p.GetRegions then
 		local children = {p:GetRegions()}
 		if children ~= nil then
@@ -3910,10 +3912,10 @@ function MovAny:UnanchorRelatives(e, f, opt)
 			end
 		end
 	end
-	relatives[ f ] = nil
+	relatives[f] = nil
 	relatives[GameTooltip] = nil
 	for i, v in pairs(named) do
-		relatives[ v ] = nil
+		relatives[v] = nil
 	end
 	-- local fRel = self:ForcedDetachFromParent(f:GetName())
 	local fRel = (select(2, opt.orgPos))
@@ -3958,14 +3960,13 @@ function MovAny:_AddDependents(l, f)
 end
 
 function MovAny:_AddNamedChildren(l, f)
-	local n
 	if f.GetChildren then
 		local children = {f:GetChildren()}
 		if children ~= nil then
 			for i, v in pairs(children) do
 				self:_AddNamedChildren(l, v)
 				if v.GetName then
-					n = v:GetName()
+					local n = v:GetName()
 					if n then
 						l[v] = v
 					end
@@ -3979,7 +3980,7 @@ function MovAny:_AddNamedChildren(l, f)
 			for i, v in pairs(children) do
 				self:_AddNamedChildren(l, v)
 				if v.GetName then
-					n = v:GetName()
+					local n = v:GetName()
 					if n then
 						l[v] = v
 					end
@@ -5250,7 +5251,7 @@ function MovAny_OnEvent(self, event, arg1)
 			if MovAny.Load ~= nil then
 				MovAny:Load()
 				MovAny.Load = nil
-			end			
+			end
 		elseif arg1 == "Blizzard_TalentUI" and MovAny.hBlizzard_TalentUI then
 			MovAny:hBlizzard_TalentUI()
 		--[[elseif arg1 == "Blizzard_AchievementUI" then
@@ -5607,6 +5608,8 @@ function MovAny_OnEvent(self, event, arg1)
 			end
 			MAOptions:UnregisterEvent("BAG_UPDATE")
 		end
+	elseif event == "UNIT_AURA" then
+		MovAny.API:SyncElement(PlayerBuffsMover)
 	else
 		MovAny:SyncAllFrames()
 	end
