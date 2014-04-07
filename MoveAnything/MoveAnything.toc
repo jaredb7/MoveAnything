@@ -1,6 +1,6 @@
 ## Interface: 50400
 ## Title: MoveAnything
-## Version: 13.9.1
+## Version: 13.9.2
 ## Author: Wagthaa
 ## Notes: Move, scale, hide and adjust transparency of just about any screen element in the game.
 ## DefaultState: Enabled

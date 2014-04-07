@@ -324,6 +324,16 @@ local MovAny = {
 		TemporaryEnchantFrame = "TemporaryEnchantFrame",
 		AuctionDressUpFrame = "AuctionDressUpFrame",
 		MinimapCluster = "MinimapCluster",
+		ArenaEnemyFrame1PetFrame = "ArenaEnemyFrame1PetFrame",
+		ArenaEnemyFrame2PetFrame = "ArenaEnemyFrame2PetFrame",
+		ArenaEnemyFrame3PetFrame = "ArenaEnemyFrame3PetFrame",
+		ArenaEnemyFrame4PetFrame = "ArenaEnemyFrame4PetFrame",
+		ArenaEnemyFrame5PetFrame = "ArenaEnemyFrame5PetFrame",
+		ArenaEnemyFrame1CastingBar = "ArenaEnemyFrame1CastingBar",
+		ArenaEnemyFrame2CastingBar = "ArenaEnemyFrame2CastingBar",
+		ArenaEnemyFrame3CastingBar = "ArenaEnemyFrame3CastingBar",
+		ArenaEnemyFrame4CastingBar = "ArenaEnemyFrame4CastingBar",
+		ArenaEnemyFrame5CastingBar = "ArenaEnemyFrame5CastingBar",
 	},
 	lAllowedMAFrames = {
 		MAOptions = "MAOptions",
@@ -507,7 +517,7 @@ local MovAny = {
 	end,
 	hWatchFrameExpand = function()
 		if ArenaEnemyFrames then
-			local _, instanceType = IsInInstance()	
+			local _, instanceType = IsInInstance()
 			if not WatchFrame:IsUserPlaced() then
 				if ArenaEnemyFrames:IsShown() then
 					if WatchFrame_RemoveObjectiveHandler(WatchFrame_DisplayTrackedQuests) then
@@ -523,12 +533,12 @@ local MovAny = {
 						ArenaEnemyFrames.hidWatchedQuests = false
 					end
 				end
-			elseif ArenaEnemyFrames.hidWatchedQuests then	
+			elseif ArenaEnemyFrames.hidWatchedQuests then
 				WatchFrame_AddObjectiveHandler(WatchFrame_DisplayTrackedQuests)
 				ArenaEnemyFrames.hidWatchedQuests = false
 			end		
 		elseif ArenaPrepFrames then
-			local _, instanceType = IsInInstance()		
+			local _, instanceType = IsInInstance()
 			if not WatchFrame:IsUserPlaced() then
 				if ArenaPrepFrames:IsShown() then
 					if WatchFrame_RemoveObjectiveHandler(WatchFrame_DisplayTrackedQuests) then
@@ -548,7 +558,7 @@ local MovAny = {
 				WatchFrame_AddObjectiveHandler(WatchFrame_DisplayTrackedQuests)
 				ArenaPrepFrames.hidWatchedQuests = false
 			end
-		end				
+		end
 	end,
 	hFocusFrame_Update = function()
 		if MovAny:IsModified(FocusFrame) then

@@ -2,6 +2,19 @@
 * Toggling the Raid Frame Manager in combat causing taints.
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
+**13.9.2**
+* Fixed frames:
+	* ArenaEnemyFrame1PetFrame
+	* ArenaEnemyFrame2PetFrame
+	* ArenaEnemyFrame3PetFrame
+	* ArenaEnemyFrame4PetFrame
+	* ArenaEnemyFrame5PetFrame
+	* ArenaEnemyFrame1CastingBar
+	* ArenaEnemyFrame2CastingBar
+	* ArenaEnemyFrame3CastingBar
+	* ArenaEnemyFrame4CastingBar
+	* ArenaEnemyFrame5CastingBar
+
 **13.9.1**
 * Added frames:
 	* Chat Edit Window Length

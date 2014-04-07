@@ -937,7 +937,7 @@ MovAny.lVirtualMovers = {
 			MovAny:UnlockPoint(b)
 			b:SetPoint("TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", 0, 0)
 			b:SetHeight(700)			
-			_G["InterfaceOptionsObjectivesPanelWatchFrameWidth"]:SetEnabled(true)		
+			_G["InterfaceOptionsObjectivesPanelWatchFrameWidth"]:SetEnabled(true)
 		end,
 		OnMAScale = function(self)
 			local b = WatchFrame
