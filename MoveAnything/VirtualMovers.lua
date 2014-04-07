@@ -920,7 +920,6 @@ MovAny.lVirtualMovers = {
 		h = 450,
 		point = {"TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", 0, 0},
 		OnMAHook = function(self)
-			self:SetFrameStrata("LOW")
 			local b = WatchFrame
 			MovAny:UnlockPoint(b)
 			b:ClearAllPoints()	
@@ -2417,9 +2416,9 @@ MovAny.lVirtualMovers = {
 				elseif ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
 					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", - 111, 0)
 				elseif ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", - 74, 0)
+					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", - 73, 0)
 				elseif ConsolidatedBuffs:IsVisible() and not hasMainHandEnchant and not TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", - 37, 0)
+					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", - 35, 0)
 				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and TempEnchant3:IsVisible() then
 					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", - 111, 0)
 				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
@@ -2433,6 +2432,7 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAReleaseChild = function(self, index, child)
 			if index == 1 then
+				MovAny:UnlockPoint(child)
 				child:ClearAllPoints()
 				local hasMainHandEnchant = GetWeaponEnchantInfo()
 				if ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and TempEnchant3:IsVisible() then
@@ -2440,9 +2440,9 @@ MovAny.lVirtualMovers = {
 				elseif ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
 					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 316, - 13)
 				elseif ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 279, - 13)
-				elseif ConsolidatedBuffs:IsVisible() and not hasMainHandEnchant  and not TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 242, - 13)
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 278, - 13)
+				elseif ConsolidatedBuffs:IsVisible() and not hasMainHandEnchant and not TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 240, - 13)
 				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and TempEnchant3:IsVisible() then
 					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 316, - 13)
 				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
@@ -2452,7 +2452,7 @@ MovAny.lVirtualMovers = {
 				else
 					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 205, - 13)
 				end
-				MovAny:LockPoint(child)
+				--MovAny:LockPoint(child)
 			end
 			--DebuffButton1:ClearAllPoints()
 			--DebuffButton1:SetPoint("TOPRIGHT", ConsolidatedBuffs, "BOTTOMRIGHT", 0, - 60)
@@ -2606,10 +2606,10 @@ MovAny.lVirtualMovers = {
 					child:SetScale(1)
 				end
 			end
-			if GetCVar("consolidateBuffs") then
+			--[[if GetCVar("consolidateBuffs") then
 				SetCVar("consolidateBuffs", 0)
 				ConsolidatedBuffs:Hide()
-			end
+			end]]
 			if index == 1 then
 				MovAny:UnlockPoint(child)
 				child:ClearAllPoints()
@@ -2642,12 +2642,15 @@ MovAny.lVirtualMovers = {
 			else
 				if string.match(child:GetName(), "BuffButton") then
 					if index == 9 then
+						MovAny:UnlockPoint(child)
 						child:ClearAllPoints()
 						child:SetPoint("TOP", ConsolidatedBuffs, "BOTTOM", 0, - 15)
 					elseif index == 17 then
+						MovAny:UnlockPoint(child)
 						child:ClearAllPoints()
 						child:SetPoint("TOP", "BuffButton"..(index - 8), "BOTTOM", 0, - 15)
 					else
+						MovAny:UnlockPoint(child)
 						child:ClearAllPoints()
 						child:SetPoint("LEFT", "BuffButton"..(index - 1), "RIGHT", 5, 0)
 					end
@@ -2656,6 +2659,7 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAReleaseChild = function(self, index, child)
 			if index == 1 then
+				MovAny:UnlockPoint(child)
 				child:ClearAllPoints()
 				local hasMainHandEnchant = GetWeaponEnchantInfo()
 				if ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and TempEnchant3:IsVisible() then
@@ -2666,7 +2670,7 @@ MovAny.lVirtualMovers = {
 					TempEnchant1:ClearAllPoints()
 					TempEnchant1:SetPoint("TOPRIGHT", TemporaryEnchantFrame, "TOPRIGHT", 0, 0)
 					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 279, - 13)
-				elseif ConsolidatedBuffs:IsVisible() and not hasMainHandEnchant  and not TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+				elseif ConsolidatedBuffs:IsVisible() and not hasMainHandEnchant and not TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
 					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 242, - 13)
 				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and TempEnchant3:IsVisible() then
 					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 316, - 13)
@@ -2679,16 +2683,19 @@ MovAny.lVirtualMovers = {
 				else
 					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 205, - 13)
 				end
-				MovAny:LockPoint(child)
+				--MovAny:LockPoint(child)
 			else
 				if string.match(child:GetName(), "BuffButton") then
 					if index == 9 then
+						MovAny:UnlockPoint(child)
 						child:ClearAllPoints()
 						child:SetPoint("TOP", ConsolidatedBuffs, "BOTTOM", 0, - 15)
 					elseif index == 17 then
+						MovAny:UnlockPoint(child)
 						child:ClearAllPoints()
 						child:SetPoint("TOP", "BuffButton"..(index - 8), "BOTTOM", 0, - 15)
 					else
+						MovAny:UnlockPoint(child)
 						child:ClearAllPoints()
 						child:SetPoint("RIGHT", "BuffButton"..(index - 1), "LEFT", - 5, 0)
 					end
@@ -3213,41 +3220,108 @@ MovAny.lVirtualMovers = {
 		end
 	},
 	ChatEditBoxesMover = {
-		--h = 18,
-		--w = 200,
-		relPoint = {"TOPLEFT", "ChatFrame1", "BOTTOMLEFT", - 5, - 2},
+		w = 440,
+		h = 32,
+		point = {"TOPLEFT", "ChatFrame1", "BOTTOMLEFT", - 5, - 2},
+		excludes = "ChatEditBoxesLengthMover",
 		prefix = "ChatFrame",
 		postfix = "EditBox",
 		count = 10,
-		--dontLock = 1,
+		dontLock = true,
 		OnMAHook = function(self)
-			self:SetWidth(ChatFrame1:GetWidth())
-			self:SetHeight(20)
+			self:SetWidth(ChatFrame1:GetWidth() + 10)
+			--self:SetHeight(32)
 			local b = ChatFrame1EditBox
-			if MovAny:IsModified(b) then
-				b:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
-				b:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 0, 0)
-			end
+			b:SetPoint("LEFT", self, "LEFT", 0, 0)
+			--b:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 0, 0)
 		end,
 		OnMAFoundChild = function(self, index, child)
-			MovAny.Position:StoreOrgPoints(child, child)
-			--child:SetWidth(self:GetWidth())
-			child.MAOrgParent = child:GetParent()
-			child:SetParent(self)
+			--MovAny.Position:StoreOrgPoints(child, child)
+			--child.MAOrgParent = child:GetParent()
+			--child:SetParent(self)
+			MovAny:UnlockPoint(child)
 			child:ClearAllPoints()
-			child:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
-			child:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 0, 0)
-			MovAny:LockPoint(child)
+			child:SetPoint("LEFT", self, "LEFT", 0, 0)
+			child:SetWidth(ChatFrame1:GetWidth() + 10)
+			--child:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 0, 0)
+			--MovAny:LockPoint(child)
 		end,
 		OnMAReleaseChild = function(self, index, child)
-			child:SetParent(child.MAOrgParent)
-			child.MAOrgParent = nil
-			MovAny:UnlockPoint(child)
-			MovAny.Position:RestoreOrgPoints(child, child, true)
+			--child:SetParent(child.MAOrgParent)
+			--child.MAOrgParent = nil
+			--MovAny:UnlockPoint(child)
+			--child:ClearAllPoints()
+			--child:SetPoint("TOPLEFT", "ChatFrame"..index, "BOTTOMLEFT", - 5, - 2)
+			--MovAny.Position:RestoreOrgPoints(child, child, true)
+		end,
+		OnMAScale = function(self, scale)
+			for i = 1, 10 do
+				_G["ChatFrame"..i.."EditBox"]:SetScale(scale)
+			end
 		end,
 		OnMAPostReset = function(self)
 			for i = 1, 10 do
+				MovAny:UnlockPoint(_G["ChatFrame"..i.."EditBox"])
+				_G["ChatFrame"..i.."EditBox"]:ClearAllPoints()
 				_G["ChatFrame"..i.."EditBox"]:SetPoint("TOPLEFT", "ChatFrame"..i, "BOTTOMLEFT", - 5, - 2)
+				_G["ChatFrame"..i.."EditBox"]:SetWidth(ChatFrame1:GetWidth() + 10)
+			end
+		end
+	},
+	ChatEditBoxesLengthMover = {
+		w = 440,
+		h = 32,
+		point = {"TOPLEFT", "ChatFrame1", "BOTTOMLEFT", - 5, - 2},
+		excludes = "ChatEditBoxesMover",
+		prefix = "ChatFrame",
+		postfix = "EditBox",
+		count = 10,
+		dontLock = true,
+		OnMAHook = function(self)
+			self:SetWidth(ChatFrame1:GetWidth() + 10)
+			--self:SetHeight(32)
+			local b = ChatFrame1EditBox
+			b:SetPoint("LEFT", self, "LEFT", 0, 0)
+			--b:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 0, 0)
+		end,
+		OnMAFoundChild = function(self, index, child)
+			--MovAny.Position:StoreOrgPoints(child, child)
+			--child.MAOrgParent = child:GetParent()
+			--child:SetParent(self)
+			MovAny:UnlockPoint(child)
+			child:ClearAllPoints()
+			child:SetPoint("LEFT", self, "LEFT", 0, 0)
+			child:SetWidth(ChatFrame1:GetWidth() + 10)
+			--child:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 0, 0)
+			--MovAny:LockPoint(child)
+		end,
+		OnMAReleaseChild = function(self, index, child)
+			--child:SetParent(child.MAOrgParent)
+			--child.MAOrgParent = nil
+			--MovAny:UnlockPoint(child)
+			--child:ClearAllPoints()
+			--child:SetPoint("TOPLEFT", "ChatFrame"..index, "BOTTOMLEFT", - 5, - 2)
+			--MovAny.Position:RestoreOrgPoints(child, child, true)
+		end,
+		OnMAScale = function(self, scale)
+			for i = 1, 10 do
+				local b = _G["ChatFrame"..i.."EditBox"]
+				local scaleS = self:GetScale()
+				--local scaleH = self:GetHeight()
+				local scaleW = self:GetWidth()
+				if scaleW * scaleS < 64 then
+					scaleW = 64
+				end
+				--b:SetHeight(scaleH)
+				b:SetWidth(scaleW)
+			end
+		end,
+		OnMAPostReset = function(self)
+			for i = 1, 10 do
+				MovAny:UnlockPoint(_G["ChatFrame"..i.."EditBox"])
+				_G["ChatFrame"..i.."EditBox"]:ClearAllPoints()
+				_G["ChatFrame"..i.."EditBox"]:SetPoint("TOPLEFT", "ChatFrame"..i, "BOTTOMLEFT", - 5, - 2)
+				_G["ChatFrame"..i.."EditBox"]:SetWidth(ChatFrame1:GetWidth() + 10)
 			end
 		end
 	}

@@ -136,7 +136,7 @@ local MovAny = {
 		["ArenaEnemyFrame4PetFrame"] = true,
 		["ArenaEnemyFrame5PetFrame"] = true,
 		["PetFrame"] = true,
-		["BuffFrame"] = true,
+		--["BuffFrame"] = true,
 		["MinimapCluster"] = true,
 		["WorldStateAlwaysUpFrame"] = true,
 		["AlwaysUpFrame1"] = true,
@@ -191,7 +191,7 @@ local MovAny = {
 	lTranslateSec = {
 		BuffFrame = "PlayerBuffsMover",
 		ConsolidatedBuffFrame = "PlayerBuffsMover",
-		ChatFrame1EditBox = "ChatEditBoxesMover",
+		--[[ChatFrame1EditBox = "ChatEditBoxesMover",
 		ChatFrame2EditBox = "ChatEditBoxesMover",
 		ChatFrame3EditBox = "ChatEditBoxesMover",
 		ChatFrame4EditBox = "ChatEditBoxesMover",
@@ -200,7 +200,7 @@ local MovAny = {
 		ChatFrame7EditBox = "ChatEditBoxesMover",
 		ChatFrame8EditBox = "ChatEditBoxesMover",
 		ChatFrame9EditBox = "ChatEditBoxesMover",
-		ChatFrame10EditBox = "ChatEditBoxesMover",
+		ChatFrame10EditBox = "ChatEditBoxesMover",]]
 	},
 	lTransContainerToBag = {
 		ContainerFrame1 = "BagFrame1",
@@ -387,14 +387,14 @@ local MovAny = {
 	hReputationWatchBar_Update = function()
 		API:SyncElement("ReputationWatchBar")
 	end,
-	hChatFrame_OnUpdate = function(arg1)
+	--[[hChatFrame_OnUpdate = function(arg1)
 		local b = arg1
 		if MovAny:IsModified(b) then
 			b:SetWidth(200)
 			b:SetPoint("TOPLEFT", ChatEditBoxesMover, "TOPLEFT", 0, 0)
 			b:SetPoint("BOTTOMRIGHT", ChatEditBoxesMover, "BOTTOMRIGHT", 0, 0)
 		end
-	end,
+	end,]]
 	hCaptureBar_Create = function(id)
 		local f = MovAny.oCaptureBar_Create(id)
 		local e = API:GetElement("WorldStateCaptureBar1")
@@ -580,6 +580,14 @@ local MovAny = {
 		end
 	end
 }
+
+if ChatEdit_ActivateChat then
+	hooksecurefunc("ChatEdit_ActivateChat", function(self)
+		if MovAny:IsModified("ChatEditBoxesMover") then
+			MovAny.API:SyncElement("ChatEditBoxesMover")
+		end
+	end)
+end
 
 if CompactRaidFrameManager_Expand then
 	hooksecurefunc("CompactRaidFrameManager_Expand", function(self)
@@ -873,14 +881,14 @@ function MovAny:Boot()
 			PetActionBarFrame:SetPoint("TOPLEFT", PetActionBarFrame:GetParent(), "BOTTOMLEFT", 500, 0)
 		end
 	end)]]
-	hooksecurefunc("ChatEdit_UpdateHeader",function(arg1, arg2)
+	--[[hooksecurefunc("ChatEdit_UpdateHeader",function(arg1, arg2)
 		local b = arg1
 		if MovAny:IsModified(b) then
 			b:SetWidth(ChatFrame1:GetWidth())
 			b:SetPoint("TOPLEFT", ChatEditBoxesMover, "TOPLEFT", 0, 0)
 			b:SetPoint("BOTTOMRIGHT", ChatEditBoxesMover, "BOTTOMRIGHT", 0, 0)
 		end
-	end)
+	end)]]
 	if ExtendedUI and ExtendedUI.CAPTUREPOINT then
 		self.oCaptureBar_Create = ExtendedUI.CAPTUREPOINT.create
 		ExtendedUI.CAPTUREPOINT.create = self.hCaptureBar_Create
@@ -5609,7 +5617,9 @@ function MovAny_OnEvent(self, event, arg1)
 			MAOptions:UnregisterEvent("BAG_UPDATE")
 		end
 	elseif event == "UNIT_AURA" then
-		MovAny.API:SyncElement(PlayerBuffsMover)
+		if MovAny:IsModified("PlayerBuffsMover") or MovAny:IsModified("PlayerBuffsMover2") then
+			MovAny.API:SyncElement(PlayerBuffsMover)
+		end
 	else
 		MovAny:SyncAllFrames()
 	end

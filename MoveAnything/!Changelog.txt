@@ -2,6 +2,14 @@
 * Toggling the Raid Frame Manager in combat causing taints.
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
+**13.9.1**
+* Added frames:
+	* Chat Edit Window Length
+* Fixed frames:
+	* Chat Edit Window
+	* Player Buffs Default
+
+
 **13.9.0**
 * Fixed an issue with profile handling.
 * Some global cleanups.

@@ -254,14 +254,14 @@ local m = {
 				hooksecurefunc("ReputationWatchBar_Update", MovAny.hReputationWatchBar_Update)
 			end
 		end, scaleWH = 1, linkedScaling = {"ReputationWatchStatusBar"}, hideOnScale = {
-			ReputationWatchBarTexture0,
-			ReputationWatchBarTexture1,
-			ReputationWatchBarTexture2,
-			ReputationWatchBarTexture3,
-			ReputationXPBarTexture0,
-			ReputationXPBarTexture1,
-			ReputationXPBarTexture2,
-			ReputationXPBarTexture3,
+				ReputationWatchBarTexture0,
+				ReputationWatchBarTexture1,
+				ReputationWatchBarTexture2,
+				ReputationWatchBarTexture3,
+				ReputationXPBarTexture0,
+				ReputationXPBarTexture1,
+				ReputationXPBarTexture2,
+				ReputationXPBarTexture3,
 			}
 		}, c)
 		API:AddElement({name = "MicroButtonsMover", displayName = "Micro Menu"}, c)
@@ -481,7 +481,8 @@ local m = {
 		API:AddElement({name = "CalendarViewEventFrame", displayName = "Calendar Event"}, c)
 		API:AddElement({name = "ChannelPullout", displayName = "Channel Pullout"}, c)
 		API:AddElement({name = "ChatConfigFrame", displayName = "Chat Channel Configuration"}, c)
-		API:AddElement({name = "ChatEditBoxesMover", displayName = "Chat Edit Box", scaleWH = 1}, c)
+		API:AddElement({name = "ChatEditBoxesMover", displayName = "Chat Edit Box"}, c)
+		API:AddElement({name = "ChatEditBoxesLengthMover", displayName = "Chat Edit Box Length", scaleWH = 1}, c)
 		API:AddElement({name = "ColorPickerFrame", displayName = "Color Picker"}, c)
 		API:AddElement({name = "TokenFramePopup", displayName = "Currency Options"}, c)
 		API:AddElement({name = "ItemRefTooltip", displayName = "Chat Popup Tooltip"}, c)
