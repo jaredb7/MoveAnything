@@ -2606,10 +2606,10 @@ MovAny.lVirtualMovers = {
 					child:SetScale(1)
 				end
 			end
-			--[[if GetCVar("consolidateBuffs") then
+			if GetCVar("consolidateBuffs") then
 				SetCVar("consolidateBuffs", 0)
 				ConsolidatedBuffs:Hide()
-			end]]
+			end
 			if index == 1 then
 				MovAny:UnlockPoint(child)
 				child:ClearAllPoints()

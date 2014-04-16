@@ -2,18 +2,23 @@
 * Toggling the Raid Frame Manager in combat causing taints.
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
+**13.9.3**
+* Fixed an issue from the last release.
+* Fixed frames:
+	* Player Buffs from Right to Left
+
 **13.9.2**
 * Fixed frames:
-	* ArenaEnemyFrame1PetFrame
-	* ArenaEnemyFrame2PetFrame
-	* ArenaEnemyFrame3PetFrame
-	* ArenaEnemyFrame4PetFrame
-	* ArenaEnemyFrame5PetFrame
-	* ArenaEnemyFrame1CastingBar
-	* ArenaEnemyFrame2CastingBar
-	* ArenaEnemyFrame3CastingBar
-	* ArenaEnemyFrame4CastingBar
-	* ArenaEnemyFrame5CastingBar
+	* Arena Enemy Pet 1
+	* Arena Enemy Pet 2
+	* Arena Enemy Pet 3
+	* Arena Enemy Pet 4
+	* Arena Enemy Pet 5
+	* Arena Enemy Casting Bar 1
+	* Arena Enemy Casting Bar 2
+	* Arena Enemy Casting Bar 3
+	* Arena Enemy Casting Bar 4
+	* Arena Enemy Casting Bar 5
 
 **13.9.1**
 * Added frames:
