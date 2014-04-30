@@ -2,6 +2,10 @@
 * Toggling the Raid Frame Manager in combat causing taints.
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
+**13.9.4**
+* Minor minimap related fixes.
+* Some other fixes.
+
 **13.9.3**
 * Fixed an issue from the last release.
 * Fixed frames:
