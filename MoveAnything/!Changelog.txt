@@ -2,6 +2,25 @@
 * Toggling the Raid Frame Manager in combat causing taints.
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
+**13.9.5**
+* Some minor fixes.
+* Added frames:
+	* Bank Bag Slot 1
+	* Bank Bag Slot 2
+	* Bank Bag Slot 3
+	* Bank Bag Slot 4
+	* Bank Bag Slot 5
+	* Bank Bag Slot 6
+	* Bank Bag Slot 7
+	* Guild Bank Tab 1
+	* Guild Bank Tab 2
+	* Guild Bank Tab 3
+	* Guild Bank Tab 4
+	* Guild Bank Tab 5
+	* Guild Bank Tab 6
+	* Guild Bank Tab 7
+	* Guild Bank Tab 8
+
 **13.9.4**
 * Minor minimap related fixes.
 * Some other fixes.

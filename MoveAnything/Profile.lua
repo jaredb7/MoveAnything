@@ -1,6 +1,7 @@
+local _G = _G
+
 local MovAny = _G.MovAny
 local MOVANY = _G.MOVANY
-local _G = _G
 
 StaticPopupDialogs["MOVEANYTHING_PROFILE_RESET_CONFIRM"] = {
 	text = MOVANY.PROFILE_RESET_CONFIRM,

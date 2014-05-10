@@ -12,15 +12,15 @@ local m = {
 	Init = function(self)
 		self.compile = true
 		
-		self.all = {}
+		self.all = { }
 		self.allCount = 0
 		
-		self.elems = {}
-		self.elemsN = {}
+		self.elems = { }
+		self.elemsN = { }
 		self.elemIDNext = 0
 		
-		self.cats = {}
-		self.catsN = {}
+		self.cats = { }
+		self.catsN = { }
 		self.catIDNext = 0
 	end,
 	Enable = function() end,
@@ -64,7 +64,7 @@ local m = {
 		local gotCat = nil
 		if select("#",...) > 0 then
 			local c
-			for i=1, select("#",...), 1 do
+			for i = 1, select("#",...), 1 do
 				c = select(i, ...)
 				if c then
 					c:AddElement(e)
@@ -127,7 +127,7 @@ local m = {
 		self.cats[self.catIDNext] = c
 		self.catsN[c.name] = c
 		c.default = self.default
-		c.elems = {}
+		c.elems = { }
 		c.collapsed = MovAny.collapsed
 		return c
 	end,
@@ -172,7 +172,7 @@ elemMetaTable = {__index = {
 		end
 	end,
 	GetCategories = function(self)
-		local res = {}
+		local res = { }
 		for ci, c in ipairs(m.cats) do
 			for i, v in ipairs(c.elems) do
 				if v == self then
