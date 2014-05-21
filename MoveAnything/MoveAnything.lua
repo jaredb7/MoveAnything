@@ -1,10 +1,44 @@
 --[[
 	MoveAnything by Wagthaa @ Earthen Ring EU
+	MoP version: Resike
 	FanUpdate by Alea @ Gordynni EU
 	Vanilla & TBC versions by: Skrag, Jason, Vincent
 ]]
 
 local _G = _G
+local getmetatable = getmetatable
+local hooksecurefunc = hooksecurefunc
+local ipairs = ipairs
+local math = math
+local pairs = pairs
+local print = print
+local select = select
+local setmetatable = setmetatable
+local string = string
+local table = table
+local time = time
+local tinsert = tinsert
+local tonumber = tonumber
+local tostring = tostring
+local tremove = tremove
+local type = type
+local unpack = unpack
+local xpcall = xpcall
+
+local CreateFrame = CreateFrame
+local GetAddOnMetadata = GetAddOnMetadata
+local GetCVar = GetCVar
+local GetMouseFocus = GetMouseFocus
+local GetRealmName = GetRealmName
+local GetScreenHeight = GetScreenHeight
+local GetScreenWidth = GetScreenWidth
+local InCombatLockdown = InCombatLockdown
+local IsAltKeyDown = IsAltKeyDown
+local IsInInstance = IsInInstance
+local IsShiftKeyDown = IsShiftKeyDown
+local PlaySound = PlaySound
+local RegisterStateDriver = RegisterStateDriver
+local UnitName = UnitName
 
 local MOVANY = _G.MOVANY
 local MAOptions
@@ -175,7 +209,7 @@ local MovAny = {
 		pet = "PetFrame",
 		focus = "FocusFrame",
 		bags = "BagButtonsMover",
-		keyring = "KeyRingFrame",
+		--keyring = "KeyRingFrame",
 		castbar = "CastingBarFrame",
 		buffs = "PlayerBuffsMover",
 		debuffs = "PlayerDebuffsMover",
@@ -215,7 +249,7 @@ local MovAny = {
 		ContainerFrame10 = "BankBagFrame5",
 		ContainerFrame11 = "BankBagFrame6",
 		ContainerFrame12 = "BankBagFrame7",
-		ContainerFrame13 = "KeyRingFrame",
+		--ContainerFrame13 = "KeyRingFrame",
 	},
 	lFrameNameRewrites = {
 		--CompactRaidFrameContainer = "RaidUnitFramesMover",
@@ -375,7 +409,7 @@ local MovAny = {
 		[40] = {"Interface\\ContainerFrame\\UI-Bag-5x4", 256, 256, 459},
 	},
 	-- X: hook replacements
-	ContainerFrame_GenerateFrame = function (frame, size, id)
+	ContainerFrame_GenerateFrame = function(frame, size, id)
 		MovAny:GrabContainerFrame(frame, MovAny:GetBag(id))
 	end,
 	hCreateFrame = function(frameType, name, parent, inherit, dontHook)
@@ -405,7 +439,7 @@ local MovAny = {
 			b:SetPoint("BOTTOMRIGHT", ChatEditBoxesMover, "BOTTOMRIGHT", 0, 0)
 		end
 	end,]]
-	hCaptureBar_Create = function(id)
+	--[[hCaptureBar_Create = function(id)
 		local f = MovAny.oCaptureBar_Create(id)
 		local e = API:GetElement("WorldStateCaptureBar1")
 		if e then
@@ -416,7 +450,7 @@ local MovAny = {
 			end
 		end
 		return f
-	end,
+	end,]]
 	hAchievementAlertFrame_OnLoad = function(f)
 		f.RegisterForClicks = MovAny.fVoid
 		MovAny.oAchievementAlertFrame_OnLoad(f)
@@ -536,7 +570,7 @@ local MovAny = {
 			elseif ArenaEnemyFrames.hidWatchedQuests then
 				WatchFrame_AddObjectiveHandler(WatchFrame_DisplayTrackedQuests)
 				ArenaEnemyFrames.hidWatchedQuests = false
-			end		
+			end
 		elseif ArenaPrepFrames then
 			local _, instanceType = IsInInstance()
 			if not WatchFrame:IsUserPlaced() then
@@ -899,10 +933,10 @@ function MovAny:Boot()
 			b:SetPoint("BOTTOMRIGHT", ChatEditBoxesMover, "BOTTOMRIGHT", 0, 0)
 		end
 	end)]]
-	if ExtendedUI and ExtendedUI.CAPTUREPOINT then
+	--[[if ExtendedUI and ExtendedUI.CAPTUREPOINT then
 		self.oCaptureBar_Create = ExtendedUI.CAPTUREPOINT.create
 		ExtendedUI.CAPTUREPOINT.create = self.hCaptureBar_Create
-	end
+	end]]
 	if AchievementAlertFrame_OnLoad then
 		self.oAchievementAlertFrame_OnLoad = AchievementAlertFrame_OnLoad
 		AchievementAlertFrame_OnLoad = self.hAchievementAlertFrame_OnLoad
@@ -1014,7 +1048,6 @@ function MovAny:VerifyData()
 			char.profile = nil
 		end
 	end
-	local fRel
 	local remList = { }
 	local addList = { }
 	local rewriteName
@@ -1059,7 +1092,7 @@ function MovAny:VerifyData()
 				end
 				if opt.x ~= nil and opt.y ~= nil then
 					local f = _G[fn]
-					fRel = self:ForcedDetachFromParent(fn, opt)
+					local fRel = self:ForcedDetachFromParent(fn, opt)
 					local p
 					if not fRel then
 						p = f and f.GetParent and f:GetParent() ~= nil and f:GetParent():GetName() or "UIParent"
@@ -1107,7 +1140,7 @@ function MovAny:VerifyData()
 end
 
 function MovAny:VerifyFrameData(fn)
-	local e = self.API:GetElement(fn)
+	local e = API:GetElement(fn)
 	if e.userData and not e:IsModified() then
 		e:SetUserData(nil)
 		MovAny.userData[fn] = nil
@@ -2490,7 +2523,7 @@ function MovAny:HideFrame(f, readOnly)
 		fn = f:GetName()
 	end
 	if fn == "PaladinPowerBar" then
-		PaladinPowerBar:UnregisterAllEvents()
+		f:UnregisterAllEvents()
 	elseif fn == "CompactRaidFrameManager" then
 		f:UnregisterAllEvents()
 		CompactRaidFrameContainer:SetParent(UIParent)
@@ -5009,14 +5042,6 @@ function MovAny:OptionCheckboxChecked(button, var)
 end
 
 function MovAny:SetOptions()
-	if MADB.closeGUIOnEscape then
-		for i, v in pairs(UISpecialFrames) do
-			if v == "MAOptions" then
-				tremove(UISpecialFrames, i)
-				break
-			end
-		end
-	end
 	MADB.alwaysShowNudger = MAOptAlwaysShowNudger:GetChecked()
 	MADB.noBags = MAOptNoBags:GetChecked()
 	MADB.noMMMW = MAOptNoMMMW:GetChecked()
@@ -5030,7 +5055,14 @@ function MovAny:SetOptions()
 	MADB.disableErrorMessages = MAOptDisableErrorMessages:GetChecked()
 	MADB.frameListRows = MAOptRowsSlider:GetValue()
 	if MADB.closeGUIOnEscape then
-		tinsert(UISpecialFrames, MAOptions)
+		tinsert(UISpecialFrames, "MAOptions")
+	else
+		for i, v in pairs(UISpecialFrames) do
+			if v == "MAOptions" then
+				tremove(UISpecialFrames, i)
+				break
+			end
+		end
 	end
 end
 
@@ -5180,6 +5212,7 @@ function MovAny:SetNumRows(num, dontUpdate)
 	if not MAOptions then
 		return
 	end
+	num = tonumber(format("%.0f", tostring(num)))
 	MADB.frameListRows = num
 	local base = 0
 	local h = 24

@@ -1,6 +1,17 @@
 **Issues**
+* Addon losing some of the saved variables sometimes.
 * Toggling the Raid Frame Manager in combat causing taints.
 * Reseting bags while the bag is not opened won't reset it's scale to default.
+
+
+**13.9.6**
+* Added upvalues.
+* Fixed an issue which caused hidden frames to reapper sometimes.
+* Fixed an issue with "Close GUI on escape" options.
+* Fixed an issue with the "List Row" slider.
+* Added SetCVar safety options.
+* Some performance upgradements.
+* Some other minor fixes.
 
 **13.9.5**
 * Some minor fixes.

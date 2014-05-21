@@ -953,7 +953,9 @@ MovAny.lVirtualMovers = {
 			b:SetHeight(scaleH)
 			b:SetWidth(scaleW)
 			if GetCVar("watchFrameWidth") ~= "0" then
-				SetCVar("watchFrameWidth", 0)
+				if not InCombatLockdown() then
+					SetCVar("watchFrameWidth", 0)
+				end
 			end
 			WATCHFRAME_EXPANDEDWIDTH = scaleW
 			WATCHFRAME_MAXLINEWIDTH = scaleW
@@ -1235,10 +1237,10 @@ MovAny.lVirtualMovers = {
 		inherits = "MovableBagFrame",
 		id = 11,
 	},
-	KeyRingFrame = {
+	--[[KeyRingFrame = {
 		inherits = "MovableBagFrame",
 		id = - 2,
-	},
+	},]]
 	MicroButtonsMover = {
 		w = 303,
 		h = 37,
@@ -2607,8 +2609,10 @@ MovAny.lVirtualMovers = {
 				end
 			end
 			if GetCVar("consolidateBuffs") then
-				SetCVar("consolidateBuffs", 0)
-				ConsolidatedBuffs:Hide()
+				if not InCombatLockdown() then
+					SetCVar("consolidateBuffs", 0)
+					ConsolidatedBuffs:Hide()
+				end
 			end
 			if index == 1 then
 				MovAny:UnlockPoint(child)

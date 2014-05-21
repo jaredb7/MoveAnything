@@ -125,7 +125,9 @@ function MovAny:CreateFrameEditor(id, name)
 	fe:RegisterForDrag("LeftButton")
 	fe:SetScript("OnDragStart", fe.StartMoving)
 	fe:SetScript("OnDragStop", fe.StopMovingOrSizing)
-	fe:SetScript("OnMouseDown", function() fe:SetMovable(true) end)
+	--[[fe:SetScript("OnMouseDown", function()
+		fe:SetMovable(true)
+	end)]]
 	fe:SetBackdrop({
 		bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
 		tile = "true",
@@ -243,7 +245,9 @@ function MovAny:CreateFrameEditor(id, name)
 	
 	local enabledCheck = CreateFrame("CheckButton", fn.."Enabled", fe, "MACheckButtonTemplate")
 	enabledCheck:SetPoint("TOPLEFT", realNameLabel, "BOTTOMLEFT", 2, -2)
-	enabledCheck:SetScript("OnClick", function(self) MovAny:ToggleEnableFrame(fe.e.name, fe.opt) end)
+	enabledCheck:SetScript("OnClick", function(self)
+		MovAny:ToggleEnableFrame(fe.e.name, fe.opt)
+	end)
 	_G[enabledCheck:GetName().."Text"]:SetText("Enabled")
 	
 	local hideCheck = CreateFrame("CheckButton", fn.."Hide", fe, "MACheckButtonTemplate")
@@ -827,7 +831,7 @@ function MovAny:CreateFrameEditor(id, name)
 		p = p[4]
 		
 		xSlider:SetScript("OnValueChanged", nil)
-		xSlider:SetMinMaxValues(p-200, p+200)
+		xSlider:SetMinMaxValues(p - 200, p + 200)
 		xSlider:SetScript("OnValueChanged", xSliderFunc)
 		xSlider:SetValue(p)
 	end)
@@ -1004,7 +1008,7 @@ function MovAny:CreateFrameEditor(id, name)
 		p = p[5]
 		
 		ySlider:SetScript("OnValueChanged", nil)
-		ySlider:SetMinMaxValues(p-200, p+200)
+		ySlider:SetMinMaxValues(p - 200, p + 200)
 		ySlider:SetScript("OnValueChanged", ySliderFunc)
 		ySlider:SetValue(p)
 	end)
@@ -1752,7 +1756,7 @@ function MovAny:CreateFrameEditor(id, name)
 			MovAny:UpdateGUIIfShown(true)
 		end
 	end
-	
+
 	local strataDropDown_MenuInit = function()
 		local frameStrata = (fe.opt and fe.opt.frameStrata) or (fe.editFrame and fe.editFrame:GetFrameStrata()) or nil
 		
@@ -1771,17 +1775,14 @@ function MovAny:CreateFrameEditor(id, name)
 			UIDropDownMenu_AddButton(info)
 		end
 	end
-	
+
 	strataDropDownButton:SetPoint("TOPLEFT", strataLabel, "TOPRIGHT", -12, 1)
 	UIDropDownMenu_Initialize(strataDropDownButton, strataDropDown_MenuInit)
 	UIDropDownMenu_SetWidth(strataDropDownButton, 130)
-	--[[
-	strataDropDownButton:SetScript("OnClick", function()
+	--[[trataDropDownButton:SetScript("OnClick", function()
 		ToggleDropDownMenu(1, nil, nil, strataDropDownButton, 0, 0, nil, strataDropDownButton)
-	end)
-	]]
-	
-		
+	end)]]	
+
 	local strataResetButton = CreateFrame("Button", fn.."StrataResetButton", fe, "MAButtonTemplate")
 	strataResetButton:SetSize(20, 20)
 	strataResetButton:SetPoint("TOPLEFT", strataDropDownButton, "TOPRIGHT", 0, -2.5)
@@ -1838,7 +1839,6 @@ function MovAny:CreateFrameEditor(id, name)
 				if fe.editFrame then
 					fe.editFrame:UnregisterAllEvents()
 				end
-			--	print(fe.editFrame:GetName())
 			end
 			self.confirm = nil
 			MovAny:UpdateGUIIfShown(true)
@@ -1924,8 +1924,7 @@ function MovAny:CreateFrameEditor(id, name)
 		
 		MovAny:ResetFrameConfirm(fe.e.name)
 	end)
-	
-	
+
 	local exportButton = CreateFrame("Button", fn.."ExportButton", fe, "MAButtonTemplate")
 	exportButton:SetSize(75, 22)
 	exportButton:SetPoint("TOPLEFT", resetButton, "BOTTOMLEFT", 0, -10)
@@ -2188,7 +2187,7 @@ function MovAny:CreateFrameEditor(id, name)
 		fe.fn = name
 		
 		self.initialOpt = MA_tdeepcopy(self.opt)
-		--self.initialOpt = MovAny:IsModified(name, nil, self.opt) and MA_tdeepcopy(self.opt) or {}
+		--self.initialOpt = MovAny:IsModified(name, nil, self.opt) and MA_tdeepcopy(self.opt) or { }
 		
 		MovAny.frameEditors[name] = self
 		self:UpdateEditor()
@@ -2464,7 +2463,7 @@ function MovAny:CreateFrameEditor(id, name)
 			end
 			if opt.pos and scale then
 				opt.pos[4] = opt.pos[4] / scale
-				opt.pos[5] = opt.pos[5] /scale
+				opt.pos[5] = opt.pos[5] / scale
 			end
 			if opt.groups and not IsShiftKeyDown() then
 				MovAny:GroupScale(fe.e, opt.groups, scale - (opt.scale or (editFrame and editFrame:GetScale())), scale)
