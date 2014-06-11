@@ -1446,6 +1446,8 @@ MovAny.lVirtualMovers = {
 			for i = 1, 12 do
 				_G["ActionButton"..i]:SetScale(scale)
 			end
+			ActionBarDownButton:SetScale(scale)
+			ActionBarUpButton:SetScale(scale)
 		end
 	},
 	OverrideActionButtonsMover = {

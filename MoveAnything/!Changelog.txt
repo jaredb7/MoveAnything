@@ -4,6 +4,11 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**13.9.7**
+* Scaling the "Action Bar" will properly scale, the "ActionBarDownButton" and "ActionBarDownButton" frames too.
+* Added more upvalues.
+* Some other minor fixes.
+
 **13.9.6**
 * Added upvalues.
 * Fixed an issue which caused hidden frames to reapper sometimes.

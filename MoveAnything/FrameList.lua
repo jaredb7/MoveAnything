@@ -1,4 +1,6 @@
 local _G = _G
+local ipairs = ipairs
+local hooksecurefunc = hooksecurefunc
 
 local MovAny = _G.MovAny
 local MOVANY = _G.MOVANY
@@ -39,7 +41,7 @@ local m = {
 		self:LoadList()
 		MovAny:DeleteModule(self)
 		API = nil
-		m = nil
+		--m = nil
 	end,
 	LoadList = function(self)
 		API.default = true

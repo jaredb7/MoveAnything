@@ -1,4 +1,8 @@
 local _G = _G
+local pairs = pairs
+local string = string
+local table = table
+local type = type
 
 local MovAny = _G.MovAny
 local MOVANY = _G.MOVANY

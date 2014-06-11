@@ -1,4 +1,14 @@
 local _G = _G
+local tinsert = tinsert
+local pairs = pairs
+local table = table
+local type = type
+
+local CreateFrame = CreateFrame
+local IsShiftKeyDown = IsShiftKeyDown
+local IsControlKeyDown = IsControlKeyDown
+local IsAltKeyDown = IsAltKeyDown
+local ReloadUI = ReloadUI
 
 local MovAny = _G.MovAny
 local MOVANY = _G.MOVANY
