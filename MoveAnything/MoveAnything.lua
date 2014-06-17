@@ -2453,6 +2453,9 @@ function MovAny:ResetFrame(f, dontUpdate, readOnly)
 		table.wipe(f.attachedChildren)
 	end
 	if not dontUpdate then
+		if f:GetObjectType() ~= "Texture" and f:GetObjectType() ~= "FontString" then
+			f:SetUserPlaced(false)
+		end
 		self:UpdateGUIIfShown(true)
 	end
 end
@@ -3782,7 +3785,7 @@ function MovAny:SyncUIPanel(mn, f)
 						local y = 0
 						if not UIPOpt or not UIPOpt.xoffset then
 							x = 16
-							y  = - 12
+							y  = -12
 						end
 						f:SetPoint("TOPLEFT", mn, "TOPLEFT", x, y)
 						if not f.MAOrgScale then
@@ -3804,7 +3807,7 @@ function MovAny:SyncUIPanel(mn, f)
 				local y = 0
 				if not UIPOpt or not UIPOpt.xoffset then
 					x = 16
-					y  =-12
+					y  = -12
 				end
 				f:SetPoint("TOPLEFT", mn, "TOPLEFT", x, y)
 				
@@ -6254,7 +6257,9 @@ function GetParentInfo(f)
 	print("|cFF50C0FF".."Parent:".."|r", p:GetName())
 	for i = 1, f:GetNumPoints() do
 		local point, relativeTo, relativePoint, xOfs, yOfs = f:GetPoint(i)
-		print(i..".", "|cFF50C0FF".."p:".."|r", point, "|cFF50C0FF".."rfn:".."|r", relativeTo:GetName(), "|cFF50C0FF".."rf:".."|r", relativeTo, "|cFF50C0FF".."rp:".."|r", relativePoint, "|cFF50C0FF".."x:".."|r", xOfs, "|cFF50C0FF".."y:".."|r", yOfs)
+		if relativeTo then
+			print(i..".", "|cFF50C0FF".."p:".."|r", point, "|cFF50C0FF".."rfn:".."|r", relativeTo:GetName(), "|cFF50C0FF".."rp:".."|r", relativePoint, "|cFF50C0FF".."x:".."|r", xOfs, "|cFF50C0FF".."y:".."|r", yOfs)
+		end
 	end
 	print("|cFF50C0FF".."Width:".."|r", f:GetWidth())
 	print("|cFF50C0FF".."Height:".."|r", f:GetHeight())
@@ -6269,7 +6274,9 @@ function GetParentInfoFromCursor()
 	print("|cFF50C0FF".."Parent:".."|r", p:GetName())
 	for i = 1, f:GetNumPoints() do
 		local point, relativeTo, relativePoint, xOfs, yOfs = f:GetPoint(i)
-		print(i..".", "|cFF50C0FF".."p:".."|r", point, "|cFF50C0FF".."rfn:".."|r", relativeTo:GetName(), "|cFF50C0FF".."rf:".."|r", relativeTo, "|cFF50C0FF".."rp:".."|r", relativePoint, "|cFF50C0FF".."x:".."|r", xOfs, "|cFF50C0FF".."y:".."|r", yOfs)
+		if relativeTo then
+			print(i..".", "|cFF50C0FF".."p:".."|r", point, "|cFF50C0FF".."rfn:".."|r", relativeTo:GetName(), "|cFF50C0FF".."rp:".."|r", relativePoint, "|cFF50C0FF".."x:".."|r", xOfs, "|cFF50C0FF".."y:".."|r", yOfs)
+		end
 	end
 	print("|cFF50C0FF".."Width:".."|r", f:GetWidth())
 	print("|cFF50C0FF".."Height:".."|r", f:GetHeight())

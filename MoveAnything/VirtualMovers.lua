@@ -1564,6 +1564,16 @@ MovAny.lVirtualMovers = {
 				b:ClearAllPoints()
 				b:SetPoint("LEFT", "ActionButton"..(i-1), "RIGHT", 6, 0)
 			end
+		end,
+		OnMAScale = function(self, scale)
+			if type(scale) ~= "number" then
+				return
+			end
+			for i = 1, 12 do
+				_G["ActionButton"..i]:SetScale(scale)
+			end
+			ActionBarDownButton:SetScale(scale)
+			ActionBarUpButton:SetScale(scale)
 		end
 	},
 	PetActionButtonsMover = {

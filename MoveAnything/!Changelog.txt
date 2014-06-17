@@ -4,6 +4,23 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**13.9.8**
+* Fixed an issue whcn you deattached "Texture" and "FontString" type elements.
+* Scaling the "Action Bar Vertical" will properly scale, the "ActionBarDownButton" and "ActionBarDownButton" frames too.
+* Some other minor fixes.
+* Added frames:
+	* Player PVP Icon
+	* Player Rest Icon
+	* Player Rest Icon's Glow
+	* Player Attack Icon
+	* Player Attack Icon's Glow
+	* Player Attack Icon's Background
+	* Player Status Texture
+	* Player Leader Icon
+	* Player Master Icon
+	* Target PVP Icon
+	* Focus PVP Icon
+
 **13.9.7**
 * Scaling the "Action Bar" will properly scale, the "ActionBarDownButton" and "ActionBarDownButton" frames too.
 * Added more upvalues.
