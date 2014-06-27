@@ -483,6 +483,7 @@ local m = {
 		API:AddElement({name = "MinimapZoomIn", displayName = "Zoom In Button"}, c)
 		API:AddElement({name = "MinimapZoomOut", displayName = "Zoom Out Button"}, c)
 		API:AddElement({name = "MiniMapWorldMapButton", displayName = "World Map Button"}, c)
+		API:AddElement({name = "BattlefieldMinimap", displayName = "Zone Minimap"}, c)
 		c = API:GetCategory("Miscellaneous")
 		API:AddElement({name = "TimeManagerFrame", displayName = "Alarm Clock"}, c)
 		API:AddElement({name = "BlackMarketFrame", displayName = "Black Market Auction", runOnce = BlackMarketFrame_Show}, c)

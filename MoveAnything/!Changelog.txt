@@ -4,8 +4,12 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**13.9.9**
+* Added frames:
+	* Zone Minimap
+
 **13.9.8**
-* Fixed an issue whcn you deattached "Texture" and "FontString" type elements.
+* Fixed an issue when you deattached "Texture" and "FontString" type elements.
 * Scaling the "Action Bar Vertical" will properly scale, the "ActionBarDownButton" and "ActionBarDownButton" frames too.
 * Some other minor fixes.
 * Added frames:
