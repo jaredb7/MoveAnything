@@ -4,6 +4,16 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**14.0.0**
+* Fixed frames:
+	* TargetBuffsMover
+	* TargetDebuffsMover
+	* TargetFrameToTDebuffsMover
+	* FocusBuffsMover
+	* FocusDebuffsMover
+	* FocusFrameToTDebuffsMover
+* Some other smaller fixes.
+
 **13.9.9**
 * Added frames:
 	* Zone Minimap

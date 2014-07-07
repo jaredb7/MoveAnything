@@ -175,7 +175,13 @@ local MovAny = {
 		["WorldStateAlwaysUpFrame"] = true,
 		["AlwaysUpFrame1"] = true,
 		["AlwaysUpFrame2"] = true,
-		["AlwaysUpFrame3"] = true
+		["AlwaysUpFrame3"] = true,
+		["TargetBuffsMover"] = true,
+		["TargetDebuffsMover"] = true,
+		["TargetFrameToTDebuffsMover"] = true,
+		["FocusBuffsMover"] = true,
+		["FocusDebuffsMover"] = true,
+		["FocusFrameToTDebuffsMover"] = true
 	},
 	lEnableMouse = {
 		--WatchFrame,

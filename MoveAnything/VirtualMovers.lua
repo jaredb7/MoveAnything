@@ -2327,8 +2327,8 @@ MovAny.lVirtualMovers = {
 		OnMAPreReset = ResetChildren
 	},
 	TargetFrameToTDebuffsMover = {
-		w = 25,
-		h = 25,
+		w = 12,
+		h = 12,
 		point = {"TOPLEFT", "TargetFrameToT", "TOPRIGHT", 4, - 10},
 		prefix = "TargetFrameToTDebuff",
 		count = 4,
@@ -2895,8 +2895,8 @@ MovAny.lVirtualMovers = {
 		end
 	},
 	FocusFrameToTDebuffsMover = {
-		w = 25,
-		h = 25,
+		w = 12,
+		h = 12,
 		point = {"TOPLEFT", "FocusFrameToT", "TOPRIGHT", 4, - 10},
 		prefix = "FocusFrameToTDebuff",
 		count = 8,
