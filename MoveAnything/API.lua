@@ -328,7 +328,6 @@ elemMetaTable = {__index = {
 			end
 		end
 		f.MAHooked = nil
-		
 		if f.OnMAPostReset then
 			f:OnMAPostReset(readOnly, opt, e)
 		end

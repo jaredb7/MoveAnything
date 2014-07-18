@@ -1403,7 +1403,7 @@ function MovAny:CreateFrameEditor(id, name)
 	
 	scaleSlider:SetScale(.75)
 	scaleSlider:SetWidth(535)
-	scaleSlider:SetMinMaxValues(0,10)
+	scaleSlider:SetMinMaxValues(0.01, 10)
 	scaleSlider:SetValue(1)
 	scaleSlider:SetValueStep(.01)
 	scaleSlider:SetPoint("TOPLEFT", scaleEdit, "TOPRIGHT", 10, -2)

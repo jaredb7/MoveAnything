@@ -1406,7 +1406,7 @@ MovAny.lVirtualMovers = {
 				b = _G["ActionButton"..i]
 				if i > 1 then
 					b:ClearAllPoints()
-					b:SetPoint("LEFT", "ActionButton"..(i-1), "RIGHT", 6, 0)
+					b:SetPoint("LEFT", "ActionButton"..(i - 1), "RIGHT", 6, 0)
 				end
 				b.MAParent = self
 				tinsert(self.attachedChildren, b)

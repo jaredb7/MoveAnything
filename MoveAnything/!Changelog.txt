@@ -1,8 +1,14 @@
 **Issues**
-* Addon losing some of the saved variables sometimes.
-* Toggling the Raid Frame Manager in combat causing taints.
+* Toggling the modified Raid Frame Manager in combat causing taints.
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
+
+**14.0.1**
+* Fixed an issue which caused hidden frames to reappear on profile change and on some other events.
+* Added a function to auto-reset the "LFRParentFrame" if modified on load. This will fix the broken "Other Raid Panel".
+* Fixed a random SetPoint error, specially with scaling.
+* Fixed an error when reseting textures.
+* Some other minor fixes.
 
 **14.0.0**
 * Fixed frames:

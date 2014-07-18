@@ -263,16 +263,13 @@ end
 
 function MovAny:ChangeProfile(profile)
 	self:ResetProfile(true)
-	--self:VerifyData()
 	local char = MADB.characters[self:GetCharacterIndex()]
 	if not char then
-		char = {}
+		char = { }
 		MADB.characters[self:GetCharacterIndex()] = char
 	end
-	
 	char.profile = profile ~= "default" and profile or nil
 	self.userData = MADB.profiles[self:GetProfileName()].frames
-	
 	local e, f
 	for i, v in pairs(self.userData) do
 		e = self.API:GetElement(i)
@@ -282,7 +279,6 @@ function MovAny:ChangeProfile(profile)
 			e = self.API:AddElementIfNew(i)
 		end
 	end
-	
 	self:SyncAllFrames(true)
 	self:UpdateGUIIfShown(true)
 end
@@ -290,8 +286,9 @@ end
 function MovAny:CleanProfile(pn)
 	local p = MADB.profiles[pn]
 	if type(p) == "table" and type(p.frames) == "table" then
+		local f
 		for i, v in pairs(p.frames) do
-			local f = _G[i]
+			f = _G[i]
 			if f and f.IsUserPlaced and f:IsUserPlaced() and (f:IsMovable() or f:IsResizable()) then
 				if f:IsUserPlaced() then
 					if not f.MAWasUserPlaced then
