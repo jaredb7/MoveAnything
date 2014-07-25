@@ -3,6 +3,15 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**14.0.2**
+* Some minor fixes.
+* Disabled frames:
+	* Boss1TargetFrame
+	* Boss2TargetFrame
+	* Boss3TargetFrame
+	* Boss4TargetFrame
+	* Boss5TargetFrame
+
 **14.0.1**
 * Fixed an issue which caused hidden frames to reappear on profile change and on some other events.
 * Added a function to auto-reset the "LFRParentFrame" if modified on load. This will fix the broken "Other Raid Panel".
