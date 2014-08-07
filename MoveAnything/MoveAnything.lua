@@ -5317,22 +5317,6 @@ function MovAny_OnEvent(self, event, arg1)
 			if MovAny.Load ~= nil then
 				MovAny:Load()
 				MovAny.Load = nil
-				-- Old frame fixes
-				if MovAny:IsModified(Boss1TargetFrame) then
-					MovAny:ResetFrame(Boss1TargetFrame)
-				end
-				if MovAny:IsModified(Boss2TargetFrame) then
-					MovAny:ResetFrame(Boss2TargetFrame)
-				end
-				if MovAny:IsModified(Boss3TargetFrame) then
-					MovAny:ResetFrame(Boss3TargetFrame)
-				end
-				if MovAny:IsModified(Boss4TargetFrame) then
-					MovAny:ResetFrame(Boss4TargetFrame)
-				end
-				if MovAny:IsModified(Boss5TargetFrame) then
-					MovAny:ResetFrame(Boss5TargetFrame)
-				end
 				if MovAny:IsModified(LFRParentFrame) then
 					MovAny:ResetFrame(LFRParentFrame)
 				end
