@@ -1571,7 +1571,7 @@ function MovAny.hSetScale(f)
 			if MovAny:IsProtected(f) and InCombatLockdown() then
 				MovAny.pendingFrames[fn] = API:GetElement(fn)
 			else
-				MovAny:Rescale(f, f:GetScale())
+				MovAny:Rescale(f, f.MAScaled)
 			end
 		end
 	end

@@ -3,6 +3,11 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**14.0.3**
+* Reverted disabled frames from the last version. (Sorry for the inconvenience.)
+* Fixed a major issue whcih caued scale locking not working properly. (This will fix a lot of frame jumping issues.)
+* Some other smaller fixes.
+
 **14.0.2**
 * Some minor fixes.
 * Disabled frames:
