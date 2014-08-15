@@ -4,7 +4,7 @@
 
 
 **14.0.4**
-Fixed an issue which caused massive errors when you hidden your "AchievementMicroButton" by any way.
+* Fixed an issue which caused massive errors when you hidden your "AchievementMicroButton" by any way.
 * Added frames:
 	* Trainer Frame
 * Fixed frames:
