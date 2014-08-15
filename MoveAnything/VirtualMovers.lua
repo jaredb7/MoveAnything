@@ -2211,12 +2211,14 @@ MovAny.lVirtualMovers = {
 				child:ClearAllPoints()
 				child:SetPoint("TOPLEFT", TargetFrame, "BOTTOMLEFT", 5, 32)
 			end
+			MovAny:UnlockScale(child)
+			child:SetScale(_G["TargetFrame"]:GetEffectiveScale() / UIParent:GetScale())
 		end,
 		OnMAHook = function(self)
 			self:SetScale(_G["TargetFrame"]:GetEffectiveScale() / UIParent:GetScale())
 		end,
 		OnMAScale = ScaleChildren,
-		OnMAPreReset = ResetChildren
+		OnMAPostReset = ResetChildren
 	},
 	TargetDebuffsMover = {
 		w = 118,
@@ -2242,17 +2244,20 @@ MovAny.lVirtualMovers = {
 			end
 		end,
 		OnMAReleaseChild = function(self, index, child)
+			self:ClearAllPoints()
 			if index == 1 then
 				MovAny:UnlockPoint(child)
 				child:ClearAllPoints()
 				child:SetPoint("TOPLEFT", "TargetFrameBuffs", "BOTTOMLEFT", 0, - 6)
 			end
+			MovAny:UnlockScale(child)
+			child:SetScale(_G["TargetFrame"]:GetEffectiveScale() / UIParent:GetScale())
 		end,
 		OnMAHook = function(self)
 			self:SetScale(_G["TargetFrame"]:GetEffectiveScale() / UIParent:GetScale())
 		end,
 		OnMAScale = ScaleChildren,
-		OnMAPreReset = ResetChildren
+		OnMAPostReset = ResetChildren
 	},
 	FocusBuffsMover = {
 		w = 118,
@@ -2283,12 +2288,14 @@ MovAny.lVirtualMovers = {
 				child:ClearAllPoints()
 				child:SetPoint("TOPLEFT", FocusFrame, "BOTTOMLEFT", 5, 32)
 			end
+			MovAny:UnlockScale(child)
+			child:SetScale(_G["FocusFrame"]:GetEffectiveScale() / UIParent:GetScale())
 		end,
 		OnMAHook = function(self)
 			self:SetScale(_G["FocusFrame"]:GetEffectiveScale() / UIParent:GetScale())
 		end,
 		OnMAScale = ScaleChildren,
-		OnMAPreReset = ResetChildren
+		OnMAPostReset = ResetChildren
 	},
 	FocusDebuffsMover = {
 		w = 118,
@@ -2300,7 +2307,7 @@ MovAny.lVirtualMovers = {
 		OnLoad = function(self)
 			if TargetFrame_UpdateAuras then
 				hooksecurefunc("TargetFrame_UpdateAuras", function(frame)
-					if frame == FocusFrameBuffs and self.MAHooked then
+					if frame == FocusFrame and self.MAHooked then
 						self:MAScanForChildren()
 					end
 				end)
@@ -2319,12 +2326,14 @@ MovAny.lVirtualMovers = {
 				child:ClearAllPoints()
 				child:SetPoint("TOPLEFT", FocusFrameBuffs, "BOTTOMLEFT", 0, - 6)
 			end
+			MovAny:UnlockScale(child)
+			child:SetScale(_G["FocusFrame"]:GetEffectiveScale() / UIParent:GetScale())
 		end,
 		OnMAHook = function(self)
 			self:SetScale(_G["FocusFrame"]:GetEffectiveScale() / UIParent:GetScale())
 		end,
 		OnMAScale = ScaleChildren,
-		OnMAPreReset = ResetChildren
+		OnMAPostReset = ResetChildren
 	},
 	TargetFrameToTDebuffsMover = {
 		w = 12,
@@ -2332,15 +2341,6 @@ MovAny.lVirtualMovers = {
 		point = {"TOPLEFT", "TargetFrameToT", "TOPRIGHT", 4, - 10},
 		prefix = "TargetFrameToTDebuff",
 		count = 4,
-		OnLoad = function(self)
-			if TargetFrame_CreateTargetofTarget then
-				hooksecurefunc("TargetFrame_CreateTargetofTarget", function(frame)
-					if frame == TargetFrame and self.MAHooked then
-						self:MAScanForChildren()
-					end
-				end)
-			end
-		end,
 		OnMAFoundChild = function(self, index, child)
 			if index == 1 then
 				child:ClearAllPoints()
@@ -2352,12 +2352,14 @@ MovAny.lVirtualMovers = {
 				child:ClearAllPoints()
 				child:SetPoint("TOPLEFT", TargetFrameToT, "TOPRIGHT", 4, - 10)
 			end
+			MovAny:UnlockScale(child)
+			child:SetScale(_G["TargetFrameToT"]:GetEffectiveScale() / UIParent:GetScale())
 		end,
 		OnMAHook = function(self)
 			self:SetScale(_G["TargetFrameToT"]:GetEffectiveScale() / UIParent:GetScale())
 		end,
 		OnMAScale = ScaleChildren,
-		OnMAPreReset = ResetChildren
+		OnMAPostReset = ResetChildren
 	},
 	PlayerBuffsMover = {
 		w = 30,
@@ -2899,7 +2901,7 @@ MovAny.lVirtualMovers = {
 		h = 12,
 		point = {"TOPLEFT", "FocusFrameToT", "TOPRIGHT", 4, - 10},
 		prefix = "FocusFrameToTDebuff",
-		count = 8,
+		count = 4,
 		OnMAFoundChild = function(self, index, child)
 			if index == 1 then
 				child:ClearAllPoints()
@@ -2911,12 +2913,14 @@ MovAny.lVirtualMovers = {
 				child:ClearAllPoints()
 				child:SetPoint("TOPLEFT", "FocusFrameToT", "TOPRIGHT", 4, - 10)
 			end
+			MovAny:UnlockScale(child)
+			child:SetScale(_G["FocusFrameToT"]:GetEffectiveScale() / UIParent:GetScale())
 		end,
 		OnMAHook = function(self)
 			self:SetScale(_G["FocusFrameToT"]:GetEffectiveScale() / UIParent:GetScale())
 		end,
 		OnMAScale = ScaleChildren,
-		OnMAPreReset = ResetChildren
+		OnMAPostReset = ResetChildren
 	},
 	RaidUnitFramesMover = {
 		linkedSize = "CompactRaidFrameContainer",

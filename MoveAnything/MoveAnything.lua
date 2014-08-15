@@ -2542,6 +2542,19 @@ function MovAny:HideFrame(f, readOnly)
 	elseif fn == "CompactRaidFrameManager" then
 		f:UnregisterAllEvents()
 		CompactRaidFrameContainer:SetParent(UIParent)
+	elseif fn == "MicroButtonsMover" or fn == "MicroButtonsSplitMover" or fn == "MicroButtonsVerticalMover" or fn == "AchievementMicroButton" then
+		AchievementMicroButton.IsShown = function(self)
+			local opt = MovAny:GetUserData(fn)
+			if opt and opt.hidden then
+				return true
+			else
+				if self:IsShown() then
+					return true
+				else
+					return false
+				end
+			end
+		end
 	end
 	local e = API:GetElement(fn)
 	local mover = self:GetMoverByFrame(f)
