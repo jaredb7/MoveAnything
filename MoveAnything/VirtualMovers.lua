@@ -2188,7 +2188,7 @@ MovAny.lVirtualMovers = {
 		point = {"TOPLEFT", "TargetFrame", "BOTTOMLEFT", 5, 32},
 		prefix = "TargetFrameBuff",
 		count = MAX_TARGET_BUFFS,
-		dontLock = true,
+		--dontLock = true,
 		OnLoad = function(self)
 			if TargetFrame_UpdateAuras then
 				hooksecurefunc("TargetFrame_UpdateAuras", function(frame)
@@ -2200,25 +2200,27 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAFoundChild = function(self, index, child)
 			if index == 1 then
+				self:SetScale(_G["TargetFrame"]:GetEffectiveScale() / UIParent:GetScale())
 				child:ClearAllPoints()
 				child:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
-				MovAny:LockPoint(child)
 			end
 		end,
 		OnMAReleaseChild = function(self, index, child)
-			if index == 1 then
-				MovAny:UnlockPoint(child)
-				child:ClearAllPoints()
-				child:SetPoint("TOPLEFT", TargetFrame, "BOTTOMLEFT", 5, 32)
-			end
+			MovAny:UnlockPoint(child)
 			MovAny:UnlockScale(child)
-			child:SetScale(_G["TargetFrame"]:GetEffectiveScale() / UIParent:GetScale())
+			child:SetScale(1)
+			if index == 1 then
+				child:ClearAllPoints()
+				child:SetPoint("TOPLEFT", "TargetFrame", "BOTTOMLEFT", 5, 32)
+			end
 		end,
-		OnMAHook = function(self)
+		--[[OnMAHook = function(self)
+			MovAny:UnlockScale(self)
 			self:SetScale(_G["TargetFrame"]:GetEffectiveScale() / UIParent:GetScale())
-		end,
+			MovAny:LockScale(self)
+		end,]]
 		OnMAScale = ScaleChildren,
-		OnMAPostReset = ResetChildren
+		OnMAPreReset = ResetChildren
 	},
 	TargetDebuffsMover = {
 		w = 118,
@@ -2226,7 +2228,7 @@ MovAny.lVirtualMovers = {
 		point = {"TOPLEFT", "TargetFrameBuffs", "BOTTOMLEFT", 0, - 6},
 		prefix = "TargetFrameDebuff",
 		count = MAX_TARGET_DEBUFFS,
-		dontLock = true,
+		--dontLock = true,
 		OnLoad = function(self)
 			if TargetFrame_UpdateAuras then
 				hooksecurefunc("TargetFrame_UpdateAuras", function(frame)
@@ -2238,26 +2240,27 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAFoundChild = function(self, index, child)
 			if index == 1 then
+				self:SetScale(_G["TargetFrame"]:GetEffectiveScale() / UIParent:GetScale())
 				child:ClearAllPoints()
 				child:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
-				MovAny:LockPoint(child)
 			end
 		end,
 		OnMAReleaseChild = function(self, index, child)
-			self:ClearAllPoints()
+			MovAny:UnlockScale(child)
+			MovAny:UnlockPoint(child)
+			child:SetScale(1)
 			if index == 1 then
-				MovAny:UnlockPoint(child)
 				child:ClearAllPoints()
 				child:SetPoint("TOPLEFT", "TargetFrameBuffs", "BOTTOMLEFT", 0, - 6)
 			end
-			MovAny:UnlockScale(child)
-			child:SetScale(_G["TargetFrame"]:GetEffectiveScale() / UIParent:GetScale())
 		end,
-		OnMAHook = function(self)
+		--[[OnMAHook = function(self)
+			MovAny:UnlockScale(self)
 			self:SetScale(_G["TargetFrame"]:GetEffectiveScale() / UIParent:GetScale())
-		end,
+			MovAny:LockScale(self)
+		end,]]
 		OnMAScale = ScaleChildren,
-		OnMAPostReset = ResetChildren
+		OnMAPreReset = ResetChildren
 	},
 	FocusBuffsMover = {
 		w = 118,
@@ -2265,7 +2268,7 @@ MovAny.lVirtualMovers = {
 		point = {"TOPLEFT", "FocusFrame", "BOTTOMLEFT", 5, 32},
 		prefix = "FocusFrameBuff",
 		count = MAX_TARGET_BUFFS,
-		dontLock = true,
+		--dontLock = true,
 		OnLoad = function(self)
 			if TargetFrame_UpdateAuras then
 				hooksecurefunc("TargetFrame_UpdateAuras", function(frame)
@@ -2277,25 +2280,27 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAFoundChild = function(self, index, child)
 			if index == 1 then
+				self:SetScale(_G["TargetFrame"]:GetEffectiveScale() / UIParent:GetScale())
 				child:ClearAllPoints()
 				child:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
-				MovAny:LockPoint(child)
 			end
 		end,
 		OnMAReleaseChild = function(self, index, child)
-			if index == 1 then
-				MovAny:UnlockPoint(child)
-				child:ClearAllPoints()
-				child:SetPoint("TOPLEFT", FocusFrame, "BOTTOMLEFT", 5, 32)
-			end
 			MovAny:UnlockScale(child)
-			child:SetScale(_G["FocusFrame"]:GetEffectiveScale() / UIParent:GetScale())
+			MovAny:UnlockPoint(child)
+			child:SetScale(1)
+			if index == 1 then
+				child:ClearAllPoints()
+				child:SetPoint("TOPLEFT", "FocusFrame", "BOTTOMLEFT", 5, 32)
+			end
 		end,
-		OnMAHook = function(self)
+		--[[OnMAHook = function(self)
+			MovAny:UnlockScale(self)
 			self:SetScale(_G["FocusFrame"]:GetEffectiveScale() / UIParent:GetScale())
-		end,
+			MovAny:LockScale(self)
+		end,]]
 		OnMAScale = ScaleChildren,
-		OnMAPostReset = ResetChildren
+		OnMAPreReset = ResetChildren
 	},
 	FocusDebuffsMover = {
 		w = 118,
@@ -2303,7 +2308,7 @@ MovAny.lVirtualMovers = {
 		point = {"TOPLEFT", "FocusFrameBuffs", "BOTTOMLEFT", 0, - 6},
 		prefix = "FocusFrameDebuff",
 		count = MAX_TARGET_DEBUFFS,
-		dontLock = true,
+		--dontLock = true,
 		OnLoad = function(self)
 			if TargetFrame_UpdateAuras then
 				hooksecurefunc("TargetFrame_UpdateAuras", function(frame)
@@ -2315,25 +2320,27 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAFoundChild = function(self, index, child)
 			if index == 1 then
+				self:SetScale(_G["TargetFrame"]:GetEffectiveScale() / UIParent:GetScale())
 				child:ClearAllPoints()
 				child:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
-				MovAny:LockPoint(child)
 			end
 		end,
 		OnMAReleaseChild = function(self, index, child)
-			if index == 1 then
-				MovAny:UnlockPoint(child)
-				child:ClearAllPoints()
-				child:SetPoint("TOPLEFT", FocusFrameBuffs, "BOTTOMLEFT", 0, - 6)
-			end
 			MovAny:UnlockScale(child)
-			child:SetScale(_G["FocusFrame"]:GetEffectiveScale() / UIParent:GetScale())
+			MovAny:UnlockPoint(child)
+			child:SetScale(1)
+			if index == 1 then
+				child:ClearAllPoints()
+				child:SetPoint("TOPLEFT", "FocusFrameBuffs", "BOTTOMLEFT", 0, - 6)
+			end
 		end,
-		OnMAHook = function(self)
+		--[[OnMAHook = function(self)
+			MovAny:UnlockScale(self)
 			self:SetScale(_G["FocusFrame"]:GetEffectiveScale() / UIParent:GetScale())
-		end,
+			MovAny:LockScale(self)
+		end,]]
 		OnMAScale = ScaleChildren,
-		OnMAPostReset = ResetChildren
+		OnMAPreReset = ResetChildren
 	},
 	TargetFrameToTDebuffsMover = {
 		w = 12,

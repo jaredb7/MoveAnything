@@ -3,6 +3,14 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**14.0.5**
+* Force locked buff/debuff frames on unitframes.
+* Fixed frames:
+	* TargetBuffsMover
+	* TargetDebuffsMover
+	* FocusBuffsMover
+	* FocusDebuffsMover
+
 **14.0.4**
 * Fixed an issue which caused massive errors when you hidden your "AchievementMicroButton" by any way.
 * Added frames:
