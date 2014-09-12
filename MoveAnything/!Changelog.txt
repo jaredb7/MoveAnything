@@ -3,6 +3,15 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**14.0.6**
+* Player buff and debuff frames are now properly scaleable.
+* Consolidate buff fixes.
+* Fixed frames:
+	* Player Buffs Default
+	* Player Buffs From Right to Left
+	* Player Debuffs Default
+	* Player Debuffs From Right to Left
+
 **14.0.5**
 * Force locked buff/debuff frames on unitframes.
 * Fixed frames:

@@ -77,7 +77,9 @@ local m = {
 					HideUIPanel(GossipFrame)
 				end
 			end)
-			hooksecurefunc("DeclineQuest", function() HideUIPanel(GossipFrame) end)
+			hooksecurefunc("DeclineQuest", function()
+				HideUIPanel(GossipFrame)
+			end)
 		end}, c)
 		--API:AddElement({name = "QuestTimerFrame", displayName = "Quest Timer"}, c)
 		c = API:GetCategory("Arena")

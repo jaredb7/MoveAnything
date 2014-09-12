@@ -2386,9 +2386,8 @@ MovAny.lVirtualMovers = {
 					if opt and not opt.disabled and vm.MAE and vm.MAE:IsModified() then
 						vm:MAScanForChildren(true, true)
 						if opt.scale then
-							local cb = GetCVar("consolidateBuffs")
 							if not opt.hidden and vm.attachedChildren then
-								if cb == "1" then
+								if GetCVar("consolidateBuffs") == "1" then
 									for i, v in pairs(vm.attachedChildren) do
 										if v:GetParent():GetName() ~= "ConsolidatedBuffsContainer" then
 											v:SetScale(opt.scale)
@@ -2588,9 +2587,8 @@ MovAny.lVirtualMovers = {
 					if opt and not opt.disabled and vm.MAE and vm.MAE:IsModified() then
 						vm:MAScanForChildren(true, true)
 						if opt.scale then
-							local cb = GetCVar("consolidateBuffs")
 							if not opt.hidden and vm.attachedChildren then
-								if cb == "1" then
+								if GetCVar("consolidateBuffs") == "1" then
 									for i, v in pairs(vm.attachedChildren) do
 										if v:GetParent():GetName() ~= "ConsolidatedBuffsContainer" then
 											v:SetScale(opt.scale)
@@ -2607,7 +2605,7 @@ MovAny.lVirtualMovers = {
 						end
 						MovAny:UnlockPoint(vm.tef)
 						vm.tef:ClearAllPoints()
-						if IsInGroup() and GetCVarBool("consolidateBuffs") then
+						if IsInGroup() and GetCVar("consolidateBuffs") == "1" then
 							vm.tef:SetPoint("TOPLEFT", ConsolidatedBuffs, "TOPRIGHT", - 6, 0)
 						else
 							vm.tef:SetPoint("TOPLEFT", ConsolidatedBuffs, "TOPLEFT", 0, 0)
@@ -2629,12 +2627,12 @@ MovAny.lVirtualMovers = {
 					child:SetScale(1)
 				end
 			end
-			if GetCVar("consolidateBuffs") then
+			--[[if GetCVar("consolidateBuffs") == "1" then
 				if not InCombatLockdown() then
 					SetCVar("consolidateBuffs", 0)
 					ConsolidatedBuffs:Hide()
 				end
-			end
+			end]]
 			if index == 1 then
 				MovAny:UnlockPoint(child)
 				child:ClearAllPoints()
@@ -2664,6 +2662,8 @@ MovAny.lVirtualMovers = {
 				else
 					child:SetPoint("TOPLEFT", "ConsolidatedBuffsContainer", "TOPRIGHT", 0, 0)
 				end
+				--DebuffButton1:ClearAllPoints()
+				--DebuffButton1:SetPoint("TOPLEFT", ConsolidatedBuffs, "BOTTOMLEFT", 0, - 60)
 			else
 				if string.match(child:GetName(), "BuffButton") then
 					if index == 9 then
@@ -2677,7 +2677,16 @@ MovAny.lVirtualMovers = {
 					else
 						MovAny:UnlockPoint(child)
 						child:ClearAllPoints()
-						child:SetPoint("LEFT", "BuffButton"..(index - 1), "RIGHT", 5, 0)
+						if IsInGroup() and GetCVar("consolidateBuffs") == "1" then
+							local name, rank, icon, count, dispelType, duration, expires, caster, isStealable, shouldConsolidate = UnitAura("player", index - 1)
+							if shouldConsolidate then
+								child:SetPoint("LEFT", "BuffButton"..(index - 2), "RIGHT", 5, 0)
+							else
+								child:SetPoint("LEFT", "BuffButton"..(index - 1), "RIGHT", 5, 0)
+							end
+						else
+							child:SetPoint("LEFT", "BuffButton"..(index - 1), "RIGHT", 5, 0)
+						end
 					end
 				end
 			end
@@ -2726,6 +2735,8 @@ MovAny.lVirtualMovers = {
 					end
 				end
 			end
+			--DebuffButton1:ClearAllPoints()
+			--DebuffButton1:SetPoint("TOPRIGHT", ConsolidatedBuffs, "BOTTOMRIGHT", 0, - 60)
 		end,
 		OnMAAlpha = function(self, alpha)
 			BuffFrame:SetAlpha(alpha)
@@ -2735,7 +2746,7 @@ MovAny.lVirtualMovers = {
 				return
 			end
 			if self.attachedChildren then
-				if GetCVar("consolidateBuffs") then
+				if GetCVar("consolidateBuffs") == "1" then
 					for i, child in pairs(self.attachedChildren) do
 						if child:GetParent():GetName() ~= "ConsolidatedBuffsContainer" then
 							child:SetScale(scale)
@@ -2842,12 +2853,31 @@ MovAny.lVirtualMovers = {
 		OnMAReleaseChild = function(self, index, child)
 			if index == 1 then
 				child:ClearAllPoints()
-				child:SetPoint("TOPRIGHT", ConsolidatedBuffs, "BOTTOMRIGHT", 0, - 60)
+				child:SetPoint("TOPRIGHT", "ConsolidatedBuffs", "BOTTOMRIGHT", 0, - 60)
 			end
 			child:SetAlpha(1)
 		end,
-		OnMAHook = function(self)
+		OnMAScale = function(self, scale)
+			if type(scale) ~= "number" then
+				return
+			end
+			if self.attachedChildren then
+				for i, child in pairs(self.attachedChildren) do
+					child:SetScale(scale)
+				end
+			end
+		end,
+		--[[OnMAHook = function(self)
 			self:SetScale(_G["BuffFrame"]:GetEffectiveScale() / UIParent:GetScale())
+		end,]]
+		OnMAPreReset = function(self, readOnly)
+			if readOnly then
+				return true
+			end
+			for i, v in pairs(self.attachedChildren) do
+				MovAny:UnlockScale(v)
+				v:SetScale(1)
+			end
 		end
 	},
 	PlayerDebuffsMover2 = {
@@ -2885,7 +2915,7 @@ MovAny.lVirtualMovers = {
 		OnMAReleaseChild = function(self, index, child)
 			if index == 1 then
 				child:ClearAllPoints()
-				child:SetPoint("TOPRIGHT", ConsolidatedBuffs, "BOTTOMRIGHT", 0, - 60)
+				child:SetPoint("TOPRIGHT", "ConsolidatedBuffs", "BOTTOMRIGHT", 0, - 60)
 			else
 				if string.match(child:GetName(), "DebuffButton") then
 					if index == 9 then
@@ -2899,8 +2929,27 @@ MovAny.lVirtualMovers = {
 			end
 			child:SetAlpha(1)
 		end,
-		OnMAHook = function(self)
+		OnMAScale = function(self, scale)
+			if type(scale) ~= "number" then
+				return
+			end
+			if self.attachedChildren then
+				for i, child in pairs(self.attachedChildren) do
+					child:SetScale(scale)
+				end
+			end
+		end,
+		--[[OnMAHook = function(self)
 			self:SetScale(_G["BuffFrame"]:GetEffectiveScale() / UIParent:GetScale())
+		end,]]
+		OnMAPreReset = function(self, readOnly)
+			if readOnly then
+				return true
+			end
+			for i, v in pairs(self.attachedChildren) do
+				MovAny:UnlockScale(v)
+				v:SetScale(1)
+			end
 		end
 	},
 	FocusFrameToTDebuffsMover = {
