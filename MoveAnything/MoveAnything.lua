@@ -639,6 +639,12 @@ if ChatEdit_ActivateChat then
 	end)
 end
 
+if InterfaceOptionsFrame then
+	InterfaceOptionsFrame:HookScript("OnShow", function(self)
+		MovAny_OptionsOnShow()
+	end)
+end
+
 if CompactRaidFrameManager_Expand then
 	hooksecurefunc("CompactRaidFrameManager_Expand", function(self)
 		if MovAny:IsModified(self) then
@@ -1628,6 +1634,9 @@ function MovAny:HookFrame(e, f, dontUnanchor, runBeforeInteract)
 			return
 		end
 	end
+	if InCombatLockdown() and MovAny:IsProtected(f) then
+		return
+	end
 	if not self:IsValidObject(f) then
 		return
 	end
@@ -2103,7 +2112,7 @@ function MovAny:ResetFrameAtCursor()
 	end
 	local fn
 	if not self:IsModified(obj:GetName()) and obj.MAParent then
-		fn = type(obj.MAParent== "string") and obj.MAParent or obj.MAParent:GetName()
+		fn = type(obj.MAParent == "string") and obj.MAParent or obj.MAParent:GetName()
 	else
 		fn = self:Translate(obj:GetName(), true, true)
 		if transName ~= obj:GetName() then
@@ -5075,7 +5084,11 @@ function MovAny:SetOptions()
 	MADB.noMMMW = MAOptNoMMMW:GetChecked()
 	MADB.playSound = MAOptPlaySound:GetChecked()
 	MADB.tooltips = MAOptShowTooltips:GetChecked()
-	MADB.closeGUIOnEscape = MAOptCloseGUIOnEscape:GetChecked()
+	if MAOptCloseGUIOnEscape:GetChecked() then
+		MADB.closeGUIOnEscape = true
+	else
+		MADB.closeGUIOnEscape = false
+	end
 	MADB.squareMM = MAOptsSquareMM:GetChecked()
 	MADB.dontHookCreateFrame = MAOptDontHookCreateFrame:GetChecked()
 	MADB.dontSyncWhenLeavingCombat = MAOptDontSyncWhenLeavingCombat:GetChecked()
@@ -5583,22 +5596,25 @@ function MovAny_OnEvent(self, event, arg1)
 					--RegisterStateDriver(_G[frame], "visibility", "[@arenapet"..i", exists] show hide")
 				end
 				MovAny.API:SyncElement(frame)
-			end		
+			end
 		end
 		MovAny:SyncFrames()
 	elseif event == "GROUP_ROSTER_UPDATE" then
+		if not MovAny:IsModified(RaidUnitFramesMover) then
+			return
+		end
 		if InCombatLockdown() then
 			return
 		end
-		local f = _G["CompactRaidFrameManager"]
+		--[[local f = _G["CompactRaidFrameManager"]
 		if f then
 			f.MAParent = "RaidUnitFramesManagerMover"
-		end
-		f = _G["CompactRaidFrameContainer"]
+		end]]
+		local f = _G["CompactRaidFrameContainer"]
 		if f then
 			f.MAParent = "RaidUnitFramesMover"
 		end
-		MovAny.API:SyncElement("RaidUnitFramesManagerMover")
+		--MovAny.API:SyncElement("RaidUnitFramesManagerMover")
 		MovAny.API:SyncElement("RaidUnitFramesMover")
 	elseif event == "PET_BATTLE_OPENING_START" then
 		if not MovAny:IsModified(MicroButtonsMover) and not MovAny:IsModified(MicroButtonsSplitMover) and not MovAny:IsModified(MicroButtonsVerticalMover) then
