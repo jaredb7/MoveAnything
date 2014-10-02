@@ -439,6 +439,8 @@ local m = {
 		API:AddElement({name = "TabardFrame", displayName = "Tabard Design"}, c)
 		API:AddElement({name = "PlayerTalentFrame", displayName = "Specialization / Talents / Glyphs", refuseSync = MOVANY.FRAME_ONLY_ONCE_OPENED}, c)
 		API:AddElement({name = "TradeFrame", displayName = "Trade"}, c)
+		API:AddElement({name = "ArchaeologyFrame", displayName = "Archaeology"}, c)
+		API:AddElement({name = "ReforgingFrame", displayName = "Reforge"}, c)
 		API:AddElement({name = "TradeSkillFrame", displayName = "Trade Skills"}, c)
 		API:AddElement({name = "ClassTrainerFrame", displayName = "Trainer Frame"}, c)
 		c = API:GetCategory("Loot")

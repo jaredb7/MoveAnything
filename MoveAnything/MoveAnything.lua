@@ -4041,6 +4041,9 @@ function MovAny:UnanchorRelatives(e, f, opt)
 end
 
 function MovAny:_AddDependents(l, f)
+	if MovAny:IsProtected(f) and InCombatLockdown() then
+		return
+	end
 	local _, relativeTo = f:GetPoint(1)
 	if relativeTo and l[relativeTo] then
 		l[f] = f

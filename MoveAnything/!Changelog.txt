@@ -3,6 +3,18 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**14.0.8**
+* Fixed a nasty taint.
+* Added frames:
+	* ArchaeologyFrame
+	* ReforgingFrame
+
+**14.0.7**
+* Fixed the issue with saved variables loss.
+* The interface options should properly update on show.
+* Added some extra taint protection.
+* Some other smaller fixes.
+
 **14.0.6**
 * Player buff and debuff frames are now properly scaleable.
 * Consolidate buff fixes.
