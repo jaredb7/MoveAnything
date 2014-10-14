@@ -3987,15 +3987,11 @@ function MovAny:UnanchorRelatives(e, f, opt)
 	local num = p:GetNumChildren()
 	--assert((num < 8000), "Too much childrens stuck in owerflow")
 	if p.GetChildren then
-		if p.GetNumChildren then
-			if p:GetNumChildren() > 7999 then
-			-- maPrint("Too much childrens for "..(p:GetName() or UNKNOWN)..".Find-("..p:GetNumChildren()..") childrens. Some of your addon create too much unnecessary frame.")
-			else
-				local children = {p:GetChildren()}
-				if children ~= nil then
-					for i, v in ipairs(children) do
-						self:_AddDependents(relatives, v)
-					end
+		local children = {p:GetChildren()}
+		if children ~= nil then
+			for i, v in ipairs(children) do
+				if not v:IsForbidden() then
+					self:_AddDependents(relatives, v)
 				end
 			end
 		end

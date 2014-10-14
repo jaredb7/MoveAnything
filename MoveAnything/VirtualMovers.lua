@@ -915,12 +915,12 @@ MovAny.lVirtualMovers = {
 			b:SetPoint("TOPLEFT", PetBattleFrame.EnemyPadBuffFrame, "BOTTOMLEFT", 0, 0)
 		end
 	},
-	WatchFrameMover = {
-		w = 200,
-		h = 450,
-		point = {"TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", 0, 0},
+	ObjectiveTrackerFrameMover = {
+		w = 235,
+		h = 700,
+		point = {"TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", -93, 0},
 		OnMAHook = function(self)
-			local b = WatchFrame
+			local b = ObjectiveTrackerFrame
 			MovAny:UnlockPoint(b)
 			b:ClearAllPoints()	
 			b:SetPoint("TOPRIGHT", self, "TOPRIGHT")
@@ -930,17 +930,17 @@ MovAny.lVirtualMovers = {
 			b:SetHeight(self:GetHeight())
 			--b:SetUserPlaced(true)
 			self.sbf = b
-			_G["InterfaceOptionsObjectivesPanelWatchFrameWidth"]:SetEnabled(false)
+			--_G["InterfaceOptionsObjectivesPanelWatchFrameWidth"]:SetEnabled(false)
 		end,
 		OnMAPostReset = function(self)
-			local b = WatchFrame
+			local b = ObjectiveTrackerFrame
 			MovAny:UnlockPoint(b)
-			b:SetPoint("TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", 0, 0)
+			b:SetPoint("TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", -93, 0)
 			b:SetHeight(700)			
-			_G["InterfaceOptionsObjectivesPanelWatchFrameWidth"]:SetEnabled(true)
+			--_G["InterfaceOptionsObjectivesPanelWatchFrameWidth"]:SetEnabled(true)
 		end,
 		OnMAScale = function(self)
-			local b = WatchFrame
+			local b = ObjectiveTrackerFrame
 			local scaleS = self:GetScale()
 			local scaleH = self:GetHeight()
 			local scaleW = self:GetWidth()
@@ -952,20 +952,20 @@ MovAny.lVirtualMovers = {
 			end
 			b:SetHeight(scaleH)
 			b:SetWidth(scaleW)
-			if GetCVar("watchFrameWidth") ~= "0" then
+			--[[if GetCVar("watchFrameWidth") ~= "0" then
 				if not InCombatLockdown() then
 					SetCVar("watchFrameWidth", 0)
 				end
-			end
-			WATCHFRAME_EXPANDEDWIDTH = scaleW
-			WATCHFRAME_MAXLINEWIDTH = scaleW
-			WatchFrame_Update()
+			end]]
+			--WATCHFRAME_EXPANDEDWIDTH = scaleW
+			--WATCHFRAME_MAXLINEWIDTH = scaleW
+			--WatchFrame_Update()
 		end,
 		OnMAHide = function(self, hidden)
 			if hidden then
-				MovAny:LockVisibility(_G["WatchFrame"])
+				MovAny:LockVisibility(_G["ObjectiveTrackerFrame"])
 			else
-				MovAny:UnlockVisibility(_G["WatchFrame"])
+				MovAny:UnlockVisibility(_G["ObjectiveTrackerFrame"])
 			end
 		end
 	},
