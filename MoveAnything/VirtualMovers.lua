@@ -918,7 +918,7 @@ MovAny.lVirtualMovers = {
 	ObjectiveTrackerFrameMover = {
 		w = 235,
 		h = 700,
-		point = {"TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", -93, 0},
+		point = {"TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", -10, 0},
 		OnMAHook = function(self)
 			local b = ObjectiveTrackerFrame
 			MovAny:UnlockPoint(b)
@@ -935,7 +935,7 @@ MovAny.lVirtualMovers = {
 		OnMAPostReset = function(self)
 			local b = ObjectiveTrackerFrame
 			MovAny:UnlockPoint(b)
-			b:SetPoint("TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", -93, 0)
+			b:SetPoint("TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", -10, 0)
 			b:SetHeight(700)			
 			--_G["InterfaceOptionsObjectivesPanelWatchFrameWidth"]:SetEnabled(true)
 		end,

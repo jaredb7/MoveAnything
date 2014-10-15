@@ -3,6 +3,20 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**15.0.0**
+* Updated for 6.0.2.
+* WatchFrame and Arena frame fixes.
+* Quest related frame fixes.
+* Minimap and World Map fixes.
+* Some other smaller fixes.
+* Removed frames:
+	* Map Level
+	* Map Options
+	* Map Track Quest
+	* Map Coordinates
+	* Quest Log
+	* Quest Details
+
 **14.0.9**
 * Quick update for 6.0.2 for the US guys out there.
 

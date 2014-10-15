@@ -40,6 +40,8 @@ local PlaySound = PlaySound
 local RegisterStateDriver = RegisterStateDriver
 local UnitName = UnitName
 
+--local WatchFrame = ObjectiveTrackerFrame
+
 local MOVANY = _G.MOVANY
 local MAOptions
 
@@ -555,7 +557,7 @@ local MovAny = {
 		ArenaPrepFrames:ma_Hide()
 		ArenaEnemyFrames:ma_Hide()
 	end,
-	hWatchFrameExpand = function()
+	--[[hWatchFrameExpand = function()
 		if ArenaEnemyFrames then
 			local _, instanceType = IsInInstance()
 			if not WatchFrame:IsUserPlaced() then
@@ -599,7 +601,7 @@ local MovAny = {
 				ArenaPrepFrames.hidWatchedQuests = false
 			end
 		end
-	end,
+	end,]]
 	hFocusFrame_Update = function()
 		if MovAny:IsModified(FocusFrame) then
 			RegisterStateDriver("FocusFrame", "visibility", "hide")
@@ -921,9 +923,9 @@ function MovAny:Boot()
 			SpellBookPage1:SetPoint("LEFT", SpellBookFrame)
 		end)
 	end
-	if WatchFrame_Update then
+	--[[if WatchFrame_Update then
 		hooksecurefunc("WatchFrame_Update", self.hWatchFrameExpand)
-	end
+	end]]
 	--setfenv(WorldMapFrame_OnShow, setmetatable({UpdateMicroButtons = function() end }, { __index = _G}))
 	--[[hooksecurefunc("PetActionBar_UpdatePositionValues", function()
 		if MovAny:IsModified(PetActionButtonsVerticalMover) or MovAny:IsModified(PetActionButtonsMover) then
@@ -5345,6 +5347,12 @@ function MovAny_OnEvent(self, event, arg1)
 				if MovAny:IsModified(LFRParentFrame) then
 					MovAny:ResetFrame(LFRParentFrame)
 				end
+				if MovAny:IsModified(QuestLogFrame) then
+					MovAny:ResetFrame(QuestLogFrame)
+				end
+				if MovAny:IsModified(QuestLogDetailFrame) then
+					MovAny:ResetFrame(QuestLogDetailFrame)
+				end
 			end
 		elseif arg1 == "Blizzard_TalentUI" and MovAny.hBlizzard_TalentUI then
 			MovAny:hBlizzard_TalentUI()
@@ -5361,7 +5369,7 @@ function MovAny_OnEvent(self, event, arg1)
 					CompanionsMicroButton:SetButtonState("PUSHED", 1)
 				end
 			end }, { __index = _G}))]]
-		elseif arg1 == "Blizzard_ArenaUI" then
+		--[=[elseif arg1 == "Blizzard_ArenaUI" then
 			ArenaEnemyFrame_UpdatePet = function() end
 			ArenaEnemyFrames_UpdateWatchFrame = function()
 				local _, instanceType = IsInInstance()
@@ -5595,7 +5603,7 @@ function MovAny_OnEvent(self, event, arg1)
 					--RegisterStateDriver(_G[frame], "visibility", "[@arenapet"..i", exists] show hide")
 				end
 				MovAny.API:SyncElement(frame)
-			end
+			end]=]
 		end
 		MovAny:SyncFrames()
 	elseif event == "GROUP_ROSTER_UPDATE" then
