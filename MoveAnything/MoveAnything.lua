@@ -670,6 +670,13 @@ if CompactRaidFrameManager_Collapse then
 		end
 	end)
 end
+if WorldMap_ToggleSizeDown then
+	hooksecurefunc("WorldMap_ToggleSizeDown", function()
+		if MovAny:IsModified(WorldMapFrame) then
+			MovAny.API:SyncElement("WorldMapFrame")
+		end
+	end)
+end
 
 OverrideActionBar:HookScript("OnShow", function(self)
 	if not MovAny:IsModified(MicroButtonsMover) and not MovAny:IsModified(MicroButtonsSplitMover) and not MovAny:IsModified(MicroButtonsVerticalMover) then
@@ -2553,6 +2560,13 @@ function MovAny:HideFrame(f, readOnly)
 	elseif fn == "CompactRaidFrameManager" then
 		f:UnregisterAllEvents()
 		CompactRaidFrameContainer:SetParent(UIParent)
+	elseif fn == "Boss1TargetFrame" or fn == "Boss2TargetFrame" or fn == "Boss3TargetFrame" or fn == "Boss4TargetFrame" or fn == "Boss5TargetFrame" then
+		f:UnregisterAllEvents()
+		f:Hide()
+		f.oldShow = f.Show
+		f.Show = function()
+			-- empty
+		end
 	elseif fn == "MicroButtonsMover" or fn == "MicroButtonsSplitMover" or fn == "MicroButtonsVerticalMover" or fn == "AchievementMicroButton" then
 		AchievementMicroButton.IsShown = function(self)
 			local opt = MovAny:GetUserData(fn)
@@ -2662,6 +2676,9 @@ function MovAny:ShowFrame(f, readOnly, dontHook)
 		CompactRaidFrameContainer:SetParent(f)
 		MovAny:UnlockPoint(CompactRaidFrameContainer)
 		CompactRaidFrameContainer:SetPoint("TOPLEFT", CompactRaidFrameManagerContainerResizeFrame, "TOPLEFT", 4, - 7)
+	elseif fn == "Boss1TargetFrame" or fn == "Boss2TargetFrame" or fn == "Boss3TargetFrame" or fn == "Boss4TargetFrame" or fn == "Boss5TargetFrame" then
+		f.Show = f.oldShow
+		f.oldShow = nil
 	end
 	--[[local mover = self:GetMoverByFrame(f)
 	if mover then

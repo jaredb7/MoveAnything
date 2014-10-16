@@ -69,6 +69,7 @@ local m = {
 				HideUIPanel(QuestLogDetailFrame)
 			end
 		end}, c)]]
+		API:AddElement({name = "QuestLogPopupDetailFrame", displayName = "Quest Details"}, c)
 		API:AddElement({name = "QuestNPCModel", displayName = "Quest Log NPC Model"}, c)
 		--local qlf = API:AddElement({name = "QuestLogFrame", displayName = "Quest Log"}, c)
 		local qf = API:AddElement({name = "QuestFrame", displayName = "Quest Offer / Return", runOnce = function()
