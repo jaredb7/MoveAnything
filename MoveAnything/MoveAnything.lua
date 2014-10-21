@@ -689,7 +689,7 @@ OverrideActionBar:HookScript("OnShow", function(self)
 		AchievementMicroButton,
 		QuestLogMicroButton,
 		GuildMicroButton,
-		PVPMicroButton,
+		--PVPMicroButton,
 		LFDMicroButton,
 		CompanionsMicroButton,
 		EJMicroButton,
@@ -698,16 +698,18 @@ OverrideActionBar:HookScript("OnShow", function(self)
 	}
 	for i = 1, #children, 1 do
 		MovAny:UnlockPoint(children[i])
+		MovAny:UnlockScale(children[i])
 		children[i]:ClearAllPoints()
 		children[i]:SetScale(1)
 		if i == 1 then
 			children[i]:SetPoint("LEFT", OverrideActionBarLeaveFrame, "LEFT", - 165, 20)
-		elseif children[i] == PVPMicroButton then
+		elseif children[i] == LFDMicroButton then
 			children[i]:SetPoint("LEFT", CharacterMicroButton, "LEFT", 0, - 34)
 		else
-			children[i]:SetPoint("LEFT", children[i - 1], "RIGHT", - 3, 0)
+			children[i]:SetPoint("LEFT", children[i - 1], "RIGHT", - 2, 0)
 		end
 		MovAny:LockPoint(children[i])
+		MovAny:LockScale(children[i])
 	end
 end)
 
@@ -5651,7 +5653,7 @@ function MovAny_OnEvent(self, event, arg1)
 			AchievementMicroButton,
 			QuestLogMicroButton,
 			GuildMicroButton,
-			PVPMicroButton,
+			--PVPMicroButton,
 			LFDMicroButton,
 			CompanionsMicroButton,
 			EJMicroButton,
@@ -5660,16 +5662,18 @@ function MovAny_OnEvent(self, event, arg1)
 		}
 		for i = 1, #children, 1 do
 			MovAny:UnlockPoint(children[i])
+			MovAny:UnlockScale(children[i])
 			children[i]:ClearAllPoints()
 			children[i]:SetScale(1)
 			if i == 1 then
 				children[i]:SetPoint("TOPLEFT", PetBattleFrame.BottomFrame, "TOPRIGHT", - 180, 0)
-			elseif children[i] == PVPMicroButton then
+			elseif children[i] == LFDMicroButton then
 				children[i]:SetPoint("LEFT", CharacterMicroButton, "LEFT", 0, - 34)
 			else
-				children[i]:SetPoint("LEFT", children[i - 1], "RIGHT", - 3, 0)
+				children[i]:SetPoint("LEFT", children[i - 1], "RIGHT", - 2, 0)
 			end
 			MovAny:LockPoint(children[i])
+			MovAny:LockScale(children[i])
 		end
 	elseif event == "PET_BATTLE_CLOSE" then
 		if not MovAny:IsModified(MicroButtonsMover) and not MovAny:IsModified(MicroButtonsSplitMover) and not MovAny:IsModified(MicroButtonsVerticalMover) then

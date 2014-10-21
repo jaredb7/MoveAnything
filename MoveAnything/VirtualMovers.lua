@@ -1242,9 +1242,9 @@ MovAny.lVirtualMovers = {
 		id = - 2,
 	},]]
 	MicroButtonsMover = {
-		w = 303,
+		w = 287,
 		h = 37,
-		relPoint = {"BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 550, 2},
+		relPoint = {"BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 556, 2},
 		excludes = "MicroButtonsSplitMover",
 		excludes2 = "MicroButtonsVerticalMover",
 		children = {
@@ -1254,7 +1254,7 @@ MovAny.lVirtualMovers = {
 			"AchievementMicroButton",
 			"QuestLogMicroButton",
 			"GuildMicroButton",
-			"PVPMicroButton",
+			--"PVPMicroButton",
 			"LFDMicroButton",
 			"CompanionsMicroButton",
 			"EJMicroButton",
@@ -1268,19 +1268,23 @@ MovAny.lVirtualMovers = {
 			end
 		end,
 		OnMAReleaseChild = function(self, index, child)
+			MovAny:UnlockPoint(child)
+			MovAny:UnlockScale(child)
+			ScaleChildren(self, 1)
+			AlphaChildren(self, 1)
 			if child == self.firstChild then
-				child:SetPoint("BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 550, 2)
+				child:SetPoint("BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 556, 2)
 			else
-				child:SetPoint("LEFT", self.lastChild, "RIGHT", - 3, 0)
+				child:SetPoint("LEFT", self.lastChild, "RIGHT", - 2, 0)
 			end
 		end,
 		OnMAScale = ScaleChildren,
 		OnMAPreReset = ResetChildren
 	},
 	MicroButtonsSplitMover = {
-		w = 154,
+		w = 158,
 		h = 74,
-		relPoint = {"BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 550, 2},
+		relPoint = {"BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 556, 2},
 		excludes = "MicroButtonsMover",
 		excludes2 = "MicroButtonsVerticalMover",
 		notMAParent = true,
@@ -1291,7 +1295,7 @@ MovAny.lVirtualMovers = {
 			"AchievementMicroButton",
 			"QuestLogMicroButton",
 			"GuildMicroButton",
-			"PVPMicroButton",
+			--"PVPMicroButton",
 			"LFDMicroButton",
 			"CompanionsMicroButton",
 			"EJMicroButton",
@@ -1302,19 +1306,23 @@ MovAny.lVirtualMovers = {
 			child:ClearAllPoints()
 			if child == self.firstChild then
 				child:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 20)
-			elseif child == PVPMicroButton then
+			elseif child == LFDMicroButton then
 				child:SetPoint("TOP", CharacterMicroButton, "BOTTOM", 0, 24)
 			else
-				child:SetPoint("LEFT", self.lastChild, "RIGHT", - 3, 0)
+				child:SetPoint("LEFT", self.lastChild, "RIGHT", - 2, 0)
 			end
 		end,
 		OnMAReleaseChild = function(self, index, child)
+			MovAny:UnlockPoint(child)
+			MovAny:UnlockScale(child)
+			ScaleChildren(self, 1)
+			AlphaChildren(self, 1)
 			child.MAParent = "MicroButtonsMover"
 			child:ClearAllPoints()
 			if child == self.firstChild then
-				child:SetPoint("BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 550, 2)
+				child:SetPoint("BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 556, 2)
 			else
-				child:SetPoint("LEFT", self.lastChild, "RIGHT", - 3, 0)
+				child:SetPoint("LEFT", self.lastChild, "RIGHT", - 2, 0)
 			end
 		end,
 		OnMAScale = ScaleChildren,
@@ -1322,8 +1330,8 @@ MovAny.lVirtualMovers = {
 	},
 	MicroButtonsVerticalMover = {
 		w = 29,
-		h = 413,
-		relPoint = {"BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 550, 2},
+		h = 379,
+		relPoint = {"BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 556, 2},
 		excludes = "MicroButtonsMover",
 		excludes2 = "MicroButtonsSplitMover",
 		notMAParent = true,
@@ -1334,7 +1342,7 @@ MovAny.lVirtualMovers = {
 			"AchievementMicroButton",
 			"QuestLogMicroButton",
 			"GuildMicroButton",
-			"PVPMicroButton",
+			--"PVPMicroButton",
 			"LFDMicroButton",
 			"CompanionsMicroButton",
 			"EJMicroButton",
@@ -1350,12 +1358,16 @@ MovAny.lVirtualMovers = {
 			end
 		end,
 		OnMAReleaseChild = function(self, index, child)
+			MovAny:UnlockPoint(child)
+			MovAny:UnlockScale(child)
+			ScaleChildren(self, 1)
+			AlphaChildren(self, 1)
 			child.MAParent = "MicroButtonsMover"
 			child:ClearAllPoints()
 			if child == self.firstChild then
-				child:SetPoint("BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 550, 2)
+				child:SetPoint("BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 556, 2)
 			else
-				child:SetPoint("LEFT", self.lastChild, "RIGHT", - 3, 0)
+				child:SetPoint("LEFT", self.lastChild, "RIGHT", - 2, 0)
 			end
 		end,
 		OnMAScale = ScaleChildren,
