@@ -3,6 +3,9 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**15.0.3**
+* Fixed the protected taint issues with the "ObjectiveTrackerFrame".
+
 **15.0.2**
 * MicroButton fixes.
 
