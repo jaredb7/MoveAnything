@@ -925,41 +925,60 @@ MovAny.lVirtualMovers = {
 			b:ClearAllPoints()	
 			b:SetPoint("TOPRIGHT", self, "TOPRIGHT")
 			MovAny:LockPoint(b)
-			--b.ignoreFramePositionManager = true
-			--b:SetMovable(true)
+			b.ignoreFramePositionManager = true
+			b:SetMovable(true)
 			b:SetHeight(self:GetHeight())
-			--b:SetUserPlaced(true)
-			self.sbf = b
-			--_G["InterfaceOptionsObjectivesPanelWatchFrameWidth"]:SetEnabled(false)
+			b:SetUserPlaced(true)
+			--self.sbf = b
 		end,
 		OnMAPostReset = function(self)
 			local b = ObjectiveTrackerFrame
 			MovAny:UnlockPoint(b)
 			b:SetPoint("TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", -10, 0)
-			b:SetHeight(700)			
-			--_G["InterfaceOptionsObjectivesPanelWatchFrameWidth"]:SetEnabled(true)
+			b:SetHeight(b:GetTop() - 85)
 		end,
 		OnMAScale = function(self)
 			local b = ObjectiveTrackerFrame
 			local scaleS = self:GetScale()
 			local scaleH = self:GetHeight()
 			local scaleW = self:GetWidth()
-			if scaleH * scaleS < 150 then
-				scaleH = 150
-			end
-			if scaleW * scaleS < 150 then
-				scaleW = 150
-			end
 			b:SetHeight(scaleH)
 			b:SetWidth(scaleW)
-			--[[if GetCVar("watchFrameWidth") ~= "0" then
-				if not InCombatLockdown() then
-					SetCVar("watchFrameWidth", 0)
-				end
-			end]]
-			--WATCHFRAME_EXPANDEDWIDTH = scaleW
-			--WATCHFRAME_MAXLINEWIDTH = scaleW
-			--WatchFrame_Update()
+		end,
+		OnMAHide = function(self, hidden)
+			if hidden then
+				MovAny:LockVisibility(_G["ObjectiveTrackerFrame"])
+			else
+				MovAny:UnlockVisibility(_G["ObjectiveTrackerFrame"])
+			end
+		end
+	},
+	ObjectiveTrackerFrameMover2 = {
+		w = 235,
+		h = 700,
+		point = {"TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", -10, 0},
+		OnMAHook = function(self)
+			local b = ObjectiveTrackerFrame
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()	
+			b:SetPoint("TOPRIGHT", self, "TOPRIGHT")
+			MovAny:LockPoint(b)
+			b.ignoreFramePositionManager = true
+			b:SetMovable(true)
+			b:SetHeight(self:GetHeight())
+			b:SetUserPlaced(true)
+			--self.sbf = b
+		end,
+		OnMAPostReset = function(self)
+			local b = ObjectiveTrackerFrame
+			MovAny:UnlockPoint(b)
+			b:SetPoint("TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", -10, 0)
+			b:SetHeight(b:GetTop() - 85)
+		end,
+		OnMAScale = function(self)
+			local b = ObjectiveTrackerFrame
+			local scaleS = self:GetScale()
+			b:SetScale(scaleS)
 		end,
 		OnMAHide = function(self, hidden)
 			if hidden then

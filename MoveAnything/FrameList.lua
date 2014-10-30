@@ -57,12 +57,8 @@ local m = {
 		API:AddElement({name = "CriteriaAlertFrame1", displayName = "Criteria Alert 1", create = "CriteriaAlertFrameTemplate"}, c)
 		API:AddElement({name = "CriteriaAlertFrame2", displayName = "Criteria Alert 2", create = "CriteriaAlertFrameTemplate"}, c)
 		local gcaf = API:AddElement({name = "GuildChallengeAlertFrame", displayName = "Guild Challenge Achievement Alert"}, c)
-		API:AddElement({name = "ObjectiveTrackerFrameMover", displayName = "Objectives Window", scaleWH = 1, run = function()
-			--[[if not MovAny:IsModified(WatchFrameMover) then
-				_G["InterfaceOptionsObjectivesPanelWatchFrameWidth"]:SetEnabled(false)
-			end]]
-		end}, c)
-		API:AddElement({name = "ObjectiveTrackerFrame", displayName = "Objectives Window Scale"}, c)
+		API:AddElement({name = "ObjectiveTrackerFrameMover", displayName = "Objectives Window", scaleWH = 1}, c)
+		API:AddElement({name = "ObjectiveTrackerFrameMover2", displayName = "Objectives Window Scale"}, c)
 		--[[local qldf = API:AddElement({name = "QuestLogDetailFrame", displayName = "Quest Details", runOnce = function()
 			if not QuestLogDetailFrame:IsShown() then
 				ShowUIPanel(QuestLogDetailFrame)
