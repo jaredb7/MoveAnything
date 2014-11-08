@@ -443,7 +443,7 @@ local m = {
 		c = API:GetCategory("Loot")
 		API:AddElement({name = "LootFrame", displayName = "Loot"}, c)
 		API:AddElement({name = "AlertFrame", displayName = "Alerts Frames"}, c)
-		API:AddElement({name = "LootWonAlertFrame1", displayName = "Loot Won Alert Frame 1"}, c)
+		--API:AddElement({name = "LootWonAlertFrame1", displayName = "Loot Won Alert Frame 1"}, c)
 		--API:AddElement({name = "GroupLootContainer", displayName = "All Loot Roll Frame", create = "GroupLootFrameTemplate", noScale = 1}, c)
 		--API:AddElement({name = "LootWonAlertMover1", displayName = "Loot Won Alert Frame1"}, c)
 		--API:AddElement({name = "LootWonAlertMover2", displayName = "Loot Won Alert Frame2"}, c)
