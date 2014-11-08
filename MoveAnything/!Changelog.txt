@@ -6,6 +6,8 @@
 **15.0.4**
 * More taint fixes with the "ObjectiveTrackerFrame".
 * Some other minor fixes.
+* Removed frames:
+	* Loot Won Alert Frame (Addons can't access this frame anymore.)
 
 **15.0.3**
 * Fixed the protected taint issues with the "ObjectiveTrackerFrame".
