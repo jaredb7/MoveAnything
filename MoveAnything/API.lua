@@ -300,21 +300,21 @@ elemMetaTable = {__index = {
 				if f.MAWasUserPlaced then
 					f.MAWasUserPlaced = nil
 				else
-					f:SetUserPlaced(nil)
+					f:SetUserPlaced(false)
 				end
 			end
 			if f:IsMovable() then
 				if f.MAWasMovable then
 					f.MAWasMovable = nil
 				else
-					f:SetMovable(nil)
+					f:SetMovable(false)
 				end
 			end
 			if f:IsResizable() then
 				if f.MAWasResizable then
 					f.MAWasResizable = nil
 				else
-					f:SetResizable(nil)
+					f:SetResizable(false)
 				end
 			end
 		end

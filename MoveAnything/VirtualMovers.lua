@@ -931,12 +931,12 @@ MovAny.lVirtualMovers = {
 			b:SetUserPlaced(true)
 			--self.sbf = b
 		end,
-		OnMAPostReset = function(self)
+		--[[OnMAPostReset = function(self)
 			local b = ObjectiveTrackerFrame
 			MovAny:UnlockPoint(b)
 			b:SetPoint("TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", -10, 0)
 			b:SetHeight(b:GetTop() - 85)
-		end,
+		end,]]
 		OnMAScale = function(self)
 			local b = ObjectiveTrackerFrame
 			local scaleS = self:GetScale()
@@ -969,12 +969,12 @@ MovAny.lVirtualMovers = {
 			b:SetUserPlaced(true)
 			--self.sbf = b
 		end,
-		OnMAPostReset = function(self)
+		--[[OnMAPostReset = function(self)
 			local b = ObjectiveTrackerFrame
 			MovAny:UnlockPoint(b)
 			b:SetPoint("TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", -10, 0)
 			b:SetHeight(b:GetTop() - 85)
-		end,
+		end,]]
 		OnMAScale = function(self)
 			local b = ObjectiveTrackerFrame
 			local scaleS = self:GetScale()
