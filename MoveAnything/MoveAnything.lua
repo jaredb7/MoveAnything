@@ -40,8 +40,6 @@ local PlaySound = PlaySound
 local RegisterStateDriver = RegisterStateDriver
 local UnitName = UnitName
 
---local WatchFrame = ObjectiveTrackerFrame
-
 local MOVANY = _G.MOVANY
 local MAOptions
 
@@ -186,7 +184,8 @@ local MovAny = {
 		["FocusFrameToTDebuffsMover"] = true
 	},
 	lEnableMouse = {
-		--WatchFrame,
+		ObjectiveTrackerFrameMover,
+		ObjectiveTrackerFrameScaleMover,
 		DurabilityFrame,
 		CastingBarFrame,
 		WorldStateScoreFrame,
@@ -345,7 +344,8 @@ local MovAny = {
 		ArenaPrepFrames = "ArenaPrepFrames",
 		ArenaEnemyFrames = "ArenaEnemyFrames",
 		MinimapCluster = "MinimapCluster",
-		--WatchFrame = "WatchFrame",
+		ObjectiveTrackerFrameMover = "ObjectiveTrackerFrameMover",
+		ObjectiveTrackerFrameScaleMover = "ObjectiveTrackerFrameScaleMover",
 	},
 	NoUnanchoring = {
 		BuffFrame = "BuffFrame",

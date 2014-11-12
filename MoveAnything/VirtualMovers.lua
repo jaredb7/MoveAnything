@@ -953,7 +953,7 @@ MovAny.lVirtualMovers = {
 			end
 		end
 	},
-	ObjectiveTrackerFrameMover2 = {
+	ObjectiveTrackerFrameScaleMover = {
 		w = 235,
 		h = 700,
 		point = {"TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", -10, 0},
