@@ -237,7 +237,7 @@
 			<OnUpdate>
 				if self.tagged and self.infoShown and self.moving then
 					local f = self.tagged
-					local str = numfor(f:GetLeft()).." , "..numfor(f:GetBottom())
+					local str = MANumFor(f:GetLeft()).." , "..MANumFor(f:GetBottom())
 					local label = _G[self:GetName().."BackdropInfoLabel"]
 					label:Show()
 					label:SetText(str)
@@ -265,7 +265,7 @@
 								MovAny:LockPoint(f)
 							end
 							if button == "LeftButton" then
-								local str = numfor(f:GetLeft()).." , "..numfor(f:GetBottom())
+								local str = MANumFor(f:GetLeft()).." , "..MANumFor(f:GetBottom())
 								_G[self:GetName().."BackdropInfoLabel"]:SetText(str)
 								if self == MovAny.currentMover then
 									_G["MANudgerInfoLabel"]:SetText(str)

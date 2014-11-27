@@ -468,7 +468,7 @@ local m = {
 		--API:AddElement({name = "WorldMapTrackQuest", displayName = "Map Track Quest"}, c)
 		--API:AddElement({name = "WorldMapPositioningGuide", displayName = "Map Coordinates"}, c)
 		c = API:GetCategory("Minimap")
-		API:AddElement({name = "Minimap", displayName = "MiniMap"}, c)
+		API:AddElement({name = "MinimapCluster", displayName = "MiniMap"}, c)
 		API:AddElement({name = "MinimapBorder", displayName = "MiniMap Border Texture"}, c)
 		API:AddElement({name = "MinimapZoneTextButton", displayName = "Zone Text"}, c)
 		API:AddElement({name = "MinimapBorderTop", displayName = "Top Border", noScale = 1}, c)

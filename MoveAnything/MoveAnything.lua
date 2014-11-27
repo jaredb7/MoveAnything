@@ -6,6 +6,7 @@
 ]]
 
 local _G = _G
+local format = format
 local getmetatable = getmetatable
 local hooksecurefunc = hooksecurefunc
 local ipairs = ipairs
@@ -33,12 +34,15 @@ local GetRealmName = GetRealmName
 local GetScreenHeight = GetScreenHeight
 local GetScreenWidth = GetScreenWidth
 local InCombatLockdown = InCombatLockdown
+local IsAddOnLoaded = IsAddOnLoaded
 local IsAltKeyDown = IsAltKeyDown
 local IsInInstance = IsInInstance
 local IsShiftKeyDown = IsShiftKeyDown
 local PlaySound = PlaySound
 local RegisterStateDriver = RegisterStateDriver
 local UnitName = UnitName
+
+local UIParent = UIParent
 
 local MOVANY = _G.MOVANY
 local MAOptions
@@ -1374,8 +1378,8 @@ function MovAny.hShow(f, ...)
 	end
 end
 
-local hider = CreateFrame("Frame")
-hider:Hide()
+--[[local hider = CreateFrame("Frame")
+hider:Hide()]]
 
 function MovAny:LockVisibility(f, dontHide)
 	if f.MAHidden then
@@ -1389,8 +1393,8 @@ function MovAny:LockVisibility(f, dontHide)
 	f.MAWasShown = f:IsShown()
 	if not dontHide and f.MAWasShown then
 		f:Hide()
-		f.my_real_parent = f:GetParent()
-		f:SetParent(hider)
+		--f.my_real_parent = f:GetParent()
+		--f:SetParent(hider)
 	end
 end
 
@@ -1401,9 +1405,9 @@ function MovAny:UnlockVisibility(f)
 	f.MAHidden = nil
 	if f.MAWasShown then
 		f.MAWasShown = nil
-		if f.my_real_parent then
+		--[[if f.my_real_parent then
 			f:SetParent(f.my_real_parent)
-		end
+		end]]
 		f:Show()
 	end
 end
@@ -3055,10 +3059,10 @@ function MovAny:MoverOnSizeChanged(mover)
 		local brief, long
 		if MovAny.Scale:CanBeScaled(f) then
 			if mover.MAE.scaleWH then
-				brief = "W: "..numfor(f:GetWidth()).." H:"..numfor(f:GetHeight())
+				brief = "W: "..MANumFor(f:GetWidth()).." H:"..MANumFor(f:GetHeight())
 				long = brief
 			else
-				brief = numfor(f:GetScale())
+				brief = MANumFor(f:GetScale())
 				long = "Scale: "..brief
 			end
 			label:Show()
@@ -3115,7 +3119,7 @@ function MovAny:MoverOnMouseWheel(mover, arg1)
 	else
 		mover.tagged.alphaAttempts = nil
 	end
-	alpha = tonumber(numfor(alpha))
+	alpha = tonumber(MANumFor(alpha))
 	local opt = mover.MAE.userData
 	if IsAltKeyDown() then
 		if not mover.skipGroups and opt.groups and not IsShiftKeyDown() then
@@ -3139,10 +3143,10 @@ function MovAny:MoverOnMouseWheel(mover, arg1)
 	self.Alpha:Apply(mover.tagged.MAE, mover.tagged)
 	local label = _G[ mover:GetName().."BackdropInfoLabel"]
 	label:Show()
-	label:SetText(numfor(alpha* 100).."%")
+	label:SetText(MANumFor(alpha* 100).."%")
 	if mover == self.currentMover then
 		_G["MANudgerInfoLabel"]:Show()
-		_G["MANudgerInfoLabel"]:SetText("Alpha:"..numfor(alpha * 100).."%")
+		_G["MANudgerInfoLabel"]:SetText("Alpha:"..MANumFor(alpha * 100).."%")
 	end
 	self:UpdateGUIIfShown(true)
 end
@@ -4475,7 +4479,7 @@ SlashCmdList["MAINFO"] = function(msg)
 end
 
 -- X: global functions
-function numfor(n, decimals)
+function MANumFor(n, decimals)
 	if n == nil then
 		return "nil"
 	end
@@ -4753,7 +4757,7 @@ function MovAny:GetFrameTooltipLines(fn)
 			if not added then
 				tinsert(msgs, " ")
 			end
-			tinsert(msgs, "Position: "..numfor(opts.pos[4])..", "..numfor(opts.pos[5]))
+			tinsert(msgs, "Position: "..MANumFor(opts.pos[4])..", "..MANumFor(opts.pos[5]))
 			enough = true
 			added = true
 		end
@@ -4761,7 +4765,7 @@ function MovAny:GetFrameTooltipLines(fn)
 			if not added then
 				tinsert(msgs, " ")
 			end
-			tinsert(msgs, "Scale: "..numfor(opts.scale))
+			tinsert(msgs, "Scale: "..MANumFor(opts.scale))
 			enough = true
 			added = true
 		end
@@ -4769,7 +4773,7 @@ function MovAny:GetFrameTooltipLines(fn)
 			if not added then
 				tinsert(msgs, " ")
 			end
-			tinsert(msgs, "Alpha: "..numfor(opts.alpha))
+			tinsert(msgs, "Alpha: "..MANumFor(opts.alpha))
 			enough = true
 			added = true
 		end
@@ -4778,7 +4782,7 @@ function MovAny:GetFrameTooltipLines(fn)
 			if not added then
 				tinsert(msgs, " ")
 			end
-			tinsert(msgs, "Original Scale: "..numfor(opts.orgScale or 1))
+			tinsert(msgs, "Original Scale: "..MANumFor(opts.orgScale or 1))
 			enough = true
 			added = true
 		end
@@ -4786,7 +4790,7 @@ function MovAny:GetFrameTooltipLines(fn)
 			if not added then
 				tinsert(msgs, " ")
 			end
-			tinsert(msgs, "Original Alpha: "..numfor(opts.orgAlpha))
+			tinsert(msgs, "Original Alpha: "..MANumFor(opts.orgAlpha))
 			enough = true
 			added = true
 		end
@@ -5031,7 +5035,7 @@ function MovAny:Dump(o)
 				elseif type(v) == "string" then
 					maPrint("   "..i..": "..v)
 				elseif type(v) == "number" then
-					maPrint("   "..i..": "..numfor(v))
+					maPrint("   "..i..": "..MANumFor(v))
 				elseif type(v) == "table" then
 					s = ""
 					for i2, v2 in pairs(v) do

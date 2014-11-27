@@ -1,4 +1,21 @@
 ﻿local _G = _G
+local hooksecurefunc = hooksecurefunc
+local pairs = pairs
+local string = string
+local table = table
+local tinsert = tinsert
+local type = type
+local xpcall = xpcall
+
+local GetCVar = GetCVar
+local GetCVarBool = GetCVarBool
+local GetNumGroupMembers = GetNumGroupMembers
+local InCombatLockdown = InCombatLockdown
+local IsInGroup = IsInGroup
+local IsShiftKeyDown = IsShiftKeyDown
+local UnitAura = UnitAura
+
+local UIParent = UIParent
 
 local MovAny = _G.MovAny
 
@@ -925,18 +942,18 @@ MovAny.lVirtualMovers = {
 			b:ClearAllPoints()	
 			b:SetPoint("TOPRIGHT", self, "TOPRIGHT")
 			MovAny:LockPoint(b)
-			b.ignoreFramePositionManager = true
+			--b.ignoreFramePositionManager = true
 			b:SetMovable(true)
 			b:SetHeight(self:GetHeight())
 			b:SetUserPlaced(true)
 			--self.sbf = b
 		end,
-		--[[OnMAPostReset = function(self)
+		OnMAPostReset = function(self)
 			local b = ObjectiveTrackerFrame
 			MovAny:UnlockPoint(b)
 			b:SetPoint("TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", -10, 0)
-			b:SetHeight(b:GetTop() - 85)
-		end,]]
+			--b:SetHeight(b:GetTop() - 85)
+		end,
 		OnMAScale = function(self)
 			local b = ObjectiveTrackerFrame
 			local scaleS = self:GetScale()
@@ -963,18 +980,18 @@ MovAny.lVirtualMovers = {
 			b:ClearAllPoints()	
 			b:SetPoint("TOPRIGHT", self, "TOPRIGHT")
 			MovAny:LockPoint(b)
-			b.ignoreFramePositionManager = true
+			--b.ignoreFramePositionManager = true
 			b:SetMovable(true)
 			b:SetHeight(self:GetHeight())
 			b:SetUserPlaced(true)
 			--self.sbf = b
 		end,
-		--[[OnMAPostReset = function(self)
+		OnMAPostReset = function(self)
 			local b = ObjectiveTrackerFrame
 			MovAny:UnlockPoint(b)
 			b:SetPoint("TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", -10, 0)
-			b:SetHeight(b:GetTop() - 85)
-		end,]]
+			--b:SetHeight(b:GetTop() - 85)
+		end,
 		OnMAScale = function(self)
 			local b = ObjectiveTrackerFrame
 			local scaleS = self:GetScale()
@@ -3321,9 +3338,9 @@ MovAny.lVirtualMovers = {
 			end
 		end,
 		OnMAPostReset = function(self)
-			if not readOnly then
+			--if not readOnly then
 				UpdateContainerFrameAnchors()
-			end
+			--end
 		end
 	},
 	ChatEditBoxesMover = {
