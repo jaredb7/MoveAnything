@@ -19,7 +19,7 @@
 	* Garrison Building Alert
 	* Garrison Follower Alert
 	* Garrison Work Order
-	* Store Purchase Aler
+	* Store Purchase Alert
 
 **15.0.6**
 * More taint fixes with the "ObjectiveTrackerFrame".
