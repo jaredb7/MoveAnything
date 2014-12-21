@@ -3,6 +3,24 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**15.0.7**
+* Fixed an issue with enabling/disable frames.
+* Added Categories:
+	* Garrison
+	* Store
+* Added Frames:
+	* Draenor Zone Ability
+	* Player Alternative Power Counter Bar
+	* Garrison Report
+	* Garrison Minimap Button
+	* Garrison Architecht
+	* Garrison Missions
+	* Garrison Misson Alert
+	* Garrison Building Alert
+	* Garrison Follower Alert
+	* Garrison Work Order
+	* Store Purchase Aler
+
 **15.0.6**
 * More taint fixes with the "ObjectiveTrackerFrame".
 * Fixed some leaks.
@@ -300,7 +318,7 @@
 * CompactRaidFrameManager's toggle button is going to work properly, when you moved the frame. You can also properly hide the frame.
 * The addon automatically going to unregister and reregister event for PaladinPowerBar frame when it hidden/shown/reset. (More powerbar frames will be added later.)
 * Xml validation fixes.
-* Added Categorys:
+* Added Categories:
 	* Map (Experimental)
 * Fixed frames:
 	* PlayerPowerBarAltMover

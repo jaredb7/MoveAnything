@@ -4573,7 +4573,7 @@ function MovAny:EnableFrame(fn)
 	if not f then
 		return
 	end
-	local opt = f.MAE.userData
+	local opt = self:GetUserData(f:GetName())
 	if not opt then
 		return
 	end
