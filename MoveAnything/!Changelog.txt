@@ -3,6 +3,9 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**15.0.8**
+* Smaller fixes with showing frames.
+
 **15.0.7**
 * Fixed an issue with enabling/disable frames.
 * Added Categories:

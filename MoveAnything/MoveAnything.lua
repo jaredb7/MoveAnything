@@ -2693,7 +2693,10 @@ function MovAny:ShowFrame(f, readOnly, dontHook)
 		end
 	end]]
 	local e = API:GetElement(fn)
-	local opt = e.userData
+	local opt
+	if e and e.userData then
+		opt = e.userData
+	end
 	if not readOnly and opt then
 		opt.hidden = nil
 		opt.unit = nil
