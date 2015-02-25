@@ -542,7 +542,7 @@ local m = {
 		API:AddElement({name = "ItemTextFrame", displayName = "Reading Materials"}, c)
 		API:AddElement({name = "ReputationDetailFrame", displayName = "Reputation Details"}, c)
 		API:AddElement({name = "GhostFrame", displayName = "Return to Graveyard Button"}, c)
-		API:AddElement({name = "HelpOpenTicketButton", displayName = "Ticket Status"}, c)
+		API:AddElement({name = "HelpOpenWebTicketButton", displayName = "Ticket Status"}, c)
 		API:AddElement({name = "HelpOpenTicketButtonTutorial", displayName = "Ticket Status Tutorial"}, c)
 		API:AddElement({name = "TooltipMover", displayName = "Tooltip"}, c)
 		API:AddElement({name = "BagItemTooltipMover", displayName = "Tooltip - Bag Item"}, c)

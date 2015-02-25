@@ -3,6 +3,10 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**15.0.9**
+* Updated to 6.1.0.
+* Some other smaller fixes.
+
 **15.0.8**
 * Smaller fixes with showing frames.
 
