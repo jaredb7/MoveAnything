@@ -695,7 +695,7 @@ OverrideActionBar:HookScript("OnShow", function(self)
 		GuildMicroButton,
 		--PVPMicroButton,
 		LFDMicroButton,
-		CompanionsMicroButton,
+		CollectionsMicroButton,
 		EJMicroButton,
 		StoreMicroButton,
 		MainMenuMicroButton
@@ -5391,8 +5391,8 @@ function MovAny_OnEvent(self, event, arg1)
 		elseif arg1 == "Blizzard_PetJournal" then
 			setfenv(PetJournalParent_OnShow, setmetatable({UpdateMicroButtons = function()
 				if (PetJournalParent and PetJournalParent:IsShown()) then
-					CompanionsMicroButton:Enable()
-					CompanionsMicroButton:SetButtonState("PUSHED", 1)
+					CollectionsMicroButton:Enable()
+					CollectionsMicroButton:SetButtonState("PUSHED", 1)
 				end
 			end }, { __index = _G}))]]
 		--[=[elseif arg1 == "Blizzard_ArenaUI" then

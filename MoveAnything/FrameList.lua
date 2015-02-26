@@ -445,7 +445,7 @@ local m = {
 		qf:AddCategory(c)
 		API:AddElement({name = "SpellBookFrame", displayName = "Spellbook / Professions"}, c)
 		API:AddElement({name = "ItemUpgradeFrame", displayName = "Item Upgrade"}, c)
-		API:AddElement({name = "PetJournalParent", displayName = "Mounts / Pets"}, c)
+		API:AddElement({name = "CollectionsJournal", displayName = "Collections"}, c)
 		API:AddElement({name = "TabardFrame", displayName = "Tabard Design"}, c)
 		API:AddElement({name = "PlayerTalentFrame", displayName = "Specialization / Talents / Glyphs", refuseSync = MOVANY.FRAME_ONLY_ONCE_OPENED}, c)
 		API:AddElement({name = "TradeFrame", displayName = "Trade"}, c)

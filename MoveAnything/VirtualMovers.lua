@@ -1292,7 +1292,7 @@ MovAny.lVirtualMovers = {
 			"GuildMicroButton",
 			--"PVPMicroButton",
 			"LFDMicroButton",
-			"CompanionsMicroButton",
+			"CollectionsMicroButton",
 			"EJMicroButton",
 			"StoreMicroButton",
 			"MainMenuMicroButton"
@@ -1333,7 +1333,7 @@ MovAny.lVirtualMovers = {
 			"GuildMicroButton",
 			--"PVPMicroButton",
 			"LFDMicroButton",
-			"CompanionsMicroButton",
+			"CollectionsMicroButton",
 			"EJMicroButton",
 			"StoreMicroButton",
 			"MainMenuMicroButton"
@@ -1380,7 +1380,7 @@ MovAny.lVirtualMovers = {
 			"GuildMicroButton",
 			--"PVPMicroButton",
 			"LFDMicroButton",
-			"CompanionsMicroButton",
+			"CollectionsMicroButton",
 			"EJMicroButton",
 			"StoreMicroButton",
 			"MainMenuMicroButton"
