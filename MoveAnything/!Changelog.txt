@@ -3,6 +3,12 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**15.1.1**
+* Fixed an issue with the microbuttons when entering/leaving pet battles.
+* Some other smaller fixes.
+* Added Frames:
+	* Boss Banner
+
 **15.1.0**
 * Fixed Frames:
 	* Mounts / Pets (Now renamed to Collections)

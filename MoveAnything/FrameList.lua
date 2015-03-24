@@ -342,6 +342,7 @@ local m = {
 		API:AddElement({name = "RaidWarningFrame", displayName = "Raid Warnings"}, c)
 		API:AddElement({name = "ReadyCheckFrame", displayName = "Ready Check"}, c)
 		c = API:GetCategory("Boss Specific Frames")
+		API:AddElement({name = "BossBanner", displayName = "Boss Banner"}, c)
 		local pbab = API:AddElement({name = "PlayerPowerBarAltMover", displayName = "Player Alternative Power Bar"}, c)
 		local pbab = API:AddElement({name = "PlayerPowerBarAltCounterBar", displayName = "Player Alternative Power Counter Bar"}, c)
 		local tbab = API:AddElement({name = "TargetFramePowerBarAltMover", displayName = "Target Alternative Power Bar"}, c)

@@ -185,7 +185,9 @@ local MovAny = {
 		["TargetFrameToTDebuffsMover"] = true,
 		["FocusBuffsMover"] = true,
 		["FocusDebuffsMover"] = true,
-		["FocusFrameToTDebuffsMover"] = true
+		["FocusFrameToTDebuffsMover"] = true,
+		--["TargetFrameBuff1"] = true,
+		--["TargetFrameDebuff1"] = true,
 	},
 	lEnableMouse = {
 		ObjectiveTrackerFrameMover,
@@ -365,8 +367,10 @@ local MovAny = {
 		PetDebuffsMover = "PetDebuffsMover",
 		TargetBuffsMover = "TargetBuffsMover",
 		TargetDebuffsMover = "TargetDebuffsMover",
+		FocusBuffsMover = "FocusBuffsMover",
 		FocusDebuffsMover = "FocusDebuffsMover",
 		TargetFrameToTDebuffsMover = "TargetFrameToTDebuffsMover",
+		FocusFrameToTDebuffsMover = "FocusFrameToTDebuffsMover",
 		TemporaryEnchantFrame = "TemporaryEnchantFrame",
 		AuctionDressUpFrame = "AuctionDressUpFrame",
 		MinimapCluster = "MinimapCluster",
@@ -5660,9 +5664,8 @@ function MovAny_OnEvent(self, event, arg1)
 			AchievementMicroButton,
 			QuestLogMicroButton,
 			GuildMicroButton,
-			--PVPMicroButton,
 			LFDMicroButton,
-			CompanionsMicroButton,
+			CollectionsMicroButton,
 			EJMicroButton,
 			StoreMicroButton,
 			MainMenuMicroButton

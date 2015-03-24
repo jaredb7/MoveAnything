@@ -632,6 +632,7 @@
 							HideUIPanel(InterfaceOptionsFrame)
 						else
 							InterfaceOptionsFrame_OpenToCategory("MoveAnything")
+							InterfaceOptionsFrame_OpenToCategory("MoveAnything")
 						end
 					</OnClick>
 				</Scripts>
