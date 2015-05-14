@@ -2715,7 +2715,7 @@ function MovAny:ShowFrame(f, readOnly, dontHook)
 	if opt ~= nil and opt.unit and f.SetAttribute then
 		f:SetAttribute("unit", opt.unit)
 	end
-	if e.hideList then
+	if e and e.hideList then
 		for hIndex, hideEntry in pairs(e.hideList) do
 			local val = _G[hideEntry[1]]
 			for i = 2, table.getn(hideEntry) do
@@ -2739,7 +2739,7 @@ function MovAny:ShowFrame(f, readOnly, dontHook)
 			end
 		end
 		self.Layers:Apply(e, f)
-	elseif e.hideUsingWH then
+	elseif e and e.hideUsingWH then
 		if type(opt.orgWidth) == "number" then
 			f:SetWidth(opt.orgWidth)
 		end

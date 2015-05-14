@@ -3,6 +3,9 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**15.1.2**
+* Fixed a smaller issue.
+
 **15.1.1**
 * Fixed an issue with the microbuttons when entering/leaving pet battles.
 * Some other smaller fixes.
