@@ -2434,7 +2434,7 @@ MovAny.lVirtualMovers = {
 							if not opt.hidden and vm.attachedChildren then
 								if GetCVar("consolidateBuffs") == "1" then
 									for i, v in pairs(vm.attachedChildren) do
-										if v:GetParent():GetName() ~= "ConsolidatedBuffsContainer" then
+										if v:GetParent():GetName() ~= "ConsolidatedBuffs" then
 											v:SetScale(opt.scale)
 										else
 											v:SetScale(1)
@@ -2465,7 +2465,7 @@ MovAny.lVirtualMovers = {
 		--[[OnMAFoundChild = function(self, index, child)
 			if self.opt and self.opt.scale then
 				--MovAny:UnlockScale(child)
-				if child:GetParent():GetName() ~= "ConsolidatedBuffsContainer" then
+				if child:GetParent():GetName() ~= "ConsolidatedBuffs" then
 					child:SetScale(self.opt.scale)
 				else
 					child:SetScale(1)
@@ -2534,7 +2534,7 @@ MovAny.lVirtualMovers = {
 			if self.attachedChildren then
 				if GetCVar("consolidateBuffs") then
 					for i, child in pairs(self.attachedChildren) do
-						if child:GetParent():GetName() ~= "ConsolidatedBuffsContainer" then
+						if child:GetParent():GetName() ~= "ConsolidatedBuffs" then
 							child:SetScale(scale)
 						else
 							child:SetScale(1)
@@ -2565,7 +2565,7 @@ MovAny.lVirtualMovers = {
 			if self.attachedChildren and self.opt and self.opt.scale then
 				if GetCVar("consolidateBuffs") == "1" then
 					for i, v in pairs(self.attachedChildren) do
-						if v:GetParent():GetName() ~= "ConsolidatedBuffsContainer" then
+						if v:GetParent():GetName() ~= "ConsolidatedBuffs" then
 							v:SetScale(self.opt.scale)
 						else
 							v:SetScale(1)
@@ -2635,7 +2635,7 @@ MovAny.lVirtualMovers = {
 							if not opt.hidden and vm.attachedChildren then
 								if GetCVar("consolidateBuffs") == "1" then
 									for i, v in pairs(vm.attachedChildren) do
-										if v:GetParent():GetName() ~= "ConsolidatedBuffsContainer" then
+										if v:GetParent():GetName() ~= "ConsolidatedBuffs" then
 											v:SetScale(opt.scale)
 										else
 											v:SetScale(1)
@@ -2666,7 +2666,7 @@ MovAny.lVirtualMovers = {
 		OnMAFoundChild = function(self, index, child)
 			if self.opt and self.opt.scale then
 				--MovAny:UnlockScale(child)
-				if child:GetParent():GetName() ~= "ConsolidatedBuffsContainer" then
+				if child:GetParent():GetName() ~= "ConsolidatedBuffs" then
 					child:SetScale(self.opt.scale)
 				else
 					child:SetScale(1)
@@ -2681,7 +2681,7 @@ MovAny.lVirtualMovers = {
 			if index == 1 then
 				MovAny:UnlockPoint(child)
 				child:ClearAllPoints()
-				if child:GetParent():GetName() ~= "ConsolidatedBuffsContainer" then
+				if child:GetParent():GetName() ~= "ConsolidatedBuffs" then
 					local hasMainHandEnchant = GetWeaponEnchantInfo()
 					if ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and TempEnchant3:IsVisible() then
 						child:SetPoint("TOPLEFT", self, "TOPLEFT", 148, 0)
@@ -2705,17 +2705,29 @@ MovAny.lVirtualMovers = {
 						child:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
 					end
 				else
-					child:SetPoint("TOPLEFT", "ConsolidatedBuffsContainer", "TOPRIGHT", 0, 0)
+					child:SetPoint("TOPLEFT", "ConsolidatedBuffs", "TOPRIGHT", 5, 0)
 				end
 				--DebuffButton1:ClearAllPoints()
 				--DebuffButton1:SetPoint("TOPLEFT", ConsolidatedBuffs, "BOTTOMLEFT", 0, - 60)
 			else
 				if string.match(child:GetName(), "BuffButton") then
-					if index == 9 then
+					local consolidatedNum
+					if IsInGroup() and GetCVar("consolidateBuffs") == "1" then
+						consolidatedNum = -1
+						for i = 1, 40 do
+							local _, _, _, _, _, _, _, _, _, shouldConsolidate = UnitAura("player", i)
+							if shouldConsolidate then
+								consolidatedNum = consolidatedNum + 1
+							end
+						end
+					else
+						consolidatedNum = 0
+					end
+					if index - consolidatedNum == 9 then
 						MovAny:UnlockPoint(child)
 						child:ClearAllPoints()
 						child:SetPoint("TOP", ConsolidatedBuffs, "BOTTOM", 0, - 15)
-					elseif index == 17 then
+					elseif index - consolidatedNum == 17 then
 						MovAny:UnlockPoint(child)
 						child:ClearAllPoints()
 						child:SetPoint("TOP", "BuffButton"..(index - 8), "BOTTOM", 0, - 15)
@@ -2723,9 +2735,23 @@ MovAny.lVirtualMovers = {
 						MovAny:UnlockPoint(child)
 						child:ClearAllPoints()
 						if IsInGroup() and GetCVar("consolidateBuffs") == "1" then
-							local name, rank, icon, count, dispelType, duration, expires, caster, isStealable, shouldConsolidate = UnitAura("player", index - 1)
-							if shouldConsolidate then
-								child:SetPoint("LEFT", "BuffButton"..(index - 2), "RIGHT", 5, 0)
+							local consNum = 0
+							local prevCons
+							for i = index - 1, 1, -1 do
+								local name, rank, icon, count, dispelType, duration, expires, caster, isStealable, shouldConsolidate = UnitAura("player", i)
+								local _, _, _, _, _, _, _, _, _, prevCons = UnitAura("player", i - 1)
+								if shouldConsolidate then
+									consNum = consNum + 1
+								end
+								if not prevCons then
+									break
+								end
+							end
+							local x = index - 1 - consNum
+							if x > 0 then
+								child:SetPoint("LEFT", "BuffButton"..x, "RIGHT", 5, 0)
+							elseif x < 1 then
+								child:SetPoint("TOPLEFT", "ConsolidatedBuffs", "TOPRIGHT", 7, 0)
 							else
 								child:SetPoint("LEFT", "BuffButton"..(index - 1), "RIGHT", 5, 0)
 							end
@@ -2793,7 +2819,7 @@ MovAny.lVirtualMovers = {
 			if self.attachedChildren then
 				if GetCVar("consolidateBuffs") == "1" then
 					for i, child in pairs(self.attachedChildren) do
-						if child:GetParent():GetName() ~= "ConsolidatedBuffsContainer" then
+						if child:GetParent():GetName() ~= "ConsolidatedBuffs" then
 							child:SetScale(scale)
 						else
 							child:SetScale(1)
@@ -2824,7 +2850,7 @@ MovAny.lVirtualMovers = {
 			if self.attachedChildren and self.opt and self.opt.scale then
 				if GetCVar("consolidateBuffs") == "1" then
 					for i, v in pairs(self.attachedChildren) do
-						if v:GetParent():GetName() ~= "ConsolidatedBuffsContainer" then
+						if v:GetParent():GetName() ~= "ConsolidatedBuffs" then
 							v:SetScale(self.opt.scale)
 						else
 							v:SetScale(1)

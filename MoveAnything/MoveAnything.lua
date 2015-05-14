@@ -1421,9 +1421,6 @@ function MovAny.hSetPoint(f, ...)
 		print(f:GetName())
 		return
 	end]]
-	--[[if string.find(f:GetName(), "Arena") then
-		print(":1332,", string.find(f:GetName(), "Arena"), f:GetName())
-	end]]
 	if f.MAPoint then
 		local fn = f:GetName()
 		if fn and string.match(fn, "^ContainerFrame[1-9][0-9]*$") then
@@ -1476,6 +1473,9 @@ function MovAny:LockPoint(f, opt)
 end
 
 function MovAny:UnlockPoint(f)
+	if not f then
+		return
+	end
 	f.MAPoint = nil
 end
 
@@ -1488,6 +1488,9 @@ function MovAny:LockParent(f)
 end
 
 function MovAny:UnlockParent(f)
+	if not f then
+		return
+	end
 	f.MAParented = nil
 end
 
@@ -2616,7 +2619,7 @@ function MovAny:HideFrame(f, readOnly)
 			f:SetAttribute("unit", nil)
 		end
 	end
-	if e.hideList then
+	if e and e.hideList then
 		for hIndex, hideEntry in pairs(e.hideList) do
 			local val = _G[hideEntry[1]]
 			local hideType
@@ -2637,7 +2640,7 @@ function MovAny:HideFrame(f, readOnly)
 				end
 			end
 		end
-	elseif e.hideUsingWH then
+	elseif e and e.hideUsingWH then
 		self:StopMoving(fn)
 		f:SetWidth(1)
 		f:SetHeight(1)
