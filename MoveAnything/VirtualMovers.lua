@@ -1063,6 +1063,20 @@ MovAny.lVirtualMovers = {
 			f.MAHidden = nil
 		end
 	},
+	GuildBankItemTooltipMover = {
+		frameStrata = "TOOLTIP",
+		w = 150,
+		h = 80,
+		point = {"TOP", "UIParent", 0, 0},
+		OnLoad = function(self)
+			self:SetFrameLevel(GameTooltip:GetFrameLevel() + 1)
+		end,
+		OnMAPreReset = function(self)
+			local f = _G.GameTooltip
+			self.MAE:Reset(f, true)
+			f.MAHidden = nil
+		end
+	},
 	BagButtonsMover = {
 		w = 158,
 		h = 30,
@@ -1217,16 +1231,41 @@ MovAny.lVirtualMovers = {
 		w = 331,
 		h = 37,
 		relPoint = {"TOPLEFT", "BankFrameItem1", "BOTTOMLEFT", 0, - 164},
-		children = {
-			"BankFrameBag1",
-			"BankFrameBag2",
-			"BankFrameBag3",
-			"BankFrameBag4",
-			"BankFrameBag5",
-			"BankFrameBag6",
-			"BankFrameBag7"
-		},
-		OnMAFoundChild = function(self, index, child)
+		OnMAHook = function(self)
+			local b = _G.BankSlotsFrame.Bag1
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("LEFT", self, "LEFT", 0, 0)
+			b:SetMovable(true)
+			b:SetUserPlaced(true)
+		end,
+		OnMAPostReset = function(self)
+			MovAny:UnlockPoint(ActionButton1)
+			local b = _G.BankSlotsFrame.Bag1
+			b:SetPoint("TOPLEFT", "BankFrameItem1", "BOTTOMLEFT", 0, - 164)
+			b:SetMovable(true)
+			b:SetUserPlaced(false)
+			b:SetMovable(false)
+		end,
+		OnMAScale = function(self, scale)
+			if type(scale) ~= "number" then
+				return
+			end
+			local children = {
+				BankSlotsFrame.Bag1,
+				BankSlotsFrame.Bag2,
+				BankSlotsFrame.Bag3,
+				BankSlotsFrame.Bag4,
+				BankSlotsFrame.Bag5,
+				BankSlotsFrame.Bag6,
+				BankSlotsFrame.Bag7
+			}
+			for i = 1, #children do
+				local b = children[i]
+				b:SetScale(scale)
+			end
+		end
+		--[[OnMAFoundChild = function(self, index, child)
 			child:ClearAllPoints()
 			if child == self.firstChild then
 				child:SetPoint("LEFT", self, "LEFT", 0, 0)
@@ -1243,7 +1282,7 @@ MovAny.lVirtualMovers = {
 			end
 		end,
 		OnMAScale = ScaleChildren,
-		OnMAPreReset = ResetChildren
+		OnMAPreReset = ResetChildren]]
 	},
 	BankBagFrame1 = {
 		inherits = "MovableBagFrame",

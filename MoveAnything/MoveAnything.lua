@@ -926,6 +926,9 @@ function MovAny:Boot()
 	if GameTooltip and GameTooltip.SetBagItem then
 		hooksecurefunc(GameTooltip, "SetBagItem", self.hGameTooltip_SetBagItem)
 	end
+	if GameTooltip and GameTooltip.SetGuildBankItem then
+		hooksecurefunc(GameTooltip, "SetGuildBankItem", self.hGameTooltip_SetGuildBankItem)
+	end
 	if AddFrameLock then
 		hooksecurefunc("AddFrameLock", self.hAddFrameLock)
 	end
@@ -4688,6 +4691,12 @@ function MovAny:hGameTooltip_SetBagItem(container, slot)
 	end
 end
 
+function MovAny:hGameTooltip_SetGuildBankItem(container, slot)
+	if MovAny:IsModified("GuildBankItemTooltipMover") then
+		MovAny:HookTooltip(_G["GuildBankItemTooltipMover"])
+	end
+end
+
 -- X: MA tooltip funcs
 function MovAny:TooltipShow(self)
 	if not self.tooltipText then
@@ -5717,9 +5726,9 @@ function MovAny_OnEvent(self, event, arg1)
 		local e
 		for i = 1, 7, 1 do
 			e = API:GetElement("BankBagFrame"..i)
-			if e then
+			--[[if e then
 				e.refuseSync = MOVANY.FRAME_ONLY_WHEN_BANK_IS_OPEN
-			end
+			end]]
 		end
 	elseif event == "PLAYER_LOGOUT" then
 		MovAny:OnPlayerLogout()

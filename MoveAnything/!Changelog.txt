@@ -3,6 +3,19 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**15.1.5**
+* Fixed Frames:
+	* Bank Bag Slots
+	* Bank Bag 1
+	* Bank Bag 2
+	* Bank Bag 3
+	* Bank Bag 4
+	* Bank Bag 5
+	* Bank Bag 6
+	* Bank Bag 7
+* Added Frames:
+	* Tooltip - Guild Bank Item
+
 **15.1.4**
 * Fixed Frames:
 	* Player Buffs From Right to Left 
