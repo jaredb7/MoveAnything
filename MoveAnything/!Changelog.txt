@@ -3,6 +3,12 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**15.1.6**
+* Updated for 6.2.0.
+* Bindings fixes.
+* Added Frames:
+	* Naval Operations
+
 **15.1.5**
 * Fixed Frames:
 	* Bank Bag Slots
