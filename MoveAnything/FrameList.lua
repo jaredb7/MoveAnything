@@ -18,6 +18,7 @@ local cats = {
 	{name = "Boss Specific Frames"},
 	{name = "Game Menu"},
 	{name = "Garrison"},
+	{name = "Shipyard"},
 	{name = "Guild"},
 	{name = "Info Panels"},
 	{name = "Loot"},
@@ -390,7 +391,9 @@ local m = {
 		API:AddElement({name = "GarrisonBuildingAlertFrame", displayName = "Garrison Building Alert"}, c)
 		API:AddElement({name = "GarrisonFollowerAlertFrame", displayName = "Garrison Follower Alert"}, c)
 		API:AddElement({name = "GarrisonCapacitiveDisplayFrame", displayName = "Garrison Work Order"}, c)
+		c = API:GetCategory("Shipyard")
 		API:AddElement({name = "GarrisonShipyardFrame", displayName = "Naval Operations"}, c)
+		API:AddElement({name = "GarrisonShipMissionAlertFrame", displayName = "Shipyard Mission Alert"}, c)
 		c = API:GetCategory("Guild")
 		API:AddElement({name = "GuildFrame", displayName = "Guild"}, c)
 		gbf:AddCategory(c)
