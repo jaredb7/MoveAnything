@@ -587,6 +587,7 @@ local m = {
 		API:AddElement({name = "PartyMember4DebuffsMover", displayName = "Party Member 4 Debuffs"}, c)
 		c = API:GetCategory("Unit: Pet")
 		API:AddElement({name = "PetFrame", displayName = "Pet"}, c)
+		API:AddElement({name = "PetCastingBarFrame", displayName = "Pet Casting Bar"}, c)
 		API:AddElement({name = "PetDebuffsMover", displayName = "Pet Debuffs"}, c)
 		API:AddElement({name = "PartyMemberFrame1PetFrame", displayName = "Party Pet 1"}, c)
 		API:AddElement({name = "PartyMemberFrame2PetFrame", displayName = "Party Pet 2"}, c)
