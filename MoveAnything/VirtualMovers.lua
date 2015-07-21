@@ -1012,13 +1012,27 @@ MovAny.lVirtualMovers = {
 		OnMAHook = function(self)
 			local b = PlayerPowerBarAlt
 			MovAny:UnlockPoint(b)
-			b:ClearAllPoints(PlayerPowerBarAltMover)
+			b:ClearAllPoints()
 			b:SetPoint("CENTER", PlayerPowerBarAltMover, "CENTER")
 			MovAny:LockPoint(b)
-			--b.ignoreFramePositionManager = true
-			b:SetMovable(true)
-			b:SetUserPlaced(true)
+			b.ignoreFramePositionManager = true
+			--b:SetMovable(true)
+			--b:SetUserPlaced(true)
 			self.sbf = b
+		end,
+		OnMAHide = function(self, hidden)
+			if hidden then
+				MovAny:LockVisibility(self.sbf)
+			else
+				MovAny:UnlockVisibility(self.sbf)
+			end
+		end,
+		OnMAScale = function(self, scale)
+			if type(scale) ~= "number" then
+				return
+			end
+			local b = PlayerPowerBarAlt
+			b:SetScale(scale)
 		end,
 		OnMAPostReset = function(self)
 			local b = PlayerPowerBarAlt
@@ -1034,13 +1048,27 @@ MovAny.lVirtualMovers = {
 		OnMAHook = function(self)
 			local b = TargetFramePowerBarAlt
 			MovAny:UnlockPoint(b)
-			b:ClearAllPoints(TargetFramePowerBarAltMover)
+			b:ClearAllPoints()
 			b:SetPoint("CENTER", TargetFramePowerBarAltMover, "CENTER")
 			MovAny:LockPoint(b)
-			--b.ignoreFramePositionManager = true
-			b:SetMovable(true)
-			b:SetUserPlaced(true)
+			b.ignoreFramePositionManager = true
+			--b:SetMovable(true)
+			--b:SetUserPlaced(true)
 			self.sbf = b
+		end,
+		OnMAHide = function(self, hidden)
+			if hidden then
+				MovAny:LockVisibility(self.sbf)
+			else
+				MovAny:UnlockVisibility(self.sbf)
+			end
+		end,
+		OnMAScale = function(self, scale)
+			if type(scale) ~= "number" then
+				return
+			end
+			local b = PlayerPowerBarAlt
+			b:SetScale(scale)
 		end,
 		OnMAPostReset = function(self)
 			local b = TargetFramePowerBarAlt
