@@ -5395,6 +5395,9 @@ function MovAny_OnEvent(self, event, arg1)
 				if MovAny:IsModified(QuestLogDetailFrame) then
 					MovAny:ResetFrame(QuestLogDetailFrame)
 				end
+				if MovAny:IsModified(PlayerPowerBarAltCounterBar) then
+					MovAny:ResetFrame(PlayerPowerBarAltCounterBar)
+				end
 			end
 		elseif arg1 == "Blizzard_TalentUI" and MovAny.hBlizzard_TalentUI then
 			MovAny:hBlizzard_TalentUI()

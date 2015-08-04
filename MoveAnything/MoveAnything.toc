@@ -1,6 +1,6 @@
 ## Interface: 60200
 ## Title: MoveAnything
-## Version: 15.1.9
+## Version: 15.2.0
 ## Author: Wagthaa
 ## Notes: Move, scale, hide and adjust transparency of just about any screen element in the game.
 ## DefaultState: Enabled

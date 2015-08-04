@@ -3,6 +3,12 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**15.2.0**
+* Fixed Frames:
+	* Player Alternative Power Bar
+* Removed Frames:
+	* Player Alternative Power Counter Bar
+
 **15.1.9**
 * Fixed Frames:
 	* Player Alternative Power Bar

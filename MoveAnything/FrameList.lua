@@ -346,12 +346,7 @@ local m = {
 		c = API:GetCategory("Boss Specific Frames")
 		API:AddElement({name = "BossBanner", displayName = "Boss Banner"}, c)
 		local pbab = API:AddElement({name = "PlayerPowerBarAltMover", displayName = "Player Alternative Power Bar"}, c)
-		local pbab = API:AddElement({name = "PlayerPowerBarAltCounterBar", displayName = "Player Alternative Power Counter Bar"}, c)
 		local tbab = API:AddElement({name = "TargetFramePowerBarAltMover", displayName = "Target Alternative Power Bar"}, c)
-		--API:AddElement({name = "PlayerPowerBarAltMover", displayName = "Sha of Pride: Pride Bar"}, c)
-		--API:AddElement({name = "PlayerPowerBarAltMover", displayName = "Norushen: Corruption Bar"}, c)
-		--API:AddElement({name = "PlayerPowerBarAltMover", displayName = "The Stone Guard: Energy Bar"}, c)
-		--API:AddElement({name = "PlayerPowerBarAltMover", displayName = "Cho'gal: Energy Bar"}, c)
 		c = API:GetCategory("Game Menu")
 		API:AddElement({name = "GameMenuFrame", displayName = "Game Menu",
 			hideList = {
