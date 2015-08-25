@@ -389,6 +389,7 @@ local m = {
 		c = API:GetCategory("Shipyard")
 		API:AddElement({name = "GarrisonShipyardFrame", displayName = "Naval Operations"}, c)
 		API:AddElement({name = "GarrisonShipMissionAlertFrame", displayName = "Shipyard Mission Alert"}, c)
+		API:AddElement({name = "GarrisonShipFollowerAlertFrame", displayName = "Shipyard Follower Alert"}, c)
 		c = API:GetCategory("Guild")
 		API:AddElement({name = "GuildFrame", displayName = "Guild"}, c)
 		gbf:AddCategory(c)
