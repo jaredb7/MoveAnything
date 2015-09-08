@@ -3,6 +3,12 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**15.2.2**
+* Fixed Frames:
+	* Framerate
+	* Objectives Window
+	* Objectives Window Scale
+
 **15.2.1**
 * Added Frames:
 	* Shipyard Follower Alert

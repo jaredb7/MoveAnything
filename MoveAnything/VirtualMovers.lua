@@ -951,6 +951,7 @@ MovAny.lVirtualMovers = {
 		OnMAPostReset = function(self)
 			local b = ObjectiveTrackerFrame
 			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
 			b:SetPoint("TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", -10, 0)
 			--b:SetHeight(b:GetTop() - 85)
 		end,
@@ -989,6 +990,7 @@ MovAny.lVirtualMovers = {
 		OnMAPostReset = function(self)
 			local b = ObjectiveTrackerFrame
 			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
 			b:SetPoint("TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", -10, 0)
 			--b:SetHeight(b:GetTop() - 85)
 		end,
@@ -2413,6 +2415,35 @@ MovAny.lVirtualMovers = {
 		end,]]
 		OnMAScale = ScaleChildren,
 		OnMAPreReset = ResetChildren
+	},
+	FramerateLabelMover = {
+		w = 85,
+		h = 18,
+		point = {"BOTTOM", "UIParent", "BOTTOM", 26, 153},
+		OnMAHook = function(self)
+			local b = FramerateLabel
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("TOPLEFT", self, "TOPLEFT")
+			MovAny:LockPoint(b)
+		end,
+		OnMAPostReset = function(self)
+			local b = FramerateLabel
+			MovAny:UnlockPoint(b)
+			b:ClearAllPoints()
+			b:SetPoint("BOTTOM", "UIParent", "BOTTOM", 0, 110)
+		end,
+		OnMAHide = function(self, hidden)
+			local b = FramerateLabel
+			local n = FramerateText
+			if hidden then
+				MovAny:LockVisibility(b)
+				MovAny:LockVisibility(n)
+			else
+				MovAny:UnlockVisibility(b)
+				MovAny:UnlockVisibility(n)
+			end
+		end
 	},
 	FocusDebuffsMover = {
 		w = 118,

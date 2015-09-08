@@ -531,7 +531,7 @@ local m = {
 		API:AddElement({name = "ItemRefTooltip", displayName = "Chat Popup Tooltip"}, c)
 		API:AddElement({name = "DurabilityFrame", displayName = "Durability Figure"}, c)
 		API:AddElement({name = "UIErrorsFrame", displayName = "Errors & Warning Display"}, c)
-		API:AddElement({name = "FramerateLabel", displayName = "Framerate", noScale = 1, noUnanchorRelatives = 1}, c)
+		API:AddElement({name = "FramerateLabelMover", displayName = "Framerate", noScale = 1, noUnanchorRelatives = 1}, c)
 		API:AddElement({name = "ItemSocketingFrame", displayName = "Gem Socketing"}, c)
 		API:AddElement({name = "HelpFrame", displayName = "GM Help"}, c)
 		API:AddElement({name = "LevelUpDisplay", displayName = "Level Up Display"}, c)
