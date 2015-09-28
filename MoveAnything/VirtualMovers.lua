@@ -1017,7 +1017,7 @@ MovAny.lVirtualMovers = {
 			b:ClearAllPoints()
 			b:SetPoint("CENTER", PlayerPowerBarAltMover, "CENTER")
 			MovAny:LockPoint(b)
-			b.ignoreFramePositionManager = true
+			--b.ignoreFramePositionManager = true
 			--b:SetMovable(true)
 			--b:SetUserPlaced(true)
 			self.sbf = b
@@ -1053,7 +1053,7 @@ MovAny.lVirtualMovers = {
 			b:ClearAllPoints()
 			b:SetPoint("CENTER", TargetFramePowerBarAltMover, "CENTER")
 			MovAny:LockPoint(b)
-			b.ignoreFramePositionManager = true
+			--b.ignoreFramePositionManager = true
 			--b:SetMovable(true)
 			--b:SetUserPlaced(true)
 			self.sbf = b
@@ -1988,7 +1988,7 @@ MovAny.lVirtualMovers = {
 			child.MAParent = nil
 		end,
 		OnMAHook = function(self)
-			MultiBarLeft:SetParent("UIParent")
+			MultiBarRight:SetParent("UIParent")
 		end,
 		OnMAPreReset = function(self)
 			MultiBarRight:SetScale(1)
@@ -2055,7 +2055,7 @@ MovAny.lVirtualMovers = {
 			MultiBarRight.MAHooked = nil
 		end,
 		OnMAHook = function(self)			
-			MultiBarLeft:SetParent("UIParent")	
+			MultiBarRight:SetParent("UIParent")	
 		end,
 		OnMAScale = function(self, scale)
 			if type(scale) ~= "number" then
