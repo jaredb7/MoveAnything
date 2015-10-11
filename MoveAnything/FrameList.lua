@@ -386,6 +386,7 @@ local m = {
 		API:AddElement({name = "GarrisonBuildingAlertFrame", displayName = "Garrison Building Alert"}, c)
 		API:AddElement({name = "GarrisonFollowerAlertFrame", displayName = "Garrison Follower Alert"}, c)
 		API:AddElement({name = "GarrisonCapacitiveDisplayFrame", displayName = "Garrison Work Order"}, c)
+		API:AddElement({name = "GarrisonMonumentFrame", displayName = "Garrison Monuments"}, c)
 		c = API:GetCategory("Shipyard")
 		API:AddElement({name = "GarrisonShipyardFrame", displayName = "Naval Operations"}, c)
 		API:AddElement({name = "GarrisonShipMissionAlertFrame", displayName = "Shipyard Mission Alert"}, c)

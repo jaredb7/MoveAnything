@@ -3,6 +3,10 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**15.2.4**
+* Added Frames:
+	* Garrions Monuments
+
 **15.2.3**
 * Fixed Frames:
 	* Player Alternative Power Bar (For real this time!)
