@@ -3,6 +3,11 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**15.2.5**
+* Added Frames:
+	* Bag Item Search
+	* Clean Up Bags
+
 **15.2.4**
 * Added Frames:
 	* Garrions Monuments

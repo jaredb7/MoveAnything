@@ -128,6 +128,8 @@ local m = {
 		API:AddElement({name = "BagsMover", displayName = "All Bags", noHide = 1}, c)
 		API:AddElement({name = "BagButtonsMover", displayName = "Bag Buttons"}, c)
 		API:AddElement({name = "BagButtonsVerticalMover", displayName = "Bag Buttons - Vertical"}, c)
+		API:AddElement({name = "BagItemSearchBox", displayName = "Bag Item Search"}, c)
+		API:AddElement({name = "BagItemAutoSortButton", displayName = "Clean Up Bags"}, c)
 		API:AddElement({name = "BagFrame1", displayName = "Backpack"}, c)
 		API:AddElement({name = "BagFrame2", displayName = "Bag 1"}, c) --refuseSync = 1
 		API:AddElement({name = "BagFrame3", displayName = "Bag 2"}, c)
