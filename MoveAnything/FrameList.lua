@@ -677,6 +677,7 @@ local m = {
 		API:AddElement({name = "StartSplash", displayName = "StartSplash"}, c)
 		c = API:GetCategory("Store")
 		API:AddElement({name = "StorePurchaseAlertFrame", displayName = "Store Purchase Alert"}, c)
+		API:AddElement({name = "ModelPreviewFrame", displayName = "Store Model Preview"}, c)
 		c = API:AddCategory({name = "MA Internal Elements"})
 		--API:AddElement({name = "AlwaysUpFrame1", hidden = 1, onlyOnceCreated = 1}, c)
 		--API:AddElement({name = "AlwaysUpFrame2", hidden = 1, onlyOnceCreated = 1}, c)
