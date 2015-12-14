@@ -3,6 +3,10 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**15.2.8**
+* Added Frames:
+	* Quest Choice Frame
+
 **15.2.7**
 * Added Frames:
 	* Store Model Preview
