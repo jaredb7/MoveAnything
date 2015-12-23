@@ -460,6 +460,8 @@ local m = {
 		API:AddElement({name = "TradeSkillFrame", displayName = "Trade Skills"}, c)
 		API:AddElement({name = "ClassTrainerFrame", displayName = "Class Trainer"}, c)
 		API:AddElement({name = "GarrisonCapacitiveDisplayFrame", displayName = "Work Order"}, c)
+		API:AddElement({name = "ReportPlayerNameDialog", displayName = "Report Player Name"}, c)
+		API:AddElement({name = "ReportCheatingDialog", displayName = "Report Player Cheating"}, c)
 		c = API:GetCategory("Loot")
 		API:AddElement({name = "LootFrame", displayName = "Loot"}, c)
 		API:AddElement({name = "AlertFrame", displayName = "Alerts Frames"}, c)
