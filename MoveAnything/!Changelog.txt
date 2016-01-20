@@ -3,6 +3,11 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**15.3.0**
+* Fixed Frames:
+	* Target Buffs
+	* Target Debuffs
+
 **15.2.9**
 * Added Frames:
 	* Report Player Name
