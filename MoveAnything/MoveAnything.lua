@@ -186,8 +186,8 @@ local MovAny = {
 		["FocusBuffsMover"] = true,
 		["FocusDebuffsMover"] = true,
 		["FocusFrameToTDebuffsMover"] = true,
-		["TargetFrameBuff1"] = true,
-		["TargetFrameDebuff1"] = true,
+		--["TargetFrameBuff1"] = true,
+		--["TargetFrameDebuff1"] = true,
 	},
 	lEnableMouse = {
 		ObjectiveTrackerFrameMover,
