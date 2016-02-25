@@ -3,6 +3,9 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**15.3.2**
+* Fixed two taint errors.
+
 **15.3.1**
 * Reverted the latest hasty changes releated the target buffs and debuffs.
 
