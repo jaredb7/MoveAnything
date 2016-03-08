@@ -11,14 +11,14 @@ local m = {
 	customCat = nil,
 	Init = function(self)
 		self.compile = true
-		
+
 		self.all = { }
 		self.allCount = 0
-		
+
 		self.elems = { }
 		self.elemsN = { }
 		self.elemIDNext = 0
-		
+
 		self.cats = { }
 		self.catsN = { }
 		self.catIDNext = 0
@@ -242,10 +242,10 @@ elemMetaTable = {__index = {
 						if f.MAHooked then
 							e:Reset(f, true, e.userData, true)
 						end
-						
+
 						if MovAny:HookFrame(e, f, nil, true) then
 							e:Apply(f, e.userData)
-							
+
 							if e.runAfterInteract then
 								e:runAfterInteract()
 							end

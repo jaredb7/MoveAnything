@@ -3,6 +3,13 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**15.3.3**
+* Fixed some issues with reseting frames.
+* General code cleanup.
+* Added Frames:
+	* Loot Won Alert Frame1-10
+	* Money Won Frame1-5
+
 **15.3.2**
 * Fixed two taint errors.
 

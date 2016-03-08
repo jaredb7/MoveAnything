@@ -24,11 +24,11 @@ end
 
 function MovAny:CreatePortDialog()
 	local fn = "MAPortDialog"
-	
+
 	local pd = CreateFrame("Frame", fn, _G.UIParent)
-	
+
 	tinsert(_G.UISpecialFrames, fn)
-	
+
 	pd:SetSize(370, 130)
 	pd:SetFrameStrata("FULLSCREEN_DIALOG")
 	pd:SetFrameLevel(1)
@@ -45,8 +45,8 @@ function MovAny:CreatePortDialog()
 	})
 	pd:SetBackdropColor(0, 0, 0)
 	pd:SetBackdropBorderColor(0, 0, 0)
-	
-	
+
+
 	local closeButton = CreateFrame("Button", fn.."Close", pd, "MAButtonTemplate")
 	closeButton:SetText("X")
 	closeButton:SetSize(20, 20)
@@ -54,42 +54,42 @@ function MovAny:CreatePortDialog()
 	closeButton:SetScript("OnClick", function()
 		pd:CloseDialog()
 	end)
-	
-	
+
+
 	local actionLabel = pd:CreateFontString()
 	actionLabel:SetFontObject("GameFontNormalSmall")
 	actionLabel:SetSize(100, 20)
 	actionLabel:SetJustifyH("LEFT")
 	actionLabel:SetPoint("TOPLEFT", pd, "TOPLEFT", 12, -8)
-	
+
 	local frameNameLabel = pd:CreateFontString()
 	frameNameLabel:SetFontObject("GameFontNormalSmall")
 	frameNameLabel:SetSize(150, 20)
 	frameNameLabel:SetJustifyH("LEFT")
 	frameNameLabel:SetPoint("TOPLEFT", pd, "TOPLEFT", 62, -8)
-	
+
 	local dirLabel = pd:CreateFontString()
 	dirLabel:SetFontObject("GameFontNormalSmall")
 	dirLabel:SetSize(40, 20)
 	dirLabel:SetJustifyH("LEFT")
 	dirLabel:SetPoint("TOPLEFT", actionLabel, "BOTTOMLEFT", 0, 0)
-	
-	
-	
+
+
+
 	local profileCheck = CreateFrame("CheckButton", fn.."Enabled", pd, "MACheckButtonTemplate")
 	local profileDropDownButton = CreateFrame("Button", fn.."Profile", pd, "UIDropDownMenuTemplate")
 	local profileNoneLabel = pd:CreateFontString()
-	
+
 	local textCheck = CreateFrame("CheckButton", fn.."Enabled", pd, "MACheckButtonTemplate")
 	local textEditBox = CreateFrame("EditBox", fn.."TextEdit", pd, "InputBoxTemplate")
-	
+
 	local actionButton = CreateFrame("Button", fn.."ExportButton", pd, "MAButtonTemplate")
-	
+
 	local profileFunc = function(self)
 		UIDropDownMenu_SetSelectedValue(profileDropDownButton, self.value)
 	end
-	
-	
+
+
 	profileCheck:SetPoint("TOPLEFT", dirLabel, "TOPRIGHT", 9, -2)
 	profileCheck:SetScript("OnClick", function(self)
 		if not self:GetChecked() then
@@ -106,15 +106,15 @@ function MovAny:CreatePortDialog()
 			actionButton:Disable()
 		end
 	end)
-	
+
 	local profileLabel = pd:CreateFontString()
 	profileLabel:SetFontObject("GameFontNormalSmall")
 	profileLabel:SetHeight(20)
 	profileLabel:SetJustifyH("LEFT")
 	profileLabel:SetPoint("TOPLEFT", profileCheck, "TOPRIGHT", 1, 2)
 	profileLabel:SetText("Profile")
-	
-	
+
+
 	textCheck:SetPoint("TOPLEFT", profileLabel, "TOPRIGHT", 9, -2)
 	textCheck:SetScript("OnClick", function(self)
 		if not self:GetChecked() then
@@ -141,27 +141,27 @@ function MovAny:CreatePortDialog()
 		end
 		textEditBox:SetFocus()
 	end)
-	
+
 	local textLabel = pd:CreateFontString()
 	textLabel:SetFontObject("GameFontNormalSmall")
 	textLabel:SetHeight(20)
 	textLabel:SetJustifyH("LEFT")
 	textLabel:SetPoint("TOPLEFT", textCheck, "TOPRIGHT", 1, 2)
 	textLabel:SetText("Text String")
-	
+
 	profileDropDownButton:SetID(1)
 	profileDropDownButton:SetScript("OnClick", function(self) 
 		ToggleDropDownMenu(1, nil, self, self, 6, 7, nil, self)
 	end)
 	profileDropDownButton:SetPoint("TOPLEFT", dirLabel, "BOTTOMLEFT", 0, -10)
 	UIDropDownMenu_SetWidth(profileDropDownButton, 200)
-	
+
 	profileNoneLabel:SetFontObject("GameFontNormalSmall")
 	profileNoneLabel:SetHeight(20)
 	profileNoneLabel:SetJustifyH("LEFT")
 	profileNoneLabel:SetPoint("TOPLEFT", dirLabel, "BOTTOMLEFT", 0, -10)
 	profileNoneLabel:SetText("No profiles has modified this frame")
-	
+
 	textEditBox:SetFontObject("GameFontHighlightSmall")
 	textEditBox:SetSize(311, 20)
 	textEditBox:SetJustifyH("LEFT")
@@ -178,7 +178,7 @@ function MovAny:CreatePortDialog()
 			actionButton:Disable()
 		end
 	end)
-	
+
 	actionButton:SetSize(75, 22)
 	actionButton:SetPoint("BOTTOMRIGHT", pd, "BOTTOMRIGHT", -8, 10)
 	--actionButton:Disable()
@@ -252,11 +252,11 @@ function MovAny:CreatePortDialog()
 			end
 		end
 	end)
-	
+
 	pd.PrepareDialog = function(self, mode, fn)
 		self.mode = mode
 		self.fn = fn
-		
+
 		local s = ""
 		local dir = ""
 		if mode == 1 then
@@ -281,17 +281,17 @@ function MovAny:CreatePortDialog()
 			frameNameLabel:Hide()
 			profileNoneLabel:SetText("No profiles available")
 		end
-		
+
 		dirLabel:SetText(dir..":")
-		
+
 		profileCheck:SetChecked(true)
 		textCheck:SetChecked(nil)
 		profileDropDownButton:Show()
 		textEditBox:Hide()
-		
+
 		actionButton:Enable()
-		
-		
+
+
 		local profileDropDown_MenuInit = function()
 			local info
 			local names = { }
@@ -320,9 +320,9 @@ function MovAny:CreatePortDialog()
 				UIDropDownMenu_AddButton(info)
 			end
 		end
-		
+
 		UIDropDownMenu_Initialize(profileDropDownButton, profileDropDown_MenuInit)
-		
+
 		local selProfile
 		if MovAny:GetProfileName() ~= "default" and ((pd.mode == 1 and pd.fn and MADB.profiles["default"].frames[pd.fn]) or (pd.mode == 1 and not pd.fn) or pd.mode == 2) then
 			selProfile = "default"
@@ -338,7 +338,7 @@ function MovAny:CreatePortDialog()
 			table.sort(names, function(o1, o2)
 				return o1:lower() < o2:lower()
 			end)
-			
+
 			for _, name in pairs(names) do
 				selProfile = name
 				break
@@ -357,7 +357,7 @@ function MovAny:CreatePortDialog()
 			UIDropDownMenu_SetSelectedValue(profileDropDownButton, selProfile)
 		end
 	end
-	
+
 	pd.CloseDialog = function(self)
 		if IsShiftKeyDown() and IsControlKeyDown() and IsAltKeyDown() then
 			ReloadUI()
@@ -365,7 +365,7 @@ function MovAny:CreatePortDialog()
 			self:Hide()
 		end
 	end
-	
+
 	pd.Reload = function(self)
 		self:PrepareDialog(self.mode, self.fn)
 	end

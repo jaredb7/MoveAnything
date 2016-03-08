@@ -160,14 +160,14 @@ function MovAny:CopyProfile(fromName, toName)
 		if data and data.excludes then
 			MADB.profiles[toName].frames[data.excludes] = nil
 		end
-		
+
 		if toName == curProfileName then
 			e = self.API:GetElement(i)
 			if e then
 				e:SetUserData(l)
 			end
 		end
-		
+
 		MADB.profiles[toName].frames[i] = l
 	end
 	return true
@@ -181,7 +181,7 @@ function MovAny:AddProfile(pn, silent, dontUpdate)
 		return
 	end
 	MADB.profiles[pn] = {name = pn, frames = {}}
-	
+
 	if not dontUpdate then
 		MovAny_OptionsOnShow()
 	end
@@ -198,7 +198,7 @@ function MovAny:DeleteProfile(pn)
 		self:ResetProfile()
 		current = true
 	end
-	
+
 	MADB.profiles[pn] = nil
 	for name, char in pairs(MADB.characters) do
 		if char and char.profile == pn then
@@ -207,7 +207,7 @@ function MovAny:DeleteProfile(pn)
 	end
 	if current then
 		self.userData = MADB.profiles[self:GetProfileName()].frames
-		
+
 		local e
 		for i, v in pairs(self.userData) do
 			e = self.API:GetElement(i)
@@ -215,7 +215,7 @@ function MovAny:DeleteProfile(pn)
 				e:SetUserData(v)
 			end
 		end
-		
+
 		self:SyncAllFrames(true)
 		self:UpdateGUIIfShown(true)
 	end
@@ -249,7 +249,7 @@ function MovAny:UpdateProfile()
 		self.API:ClearElementsUserData()
 	end
 	self.userData = MADB.profiles[self:GetProfileName()].frames
-	
+
 	local e
 	for i, v in pairs(self.userData) do
 		e = self.API:GetElement(i)

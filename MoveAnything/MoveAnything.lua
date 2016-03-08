@@ -604,7 +604,7 @@ local MovAny = {
 						ArenaPrepFrames.hidWatchedQuests = false
 					end
 				end
-			elseif ArenaPrepFrames.hidWatchedQuests then	
+			elseif ArenaPrepFrames.hidWatchedQuests then
 				WatchFrame_AddObjectiveHandler(WatchFrame_DisplayTrackedQuests)
 				ArenaPrepFrames.hidWatchedQuests = false
 			end
@@ -1032,8 +1032,7 @@ function MovAny:Boot()
 		self:hBlizzard_TalentUI()
 	end
 end
-	
-	
+
 function MovAny:OnPlayerLogout()
 	if not MAOptions then
 		return
@@ -1062,7 +1061,7 @@ function MovAny:VerifyData()
 			end
 		end
 		MoveAnything_CharacterSettings = nil
-		
+
 		MADB.characters = { }
 		if MoveAnything_UseCharacterSettings then
 			for i, _ in pairs(MADB.profiles) do
@@ -1290,7 +1289,7 @@ function MovAny:SyncFrames(dontReset)
 			if not ret or self.syncError then
 				skippedFrames[fn] = e
 			end
-			
+
 			self.curSync = nil
 			self.syncError = nil
 		end
@@ -1377,6 +1376,9 @@ function MovAny:GetUserData(fn, noSymLink, create)
 end
 
 function MovAny.hShow(f, ...)
+	if not f then
+		return
+	end
 	if f.MAHidden then
 		if MovAny:IsProtected(f) and InCombatLockdown() then
 			local e = API:GetElement(f:GetName())
@@ -1395,6 +1397,9 @@ end
 hider:Hide()]]
 
 function MovAny:LockVisibility(f, dontHide)
+	if not f then
+		return
+	end
 	if f.MAHidden then
 		return
 	end
@@ -1412,6 +1417,9 @@ function MovAny:LockVisibility(f, dontHide)
 end
 
 function MovAny:UnlockVisibility(f)
+	if not f then
+		return
+	end
 	if not f.MAHidden then
 		return
 	end
@@ -1977,7 +1985,7 @@ function MovAny:SafeMoveFrameAtCursor()
 			end
 		end
 		local transName = self:Translate(obj:GetName(), 1)
-		
+
 		if transName ~= obj:GetName() then
 			self:ToggleMove(transName)
 			break
@@ -2083,7 +2091,7 @@ function MovAny:HideFrameAtCursor()
 			self:ToggleHide(obj:GetName())
 		end
 	end
-	
+
 	self:UpdateGUIIfShown(true)
 end
 
@@ -3888,12 +3896,12 @@ function MovAny:SyncUIPanel(mn, f)
 					y  = -12
 				end
 				f:SetPoint("TOPLEFT", mn, "TOPLEFT", x, y)
-				
+
 				if not f.MAOrgScale then
 					f.MAOrgScale = f:GetScale()
 				end
 				f:SetScale(mover:GetScale())
-				
+
 				if not f.MAOrgAlpha then
 					f.MAOrgAlpha = f:GetAlpha()
 				end
@@ -4335,7 +4343,7 @@ function MovAny:hUpdateContainerFrameAnchors()
 			bag = MovAny:GetBagInContainerFrame(frame)
 			if not bag or (bag and not MovAny:IsModified(bag, "pos") and not MovAny:GetMoverByFrame(bag)) then
 				frameHeight = frame:GetHeight() --* containerScale
-				
+
 				if yRemaining < frameHeight + VISIBLE_CONTAINER_SPACING then
 					column = column + 1
 					yRemaining = yAvail
@@ -4430,7 +4438,7 @@ SlashCmdList["MAIMPORT"] = function(msg)
 		maPrint(MOVANY.DISABLED_DURING_COMBAT)
 		return
 	end
-	
+
 	if MADB.profiles[msg] == nil then
 		maPrint(string.format(MOVANY.PROFILE_UNKNOWN, msg))
 		return
@@ -5511,7 +5519,7 @@ function MovAny_OnEvent(self, event, arg1)
 						end
 						if ArenaPrepFrame5:IsShown() then
 							return true
-						end					
+						end
 					end
 					return false
 				end
@@ -5570,7 +5578,7 @@ function MovAny_OnEvent(self, event, arg1)
 						end
 						if ArenaEnemyFrame5:IsShown() then
 							return true
-						end					
+						end
 					end
 					return false
 				end
@@ -6051,7 +6059,7 @@ function MovAny:CreateVM(name)
 	if data.OnMAPostAttach then
 		vm.OnMAPostAttach = data.OnMAPostAttach
 	end
-	
+
 	if data.OnMAPostHook then
 		vm.OnMAPostHook = data.OnMAPostHook
 	end
@@ -6082,7 +6090,7 @@ function MovAny:CreateVM(name)
 	if data.OnMAPositionReset then
 		vm.OnMAPositionReset = data.OnMAPositionReset
 	end
-	
+
 	if vm.OnMAHook and not data.OnMAHook then
 		data.OnMAHook = vm.OnMAHook
 	end

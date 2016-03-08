@@ -27,9 +27,9 @@ function MovAny:FrameEditor(name)
 		MovAny.frameEditors[name]:CloseDialog()
 		return
 	end
-	
+
 	local e = self.API:AddElementIfNew(name, name)
-	
+
 	if e.noFE then
 		maPrint(string.format(MOVANY.FRAME_NO_FRAME_EDITOR, name))
 		return
@@ -50,7 +50,7 @@ function MovAny:FrameEditor(name)
 			break
 		end
 		if not f.e then
-			f:LoadFrame(name)	
+			f:LoadFrame(name)
 			f:Show()
 			break
 		end
@@ -62,11 +62,11 @@ function MovAny:CreateFrameEditor(id, name)
 	local funcClearFocus = function(self)
 		self:ClearFocus()
 	end
-	
+
 	local leftColumnWidth = 42
 	local centerColumnWidth = 30
 	local secondColumnOffset = leftColumnWidth + 10
-	
+
 	local tabList = {}
 	local tabFunc = function(func)
 		return function(self)
@@ -112,10 +112,10 @@ function MovAny:CreateFrameEditor(id, name)
 			end
 		end
 	end
-	
+
 	local fn = "MA_FE"..id
 	local fe = CreateFrame("Frame", fn, UIParent)
-	
+
 	fe:SetSize(650, 495)
 	fe:SetFrameStrata("DIALOG")
 	fe:SetFrameLevel(1)
@@ -135,13 +135,13 @@ function MovAny:CreateFrameEditor(id, name)
 	})
 	fe:SetBackdropColor(0, 0, 0)
 	fe:SetBackdropBorderColor(0, 0, 0)
-	
+
 	--MovAny.API:SyncElement("MA_FEMover")
-	
+
 	local pointDropDownButton = CreateFrame("Button", fn.."Point", fe, "UIDropDownMenuTemplate")
 	local pointFunc = function(self)
 		UIDropDownMenu_SetSelectedValue(pointDropDownButton, self.value)
-		
+
 		fe:VerifyOpt()
 		local updateEditor
 		if not fe.opt.pos then
@@ -160,7 +160,7 @@ function MovAny:CreateFrameEditor(id, name)
 		elseif fe.editFrame then
 			point = fe.editFrame:GetPoint()
 		end
-		
+
 		local info, text, value
 		for _, infoTab in pairs(MovAny.DDMPointList) do
 			text, value = unpack(infoTab)
@@ -174,11 +174,11 @@ function MovAny:CreateFrameEditor(id, name)
 			UIDropDownMenu_AddButton(info)
 		end
 	end
-	
+
 	local relPointDropDownButton = CreateFrame("Button", fn.."RelPoint", fe, "UIDropDownMenuTemplate")
 	local relPointFunc = function(self)
 		UIDropDownMenu_SetSelectedValue(relPointDropDownButton, self.value)
-		
+
 		fe:VerifyOpt()
 		if not fe.opt.orgPos and fe.editFrame then
 			MovAny.Position:StoreOrgPoints(fe.editFrame, fe.opt)
@@ -205,8 +205,8 @@ function MovAny:CreateFrameEditor(id, name)
 			UIDropDownMenu_AddButton(info)
 		end
 	end
-	
-	
+
+
 	local closeButton = CreateFrame("Button", fn.."Close", fe, "MAButtonTemplate")
 	closeButton:SetText("X")
 	closeButton:SetSize(20, 20)
@@ -214,42 +214,42 @@ function MovAny:CreateFrameEditor(id, name)
 	closeButton:SetScript("OnClick", function()
 		fe:CloseDialog()
 	end)
-	
+
 	local displayNameLabel = fe:CreateFontString()
 	displayNameLabel:SetFontObject("GameFontNormalSmall")
 	displayNameLabel:SetSize(leftColumnWidth, 20)
 	displayNameLabel:SetJustifyH("LEFT")
 	displayNameLabel:SetPoint("TOPLEFT", fe, "TOPLEFT", 12, -8)
 	displayNameLabel:SetText("Frame:")
-	
+
 	local displayName = fe:CreateFontString(fn.."HelpfulName")
 	displayName:SetFontObject("GameFontHighlightSmall")
 	displayName:SetSize(270, 20)
 	displayName:SetJustifyH("LEFT")
 	displayName:SetPoint("TOPLEFT", displayNameLabel, "TOPRIGHT", 6, 0)
-	
-	
+
+
 	local realNameLabel = fe:CreateFontString()
 	realNameLabel:SetFontObject("GameFontNormalSmall")
 	realNameLabel:SetSize(leftColumnWidth, 20)
 	realNameLabel:SetJustifyH("LEFT")
 	realNameLabel:SetPoint("TOPLEFT", displayNameLabel, "BOTTOMLEFT", 0, -2)
 	realNameLabel:SetText("Name:")
-	
+
 	local realName = fe:CreateFontString(fn.."RealName")
 	realName:SetFontObject("GameFontHighlightSmall")
 	realName:SetSize(270, 20)
 	realName:SetJustifyH("LEFT")
 	realName:SetPoint("TOPLEFT", realNameLabel, "TOPRIGHT", 6, 0)
-	
-	
+
+
 	local enabledCheck = CreateFrame("CheckButton", fn.."Enabled", fe, "MACheckButtonTemplate")
 	enabledCheck:SetPoint("TOPLEFT", realNameLabel, "BOTTOMLEFT", 2, -2)
 	enabledCheck:SetScript("OnClick", function(self)
 		MovAny:ToggleEnableFrame(fe.e.name, fe.opt)
 	end)
 	_G[enabledCheck:GetName().."Text"]:SetText("Enabled")
-	
+
 	local hideCheck = CreateFrame("CheckButton", fn.."Hide", fe, "MACheckButtonTemplate")
 	hideCheck:SetPoint("TOPLEFT", enabledCheck, "TOPRIGHT", 50, 0)
 	hideCheck:SetScript("OnClick", function(self)
@@ -263,7 +263,7 @@ function MovAny:CreateFrameEditor(id, name)
 		MovAny:UpdateGUIIfShown(true)
 	end)
 	_G[hideCheck:GetName().."Text"]:SetText("Hidden")
-	
+
 	local clampToScreenCheck = CreateFrame("CheckButton", fn.."ClampToScreenButton", fe, "MACheckButtonTemplate")
 	clampToScreenCheck:SetPoint("TOPLEFT", hideCheck, "TOPRIGHT", 50, 0)
 	clampToScreenCheck:SetScript("OnClick", function()
@@ -284,9 +284,8 @@ function MovAny:CreateFrameEditor(id, name)
 		MovAny:UpdateGUIIfShown(true)
 	end)
 	_G[clampToScreenCheck:GetName().."Text"]:SetText("Clamp to screen")
-	
-	
-	
+
+
 	local groupTooltipFunc = function(self)
 		local names = {}
 		local last = nil
@@ -296,11 +295,11 @@ function MovAny:CreateFrameEditor(id, name)
 				last = fn
 			end
 		end
-		
+
 		table.sort(names, function(o1, o2)
 			return o1:lower() < o2:lower()
 		end)
-		
+
 		local s = ""
 		if last ~= nil then
 			for _, name in pairs(names) do
@@ -319,7 +318,7 @@ function MovAny:CreateFrameEditor(id, name)
 					for fn, opt in pairs(MovAny.userData) do
 						if type(opt.groups) == "table" and opt.groups[self:GetID()] then
 							local dontDel = nil
-							
+
 							opt.groups[self:GetID()] = nil
 							for i, _ in pairs(opt.groups) do
 								dontDel = true
@@ -334,7 +333,7 @@ function MovAny:CreateFrameEditor(id, name)
 					MovAny:UpdateGUIIfShown(true)
 				else
 					self:SetChecked(not self:GetChecked())
-					
+
 					local match = nil
 					for fn, opt in pairs(MovAny.userData) do
 						if type(opt.groups) == "table" and opt.groups[self:GetID()] then
@@ -375,137 +374,137 @@ function MovAny:CreateFrameEditor(id, name)
 		MovAny:UpdateGUIIfShown(true)
 		groupTooltipFunc(self)
 	end
-	
+
 	local groupLabel = fe:CreateFontString()
 	groupLabel:SetFontObject("GameFontNormalSmall")
 	groupLabel:SetSize(leftColumnWidth, 18)
 	groupLabel:SetJustifyH("LEFT")
 	groupLabel:SetPoint("TOPLEFT", enabledCheck, "BOTTOMLEFT", -3, -6)
 	groupLabel:SetText("Groups")
-	
+
 	local groupCheck1 = CreateFrame("CheckButton", fn.."Group1", fe, "MACheckButtonTemplate")
 	groupCheck1:SetPoint("TOPLEFT", groupLabel, "TOPRIGHT", 8, 0)
 	groupCheck1:SetScript("OnClick", groupFunc)
 	groupCheck1:SetID(1)
 	_G[groupCheck1:GetName().."Text"]:SetText("1")
 	groupCheck1:SetScript("OnEnter", groupTooltipFunc)
-	
+
 	local groupCheck2 = CreateFrame("CheckButton", fn.."Group2", fe, "MACheckButtonTemplate")
 	groupCheck2:SetPoint("TOPLEFT", groupCheck1, "TOPRIGHT", 7, 0)
 	groupCheck2:SetScript("OnClick", groupFunc)
 	groupCheck2:SetID(2)
 	_G[groupCheck2:GetName().."Text"]:SetText("2")
 	groupCheck2:SetScript("OnEnter", groupTooltipFunc)
-	
+
 	local groupCheck3 = CreateFrame("CheckButton", fn.."Group3", fe, "MACheckButtonTemplate")
 	groupCheck3:SetPoint("TOPLEFT", groupCheck2, "TOPRIGHT", 7, 0)
 	groupCheck3:SetScript("OnClick", groupFunc)
 	groupCheck3:SetID(3)
 	_G[groupCheck3:GetName().."Text"]:SetText("3")
 	groupCheck3:SetScript("OnEnter", groupTooltipFunc)
-	
+
 	local groupCheck4 = CreateFrame("CheckButton", fn.."Group4", fe, "MACheckButtonTemplate")
 	groupCheck4:SetPoint("TOPLEFT", groupCheck3, "TOPRIGHT", 7, 0)
 	groupCheck4:SetScript("OnClick", groupFunc)
 	groupCheck4:SetID(4)
 	_G[groupCheck4:GetName().."Text"]:SetText("4")
 	groupCheck4:SetScript("OnEnter", groupTooltipFunc)
-	
+
 	local groupCheck5 = CreateFrame("CheckButton", fn.."Group5", fe, "MACheckButtonTemplate")
 	groupCheck5:SetPoint("TOPLEFT", groupCheck4, "TOPRIGHT", 7, 0)
 	groupCheck5:SetScript("OnClick", groupFunc)
 	groupCheck5:SetID(5)
 	_G[groupCheck5:GetName().."Text"]:SetText("5")
 	groupCheck5:SetScript("OnEnter", groupTooltipFunc)
-	
+
 	local groupCheck6 = CreateFrame("CheckButton", fn.."Group6", fe, "MACheckButtonTemplate")
 	groupCheck6:SetPoint("TOPLEFT", groupCheck5, "TOPRIGHT", 7, 0)
 	groupCheck6:SetScript("OnClick", groupFunc)
 	groupCheck6:SetID(6)
 	_G[groupCheck6:GetName().."Text"]:SetText("6")
 	groupCheck6:SetScript("OnEnter", groupTooltipFunc)
-	
+
 	local groupCheck7 = CreateFrame("CheckButton", fn.."Group7", fe, "MACheckButtonTemplate")
 	groupCheck7:SetPoint("TOPLEFT", groupCheck6, "TOPRIGHT", 7, 0)
 	groupCheck7:SetScript("OnClick", groupFunc)
 	groupCheck7:SetID(7)
 	_G[groupCheck7:GetName().."Text"]:SetText("7")
 	groupCheck7:SetScript("OnEnter", groupTooltipFunc)
-	
+
 	local groupCheck8 = CreateFrame("CheckButton", fn.."Group8", fe, "MACheckButtonTemplate")
 	groupCheck8:SetPoint("TOPLEFT", groupCheck7, "TOPRIGHT", 7, 0)
 	groupCheck8:SetScript("OnClick", groupFunc)
 	groupCheck8:SetID(8)
 	_G[groupCheck8:GetName().."Text"]:SetText("8")
 	groupCheck8:SetScript("OnEnter", groupTooltipFunc)
-	
+
 	local groupCheck9 = CreateFrame("CheckButton", fn.."Group9", fe, "MACheckButtonTemplate")
 	groupCheck9:SetPoint("TOPLEFT", groupCheck8, "TOPRIGHT", 7, 0)
 	groupCheck9:SetScript("OnClick", groupFunc)
 	groupCheck9:SetID(9)
 	_G[groupCheck9:GetName().."Text"]:SetText("9")
 	groupCheck9:SetScript("OnEnter", groupTooltipFunc)
-	
+
 	local groupCheck10 = CreateFrame("CheckButton", fn.."Group10", fe, "MACheckButtonTemplate")
 	groupCheck10:SetPoint("TOPLEFT", groupCheck9, "TOPRIGHT", 7, 0)
 	groupCheck10:SetScript("OnClick", groupFunc)
 	groupCheck10:SetID(10)
 	_G[groupCheck10:GetName().."Text"]:SetText("10")
 	groupCheck10:SetScript("OnEnter", groupTooltipFunc)
-	
+
 	local groupCheck11 = CreateFrame("CheckButton", fn.."Group11", fe, "MACheckButtonTemplate")
 	groupCheck11:SetPoint("TOPLEFT", groupCheck10, "TOPRIGHT", 11, 0)
 	groupCheck11:SetScript("OnClick", groupFunc)
 	groupCheck11:SetID(11)
 	_G[groupCheck11:GetName().."Text"]:SetText("11")
 	groupCheck11:SetScript("OnEnter", groupTooltipFunc)
-	
+
 	local groupCheck12 = CreateFrame("CheckButton", fn.."Group12", fe, "MACheckButtonTemplate")
 	groupCheck12:SetPoint("TOPLEFT", groupCheck11, "TOPRIGHT", 11, 0)
 	groupCheck12:SetScript("OnClick", groupFunc)
 	groupCheck12:SetID(12)
 	_G[groupCheck12:GetName().."Text"]:SetText("12")
 	groupCheck12:SetScript("OnEnter", groupTooltipFunc)
-	
+
 	local groupCheck13 = CreateFrame("CheckButton", fn.."Group13", fe, "MACheckButtonTemplate")
 	groupCheck13:SetPoint("TOPLEFT", groupCheck12, "TOPRIGHT", 11, 0)
 	groupCheck13:SetScript("OnClick", groupFunc)
 	groupCheck13:SetID(13)
 	_G[groupCheck13:GetName().."Text"]:SetText("13")
 	groupCheck13:SetScript("OnEnter", groupTooltipFunc)
-	
-	
+
+
 	local positionHeading = fe:CreateFontString()
 	positionHeading:SetFontObject("GameFontNormalSmall")
 	positionHeading:SetSize(50, 20)
 	positionHeading:SetJustifyH("LEFT")
 	positionHeading:SetPoint("TOPLEFT", groupLabel, "BOTTOMLEFT", 0, 10)
 	positionHeading:SetText("Position")
-	
+
 	local posResetButton = CreateFrame("Button", fn.."PositionResetButton", fe, "MAButtonTemplate")
 	posResetButton:SetSize(20, 20)
 	posResetButton:SetPoint("LEFT", positionHeading, "RIGHT", 0, 0)
 	posResetButton:SetText("R")
-	
-	
+
+
 	local dropDownClickFunc = function(self)
 		ToggleDropDownMenu(1, nil, self, self, 6, 7, nil, self)
 	end
-	
+
 	local pointLabel = fe:CreateFontString()
 	pointLabel:SetFontObject("GameFontNormalSmall")
 	pointLabel:SetSize(leftColumnWidth, 18)
 	pointLabel:SetJustifyH("LEFT")
 	pointLabel:SetPoint("TOPLEFT", positionHeading, "BOTTOMLEFT", 0, -10)
 	pointLabel:SetText("Attach")
-	
+
 	pointDropDownButton:SetID(1)
 	pointDropDownButton:SetScript("OnClick", dropDownClickFunc)
 	pointDropDownButton:SetPoint("TOPLEFT", pointLabel, "TOPRIGHT", -12, 3)
 	UIDropDownMenu_Initialize(pointDropDownButton, pointDropDown_MenuInit)
 	UIDropDownMenu_SetWidth(pointDropDownButton, 100)
-	
-	
+
+
 	local pointResetButton = CreateFrame("Button", fn.."PointResetButton", fe, "MAButtonTemplate")
 	pointResetButton:SetSize(20, 20)
 	pointResetButton:SetPoint("TOPLEFT", pointDropDownButton, "TOPRIGHT", 0, -2.5)
@@ -529,22 +528,22 @@ function MovAny:CreateFrameEditor(id, name)
 			fe:WritePoint()
 		end
 	end)
-	
-	
+
+
 	local relPointLabel = fe:CreateFontString()
 	relPointLabel:SetFontObject("GameFontNormalSmall")
 	relPointLabel:SetSize(30, 18)
 	--relPointLabel:SetJustifyH("LEFT")
 	relPointLabel:SetPoint("TOPLEFT", pointResetButton, "TOPRIGHT", 10, 0)
 	relPointLabel:SetText("to")
-	
+
 	relPointDropDownButton:SetID(2)
 	relPointDropDownButton:SetScript("OnClick", dropDownClickFunc)
 	relPointDropDownButton:SetPoint("TOPLEFT", relPointLabel, "TOPRIGHT", -12, 3)
 	UIDropDownMenu_Initialize(relPointDropDownButton, relPointDropDown_MenuInit)
 	UIDropDownMenu_SetWidth(relPointDropDownButton, 100)
-	
-	
+
+
 	local relPointResetButton = CreateFrame("Button", fn.."RelPointResetButton", fe, "MAButtonTemplate")
 	relPointResetButton:SetSize(20, 20)
 	relPointResetButton:SetPoint("TOPLEFT", relPointDropDownButton, "TOPRIGHT", 0, -2.5)
@@ -568,21 +567,21 @@ function MovAny:CreateFrameEditor(id, name)
 			fe:WritePoint()
 		end
 	end)
-	
-	
+
+
 	local relToEdit = CreateFrame("EditBox", fn.."RelToEdit", fe, "InputBoxTemplate")
-	
+
 	local relToLabel = fe:CreateFontString()
 	relToLabel:SetFontObject("GameFontNormalSmall")
 	relToLabel:SetSize(40, 18)
 	--relToLabel:SetJustifyH("LEFT")
 	relToLabel:SetPoint("TOPLEFT", pointLabel, "BOTTOMLEFT", 0, -14)
 	relToLabel:SetText("of")
-	
+
 	local relToFunc = function(self)
 		self = self or relToEdit
 		local value = self:GetText()
-		
+
 		if value == "" then
 			if fe.opt and fe.opt.pos then
 				self:SetText(fe.opt.pos[2])
@@ -608,10 +607,10 @@ function MovAny:CreateFrameEditor(id, name)
 		else
 			maPrint(string.format(MOVANY.ELEMENT_NOT_FOUND_NAMED, value))
 		end
-		
+
 		self:ClearFocus()
 	end
-	
+
 	local relToEscapeFunc = function(self)
 		local value = self:GetText()
 		if _G[value] then
@@ -639,7 +638,7 @@ function MovAny:CreateFrameEditor(id, name)
 		end
 		self:ClearFocus()
 	end
-	
+
 	relToEdit:SetFontObject("GameFontHighlightSmall")
 	relToEdit:SetSize(311, 20)
 	relToEdit:SetJustifyH("LEFT")
@@ -648,7 +647,7 @@ function MovAny:CreateFrameEditor(id, name)
 	relToEdit:SetScript("OnTabPressed", tabFunc(relToFunc))
 	relToEdit:SetScript("OnEnterPressed", relToFunc)
 	relToEdit:SetScript("OnEscapePressed", relToEscapeFunc)
-	
+
 	local relToResetButton = CreateFrame("Button", fn.."RelToResetButton", fe, "MAButtonTemplate")
 	relToResetButton:SetSize(20, 20)
 	relToResetButton:SetPoint("TOPLEFT", relToEdit, "TOPRIGHT", 15, 1)
@@ -671,20 +670,20 @@ function MovAny:CreateFrameEditor(id, name)
 			relToFunc()
 		end
 	end)
-	
-	
+
+
 	local xLabel = fe:CreateFontString()
 	xLabel:SetFontObject("GameFontNormalSmall")
 	xLabel:SetSize(leftColumnWidth, 18)
 	xLabel:SetJustifyH("LEFT")
 	xLabel:SetPoint("TOPLEFT", relToLabel, "BOTTOMLEFT", 0, -13)
 	xLabel:SetText("X offset")
-	
-	
+
+
 	local xEdit = CreateFrame("EditBox", fn.."XEdit", fe, "InputBoxTemplate")
-	
+
 	local xSlider = CreateFrame("Slider", fn.."XSlider", fe, "OptionsSliderTemplate")
-	
+
 	xEdit:SetFontObject("GameFontHighlightSmall")
 	xEdit:SetMaxLetters(10)
 	xEdit:SetSize(59, 20)
@@ -692,27 +691,27 @@ function MovAny:CreateFrameEditor(id, name)
 	xEdit:SetAutoFocus(false)
 	xEdit:SetPoint("TOPLEFT", xLabel, "TOPRIGHT", 12, 0)
 	xEdit:SetText("0")
-	
+
 	local xSliderFunc
 	local xEditFunc = function(self)
 		self:ClearFocus()
-		
+
 		local v = tonumber(xEdit:GetText())
 		if v == nil then
 			return
 		end
-		
+
 		xSlider:SetScript("OnValueChanged", nil)
 		xSlider:SetMinMaxValues(v - 200, v + 200)
 		xSlider:SetValue(v)
-		
+
 		v = MANumFor(v)
 		_G[xSlider:GetName().."Low"]:SetText(v - 200)
 		_G[xSlider:GetName().."High"]:SetText(v + 200)
 		_G[xSlider:GetName().."Text"]:SetText(v)
-		
+
 		xSlider:SetScript("OnValueChanged", xSliderFunc)
-		
+
 		if fe.updating then
 			return
 		end
@@ -734,7 +733,7 @@ function MovAny:CreateFrameEditor(id, name)
 	xEdit:SetScript("OnEnterPressed", xEditFunc)
 	xEdit:SetScript("OnTabPressed", tabFunc(xEditFunc))
 	xEdit:SetScript("OnEscapePressed", funcClearFocus)
-	
+
 	xSlider:SetScale(.75)
 	xSlider:SetWidth(535)
 	xSlider:SetMinMaxValues(-200, 200)
@@ -753,9 +752,9 @@ function MovAny:CreateFrameEditor(id, name)
 	xSliderFunc = function(self)
 		local v = MANumFor(xSlider:GetValue())
 		_G[xSlider:GetName().."Text"]:SetText(v)
-		
+
 		xEdit:SetText(MANumFor(xSlider:GetValue()))
-		
+
 		if fe.updating then
 			return
 		end
@@ -775,7 +774,7 @@ function MovAny:CreateFrameEditor(id, name)
 		end
 	end
 	xSlider:SetScript("OnValueChanged", xSliderFunc)
-	
+
 	local xMinusFunc = function()
 		local v = xSlider:GetValue() - 1
 		xSlider:SetScript("OnValueChanged", nil)
@@ -797,22 +796,22 @@ function MovAny:CreateFrameEditor(id, name)
 			xMinusFunc()
 		end
 	end)
-	
-	
+
+
 	local xMinusButton = CreateFrame("Button", fn.."XMinusButton", fe, "MAButtonTemplate")
 	xMinusButton:SetSize(20, 20)
 	xMinusButton:SetPoint("TOPLEFT", xSlider, "TOPRIGHT", 12, 2)
 	xMinusButton:SetText("-")
 	xMinusButton:SetScript("OnClick", xMinusFunc)
-	
-	
+
+
 	local xPlusButton = CreateFrame("Button", fn.."XPlusButton", fe, "MAButtonTemplate")
 	xPlusButton:SetSize(20, 20)
 	xPlusButton:SetPoint("TOPLEFT", xMinusButton, "TOPRIGHT", 3, 0)
 	xPlusButton:SetText("+")
 	xPlusButton:SetScript("OnClick", xPlusFunc)
-	
-	
+
+
 	local xResetButton = CreateFrame("Button", fn.."XResetButton", fe, "MAButtonTemplate")
 	xResetButton:SetSize(20, 20)
 	xResetButton:SetPoint("TOPLEFT", xPlusButton, "TOPRIGHT", 3, 0)
@@ -829,14 +828,14 @@ function MovAny:CreateFrameEditor(id, name)
 			return
 		end
 		p = p[4]
-		
+
 		xSlider:SetScript("OnValueChanged", nil)
 		xSlider:SetMinMaxValues(p - 200, p + 200)
 		xSlider:SetScript("OnValueChanged", xSliderFunc)
 		xSlider:SetValue(p)
 	end)
-	
-	
+
+
 	local xZeroButton = CreateFrame("Button", fn.."XZeroButton", fe, "MAButtonTemplate")
 	xZeroButton:SetSize(20, 20)
 	xZeroButton:SetPoint("TOPLEFT", xResetButton, "TOPRIGHT", 3, 0)
@@ -847,20 +846,20 @@ function MovAny:CreateFrameEditor(id, name)
 		xSlider:SetScript("OnValueChanged", xSliderFunc)
 		xSlider:SetValue(0)
 	end)
-	
-	
+
+
 	local yLabel = fe:CreateFontString()
 	yLabel:SetFontObject("GameFontNormalSmall")
 	yLabel:SetSize(leftColumnWidth, 18)
 	yLabel:SetJustifyH("LEFT")
 	yLabel:SetPoint("TOPLEFT", xLabel, "BOTTOMLEFT", 0, -13)
 	yLabel:SetText("Y offset")
-	
-	
+
+
 	local yEdit = CreateFrame("EditBox", fn.."YEdit", fe, "InputBoxTemplate")
-	
+
 	local ySlider = CreateFrame("Slider", fn.."YSlider", fe, "OptionsSliderTemplate")
-	
+
 	yEdit:SetFontObject("GameFontHighlightSmall")
 	yEdit:SetMaxLetters(10)
 	yEdit:SetSize(59, 20)
@@ -868,27 +867,27 @@ function MovAny:CreateFrameEditor(id, name)
 	yEdit:SetAutoFocus(false)
 	yEdit:SetPoint("TOPLEFT", yLabel, "TOPRIGHT", 12, 0)
 	yEdit:SetText("0")
-	
+
 	local ySliderFunc
 	local yEditFunc = function(self)
 		self:ClearFocus()
-		
+
 		local v = tonumber(yEdit:GetText())
 		if not v then
 			return
 		end
-		
+
 		ySlider:SetScript("OnValueChanged", nil)
 		ySlider:SetMinMaxValues(v - 200, v + 200)
 		ySlider:SetValue(v)
-		
+
 		v = MANumFor(v)
 		_G[ySlider:GetName().."Low"]:SetText(v - 200)
 		_G[ySlider:GetName().."High"]:SetText(v + 200)
 		_G[ySlider:GetName().."Text"]:SetText(v)
-		
+
 		ySlider:SetScript("OnValueChanged", ySliderFunc)
-		
+
 		if fe.updating then
 			return
 		end
@@ -910,7 +909,7 @@ function MovAny:CreateFrameEditor(id, name)
 	yEdit:SetScript("OnEnterPressed", yEditFunc)
 	yEdit:SetScript("OnTabPressed", tabFunc(yEditFunc))
 	yEdit:SetScript("OnEscapePressed", funcClearFocus)
-	
+
 	ySlider:SetScale(.75)
 	ySlider:SetWidth(535)
 	ySlider:SetMinMaxValues(-200, 200)
@@ -926,13 +925,13 @@ function MovAny:CreateFrameEditor(id, name)
 		_G[ySlider:GetName().."High"]:SetText(v + 200)
 		_G[ySlider:GetName().."Text"]:SetText(v)
 	end)
-	
+
 	ySliderFunc = function(self)
 		local v = MANumFor(ySlider:GetValue())
 		_G[ySlider:GetName().."Text"]:SetText(v)
-		
+
 		yEdit:SetText(MANumFor(ySlider:GetValue()))
-		
+
 		if fe.updating then
 			return
 		end
@@ -952,7 +951,7 @@ function MovAny:CreateFrameEditor(id, name)
 		end
 	end
 	ySlider:SetScript("OnValueChanged", ySliderFunc)
-	
+
 	local yMinusFunc = function()
 		local v = ySlider:GetValue() - 1
 		ySlider:SetScript("OnValueChanged", nil)
@@ -974,22 +973,22 @@ function MovAny:CreateFrameEditor(id, name)
 			yMinusFunc()
 		end
 	end)
-	
-	
+
+
 	local yMinusButton = CreateFrame("Button", fn.."YMinusButton", fe, "MAButtonTemplate")
 	yMinusButton:SetSize(20, 20)
 	yMinusButton:SetPoint("TOPLEFT", ySlider, "TOPRIGHT", 12, 2)
 	yMinusButton:SetText("-")
 	yMinusButton:SetScript("OnClick", yMinusFunc)
-	
-	
+
+
 	local yPlusButton = CreateFrame("Button", fn.."YPlusButton", fe, "MAButtonTemplate")
 	yPlusButton:SetSize(20, 20)
 	yPlusButton:SetPoint("TOPLEFT", yMinusButton, "TOPRIGHT", 3, 0)
 	yPlusButton:SetText("+")
 	yPlusButton:SetScript("OnClick", yPlusFunc)
-	
-	
+
+
 	local yResetButton = CreateFrame("Button", fn.."YResetButton", fe, "MAButtonTemplate")
 	yResetButton:SetSize(20, 20)
 	yResetButton:SetPoint("TOPLEFT", yPlusButton, "TOPRIGHT", 3, 0)
@@ -1006,14 +1005,14 @@ function MovAny:CreateFrameEditor(id, name)
 			return
 		end
 		p = p[5]
-		
+
 		ySlider:SetScript("OnValueChanged", nil)
 		ySlider:SetMinMaxValues(p - 200, p + 200)
 		ySlider:SetScript("OnValueChanged", ySliderFunc)
 		ySlider:SetValue(p)
 	end)
-	
-	
+
+
 	local yZeroButton = CreateFrame("Button", fn.."YZeroButton", fe, "MAButtonTemplate")
 	yZeroButton:SetSize(20, 20)
 	yZeroButton:SetPoint("TOPLEFT", yResetButton, "TOPRIGHT", 3, 0)
@@ -1024,20 +1023,20 @@ function MovAny:CreateFrameEditor(id, name)
 		ySlider:SetScript("OnValueChanged", ySliderFunc)
 		ySlider:SetValue(0)
 	end)
-	
-	
+
+
 	local widthLabel = fe:CreateFontString()
 	widthLabel:SetFontObject("GameFontNormalSmall")
 	widthLabel:SetSize(leftColumnWidth, 18)
 	widthLabel:SetJustifyH("LEFT")
 	widthLabel:SetPoint("TOPLEFT", yLabel, "BOTTOMLEFT", 0, -13)
 	widthLabel:SetText("Width")
-	
-	
+
+
 	local widthEdit = CreateFrame("EditBox", fn.."WidthEdit", fe, "InputBoxTemplate")
-	
+
 	local widthSlider = CreateFrame("Slider", fn.."WidthSlider", fe, "OptionsSliderTemplate")
-	
+
 	widthEdit:SetFontObject("GameFontHighlightSmall")
 	widthEdit:SetMaxLetters(10)
 	widthEdit:SetSize(59, 20)
@@ -1045,7 +1044,7 @@ function MovAny:CreateFrameEditor(id, name)
 	widthEdit:SetAutoFocus(false)
 	widthEdit:SetPoint("TOPLEFT", widthLabel, "TOPRIGHT", 12, 0)
 	widthEdit:SetText("0")
-	
+
 	local widthSliderFunc
 	local widthEditFunc = function(self)
 		self:ClearFocus()
@@ -1053,8 +1052,8 @@ function MovAny:CreateFrameEditor(id, name)
 		if v == nil or v < 1 then
 			return
 		end
-		
-		
+
+
 		local lowV = v - 200
 		if lowV < 1 then
 			lowV = 1
@@ -1067,19 +1066,19 @@ function MovAny:CreateFrameEditor(id, name)
 		_G[widthSlider:GetName().."Low"]:SetText(MANumFor(lowV))
 		_G[widthSlider:GetName().."High"]:SetText(MANumFor(lowV + 400))
 		_G[widthSlider:GetName().."Text"]:SetText(v)
-		
+
 		if fe.updating then
 			return
 		end
 		fe:VerifyOpt()
-		
+
 		fe:WriteDimentions()
 	end
-	
+
 	widthEdit:SetScript("OnEnterPressed", widthEditFunc)
 	widthEdit:SetScript("OnTabPressed", tabFunc(widthEditFunc))
 	widthEdit:SetScript("OnEscapePressed", funcClearFocus)
-	
+
 	widthSlider:SetScale(.75)
 	widthSlider:SetWidth(535)
 	widthSlider:SetMinMaxValues(-200, 200)
@@ -1088,7 +1087,7 @@ function MovAny:CreateFrameEditor(id, name)
 	widthSlider:SetPoint("TOPLEFT", widthEdit, "TOPRIGHT", 10, -2)
 	widthSlider:SetScript("OnMouseUp", function(self)
 		local v = widthSlider:GetValue()
-		
+
 		local lowV = v - 200
 		if lowV < 1 then
 			lowV = 1
@@ -1102,18 +1101,18 @@ function MovAny:CreateFrameEditor(id, name)
 	widthSliderFunc = function(self)
 		local v = MANumFor(widthSlider:GetValue())
 		_G[widthSlider:GetName().."Text"]:SetText(v)
-		
+
 		widthEdit:SetText(MANumFor(widthSlider:GetValue()))
-		
+
 		if fe.updating then
 			return
 		end
 		fe:VerifyOpt()
-		
+
 		fe:WriteDimentions()
 	end
 	widthSlider:SetScript("OnValueChanged", widthSliderFunc)
-	
+
 	local widthMinusFunc = function()
 		local v = widthSlider:GetValue() - 1
 		if v < 1 then
@@ -1149,21 +1148,21 @@ function MovAny:CreateFrameEditor(id, name)
 			widthMinusFunc()
 		end
 	end)
-	
-	
+
+
 	local widthMinusButton = CreateFrame("Button", fn.."WidthMinusButton", fe, "MAButtonTemplate")
 	widthMinusButton:SetSize(20, 20)
 	widthMinusButton:SetPoint("TOPLEFT", widthSlider, "TOPRIGHT", 12, 2)
 	widthMinusButton:SetText("-")
 	widthMinusButton:SetScript("OnClick", widthMinusFunc)
-	
-	
+
+
 	local widthPlusButton = CreateFrame("Button", fn.."WidthPlusButton", fe, "MAButtonTemplate")
 	widthPlusButton:SetSize(20, 20)
 	widthPlusButton:SetPoint("TOPLEFT", widthMinusButton, "TOPRIGHT", 3, 0)
 	widthPlusButton:SetText("+")
 	widthPlusButton:SetScript("OnClick", widthPlusFunc)
-	
+
 	local heightSlider = CreateFrame("Slider", fn.."HeightSlider", fe, "OptionsSliderTemplate")
 
 	local widthResetButton = CreateFrame("Button", fn.."WidthResetButton", fe, "MAButtonTemplate")
@@ -1176,32 +1175,32 @@ function MovAny:CreateFrameEditor(id, name)
 		if not p then
 			return
 		end
-		
+
 		local lowV = p - 200
 		if lowV < 0 then
 			lowV = 0
 		end
-		
+
 		widthSlider:SetScript("OnValueChanged", nil)
 		widthSlider:SetMinMaxValues(lowV, lowV + 400)
 		widthSlider:SetScript("OnValueChanged", widthSliderFunc)
 		widthSlider:SetValue(p)
-		
+
 		_G[heightSlider:GetName().."Low"]:SetText(MANumFor(lowV))
 		_G[heightSlider:GetName().."High"]:SetText(MANumFor(lowV + 400))
 	end)
-	
-	
+
+
 	local heightLabel = fe:CreateFontString()
 	heightLabel:SetFontObject("GameFontNormalSmall")
 	heightLabel:SetSize(leftColumnWidth, 18)
 	heightLabel:SetJustifyH("LEFT")
 	heightLabel:SetPoint("TOPLEFT", widthLabel, "BOTTOMLEFT", 0, -13)
 	heightLabel:SetText("Height")
-	
-	
+
+
 	local heightEdit = CreateFrame("EditBox", fn.."HeightEdit", fe, "InputBoxTemplate")
-	
+
 	heightEdit:SetFontObject("GameFontHighlightSmall")
 	heightEdit:SetMaxLetters(10)
 	heightEdit:SetSize(59, 20)
@@ -1209,7 +1208,7 @@ function MovAny:CreateFrameEditor(id, name)
 	heightEdit:SetAutoFocus(false)
 	heightEdit:SetPoint("TOPLEFT", heightLabel, "TOPRIGHT", 12, 0)
 	heightEdit:SetText("0")
-	
+
 	local heightSliderFunc
 	local heightEditFunc = function(self)
 		self:ClearFocus()
@@ -1225,7 +1224,7 @@ function MovAny:CreateFrameEditor(id, name)
 		heightSlider:SetScript("OnValueChanged", nil)
 		heightSlider:SetMinMaxValues(lowV, lowV + 400)
 		heightSlider:SetValue(v)
-		
+
 		v = MANumFor(v)
 		_G[heightSlider:GetName().."Low"]:SetText(MANumFor(lowV))
 		_G[heightSlider:GetName().."High"]:SetText(MANumFor(lowV + 400))
@@ -1235,14 +1234,14 @@ function MovAny:CreateFrameEditor(id, name)
 			return
 		end
 		fe:VerifyOpt()
-		
+
 		fe:WriteDimentions()
 	end
-	
+
 	heightEdit:SetScript("OnEnterPressed", heightEditFunc)
 	heightEdit:SetScript("OnTabPressed", tabFunc(heightEditFunc))
 	heightEdit:SetScript("OnEscapePressed", funcClearFocus)
-	
+
 	heightSlider:SetScale(.75)
 	heightSlider:SetWidth(535)
 	heightSlider:SetMinMaxValues(-200, 200)
@@ -1251,7 +1250,7 @@ function MovAny:CreateFrameEditor(id, name)
 	heightSlider:SetPoint("TOPLEFT", heightEdit, "TOPRIGHT", 10, -2)
 	heightSlider:SetScript("OnMouseUp", function(self)
 		local v = heightSlider:GetValue()
-		
+
 		local lowV = v - 200
 		if lowV < 1 then
 			lowV = 1
@@ -1261,22 +1260,22 @@ function MovAny:CreateFrameEditor(id, name)
 		_G[heightSlider:GetName().."Low"]:SetText(MANumFor(lowV))
 		_G[heightSlider:GetName().."High"]:SetText(MANumFor(lowV + 400))
 	end)
-	
+
 	heightSliderFunc = function(self)
 		local v = MANumFor(heightSlider:GetValue())
 		_G[heightSlider:GetName().."Text"]:SetText(v)
-		
+
 		heightEdit:SetText(MANumFor(heightSlider:GetValue()))
-		
+
 		if fe.updating then
 			return
 		end
 		fe:VerifyOpt()
-		
+
 		fe:WriteDimentions()
 	end
 	heightSlider:SetScript("OnValueChanged", heightSliderFunc)
-	
+
 	local heightMinusFunc = function()
 		local v = heightSlider:GetValue() - 1
 		if v < 1 then
@@ -1312,22 +1311,22 @@ function MovAny:CreateFrameEditor(id, name)
 			heightMinusFunc()
 		end
 	end)
-	
-	
+
+
 	local heightMinusButton = CreateFrame("Button", fn.."HeightMinusButton", fe, "MAButtonTemplate")
 	heightMinusButton:SetSize(20, 20)
 	heightMinusButton:SetPoint("TOPLEFT", heightSlider, "TOPRIGHT", 12, 2)
 	heightMinusButton:SetText("-")
 	heightMinusButton:SetScript("OnClick", heightMinusFunc)
-	
-	
+
+
 	local heightPlusButton = CreateFrame("Button", fn.."HeightPlusButton", fe, "MAButtonTemplate")
 	heightPlusButton:SetSize(20, 20)
 	heightPlusButton:SetPoint("TOPLEFT", heightMinusButton, "TOPRIGHT", 3, 0)
 	heightPlusButton:SetText("+")
 	heightPlusButton:SetScript("OnClick", heightPlusFunc)
-	
-	
+
+
 	local heightResetButton = CreateFrame("Button", fn.."HeightResetButton", fe, "MAButtonTemplate")
 	heightResetButton:SetSize(20, 20)
 	heightResetButton:SetPoint("TOPLEFT", heightPlusButton, "TOPRIGHT", 3, 0)
@@ -1338,34 +1337,34 @@ function MovAny:CreateFrameEditor(id, name)
 		if not p then
 			return
 		end
-		
+
 		local lowV = p - 200
 		if lowV < 1 then
 			lowV = 1
 		end
-		
+
 		heightSlider:SetScript("OnValueChanged", nil)
 		heightSlider:SetMinMaxValues(lowV, lowV + 400)
 		heightSlider:SetScript("OnValueChanged", heightSliderFunc)
 		heightSlider:SetValue(p)
 		local v = heightSlider:GetValue()
-		
+
 		_G[heightSlider:GetName().."Low"]:SetText(MANumFor(lowV))
 		_G[heightSlider:GetName().."High"]:SetText(MANumFor(lowV + 400))
 	end)
-	
-	
+
+
 	local scaleLabel = fe:CreateFontString()
 	scaleLabel:SetFontObject("GameFontNormalSmall")
 	scaleLabel:SetSize(leftColumnWidth, 20)
 	scaleLabel:SetJustifyH("LEFT")
 	scaleLabel:SetPoint("TOPLEFT", heightLabel, "BOTTOMLEFT", 0, -20)
 	scaleLabel:SetText("Scale:")
-	
+
 	local scaleEdit = CreateFrame("EditBox", fn.."ScaleEdit", fe, "InputBoxTemplate")
-	
+
 	local scaleSlider = CreateFrame("Slider", fn.."ScaleSlider", fe, "OptionsSliderTemplate")
-	
+
 	scaleEdit:SetFontObject("GameFontHighlightSmall")
 	scaleEdit:SetMaxLetters(6)
 	scaleEdit:SetSize(59, 20)
@@ -1373,7 +1372,7 @@ function MovAny:CreateFrameEditor(id, name)
 	scaleEdit:SetAutoFocus(false)
 	scaleEdit:SetPoint("TOPLEFT", scaleLabel, "TOPRIGHT", 12, 0)
 	scaleEdit:SetText("1")
-	
+
 	local scaleSliderFunc
 	local scaleEditFunc = function(self)
 		self:ClearFocus()
@@ -1382,11 +1381,11 @@ function MovAny:CreateFrameEditor(id, name)
 			return
 		end
 		_G[scaleSlider:GetName().."Text"]:SetText(v)
-		
+
 		scaleSlider:SetScript("OnValueChanged", nil)
 		scaleSlider:SetValue(v)
 		scaleSlider:SetScript("OnValueChanged", scaleSliderFunc)
-		
+
 		if fe.updating then
 			return
 		end
@@ -1400,7 +1399,7 @@ function MovAny:CreateFrameEditor(id, name)
 	scaleEdit:SetScript("OnEnterPressed", scaleEditFunc)
 	scaleEdit:SetScript("OnTabPressed", tabFunc(scaleEditFunc))
 	scaleEdit:SetScript("OnEscapePressed", funcClearFocus)
-	
+
 	scaleSlider:SetScale(.75)
 	scaleSlider:SetWidth(535)
 	scaleSlider:SetMinMaxValues(0.01, 10)
@@ -1412,16 +1411,16 @@ function MovAny:CreateFrameEditor(id, name)
 	end)
 	_G[scaleSlider:GetName().."Low"]:SetText("0")
 	_G[scaleSlider:GetName().."High"]:SetText("10")
-	
+
 	scaleSliderFunc = function(self)
 		if not self.GetValue then
 			return
 		end
 		local v = MANumFor(self:GetValue(), 2)
 		_G[self:GetName().."Text"]:SetText(v)
-		
+
 		scaleEdit:SetText(v)
-		
+
 		if fe.updating then
 			return
 		end
@@ -1432,7 +1431,7 @@ function MovAny:CreateFrameEditor(id, name)
 		end
 	end
 	scaleSlider:SetScript("OnValueChanged", scaleSliderFunc)
-	
+
 	local scaleMinusFunc = function()
 		local v = scaleSlider:GetValue() - .01
 		if v < 0 then
@@ -1454,22 +1453,22 @@ function MovAny:CreateFrameEditor(id, name)
 			scaleMinusFunc()
 		end
 	end)
-	
-	
+
+
 	local scaleMinusButton = CreateFrame("Button", fn.."ScaleMinusButton", fe, "MAButtonTemplate")
 	scaleMinusButton:SetSize(20, 20)
 	scaleMinusButton:SetPoint("TOPLEFT", scaleSlider, "TOPRIGHT", 12, 2)
 	scaleMinusButton:SetText("-")
 	scaleMinusButton:SetScript("OnClick", scaleMinusFunc)
-	
-	
+
+
 	local scalePlusButton = CreateFrame("Button", fn.."ScalePlusButton", fe, "MAButtonTemplate")
 	scalePlusButton:SetSize(20, 20)
 	scalePlusButton:SetPoint("TOPLEFT", scaleMinusButton, "TOPRIGHT", 3, 0)
 	scalePlusButton:SetText("+")
 	scalePlusButton:SetScript("OnClick", scalePlusFunc)
-	
-	
+
+
 	local scaleResetButton = CreateFrame("Button", fn.."ScaleResetButton", fe, "MAButtonTemplate")
 	scaleResetButton:SetSize(20, 20)
 	scaleResetButton:SetPoint("TOPLEFT", scalePlusButton, "TOPRIGHT", 3, 0)
@@ -1482,8 +1481,8 @@ function MovAny:CreateFrameEditor(id, name)
 		end
 		scaleSlider:SetValue(p)
 	end)
-	
-	
+
+
 	local scaleOneButton = CreateFrame("Button", fn.."ScaleOneButton", fe, "MAButtonTemplate")
 	scaleOneButton:SetSize(20, 20)
 	scaleOneButton:SetPoint("TOPLEFT", scaleResetButton, "TOPRIGHT", 3, 0)
@@ -1491,19 +1490,19 @@ function MovAny:CreateFrameEditor(id, name)
 	scaleOneButton:SetScript("OnClick", function()
 		scaleSlider:SetValue(1)
 	end)
-	
-	
+
+
 	local alphaLabel = fe:CreateFontString()
 	alphaLabel:SetFontObject("GameFontNormalSmall")
 	alphaLabel:SetSize(leftColumnWidth, 20)
 	alphaLabel:SetJustifyH("LEFT")
 	alphaLabel:SetPoint("TOPLEFT", scaleLabel, "BOTTOMLEFT", 0, -2)
 	alphaLabel:SetText("Alpha:")
-	
+
 	local alphaEdit = CreateFrame("EditBox", fn.."AlphaEdit", fe, "InputBoxTemplate")
-	
+
 	local alphaSlider = CreateFrame("Slider", fn.."AlphaSlider", fe, "OptionsSliderTemplate")
-	
+
 	alphaEdit:SetFontObject("GameFontHighlightSmall")
 	alphaEdit:SetMaxLetters(5)
 	alphaEdit:SetSize(59, 20)
@@ -1511,7 +1510,7 @@ function MovAny:CreateFrameEditor(id, name)
 	alphaEdit:SetAutoFocus(false)
 	alphaEdit:SetPoint("TOPLEFT", alphaLabel, "TOPRIGHT", 12, 0)
 	alphaEdit:SetText("100")
-	
+
 	local alphaSliderFunc
 	local alphaEditFunc = function(self)
 		self:ClearFocus()
@@ -1527,11 +1526,11 @@ function MovAny:CreateFrameEditor(id, name)
 			self:SetText(v)
 		end
 		_G[alphaSlider:GetName().."Text"]:SetText(v.."%")
-		
+
 		alphaSlider:SetScript("OnValueChanged", nil)
 		alphaSlider:SetValue(v / 100)
 		alphaSlider:SetScript("OnValueChanged", alphaSliderFunc)
-		
+
 		if fe.updating then
 			return
 		end
@@ -1540,7 +1539,7 @@ function MovAny:CreateFrameEditor(id, name)
 	alphaEdit:SetScript("OnEnterPressed", alphaEditFunc)
 	alphaEdit:SetScript("OnTabPressed", tabFunc(alphaEditFunc))
 	alphaEdit:SetScript("OnEscapePressed", funcClearFocus)
-	
+
 	alphaSlider:SetScale(.75)
 	alphaSlider:SetWidth(535)
 	alphaSlider:SetMinMaxValues(0,1)
@@ -1550,12 +1549,12 @@ function MovAny:CreateFrameEditor(id, name)
 	alphaSlider:SetScript("OnMouseUp", function(self)
 		_G[self:GetName().."Text"]:SetText(MANumFor(alphaSlider:GetValue() * 100, 0).."%")
 	end)
-	
+
 	alphaSliderFunc = function(self)
 		local v = MANumFor(alphaSlider:GetValue() * 100, 0)
 		_G[self:GetName().."Text"]:SetText(v.."%")
 		alphaEdit:SetText(v)
-		
+
 		if fe.updating then
 			return
 		end
@@ -1564,7 +1563,7 @@ function MovAny:CreateFrameEditor(id, name)
 	alphaSlider:SetScript("OnValueChanged", alphaSliderFunc)
 	_G[alphaSlider:GetName().."Low"]:SetText("0%")
 	_G[alphaSlider:GetName().."High"]:SetText("100%")
-	
+
 	local alphaMinusFunc = function()
 		local v = alphaSlider:GetValue() - .01
 		if v < 0 then
@@ -1586,22 +1585,22 @@ function MovAny:CreateFrameEditor(id, name)
 			alphaMinusFunc()
 		end
 	end)
-	
-	
+
+
 	local alphaMinusButton = CreateFrame("Button", fn.."AlphaMinusButton", fe, "MAButtonTemplate")
 	alphaMinusButton:SetSize(20, 20)
 	alphaMinusButton:SetPoint("TOPLEFT", alphaSlider, "TOPRIGHT", 12, 2)
 	alphaMinusButton:SetText("-")
 	alphaMinusButton:SetScript("OnClick", alphaMinusFunc)
-	
-	
+
+
 	local alphaPlusButton = CreateFrame("Button", fn.."AlphaPlusButton", fe, "MAButtonTemplate")
 	alphaPlusButton:SetSize(20, 20)
 	alphaPlusButton:SetPoint("TOPLEFT", alphaMinusButton, "TOPRIGHT", 3, 0)
 	alphaPlusButton:SetText("+")
 	alphaPlusButton:SetScript("OnClick", alphaPlusFunc)
-	
-	
+
+
 	local alphaResetButton = CreateFrame("Button", fn.."AlphaResetButton", fe, "MAButtonTemplate")
 	alphaResetButton:SetSize(20, 20)
 	alphaResetButton:SetPoint("TOPLEFT", alphaPlusButton, "TOPRIGHT", 3, 0)
@@ -1614,8 +1613,8 @@ function MovAny:CreateFrameEditor(id, name)
 		end
 		alphaSlider:SetValue(p)
 	end)
-	
-	
+
+
 	local alphaFullButton = CreateFrame("Button", fn.."AlphaFullButton", fe, "MAButtonTemplate")
 	alphaFullButton:SetSize(20, 20)
 	alphaFullButton:SetPoint("TOPLEFT", alphaResetButton, "TOPRIGHT", 3, 0)
@@ -1623,17 +1622,17 @@ function MovAny:CreateFrameEditor(id, name)
 	alphaFullButton:SetScript("OnClick", function()
 		alphaSlider:SetValue(1)
 	end)
-	
-	
+
+
 	local hideArtworkCheck = CreateFrame("CheckButton", fn.."HideLayerArtwork", fe, "MACheckButtonTemplate")
 	local hideBackgroundCheck = CreateFrame("CheckButton", fn.."HideLayerBackground", fe, "MACheckButtonTemplate")
 	local hideBorderCheck = CreateFrame("CheckButton", fn.."HideLayerBorder", fe, "MACheckButtonTemplate")
 	local hideHighlightCheck = CreateFrame("CheckButton", fn.."HideLayerHighlight", fe, "MACheckButtonTemplate")
 	local hideOverlayCheck = CreateFrame("CheckButton", fn.."HideLayerOverlay", fe, "MACheckButtonTemplate")
-	
+
 	local hideLayerFunc = function(self)
 		local opt = fe:VerifyOpt()
-		
+
 		if fe.editFrame and not opt.disabled then
 			MovAny.Layers:Reset(fe.e, fe.editFrame, true)
 		end
@@ -1650,24 +1649,24 @@ function MovAny:CreateFrameEditor(id, name)
 			layer = "disableLayerOverlay"
 		end
 		opt[layer] = self:GetChecked()
-		
+
 		if fe.editFrame and not opt.disabled then
 			MovAny.Layers:Apply(fe.e, fe.editFrame)
 		end
 		if opt.groups and not IsShiftKeyDown() then
 			MovAny:GroupLayers(fe.e, opt.groups, layer, opt)
 		end
-		
+
 		MovAny:UpdateGUIIfShown(true)
 	end
-	
+
 	local hideLayersHeading = fe:CreateFontString()
 	hideLayersHeading:SetFontObject("GameFontNormalSmall")
 	hideLayersHeading:SetSize(85, 20)
 	hideLayersHeading:SetJustifyH("LEFT")
 	hideLayersHeading:SetPoint("TOPLEFT", alphaLabel, "BOTTOMLEFT", 0, -10)
 	hideLayersHeading:SetText("Hide Layer")
-	
+
 	local layersResetButton = CreateFrame("Button", fn.."PointResetButton", fe, "MAButtonTemplate")
 	layersResetButton:SetSize(20, 20)
 	layersResetButton:SetPoint("TOPLEFT", hideLayersHeading, "TOPRIGHT", 0, -1)
@@ -1690,49 +1689,49 @@ function MovAny:CreateFrameEditor(id, name)
 		hideBorderCheck:SetChecked(nil)
 		hideHighlightCheck:SetChecked(nil)
 		hideOverlayCheck:SetChecked(nil)
-		
+
 		MovAny:UpdateGUIIfShown(true)
 	end)
-	
+
 	hideArtworkCheck:SetPoint("TOPLEFT", hideLayersHeading, "BOTTOMLEFT", 4, -2)
 	hideArtworkCheck:SetScript("OnClick", hideLayerFunc)
 	_G[hideArtworkCheck:GetName().."Text"]:SetText("Artwork")
-	
+
 	hideBackgroundCheck:SetPoint("TOPLEFT", hideArtworkCheck, "BOTTOMLEFT", 0, -1)
 	hideBackgroundCheck:SetScript("OnClick", hideLayerFunc)
 	_G[hideBackgroundCheck:GetName().."Text"]:SetText("Background")
-	
+
 	hideBorderCheck:SetPoint("TOPLEFT", hideBackgroundCheck, "BOTTOMLEFT", 0, -1)
 	hideBorderCheck:SetScript("OnClick", hideLayerFunc)
 	_G[hideBorderCheck:GetName().."Text"]:SetText("Border")
-	
+
 	hideHighlightCheck:SetPoint("TOPLEFT", hideBorderCheck, "BOTTOMLEFT", 0, -1)
 	hideHighlightCheck:SetScript("OnClick", hideLayerFunc)
 	_G[hideHighlightCheck:GetName().."Text"]:SetText("Highlight")
-	
+
 	hideOverlayCheck:SetPoint("TOPLEFT", hideHighlightCheck, "BOTTOMLEFT", 0, -1)
 	hideOverlayCheck:SetScript("OnClick", hideLayerFunc)
 	_G[hideOverlayCheck:GetName().."Text"]:SetText("Overlay")
-	
-	
+
+
 	local strataLabel = fe:CreateFontString()
 	strataLabel:SetFontObject("GameFontNormalSmall")
 	strataLabel:SetSize(35, 20)
 	strataLabel:SetJustifyH("LEFT")
 	strataLabel:SetPoint("TOPLEFT", layersResetButton, "TOPRIGHT", 30, 0)
 	strataLabel:SetText("Strata:")
-	
+
 	local strataDropDownButton = CreateFrame("Button", fn.."Strata", fe, "UIDropDownMenuTemplate")
 	strataDropDownButton:SetID(3)
 	strataDropDownButton:SetScript("OnClick", dropDownClickFunc)
-	
+
 	local strataFunc = function(self)
 		UIDropDownMenu_SetSelectedValue(strataDropDownButton, self.value)
-		
+
 		local opt = fe:VerifyOpt()
 		if opt.frameStrata ~= self.value then
 			opt.frameStrata = self.value
-			
+
 			local editFrame = fe.editFrame
 			if editFrame and not opt.disabled then
 				if not opt.orgFrameStrata then
@@ -1752,14 +1751,14 @@ function MovAny:CreateFrameEditor(id, name)
 					MovAny.pendingActions[fe.e.name..":SetFrameStrata"] = closure(editFrame, opt.frameStrata)
 				end
 			end
-			
+
 			MovAny:UpdateGUIIfShown(true)
 		end
 	end
 
 	local strataDropDown_MenuInit = function()
 		local frameStrata = (fe.opt and fe.opt.frameStrata) or (fe.editFrame and fe.editFrame:GetFrameStrata()) or nil
-		
+
 		local info, text, value
 		for _, infoTab in pairs(MovAny.DDMStrataList) do
 			text, value = unpack(infoTab)
@@ -1767,8 +1766,8 @@ function MovAny:CreateFrameEditor(id, name)
 			info.text = text
 			info.value = value
 			info.func = strataFunc
-			
-			
+
+
 			if frameStrata == infoTab.value then
 				info.checked = true
 			end
@@ -1781,7 +1780,7 @@ function MovAny:CreateFrameEditor(id, name)
 	UIDropDownMenu_SetWidth(strataDropDownButton, 130)
 	--[[trataDropDownButton:SetScript("OnClick", function()
 		ToggleDropDownMenu(1, nil, nil, strataDropDownButton, 0, 0, nil, strataDropDownButton)
-	end)]]	
+	end)]]
 
 	local strataResetButton = CreateFrame("Button", fn.."StrataResetButton", fe, "MAButtonTemplate")
 	strataResetButton:SetSize(20, 20)
@@ -1794,7 +1793,7 @@ function MovAny:CreateFrameEditor(id, name)
 		if not fs then
 			return
 		end
-		
+
 
 		if strataDropDownButton:GetText() ~= fs then
 			if editFrame and not opt.disabled then
@@ -1813,25 +1812,25 @@ function MovAny:CreateFrameEditor(id, name)
 				end
 			end
 			opt.frameStrata = fs
-			
+
 			UIDropDownMenu_Initialize(strataDropDownButton, strataDropDown_MenuInit)
 			UIDropDownMenu_SetSelectedValue(strataDropDownButton, fs)
-			
+
 			opt.orgFrameStrata = nil
 			opt.frameStrata = nil
 		end
-		
+
 		MovAny:UpdateGUIIfShown(true)
 	end)
-	
-	
+
+
 	local unregisterAllEventsCheck = CreateFrame("CheckButton", fn.."UnregAllEventsCheckButton", fe, "MACheckButtonTemplate")
 	unregisterAllEventsCheck:SetPoint("TOPLEFT", strataLabel, "BOTTOMLEFT", 0, -20)
 	unregisterAllEventsCheck:SetScript("OnClick", function(self)
 		if not self:GetChecked() or (type(self.confirm) == "number" and self.confirm + 5 >= time()) then
 			fe:VerifyOpt()
 			local opt = fe.opt
-			
+
 			if opt.unregisterAllEvents then
 				opt.unregisterAllEvents = nil
 			else
@@ -1845,21 +1844,21 @@ function MovAny:CreateFrameEditor(id, name)
 		else 
 			self.confirm = time()
 			maPrint(MOVANY.FE_UNREGISTER_ALL_EVENTS_CONFIRM)
-			
+
 			self:SetChecked(not self:GetChecked())
 		end
 	end)
 	unregisterAllEventsCheck.tooltipText = MOVANY.FE_UNREGISTER_ALL_EVENTS_TOOLTIP
 	_G[unregisterAllEventsCheck:GetName().."Text"]:SetText("Unregister all events")
-	
-	
+
+
 	local forcedLockPointCheck = CreateFrame("CheckButton", fn.."ForcedLockCheckButton", fe, "MACheckButtonTemplate")
 	forcedLockPointCheck:SetPoint("TOPLEFT", unregisterAllEventsCheck, "BOTTOMLEFT", 0, -2)
 	forcedLockPointCheck:SetScript("OnClick", function(self)
 		if not self:GetChecked() or (type(self.confirm) == "number" and self.confirm + 5 >= time()) then
 			fe:VerifyOpt()
 			local opt = fe.opt
-			
+
 			if opt.forcedLock then
 				opt.forcedLock = nil
 			else
@@ -1874,14 +1873,14 @@ function MovAny:CreateFrameEditor(id, name)
 		else 
 			self.confirm = time()
 			maPrint(MOVANY.FE_FORCED_LOCK_POSITION_CONFIRM)
-			
+
 			self:SetChecked(not self:GetChecked())
 		end
 	end)
 	forcedLockPointCheck.tooltipText = MOVANY.FE_FORCED_LOCK_POSITION_TOOLTIP
 	_G[forcedLockPointCheck:GetName().."Text"]:SetText("Force lock position")
 
-	
+
 	local revertButton = CreateFrame("Button", fn.."RevertButton", fe, "MAButtonTemplate")
 	revertButton:SetSize(75, 22)
 	revertButton:SetPoint("TOPLEFT", fe, "BOTTOMRIGHT", -180, 140)
@@ -1910,8 +1909,8 @@ function MovAny:CreateFrameEditor(id, name)
 			end
 		end
 	end)
-	
-	
+
+
 	local resetButton = CreateFrame("Button", fn.."ResetButton", fe, "MAButtonTemplate")
 	resetButton:SetSize(75, 22)
 	resetButton:SetPoint("TOPLEFT", revertButton, "BOTTOMLEFT", 0, -10)
@@ -1921,7 +1920,7 @@ function MovAny:CreateFrameEditor(id, name)
 		if not fe.editFrame then
 			return
 		end
-		
+
 		MovAny:ResetFrameConfirm(fe.e.name)
 	end)
 
@@ -1930,8 +1929,8 @@ function MovAny:CreateFrameEditor(id, name)
 	exportButton:SetPoint("TOPLEFT", resetButton, "BOTTOMLEFT", 0, -10)
 	exportButton:SetText("Export")
 	exportButton:SetScript("OnClick", function() MovAny:PortDialog(2, fe.fn) end)
-	
-	
+
+
 	local syncButton = CreateFrame("Button", fn.."SyncButton", fe, "MAButtonTemplate")
 	syncButton:SetSize(75, 22)
 	syncButton:SetPoint("TOPLEFT", exportButton, "BOTTOMLEFT", 0, -10)
@@ -1943,8 +1942,8 @@ function MovAny:CreateFrameEditor(id, name)
 			fe.e:Sync()
 		end
 	end)
-	
-	
+
+
 	local moverButton = CreateFrame("Button", fn.."MoverButton", fe, "MAButtonTemplate")
 	moverButton:SetSize(75, 22)
 	moverButton:SetPoint("TOPLEFT", revertButton, "TOPRIGHT", 10, 0)
@@ -1954,8 +1953,8 @@ function MovAny:CreateFrameEditor(id, name)
 		MovAny:ToggleMove(fe.e.name)
 		fe:UpdateButtons()
 	end)
-	
-	
+
+
 	local showButton = CreateFrame("Button", fn.."ShowButton", fe, "MAButtonTemplate")
 	showButton:SetSize(75, 22)
 	showButton:SetPoint("TOPLEFT", moverButton, "BOTTOMLEFT", 0, -10)
@@ -1986,106 +1985,106 @@ function MovAny:CreateFrameEditor(id, name)
 			maPrint(string.format(MOVANY.FRAME_PROTECTED_DURING_COMBAT, f:GetName()))
 		end
 	end)
-	
-	
+
+
 	local importButton = CreateFrame("Button", fn.."ImportButton", fe, "MAButtonTemplate")
 	importButton:SetSize(75, 22)
 	importButton:SetPoint("TOPLEFT", showButton, "BOTTOMLEFT", 0, -10)
 	importButton:SetText("Import")
 	importButton:SetScript("OnClick", function() MovAny:PortDialog(1, fe.fn) end)
-	
-	
-	
+
+
+
 	local actualsHeading = fe:CreateFontString()
 	actualsHeading:SetFontObject("GameFontNormalSmall")
 	actualsHeading:SetSize(140, 20)
 	actualsHeading:SetJustifyH("LEFT")
 	actualsHeading:SetPoint("TOPRIGHT", fe, "TOPRIGHT", -25, -4)
 	actualsHeading:SetText("Absolute values")
-	
+
 	local infoTextWidthLabel = fe:CreateFontString()
 	infoTextWidthLabel:SetFontObject("GameFontNormalSmall")
 	infoTextWidthLabel:SetSize(leftColumnWidth, 16)
 	infoTextWidthLabel:SetJustifyH("RIGHT")
 	infoTextWidthLabel:SetPoint("TOPLEFT", actualsHeading, "BOTTOMLEFT", -55, -1)
 	infoTextWidthLabel:SetText("Width:")
-	
+
 	local infoTextWidth = fe:CreateFontString()
 	infoTextWidth:SetFontObject("GameFontNormalSmall")
 	infoTextWidth:SetSize(60, 16)
 	infoTextWidth:SetJustifyH("LEFT")
 	infoTextWidth:SetPoint("TOPLEFT", infoTextWidthLabel, "TOPRIGHT", 3, 0)
-	
-	
+
+
 	local infoTextXLabel = fe:CreateFontString()
 	infoTextXLabel:SetFontObject("GameFontNormalSmall")
 	infoTextXLabel:SetSize(leftColumnWidth, 16)
 	infoTextXLabel:SetJustifyH("RIGHT")
 	infoTextXLabel:SetPoint("TOPLEFT", infoTextWidthLabel, "BOTTOMLEFT", 0, -1)
 	infoTextXLabel:SetText("X:")
-	
+
 	local infoTextX = fe:CreateFontString()
 	infoTextX:SetFontObject("GameFontNormalSmall")
 	infoTextX:SetSize(60, 16)
 	infoTextX:SetJustifyH("LEFT")
 	infoTextX:SetPoint("TOPLEFT", infoTextXLabel, "TOPRIGHT", 3, 0)
-	
-	
+
+
 	local infoTextAlphaLabel = fe:CreateFontString()
 	infoTextAlphaLabel:SetFontObject("GameFontNormalSmall")
 	infoTextAlphaLabel:SetSize(leftColumnWidth, 16)
 	infoTextAlphaLabel:SetJustifyH("RIGHT")
 	infoTextAlphaLabel:SetPoint("TOPLEFT", infoTextXLabel, "BOTTOMLEFT", 0, -1)
 	infoTextAlphaLabel:SetText("Alpha:")
-	
+
 	local infoTextAlpha = fe:CreateFontString()
 	infoTextAlpha:SetFontObject("GameFontNormalSmall")
 	infoTextAlpha:SetSize(60, 16)
 	infoTextAlpha:SetJustifyH("LEFT")
 	infoTextAlpha:SetPoint("TOPLEFT", infoTextAlphaLabel, "TOPRIGHT", 3, 0)
-	
-	
+
+
 	local infoTextHeightLabel = fe:CreateFontString()
 	infoTextHeightLabel:SetFontObject("GameFontNormalSmall")
 	infoTextHeightLabel:SetSize(leftColumnWidth, 16)
 	infoTextHeightLabel:SetJustifyH("RIGHT")
 	infoTextHeightLabel:SetPoint("TOPLEFT", actualsHeading, "BOTTOMLEFT", 55, -1)
 	infoTextHeightLabel:SetText("Height:")
-	
+
 	local infoTextHeight = fe:CreateFontString()
 	infoTextHeight:SetFontObject("GameFontNormalSmall")
 	infoTextHeight:SetSize(60, 16)
 	infoTextHeight:SetJustifyH("LEFT")
 	infoTextHeight:SetPoint("TOPLEFT", infoTextHeightLabel, "TOPRIGHT", 3, 0)
-	
-	
+
+
 	local infoTextYLabel = fe:CreateFontString()
 	infoTextYLabel:SetFontObject("GameFontNormalSmall")
 	infoTextYLabel:SetSize(leftColumnWidth, 16)
 	infoTextYLabel:SetJustifyH("RIGHT")
 	infoTextYLabel:SetPoint("TOPLEFT", infoTextHeightLabel, "BOTTOMLEFT", 0, -1)
 	infoTextYLabel:SetText("Y:")
-	
+
 	local infoTextY = fe:CreateFontString()
 	infoTextY:SetFontObject("GameFontNormalSmall")
 	infoTextY:SetSize(60, 16)
 	infoTextY:SetJustifyH("LEFT")
 	infoTextY:SetPoint("TOPLEFT", infoTextYLabel, "TOPRIGHT", 3, 0)
-	
-	
+
+
 	local infoTextScaleLabel = fe:CreateFontString()
 	infoTextScaleLabel:SetFontObject("GameFontNormalSmall")
 	infoTextScaleLabel:SetSize(leftColumnWidth, 16)
 	infoTextScaleLabel:SetJustifyH("RIGHT")
 	infoTextScaleLabel:SetPoint("TOPLEFT", infoTextYLabel, "BOTTOMLEFT", 0, -1)
 	infoTextScaleLabel:SetText("Scale:")
-	
+
 	local infoTextScale = fe:CreateFontString()
 	infoTextScale:SetFontObject("GameFontNormalSmall")
 	infoTextScale:SetSize(60, 16)
 	infoTextScale:SetJustifyH("LEFT")
 	infoTextScale:SetPoint("TOPLEFT", infoTextScaleLabel, "TOPRIGHT", 3, 0)
-	
+
 	posResetButton:SetScript("OnClick", function()
 		local opt = fe:VerifyOpt()
 		if not opt.pos then
@@ -2096,9 +2095,9 @@ function MovAny:CreateFrameEditor(id, name)
 		else
 			opt.pos = nil
 		end
-		
+
 		fe.updating = true
-		
+
 		local p
 		if fe.editFrame then
 			local mover = MovAny:GetMoverByFrame(fe.e.name)
@@ -2112,11 +2111,11 @@ function MovAny:CreateFrameEditor(id, name)
 		end
 		UIDropDownMenu_Initialize(pointDropDownButton, pointDropDown_MenuInit)
 		UIDropDownMenu_SetSelectedValue(pointDropDownButton, p[1] or "TOPLEFT")
-		
+
 		local relPoint = p[3] or p[1] or "TOPLEFT"
 		UIDropDownMenu_Initialize(relPointDropDownButton, relPointDropDown_MenuInit)
 		UIDropDownMenu_SetSelectedValue(relPointDropDownButton, relPoint)
-		
+
 		local relativeTo = "UIParent"
 		if p[2] then
 			if type(p[2]) == "string" then
@@ -2126,7 +2125,7 @@ function MovAny:CreateFrameEditor(id, name)
 			end
 		end
 		relToEdit:SetText(relativeTo)
-		
+
 		local v = tonumber(MANumFor(p[4])) or 0
 		xSlider:SetScript("OnValueChanged", nil)
 		xSlider:SetMinMaxValues(v - 200, v + 200)
@@ -2136,7 +2135,7 @@ function MovAny:CreateFrameEditor(id, name)
 		xSlider:SetValue(v)
 		xSlider:SetScript("OnValueChanged", xSliderFunc)
 		xEdit:SetText(v)
-		
+
 		v = tonumber(MANumFor(p[5])) or 0
 		ySlider:SetMinMaxValues(v - 200, v + 200)
 		ySlider:SetMinMaxValues(v - 200, v + 200)
@@ -2146,30 +2145,30 @@ function MovAny:CreateFrameEditor(id, name)
 		ySlider:SetValue(v)
 		ySlider:SetScript("OnValueChanged", ySliderFunc)
 		yEdit:SetText(v)
-		
+
 		fe.updating = nil
 	end)
-	
-	
+
+
 	fe.LoadFrame = function(self, name)
 		if self.o then
 			MovAny.frameEditors[self.e.name] = nil
 		end
-		
+
 		local e = MovAny.API:GetElement(name)
 		if e.runOnce then
 			if not e.runOnce() then
 				e.runOnce = nil
 			end
 		end
-		
+
 		self.lastX = nil
 		self.lastY = nil
-		
+
 		self.editFrame = _G[name]
 		self.opt = MovAny:GetUserData(name, nil, true)
 		self.e = e
-		
+
 		if not self.e then
 			if self.editFrame then
 				MovAny:AddFrameToMovableList(name, name)
@@ -2183,62 +2182,62 @@ function MovAny:CreateFrameEditor(id, name)
 				return
 			end
 		end
-		
+
 		fe.fn = name
-		
+
 		self.initialOpt = MA_tdeepcopy(self.opt)
 		--self.initialOpt = MovAny:IsModified(name, nil, self.opt) and MA_tdeepcopy(self.opt) or { }
-		
+
 		MovAny.frameEditors[name] = self
 		self:UpdateEditor()
 	end
-	
+
 	fe.UpdateEditor = function()
 		fe.updating = true
-		
+
 		local o = fe.e
 		local fn = o.name
 		local opt = MovAny:GetUserData(fn)
 		fe.opt = opt
 		local editFrame = fe.editFrame
-		
+
 		table.wipe(tabList)
-		
+
 		fe.frameHeight = 490
-		
+
 		realName:SetText(fn)
 		displayName:SetText(o.displayName)
-		
+
 		enabledCheck:SetChecked(not opt or not opt.disabled)
-		
+
 		if not o.noHide then
 			hideCheck:Show()
 			hideCheck:SetChecked(opt and opt.hidden)
 		else
 			hideCheck:Hide()
 		end
-		
+
 		if not editFrame or editFrame.IsClampedToScreen then
 			clampToScreenCheck:Show()
 			clampToScreenCheck:SetChecked((opt and opt.clampToScreen) or (editFrame and editFrame:IsClampedToScreen()))
 		else
 			clampToScreenCheck:Hide()
 		end
-		
-		
+
+
 		for i=1, 13, 1 do
 			_G[fe:GetName().."Group"..i]:SetChecked(type(opt) == "table" and type(opt.groups) == "table" and opt.groups[i] and true or nil)
 		end
-		
+
 		local nextPoint = {"TOPLEFT", groupLabel, "BOTTOMLEFT", 0, -10}
-		
+
 		nextPoint = fe:UpdatePointControls(nextPoint)
 		nextPoint = fe:UpdateScale(nextPoint)
-		
+
 		if not o.noAlpha then
 			alphaLabel:SetPoint(unpack(nextPoint))
 			nextPoint = {"TOPLEFT", alphaLabel, "BOTTOMLEFT", 0, -20}
-			
+
 			alphaLabel:Show()
 			alphaEdit:Show()
 			alphaSlider:Show()
@@ -2246,11 +2245,11 @@ function MovAny:CreateFrameEditor(id, name)
 			alphaPlusButton:Show()
 			alphaResetButton:Show()
 			alphaFullButton:Show()
-			
+
 			local alpha = opt and opt.alpha or 1
 			alphaSlider:SetValue(alpha)
 			_G[alphaSlider:GetName().."Text"]:SetText(MANumFor(alphaSlider:GetValue() * 100, 0).."%")
-			
+
 			tinsert(tabList, alphaEdit)
 		else
 			fe.frameHeight = fe.frameHeight - 40
@@ -2263,37 +2262,37 @@ function MovAny:CreateFrameEditor(id, name)
 			alphaFullButton:Hide()
 		end
 		fe:SetHeight(fe.frameHeight)
-		
+
 		hideLayersHeading:SetPoint(unpack(nextPoint))
-		
+
 		if fe.editFrame and fe.editFrame.DisableDrawLayer and not MovAny.lVirtualMovers[fe.e.name] then
 			hideLayersHeading:Show()
-			
+
 			hideArtworkCheck:Show()
 			hideBackgroundCheck:Show()
 			hideBorderCheck:Show()
 			hideHighlightCheck:Show()
 			hideOverlayCheck:Show()
-			
+
 			hideArtworkCheck:SetChecked(fe.opt and fe.opt.disableLayerArtwork)
 			hideBackgroundCheck:SetChecked(fe.opt and fe.opt.disableLayerBackground)
 			hideBorderCheck:SetChecked(fe.opt and fe.opt.disableLayerBorder)
 			hideHighlightCheck:SetChecked(fe.opt and fe.opt.disableLayerHighlight)
 			hideOverlayCheck:SetChecked(fe.opt and fe.opt.disableLayerOverlay)
-			
+
 			layersResetButton:Show()
 		else
 			hideLayersHeading:Hide()
-			
+
 			hideArtworkCheck:Hide()
 			hideBackgroundCheck:Hide()
 			hideBorderCheck:Hide()
 			hideHighlightCheck:Hide()
 			hideOverlayCheck:Hide()
-			
+
 			layersResetButton:Hide()
 		end
-		
+
 		if (opt and opt.frameStrata) or (editFrame and editFrame.GetFrameStrata and editFrame:GetFrameStrata()) then
 			strataLabel:Show()
 			strataDropDownButton:Show()
@@ -2310,7 +2309,7 @@ function MovAny:CreateFrameEditor(id, name)
 			strataDropDownButton:Hide()
 			strataResetButton:Hide()
 		end
-		
+
 		if not editFrame or not editFrame.UnregisterAllEvents then
 			unregisterAllEventsCheck:Hide()
 		else
@@ -2319,18 +2318,18 @@ function MovAny:CreateFrameEditor(id, name)
 		end
 		fe:UpdateButtons()
 		fe:UpdateActuals()
-		
+
 		fe.updating = nil
 	end
-	
+
 	fe.UpdateButtons = function()
-		
+
 		if MovAny:GetUserData(fe.e.name) then
 			resetButton:Enable()
 		else
 			resetButton:Disable()
 		end
-		
+
 		if fe.editFrame then
 			local mover = MovAny:GetMoverByFrame(fe.editFrame)
 			moverButton:Enable()
@@ -2344,7 +2343,7 @@ function MovAny:CreateFrameEditor(id, name)
 			moverButton:Disable()
 			syncButton:Disable()
 		end
-		
+
 		if fe.editFrame then
 			showButton:Enable()
 			showButton:SetText(fe.editFrame:IsShown() and "Hide" or "Show")
@@ -2352,7 +2351,7 @@ function MovAny:CreateFrameEditor(id, name)
 			showButton:Disable()
 		end
 	end
-	
+
 	fe.CloseDialog = function(self)
 		if IsShiftKeyDown() and IsControlKeyDown() and IsAltKeyDown() then
 			ReloadUI()
@@ -2365,7 +2364,7 @@ function MovAny:CreateFrameEditor(id, name)
 			self.initialOpt = nil
 		end
 	end
-	
+
 	fe.VerifyOpt = function(self, dontCreate)
 		local opt = MovAny:GetUserData(fe.e.name)
 		if not opt then
@@ -2385,13 +2384,13 @@ function MovAny:CreateFrameEditor(id, name)
 		local fn = fe.e.name
 		local editFrame = fe.editFrame
 		local opt = fe:VerifyOpt()
-		
+
 		if fe.editFrame and not opt.orgPos then
 			MovAny.Position:StoreOrgPoints(editFrame, opt)
 		end
 
 		fe.updating = true
-		
+
 		if opt.groups and not IsShiftKeyDown() then
 			local x = fe.lastX and opt.pos[4] - fe.lastX or 0
 			x = x * (opt.scale or 1)
@@ -2401,7 +2400,7 @@ function MovAny:CreateFrameEditor(id, name)
 		end
 		fe.lastX = nil
 		fe.lastY = nil
-		
+
 		if editFrame and not opt.disabled then
 			local mover = MovAny:GetMoverByFrame(fn)
 			if mover and (not InCombatLockdown() or not MovAny:IsProtected(editFrame)) then
@@ -2425,7 +2424,7 @@ function MovAny:CreateFrameEditor(id, name)
 				MovAny:AttachMover(fn)
 			end
 		end
-		
+
 		MovAny:UpdateGUIIfShown(true)
 		if updateEditor then
 			fe:UpdateEditor()
@@ -2445,17 +2444,17 @@ function MovAny:CreateFrameEditor(id, name)
 		local opt = fe:VerifyOpt()
 
 		local scale = scaleSlider:GetValue()
-		
+
 		fe.updating = true
-		
+
 		local mover = MovAny:GetMoverByFrame(fn)
 		if mover and (not InCombatLockdown() or not MovAny:IsProtected(editFrame)) then
 			mover.dontUpdate = true
 			MovAny:StopMoving(fn)
 		end
-		
+
 		local updateGUI = nil
-		
+
 		if scale > 0 then
 			if opt.pos and opt.scale then
 				opt.pos[4] = opt.pos[4] * opt.scale
@@ -2468,12 +2467,12 @@ function MovAny:CreateFrameEditor(id, name)
 			if opt.groups and not IsShiftKeyDown() then
 				MovAny:GroupScale(fe.e, opt.groups, scale - (opt.scale or (editFrame and editFrame:GetScale())), scale)
 			end
-			
+
 			if scale ~= opt.scale then
 				updateGUI = true
 			end
 			opt.scale = scale
-			
+
 			if editFrame and not opt.disabled then
 				if not InCombatLockdown() or not MovAny:IsProtected(editFrame) then
 					MovAny.Scale:Apply(fe.e, editFrame)
@@ -2496,11 +2495,11 @@ function MovAny:CreateFrameEditor(id, name)
 				opt.orgScale = nil
 			end
 		end
-		
+
 		if mover and (not InCombatLockdown() or not MovAny:IsProtected(editFrame)) then
 			MovAny:AttachMover(fn)
 		end
-		
+
 		--if updateGUI then
 			MovAny:UpdateGUIIfShown(true)
 		--end
@@ -2508,7 +2507,7 @@ function MovAny:CreateFrameEditor(id, name)
 		fe:UpdateActuals()
 		fe.updating = nil
 	end
-	
+
 	fe.WriteDimentions = function()
 		if fe.updating then
 			return
@@ -2516,19 +2515,19 @@ function MovAny:CreateFrameEditor(id, name)
 		local fn = fe.e.name
 		local editFrame = fe.editFrame
 		local opt = fe:VerifyOpt()
-		
+
 		if editFrame then
 			if type(opt.orgWidth) == "nil" then
 				opt.orgWidth = editFrame:GetWidth()
 			end
-			
+
 			if type(opt.orgHeight) == "nil" then
 				opt.orgHeight = editFrame:GetHeight()
 			end
 		end
-		
+
 		local updateGUI = nil
-		
+
 		local width = widthSlider:GetValue()
 		if width >= 0 then
 			if width ~= opt.width then
@@ -2540,7 +2539,7 @@ function MovAny:CreateFrameEditor(id, name)
 			end
 			opt.width = width
 		end
-		
+
 		local height = heightSlider:GetValue()
 		if height >= 0 then
 			if height ~= opt.height then
@@ -2552,18 +2551,18 @@ function MovAny:CreateFrameEditor(id, name)
 			end
 			opt.height = height
 		end
-		
+
 		if opt.disabled then
 			return
 		end
-		
+
 		fe.updating = true
 		local mover = MovAny:GetMoverByFrame(fn)
 		if mover and (not InCombatLockdown() or not MovAny:IsProtected(editFrame)) then
 			mover.dontUpdate = true
 			MovAny:StopMoving(fn)
 		end
-		
+
 		if editFrame then
 			if not InCombatLockdown() or not MovAny:IsProtected(editFrame) then
 				MovAny.Scale:Apply(fe.e, editFrame)
@@ -2582,7 +2581,7 @@ function MovAny:CreateFrameEditor(id, name)
 		if mover and (not InCombatLockdown() or not MovAny:IsProtected(editFrame)) then
 			MovAny:AttachMover(fn)
 		end
-		
+
 		--if updateGUI then
 			MovAny:UpdateGUIIfShown(true)
 		--end
@@ -2597,7 +2596,7 @@ function MovAny:CreateFrameEditor(id, name)
 		end
 		local fn = fe.e.name
 		local opt = fe:VerifyOpt()
-		
+
 		fe.updating = true
 		local alpha = tonumber(alphaSlider:GetValue())
 		if opt.alpha ~= alpha then
@@ -2605,7 +2604,7 @@ function MovAny:CreateFrameEditor(id, name)
 				MovAny:GroupAlpha(fe.e, opt.groups, alpha - (opt.alpha or (fe.editFrame and fe.editFrame:GetAlpha()) or 1), alpha)
 			end
 			opt.alpha = alpha
-			
+
 			if fe.editFrame then
 				MovAny.Alpha:Apply(fe.e, fe.editFrame)
 			end
@@ -2613,15 +2612,15 @@ function MovAny:CreateFrameEditor(id, name)
 				opt.alpha = nil
 				opt.orgAlpha = nil
 			end
-			
+
 			MovAny:UpdateGUIIfShown(true)
 		end
-		
+
 		fe:UpdateButtons()
 		fe:UpdateActuals()
 		fe.updating = nil
 	end
-	
+
 	fe.UpdateActuals = function()
 		local editFrame = fe.editFrame
 		if not editFrame then
@@ -2640,7 +2639,7 @@ function MovAny:CreateFrameEditor(id, name)
 			infoTextAlpha:Hide()
 			return
 		end
-		
+
 		actualsHeading:Show()
 		infoTextWidthLabel:Show()
 		infoTextWidth:Show()
@@ -2650,7 +2649,7 @@ function MovAny:CreateFrameEditor(id, name)
 		infoTextX:Show()
 		infoTextYLabel:Show()
 		infoTextY:Show()
-		
+
 		if editFrame.GetEffectiveScale or editFrame.GetScale then
 			local scale
 			if editFrame.GetScale then
@@ -2658,7 +2657,7 @@ function MovAny:CreateFrameEditor(id, name)
 			elseif editFrame.GetEffectiveScale then
 				scale = editFrame:GetEffectiveScale() / UIParent:GetScale()
 			end
-			
+
 			if editFrame:GetLeft() then
 				infoTextX:SetText(MANumFor(editFrame:GetLeft() * scale))
 			else
@@ -2667,24 +2666,24 @@ function MovAny:CreateFrameEditor(id, name)
 			if editFrame:GetBottom() then
 				infoTextY:SetText(MANumFor(editFrame:GetBottom() * scale))
 			end
-			
+
 			if editFrame:GetWidth() then
 				infoTextWidth:SetText(MANumFor(editFrame:GetWidth() * scale))
 			end
 			if editFrame:GetHeight() then
 				infoTextHeight:SetText(MANumFor(editFrame:GetHeight() * scale))
 			end
-			
+
 			infoTextScaleLabel:Show()
 			infoTextScale:Show()
 			infoTextScale:SetText(MANumFor(scale * 100).."%")
 		else
 			infoTextX:SetText(MANumFor(editFrame:GetLeft()))
 			infoTextY:SetText(MANumFor(editFrame:GetBottom()))
-			
+
 			infoTextWidth:SetText(MANumFor(editFrame:GetWidth()))
 			infoTextHeight:SetText(MANumFor(editFrame:GetHeight()))
-			
+
 			infoTextScaleLabel:Hide()
 			infoTextScale:Hide()
 		end
@@ -2703,19 +2702,19 @@ function MovAny:CreateFrameEditor(id, name)
 			infoTextAlpha:Hide()
 		end
 	end
-	
+
 	fe.UpdatePointControls = function(self, nextPoint)
 		local fe = self
 		local opt = fe.opt
 		local editFrame = fe.editFrame
 		local fn = fe.fn
-		
+
 		if not fe.e.noMove then
 			if nextPoint then
 				positionHeading:SetPoint(unpack(nextPoint))
 				nextPoint = {"TOPLEFT", yLabel, "BOTTOMLEFT", 0, -20}
 			end
-			
+
 			positionHeading:Show()
 			posResetButton:Show()
 			pointLabel:Show()
@@ -2741,11 +2740,11 @@ function MovAny:CreateFrameEditor(id, name)
 			yPlusButton:Show()
 			yResetButton:Show()
 			yZeroButton:Show()
-			
+
 			tinsert(tabList, relToEdit)
 			tinsert(tabList, xEdit)
 			tinsert(tabList, yEdit)
-			
+
 			local p
 			if opt and opt.pos then
 				p = opt.pos
@@ -2761,11 +2760,11 @@ function MovAny:CreateFrameEditor(id, name)
 			end
 			UIDropDownMenu_Initialize(pointDropDownButton, pointDropDown_MenuInit)
 			UIDropDownMenu_SetSelectedValue(pointDropDownButton, p[1] or "TOPLEFT")
-			
+
 			local relPoint = p[3] or p[1] or "TOPLEFT"
 			UIDropDownMenu_Initialize(relPointDropDownButton, relPointDropDown_MenuInit)
 			UIDropDownMenu_SetSelectedValue(relPointDropDownButton, relPoint)
-			
+
 			local relativeTo = "UIParent"
 			if p[2] then
 				if type(p[2]) == "string" then
@@ -2775,13 +2774,13 @@ function MovAny:CreateFrameEditor(id, name)
 				end
 			end
 			relToEdit:SetText(relativeTo)
-			
+
 			local v = tonumber(MANumFor(p[4])) or 0
 			xSlider:SetMinMaxValues(v - 200, v + 200)
 			_G[xSlider:GetName().."Low"]:SetText(v - 200)
 			_G[xSlider:GetName().."High"]:SetText(v + 200)
 			xSlider:SetValue(v)
-			
+
 			v = tonumber(MANumFor(p[5])) or 0
 			ySlider:SetMinMaxValues(v - 200, v + 200)
 			_G[ySlider:GetName().."Low"]:SetText(v - 200)
@@ -2789,7 +2788,7 @@ function MovAny:CreateFrameEditor(id, name)
 			ySlider:SetValue(v)
 		else
 			fe.frameHeight = fe.frameHeight - 150
-			
+
 			positionHeading:Hide()
 			posResetButton:Hide()
 			pointLabel:Hide()
@@ -2816,24 +2815,24 @@ function MovAny:CreateFrameEditor(id, name)
 			yResetButton:Hide()
 			yZeroButton:Hide()
 		end
-		
+
 		return nextPoint
 	end
-	
+
 	fe.UpdateScale = function(self, nextPoint)
 		local fe = self
 		local opt = fe.opt
 		local editFrame = fe.editFrame
 		local fn = fe.e.name
-		
+
 		if fe.e.scaleWH then
 			fe.frameHeight = fe.frameHeight + 27
-			
+
 			if nextPoint then
 				widthLabel:SetPoint(unpack(nextPoint))
 				nextPoint = {"TOPLEFT", heightLabel, "BOTTOMLEFT", 0, -20}
 			end
-			
+
 			scaleLabel:Hide()
 			scaleEdit:Hide()
 			scaleSlider:Hide()
@@ -2841,21 +2840,21 @@ function MovAny:CreateFrameEditor(id, name)
 			scalePlusButton:Hide()
 			scaleResetButton:Hide()
 			scaleOneButton:Hide()
-			
+
 			widthLabel:Show()
 			widthEdit:Show()
 			widthSlider:Show()
 			widthMinusButton:Show()
 			widthPlusButton:Show()
 			widthResetButton:Show()
-			
+
 			heightLabel:Show()
 			heightEdit:Show()
 			heightSlider:Show()
 			heightMinusButton:Show()
 			heightPlusButton:Show()
 			heightResetButton:Show()
-			
+
 			local v = 1
 			if opt and (opt.width or opt.orgWidth) then
 				if opt.width then
@@ -2874,7 +2873,7 @@ function MovAny:CreateFrameEditor(id, name)
 			widthSlider:SetValue(v)
 			_G[widthSlider:GetName().."Low"]:SetText(lowV)
 			_G[widthSlider:GetName().."High"]:SetText(lowV + 400)
-			
+
 			v = 1
 			if opt and (opt.height or opt.orgHeight) then
 				if opt.height then
@@ -2893,13 +2892,13 @@ function MovAny:CreateFrameEditor(id, name)
 			heightSlider:SetValue(v)
 			_G[heightSlider:GetName().."Low"]:SetText(lowV)
 			_G[heightSlider:GetName().."High"]:SetText(lowV + 400)
-			
+
 			tinsert(tabList, widthEdit)
 			tinsert(tabList, heightEdit)
 		elseif not fe.e.noScale and (not editFrame or MovAny.Scale:CanBeScaled(editFrame, fe.e, 1)) then
 			scaleLabel:SetPoint(unpack(nextPoint))
 			nextPoint = {"TOPLEFT", scaleLabel, "BOTTOMLEFT", 0, -20}
-		
+
 			scaleLabel:Show()
 			scaleEdit:Show()
 			scaleSlider:Show()
@@ -2907,28 +2906,28 @@ function MovAny:CreateFrameEditor(id, name)
 			scalePlusButton:Show()
 			scaleResetButton:Show()
 			scaleOneButton:Show()
-			
+
 			widthLabel:Hide()
 			widthEdit:Hide()
 			widthSlider:Hide()
 			widthMinusButton:Hide()
 			widthPlusButton:Hide()
 			widthResetButton:Hide()
-			
+
 			heightLabel:Hide()
 			heightEdit:Hide()
 			heightSlider:Hide()
 			heightMinusButton:Hide()
 			heightPlusButton:Hide()
 			heightResetButton:Hide()
-		
+
 			local scale = opt and opt.scale or 1
 			scaleSlider:SetValue(scale)
-			
+
 			tinsert(tabList, scaleEdit)
 		else
 			fe.frameHeight = fe.frameHeight - 40
-			
+
 			scaleLabel:Hide()
 			scaleEdit:Hide()
 			scaleSlider:Hide()
@@ -2936,14 +2935,14 @@ function MovAny:CreateFrameEditor(id, name)
 			scalePlusButton:Hide()
 			scaleResetButton:Hide()
 			scaleOneButton:Hide()
-			
+
 			widthLabel:Hide()
 			widthEdit:Hide()
 			widthSlider:Hide()
 			widthMinusButton:Hide()
 			widthPlusButton:Hide()
 			widthResetButton:Hide()
-			
+
 			heightLabel:Hide()
 			heightEdit:Hide()
 			heightSlider:Hide()
@@ -2951,20 +2950,20 @@ function MovAny:CreateFrameEditor(id, name)
 			heightPlusButton:Hide()
 			heightResetButton:Hide()
 		end
-		
+
 		return nextPoint
 	end
-	
+
 	fe.GeneratePoint = function(fe)
 		local relTo = relToEdit:GetText()
-		
+
 		if not _G[relTo] then
 			maPrint(string.format(MOVANY.ELEMENT_NOT_FOUND_NAMED, value))
 			return nil
 		end
-		
+
 		return {pointDropDownButton.selectedValue, relTo, relPointDropDownButton.selectedValue, xSlider:GetValue(), ySlider:GetValue()}
 	end
-	
+
 	fe:LoadFrame(name)
 end

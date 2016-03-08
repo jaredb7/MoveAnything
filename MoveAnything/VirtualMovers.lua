@@ -939,7 +939,7 @@ MovAny.lVirtualMovers = {
 		OnMAHook = function(self)
 			local b = ObjectiveTrackerFrame
 			MovAny:UnlockPoint(b)
-			b:ClearAllPoints()	
+			b:ClearAllPoints()
 			b:SetPoint("TOPRIGHT", self, "TOPRIGHT")
 			MovAny:LockPoint(b)
 			--b.ignoreFramePositionManager = true
@@ -978,7 +978,7 @@ MovAny.lVirtualMovers = {
 		OnMAHook = function(self)
 			local b = ObjectiveTrackerFrame
 			MovAny:UnlockPoint(b)
-			b:ClearAllPoints()	
+			b:ClearAllPoints()
 			b:SetPoint("TOPRIGHT", self, "TOPRIGHT")
 			MovAny:LockPoint(b)
 			--b.ignoreFramePositionManager = true
@@ -1746,7 +1746,7 @@ MovAny.lVirtualMovers = {
 			else
 				if HidenFrame.frameinfo["PetActionBarFrame"] then
 					PetActionBarFrame:SetParent(HidenFrame.frameinfo["PetActionBarFrame"])
-				end	
+				end
 				PetActionBarFrame:Show()
 			end
 		end
@@ -2054,8 +2054,8 @@ MovAny.lVirtualMovers = {
 			end
 			MultiBarRight.MAHooked = nil
 		end,
-		OnMAHook = function(self)			
-			MultiBarRight:SetParent("UIParent")	
+		OnMAHook = function(self)
+			MultiBarRight:SetParent("UIParent")
 		end,
 		OnMAScale = function(self, scale)
 			if type(scale) ~= "number" then
@@ -2092,7 +2092,7 @@ MovAny.lVirtualMovers = {
 			end
 			child.MAParent = nil
 		end,
-		OnMAHook = function(self)		
+		OnMAHook = function(self)
 			MultiBarLeft:SetParent("UIParent")
 		end,
 		OnMAPreReset = function(self)
@@ -2162,8 +2162,8 @@ MovAny.lVirtualMovers = {
 			--MultiBarLeft:SetParent("MultiBarRight")
 			MultiBarLeft.MAHooked = nil
 		end,
-		OnMAHook = function(self)	
-			MultiBarLeft:SetParent("UIParent")	
+		OnMAHook = function(self)
+			MultiBarLeft:SetParent("UIParent")
 		end,
 		OnMAScale = function(self, scale)
 			if type(scale) ~= "number" then
@@ -3310,7 +3310,7 @@ MovAny.lVirtualMovers = {
 						end
 					end
 				end
-				
+
 				if self.con.groupMode == "discrete" then
 					if alpha > 0.999 then
 						for i = 1, 8, 1 do
@@ -3668,10 +3668,10 @@ MovAny.lVirtualMovers = {
 				_G["ChatFrame"..i.."EditBox"]:SetWidth(ChatFrame1:GetWidth() + 10)
 			end
 		end
-	}
-	--[[LootWonAlertMover1 = {
-		w = 270,
-		h = 80,
+	},
+	LootWonAlertMover1 = {
+		w = 276,
+		h = 96,
 		point = {"CENTER", "UIParent", "CENTER", 0, 0},
 		OnMAHook = function(self)
 			if LOOT_WON_ALERT_FRAMES[1] then
@@ -3718,8 +3718,8 @@ MovAny.lVirtualMovers = {
 		end
 	},
 	LootWonAlertMover2 = {
-		w = 270,
-		h = 80,
+		w = 276,
+		h = 96,
 		point = {"CENTER", "UIParent", "CENTER", 0, 0},
 		OnMAHook = function(self)
 			if LOOT_WON_ALERT_FRAMES[2] then
@@ -3767,8 +3767,8 @@ MovAny.lVirtualMovers = {
 		end
 	},
 	LootWonAlertMover3 = {
-		w = 270,
-		h = 80,
+		w = 276,
+		h = 96,
 		point = {"CENTER", "UIParent", "CENTER", 0, 0},
 		OnMAHook = function(self)
 			if LOOT_WON_ALERT_FRAMES[3] then
@@ -3816,8 +3816,8 @@ MovAny.lVirtualMovers = {
 		end
 	},
 	LootWonAlertMover4 = {
-		w = 270,
-		h = 80,
+		w = 276,
+		h = 96,
 		point = {"CENTER", "UIParent", "CENTER", 0, 0},
 		OnMAHook = function(self)
 			if LOOT_WON_ALERT_FRAMES[4] then
@@ -3865,8 +3865,8 @@ MovAny.lVirtualMovers = {
 		end
 	},
 	LootWonAlertMover5 = {
-		w = 270,
-		h = 80,
+		w = 276,
+		h = 96,
 		point = {"CENTER", "UIParent", "CENTER", 0, 0},
 		OnMAHook = function(self)
 			if LOOT_WON_ALERT_FRAMES[5] then
@@ -3913,9 +3913,254 @@ MovAny.lVirtualMovers = {
 			wipe(LOOT_WON_ALERT_FRAMES)
 		end
 	},
+	LootWonAlertMover6 = {
+		w = 276,
+		h = 96,
+		point = {"CENTER", "UIParent", "CENTER", 0, 0},
+		OnMAHook = function(self)
+			if LOOT_WON_ALERT_FRAMES[6] then
+				local b = LOOT_WON_ALERT_FRAMES[6]
+				MovAny:UnlockPoint(b)
+				b:ClearAllPoints()
+				b:SetPoint("BOTTOMLEFT", LootWonAlertMover6, "BOTTOMLEFT", 0, 0)
+				MovAny:LockPoint(b)
+				b.ignoreFramePositionManager = true
+				b:SetMovable(true)
+				b:SetUserPlaced(true)
+				self.sbf = b
+			else
+				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate");
+				LOOT_WON_ALERT_FRAMES[6] = frame
+				local b = LOOT_WON_ALERT_FRAMES[6]
+				MovAny:UnlockPoint(b)
+				b:ClearAllPoints()
+				b:SetPoint("BOTTOMLEFT", LootWonAlertMover6, "BOTTOMLEFT", 0, 0)
+				MovAny:LockPoint(b)
+				b.ignoreFramePositionManager = true
+				b:SetMovable(true)
+				b:SetUserPlaced(true)
+				self.sbf = b
+			end
+		end,
+		OnMAHide = function(self, hidden)
+			if hidden then
+				MovAny:LockVisibility(LOOT_WON_ALERT_FRAMES[6])
+			else
+				MovAny:UnlockVisibility(LOOT_WON_ALERT_FRAMES[6])
+			end
+		end,
+		OnMAScale = function(self, scale)
+			local b = LOOT_WON_ALERT_FRAMES[6]
+			if type(scale) ~= "number" then
+				return
+			end
+			if b then
+				b:SetScale(scale)
+			end
+		end,
+		OnMAPostReset = function(self)
+			wipe(LOOT_WON_ALERT_FRAMES)
+		end
+	},
+	LootWonAlertMover7 = {
+		w = 276,
+		h = 96,
+		point = {"CENTER", "UIParent", "CENTER", 0, 0},
+		OnMAHook = function(self)
+			if LOOT_WON_ALERT_FRAMES[7] then
+				local b = LOOT_WON_ALERT_FRAMES[7]
+				MovAny:UnlockPoint(b)
+				b:ClearAllPoints()
+				b:SetPoint("BOTTOMLEFT", LootWonAlertMover7, "BOTTOMLEFT", 0, 0)
+				MovAny:LockPoint(b)
+				b.ignoreFramePositionManager = true
+				b:SetMovable(true)
+				b:SetUserPlaced(true)
+				self.sbf = b
+			else
+				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate");
+				LOOT_WON_ALERT_FRAMES[7] = frame
+				local b = LOOT_WON_ALERT_FRAMES[7]
+				MovAny:UnlockPoint(b)
+				b:ClearAllPoints()
+				b:SetPoint("BOTTOMLEFT", LootWonAlertMover7, "BOTTOMLEFT", 0, 0)
+				MovAny:LockPoint(b)
+				b.ignoreFramePositionManager = true
+				b:SetMovable(true)
+				b:SetUserPlaced(true)
+				self.sbf = b
+			end
+		end,
+		OnMAHide = function(self, hidden)
+			if hidden then
+				MovAny:LockVisibility(LOOT_WON_ALERT_FRAMES[7])
+			else
+				MovAny:UnlockVisibility(LOOT_WON_ALERT_FRAMES[7])
+			end
+		end,
+		OnMAScale = function(self, scale)
+			local b = LOOT_WON_ALERT_FRAMES[7]
+			if type(scale) ~= "number" then
+				return
+			end
+			if b then
+				b:SetScale(scale)
+			end
+		end,
+		OnMAPostReset = function(self)
+			wipe(LOOT_WON_ALERT_FRAMES)
+		end
+	},
+	LootWonAlertMover8 = {
+		w = 276,
+		h = 96,
+		point = {"CENTER", "UIParent", "CENTER", 0, 0},
+		OnMAHook = function(self)
+			if LOOT_WON_ALERT_FRAMES[8] then
+				local b = LOOT_WON_ALERT_FRAMES[8]
+				MovAny:UnlockPoint(b)
+				b:ClearAllPoints()
+				b:SetPoint("BOTTOMLEFT", LootWonAlertMover8, "BOTTOMLEFT", 0, 0)
+				MovAny:LockPoint(b)
+				b.ignoreFramePositionManager = true
+				b:SetMovable(true)
+				b:SetUserPlaced(true)
+				self.sbf = b
+			else
+				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate");
+				LOOT_WON_ALERT_FRAMES[8] = frame
+				local b = LOOT_WON_ALERT_FRAMES[8]
+				MovAny:UnlockPoint(b)
+				b:ClearAllPoints()
+				b:SetPoint("BOTTOMLEFT", LootWonAlertMover8, "BOTTOMLEFT", 0, 0)
+				MovAny:LockPoint(b)
+				b.ignoreFramePositionManager = true
+				b:SetMovable(true)
+				b:SetUserPlaced(true)
+				self.sbf = b
+			end
+		end,
+		OnMAHide = function(self, hidden)
+			if hidden then
+				MovAny:LockVisibility(LOOT_WON_ALERT_FRAMES[8])
+			else
+				MovAny:UnlockVisibility(LOOT_WON_ALERT_FRAMES[8])
+			end
+		end,
+		OnMAScale = function(self, scale)
+			local b = LOOT_WON_ALERT_FRAMES[8]
+			if type(scale) ~= "number" then
+				return
+			end
+			if b then
+				b:SetScale(scale)
+			end
+		end,
+		OnMAPostReset = function(self)
+			wipe(LOOT_WON_ALERT_FRAMES)
+		end
+	},
+	LootWonAlertMover9 = {
+		w = 276,
+		h = 96,
+		point = {"CENTER", "UIParent", "CENTER", 0, 0},
+		OnMAHook = function(self)
+			if LOOT_WON_ALERT_FRAMES[9] then
+				local b = LOOT_WON_ALERT_FRAMES[9]
+				MovAny:UnlockPoint(b)
+				b:ClearAllPoints()
+				b:SetPoint("BOTTOMLEFT", LootWonAlertMover9, "BOTTOMLEFT", 0, 0)
+				MovAny:LockPoint(b)
+				b.ignoreFramePositionManager = true
+				b:SetMovable(true)
+				b:SetUserPlaced(true)
+				self.sbf = b
+			else
+				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate");
+				LOOT_WON_ALERT_FRAMES[9] = frame
+				local b = LOOT_WON_ALERT_FRAMES[9]
+				MovAny:UnlockPoint(b)
+				b:ClearAllPoints()
+				b:SetPoint("BOTTOMLEFT", LootWonAlertMover9, "BOTTOMLEFT", 0, 0)
+				MovAny:LockPoint(b)
+				b.ignoreFramePositionManager = true
+				b:SetMovable(true)
+				b:SetUserPlaced(true)
+				self.sbf = b
+			end
+		end,
+		OnMAHide = function(self, hidden)
+			if hidden then
+				MovAny:LockVisibility(LOOT_WON_ALERT_FRAMES[9])
+			else
+				MovAny:UnlockVisibility(LOOT_WON_ALERT_FRAMES[9])
+			end
+		end,
+		OnMAScale = function(self, scale)
+			local b = LOOT_WON_ALERT_FRAMES[9]
+			if type(scale) ~= "number" then
+				return
+			end
+			if b then
+				b:SetScale(scale)
+			end
+		end,
+		OnMAPostReset = function(self)
+			wipe(LOOT_WON_ALERT_FRAMES)
+		end
+	},
+	LootWonAlertMover10 = {
+		w = 276,
+		h = 96,
+		point = {"CENTER", "UIParent", "CENTER", 0, 0},
+		OnMAHook = function(self)
+			if LOOT_WON_ALERT_FRAMES[10] then
+				local b = LOOT_WON_ALERT_FRAMES[10]
+				MovAny:UnlockPoint(b)
+				b:ClearAllPoints()
+				b:SetPoint("BOTTOMLEFT", LootWonAlertMover10, "BOTTOMLEFT", 0, 0)
+				MovAny:LockPoint(b)
+				b.ignoreFramePositionManager = true
+				b:SetMovable(true)
+				b:SetUserPlaced(true)
+				self.sbf = b
+			else
+				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate");
+				LOOT_WON_ALERT_FRAMES[10] = frame
+				local b = LOOT_WON_ALERT_FRAMES[10]
+				MovAny:UnlockPoint(b)
+				b:ClearAllPoints()
+				b:SetPoint("BOTTOMLEFT", LootWonAlertMover10, "BOTTOMLEFT", 0, 0)
+				MovAny:LockPoint(b)
+				b.ignoreFramePositionManager = true
+				b:SetMovable(true)
+				b:SetUserPlaced(true)
+				self.sbf = b
+			end
+		end,
+		OnMAHide = function(self, hidden)
+			if hidden then
+				MovAny:LockVisibility(LOOT_WON_ALERT_FRAMES[10])
+			else
+				MovAny:UnlockVisibility(LOOT_WON_ALERT_FRAMES[10])
+			end
+		end,
+		OnMAScale = function(self, scale)
+			local b = LOOT_WON_ALERT_FRAMES[10]
+			if type(scale) ~= "number" then
+				return
+			end
+			if b then
+				b:SetScale(scale)
+			end
+		end,
+		OnMAPostReset = function(self)
+			wipe(LOOT_WON_ALERT_FRAMES)
+		end
+	},
 	MoneyWonAlertMover1 = {
-		w = 270,
-		h = 80,
+		w = 249,
+		h = 71,
 		point = {"CENTER", "UIParent", "CENTER", 0, 0},
 		OnMAHook = function(self)
 			if MONEY_WON_ALERT_FRAMES[1] then
@@ -3963,8 +4208,8 @@ MovAny.lVirtualMovers = {
 		end
 	},
 	MoneyWonAlertMover2 = {
-		w = 270,
-		h = 80,
+		w = 249,
+		h = 71,
 		point = {"CENTER", "UIParent", "CENTER", 0, 0},
 		OnMAHook = function(self)
 			if MONEY_WON_ALERT_FRAMES[2] then
@@ -4012,8 +4257,8 @@ MovAny.lVirtualMovers = {
 		end
 	},
 	MoneyWonAlertMover3 = {
-		w = 270,
-		h = 80,
+		w = 249,
+		h = 71,
 		point = {"CENTER", "UIParent", "CENTER", 0, 0},
 		OnMAHook = function(self)
 			if MONEY_WON_ALERT_FRAMES[3] then
@@ -4035,7 +4280,7 @@ MovAny.lVirtualMovers = {
 				MovAny:LockPoint(b)
 				MONEY_WON_ALERT_FRAMES[3].ignoreFramePositionManager = true
 				MONEY_WON_ALERT_FRAMES[3]:SetMovable(true)
-				MONEY_WON_ALERT_FRAMES[3]b:SetUserPlaced(true)
+				MONEY_WON_ALERT_FRAMES[3]:SetUserPlaced(true)
 				self.sbf = MONEY_WON_ALERT_FRAMES[3]
 			end
 		end,
@@ -4059,7 +4304,103 @@ MovAny.lVirtualMovers = {
 			wipe(MONEY_WON_ALERT_FRAMES)
 		end
 	},
-	GroupLootFrameMover1 = {
+	MoneyWonAlertMover4 = {
+		w = 249,
+		h = 71,
+		point = {"CENTER", "UIParent", "CENTER", 0, 0},
+		OnMAHook = function(self)
+			if MONEY_WON_ALERT_FRAMES[4] then
+				--local b = MONEY_WON_ALERT_FRAMES[4]
+				MovAny:UnlockPoint(MONEY_WON_ALERT_FRAMES[4])
+				MONEY_WON_ALERT_FRAMES[4]:ClearAllPoints()
+				MONEY_WON_ALERT_FRAMES[4]:SetPoint("BOTTOMLEFT", "MoneyWonAlertMover4", "BOTTOMLEFT", 0, 0)
+				MovAny:LockPoint(MONEY_WON_ALERT_FRAMES[4])
+				MONEY_WON_ALERT_FRAMES[4].ignoreFramePositionManager = true
+				MONEY_WON_ALERT_FRAMES[4]:SetMovable(true)
+				MONEY_WON_ALERT_FRAMES[4]:SetUserPlaced(true)
+				self.sbf = MONEY_WON_ALERT_FRAMES[4]
+			else
+				MONEY_WON_ALERT_FRAMES[4] = CreateFrame("Button", nil, UIParent, "MoneyWonAlertFrameTemplate")
+				--local b = MONEY_WON_ALERT_FRAMES[4]
+				MovAny:UnlockPoint(MONEY_WON_ALERT_FRAMES[4])
+				MONEY_WON_ALERT_FRAMES[4]:ClearAllPoints()
+				MONEY_WON_ALERT_FRAMES[4]:SetPoint("BOTTOMLEFT", "MoneyWonAlertMover4", "BOTTOMLEFT", 0, 0)
+				MovAny:LockPoint(b)
+				MONEY_WON_ALERT_FRAMES[4].ignoreFramePositionManager = true
+				MONEY_WON_ALERT_FRAMES[4]:SetMovable(true)
+				MONEY_WON_ALERT_FRAMES[4]:SetUserPlaced(true)
+				self.sbf = MONEY_WON_ALERT_FRAMES[4]
+			end
+		end,
+		OnMAHide = function(self, hidden)
+			if hidden then
+				MovAny:LockVisibility(MONEY_WON_ALERT_FRAMES[4])
+			else
+				MovAny:UnlockVisibility(MONEY_WON_ALERT_FRAMES[4])
+			end
+		end,
+		OnMAScale = function(self, scale)
+			local b = MONEY_WON_ALERT_FRAMES[4]
+			if type(scale) ~= "number" then
+				return
+			end
+			if b then
+				b:SetScale(scale)
+			end
+		end,
+		OnMAPostReset = function(self)
+			wipe(MONEY_WON_ALERT_FRAMES)
+		end
+	},
+	MoneyWonAlertMover5 = {
+		w = 249,
+		h = 71,
+		point = {"CENTER", "UIParent", "CENTER", 0, 0},
+		OnMAHook = function(self)
+			if MONEY_WON_ALERT_FRAMES[5] then
+				--local b = MONEY_WON_ALERT_FRAMES[5]
+				MovAny:UnlockPoint(MONEY_WON_ALERT_FRAMES[5])
+				MONEY_WON_ALERT_FRAMES[5]:ClearAllPoints()
+				MONEY_WON_ALERT_FRAMES[5]:SetPoint("BOTTOMLEFT", "MoneyWonAlertMover5", "BOTTOMLEFT", 0, 0)
+				MovAny:LockPoint(MONEY_WON_ALERT_FRAMES[5])
+				MONEY_WON_ALERT_FRAMES[5].ignoreFramePositionManager = true
+				MONEY_WON_ALERT_FRAMES[5]:SetMovable(true)
+				MONEY_WON_ALERT_FRAMES[5]:SetUserPlaced(true)
+				self.sbf = MONEY_WON_ALERT_FRAMES[5]
+			else
+				MONEY_WON_ALERT_FRAMES[5] = CreateFrame("Button", nil, UIParent, "MoneyWonAlertFrameTemplate")
+				--local b = MONEY_WON_ALERT_FRAMES[5]
+				MovAny:UnlockPoint(MONEY_WON_ALERT_FRAMES[5])
+				MONEY_WON_ALERT_FRAMES[5]:ClearAllPoints()
+				MONEY_WON_ALERT_FRAMES[5]:SetPoint("BOTTOMLEFT", "MoneyWonAlertMover5", "BOTTOMLEFT", 0, 0)
+				MovAny:LockPoint(b)
+				MONEY_WON_ALERT_FRAMES[5].ignoreFramePositionManager = true
+				MONEY_WON_ALERT_FRAMES[5]:SetMovable(true)
+				MONEY_WON_ALERT_FRAMES[5]:SetUserPlaced(true)
+				self.sbf = MONEY_WON_ALERT_FRAMES[5]
+			end
+		end,
+		OnMAHide = function(self, hidden)
+			if hidden then
+				MovAny:LockVisibility(MONEY_WON_ALERT_FRAMES[5])
+			else
+				MovAny:UnlockVisibility(MONEY_WON_ALERT_FRAMES[5])
+			end
+		end,
+		OnMAScale = function(self, scale)
+			local b = MONEY_WON_ALERT_FRAMES[5]
+			if type(scale) ~= "number" then
+				return
+			end
+			if b then
+				b:SetScale(scale)
+			end
+		end,
+		OnMAPostReset = function(self)
+			wipe(MONEY_WON_ALERT_FRAMES)
+		end
+	},
+	--[[GroupLootFrameMover1 = {
 		w = 270,
 		h = 80,
 		point = {"CENTER", "UIParent", "CENTER", 0, 0},
