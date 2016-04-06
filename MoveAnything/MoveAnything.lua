@@ -1434,6 +1434,9 @@ function MovAny:UnlockVisibility(f)
 end
 
 function MovAny.hSetPoint(f, ...)
+	if not f then
+		return
+	end
 	--[[if MovAny.lForceProtected[f:GetName()] then 
 		print(f:GetName())
 		return
@@ -1473,6 +1476,9 @@ function MovAny.hSetPoint(f, ...)
 end
 
 function MovAny:LockPoint(f, opt)
+	if not f then
+		return
+	end
 	if not f.MAPoint then
 		if f:GetName() and (MovAny.lForcedLock[f:GetName()] or (opt and opt.forcedLock))  then
 			if not f.MASetPoint then
@@ -1497,6 +1503,9 @@ function MovAny:UnlockPoint(f)
 end
 
 function MovAny:LockParent(f)
+	if not f then
+		return
+	end
 	if not f.MAParented and not f.MAParentHook then
 		hooksecurefunc(f, "SetParent", MovAny.hSetParent)
 		f.MAParentHook = true
@@ -1512,6 +1521,9 @@ function MovAny:UnlockParent(f)
 end
 
 function MovAny.hSetParent(f, ...)
+	if not f then
+		return
+	end
 	if f.MAParented then
 		if InCombatLockdown() and MovAny:IsProtected(f) then
 			MovAny.pendingFrames[f:GetName()] = API:GetElement(f:GetName())
@@ -1589,6 +1601,9 @@ function MovAny:UnlockScale(f)
 end]]
 
 function MovAny.hSetScale(f)
+	if not f then
+		return
+	end
 	if f.MAScaled then
 		local fn = f:GetName()
 		if string.match(fn, "^ContainerFrame[1-9][0-9]*$") then
@@ -1623,6 +1638,9 @@ function MovAny.hSetScale(f)
 end
 
 function MovAny:LockScale(f)
+	if not f then
+		return
+	end
 	if f.SetScale and not f.MAScaled then
 		local meta = getmetatable(f).__index
 		if not meta.MAScaleHook then
@@ -1636,22 +1654,34 @@ function MovAny:LockScale(f)
 end
 
 function MovAny:UnlockScale(f)
+	if not f then
+		return
+	end
 	f.MAScaled = nil
 end
 
 function MovAny:Rescale(f, scale)
+	if not f then
+		return
+	end
 	MovAny:UnlockScale(f)
 	f:SetScale(scale)
 	MovAny:LockScale(f)
 end
 
 function MovAny.hSyncIfScaled(self, f)
+	if not f then
+		return
+	end
 	if f.MAScaled and f:GetName() ~= nil then
 		API:SyncElement(f:GetName())
 	end
 end
 
 function MovAny:LockWH(f)
+	if not f then
+		return
+	end
 	if f.SetScale and not f.MAScaled then
 		if not f.MAScaleHook then
 			if f.SetWidth then

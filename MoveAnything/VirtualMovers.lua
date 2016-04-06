@@ -1896,10 +1896,10 @@ MovAny.lVirtualMovers = {
 		OnMAHide = function(self, hidden)
 			if hidden then
 				MovAny:LockVisibility(self.sbf)
-				RegisterStateDriver(StanceBarFrame, "visibility", "hide");
+				RegisterStateDriver(StanceBarFrame, "visibility", "hide")
 			else
 				MovAny:UnlockVisibility(self.sbf)
-				RegisterStateDriver(StanceBarFrame, "visibility", "show");
+				RegisterStateDriver(StanceBarFrame, "visibility", "show")
 			end
 		end
 	},
@@ -1954,10 +1954,10 @@ MovAny.lVirtualMovers = {
 		OnMAHide = function(self, hidden)
 			if hidden then
 				MovAny:LockVisibility(self.sbf)
-				RegisterStateDriver(StanceBarFrame, "visibility", "hide");
+				RegisterStateDriver(StanceBarFrame, "visibility", "hide")
 			else
 				MovAny:UnlockVisibility(self.sbf)
-				RegisterStateDriver(StanceBarFrame, "visibility", "show");
+				RegisterStateDriver(StanceBarFrame, "visibility", "show")
 			end
 		end
 	},
@@ -3733,7 +3733,7 @@ MovAny.lVirtualMovers = {
 				b:SetUserPlaced(true)
 				self.sbf = b
 			else
-				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate");
+				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate")
 				LOOT_WON_ALERT_FRAMES[2] = frame
 				local b = LOOT_WON_ALERT_FRAMES[2]
 				MovAny:UnlockPoint(b)
@@ -3782,7 +3782,7 @@ MovAny.lVirtualMovers = {
 				b:SetUserPlaced(true)
 				self.sbf = b
 			else
-				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate");
+				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate")
 				LOOT_WON_ALERT_FRAMES[3] = frame
 				local b = LOOT_WON_ALERT_FRAMES[3]
 				MovAny:UnlockPoint(b)
@@ -3831,7 +3831,7 @@ MovAny.lVirtualMovers = {
 				b:SetUserPlaced(true)
 				self.sbf = b
 			else
-				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate");
+				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate")
 				LOOT_WON_ALERT_FRAMES[4] = frame
 				local b = LOOT_WON_ALERT_FRAMES[4]
 				MovAny:UnlockPoint(b)
@@ -3880,7 +3880,7 @@ MovAny.lVirtualMovers = {
 				b:SetUserPlaced(true)
 				self.sbf = b
 			else
-				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate");
+				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate")
 				LOOT_WON_ALERT_FRAMES[5] = frame
 				local b = LOOT_WON_ALERT_FRAMES[5]
 				MovAny:UnlockPoint(b)
@@ -3929,7 +3929,7 @@ MovAny.lVirtualMovers = {
 				b:SetUserPlaced(true)
 				self.sbf = b
 			else
-				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate");
+				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate")
 				LOOT_WON_ALERT_FRAMES[6] = frame
 				local b = LOOT_WON_ALERT_FRAMES[6]
 				MovAny:UnlockPoint(b)
@@ -3978,7 +3978,7 @@ MovAny.lVirtualMovers = {
 				b:SetUserPlaced(true)
 				self.sbf = b
 			else
-				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate");
+				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate")
 				LOOT_WON_ALERT_FRAMES[7] = frame
 				local b = LOOT_WON_ALERT_FRAMES[7]
 				MovAny:UnlockPoint(b)
@@ -4027,7 +4027,7 @@ MovAny.lVirtualMovers = {
 				b:SetUserPlaced(true)
 				self.sbf = b
 			else
-				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate");
+				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate")
 				LOOT_WON_ALERT_FRAMES[8] = frame
 				local b = LOOT_WON_ALERT_FRAMES[8]
 				MovAny:UnlockPoint(b)
@@ -4076,7 +4076,7 @@ MovAny.lVirtualMovers = {
 				b:SetUserPlaced(true)
 				self.sbf = b
 			else
-				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate");
+				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate")
 				LOOT_WON_ALERT_FRAMES[9] = frame
 				local b = LOOT_WON_ALERT_FRAMES[9]
 				MovAny:UnlockPoint(b)
@@ -4125,7 +4125,7 @@ MovAny.lVirtualMovers = {
 				b:SetUserPlaced(true)
 				self.sbf = b
 			else
-				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate");
+				local frame = CreateFrame("Button", nil, UIParent, "LootWonAlertFrameTemplate")
 				LOOT_WON_ALERT_FRAMES[10] = frame
 				local b = LOOT_WON_ALERT_FRAMES[10]
 				MovAny:UnlockPoint(b)
@@ -4169,19 +4169,19 @@ MovAny.lVirtualMovers = {
 				b:ClearAllPoints()
 				b:SetPoint("BOTTOMLEFT", MoneyWonAlertMover1, "BOTTOMLEFT", 0, 0)
 				MovAny:LockPoint(b)
-				b.ignoreFramePositionManager = true
+				--b.ignoreFramePositionManager = true
 				b:SetMovable(true)
 				b:SetUserPlaced(true)
 				self.sbf = b
 			else
-				local frame = CreateFrame("Button", nil, UIParent, "MoneyWonAlertFrameTemplate");
+				local frame = CreateFrame("Button", nil, UIParent, "MoneyWonAlertFrameTemplate")
 				MONEY_WON_ALERT_FRAMES[1] = frame
 				local b = MONEY_WON_ALERT_FRAMES[1]
 				MovAny:UnlockPoint(b)
 				b:ClearAllPoints()
 				b:SetPoint("BOTTOMLEFT", MoneyWonAlertMover1, "BOTTOMLEFT", 0, 0)
 				MovAny:LockPoint(b)
-				b.ignoreFramePositionManager = true
+				--b.ignoreFramePositionManager = true
 				b:SetMovable(true)
 				b:SetUserPlaced(true)
 				self.sbf = b
@@ -4218,19 +4218,19 @@ MovAny.lVirtualMovers = {
 				b:ClearAllPoints()
 				b:SetPoint("BOTTOMLEFT", MoneyWonAlertMover2, "BOTTOMLEFT", 0, 0)
 				MovAny:LockPoint(b)
-				b.ignoreFramePositionManager = true
+				--b.ignoreFramePositionManager = true
 				b:SetMovable(true)
 				b:SetUserPlaced(true)
 				self.sbf = b
 			else
-				local frame = CreateFrame("Button", nil, UIParent, "MoneyWonAlertFrameTemplate");
+				local frame = CreateFrame("Button", nil, UIParent, "MoneyWonAlertFrameTemplate")
 				MONEY_WON_ALERT_FRAMES[2] = frame
 				local b = MONEY_WON_ALERT_FRAMES[2]
 				MovAny:UnlockPoint(b)
 				b:ClearAllPoints()
 				b:SetPoint("BOTTOMLEFT", MoneyWonAlertMover2, "BOTTOMLEFT", 0, 0)
 				MovAny:LockPoint(b)
-				b.ignoreFramePositionManager = true
+				--b.ignoreFramePositionManager = true
 				b:SetMovable(true)
 				b:SetUserPlaced(true)
 				self.sbf = b
@@ -4262,26 +4262,27 @@ MovAny.lVirtualMovers = {
 		point = {"CENTER", "UIParent", "CENTER", 0, 0},
 		OnMAHook = function(self)
 			if MONEY_WON_ALERT_FRAMES[3] then
-				--local b = MONEY_WON_ALERT_FRAMES[3]
-				MovAny:UnlockPoint(MONEY_WON_ALERT_FRAMES[3])
-				MONEY_WON_ALERT_FRAMES[3]:ClearAllPoints()
-				MONEY_WON_ALERT_FRAMES[3]:SetPoint("BOTTOMLEFT", "MoneyWonAlertMover3", "BOTTOMLEFT", 0, 0)
-				MovAny:LockPoint(MONEY_WON_ALERT_FRAMES[3])
-				MONEY_WON_ALERT_FRAMES[3].ignoreFramePositionManager = true
-				MONEY_WON_ALERT_FRAMES[3]:SetMovable(true)
-				MONEY_WON_ALERT_FRAMES[3]:SetUserPlaced(true)
-				self.sbf = MONEY_WON_ALERT_FRAMES[3]
-			else
-				MONEY_WON_ALERT_FRAMES[3] = CreateFrame("Button", nil, UIParent, "MoneyWonAlertFrameTemplate")
-				--local b = MONEY_WON_ALERT_FRAMES[3]
-				MovAny:UnlockPoint(MONEY_WON_ALERT_FRAMES[3])
-				MONEY_WON_ALERT_FRAMES[3]:ClearAllPoints()
-				MONEY_WON_ALERT_FRAMES[3]:SetPoint("BOTTOMLEFT", "MoneyWonAlertMover3", "BOTTOMLEFT", 0, 0)
+				local b = MONEY_WON_ALERT_FRAMES[3]
+				MovAny:UnlockPoint(b)
+				b:ClearAllPoints()
+				b:SetPoint("BOTTOMLEFT", MoneyWonAlertMover3, "BOTTOMLEFT", 0, 0)
 				MovAny:LockPoint(b)
-				MONEY_WON_ALERT_FRAMES[3].ignoreFramePositionManager = true
-				MONEY_WON_ALERT_FRAMES[3]:SetMovable(true)
-				MONEY_WON_ALERT_FRAMES[3]:SetUserPlaced(true)
-				self.sbf = MONEY_WON_ALERT_FRAMES[3]
+				--b.ignoreFramePositionManager = true
+				b:SetMovable(true)
+				b:SetUserPlaced(true)
+				self.sbf = b
+			else
+				local frame = CreateFrame("Button", nil, UIParent, "MoneyWonAlertFrameTemplate")
+				MONEY_WON_ALERT_FRAMES[3] = frame
+				local b = MONEY_WON_ALERT_FRAMES[3]
+				MovAny:UnlockPoint(b)
+				b:ClearAllPoints()
+				b:SetPoint("BOTTOMLEFT", MoneyWonAlertMover3, "BOTTOMLEFT", 0, 0)
+				MovAny:LockPoint(b)
+				--b.ignoreFramePositionManager = true
+				b:SetMovable(true)
+				b:SetUserPlaced(true)
+				self.sbf = b
 			end
 		end,
 		OnMAHide = function(self, hidden)
@@ -4310,26 +4311,27 @@ MovAny.lVirtualMovers = {
 		point = {"CENTER", "UIParent", "CENTER", 0, 0},
 		OnMAHook = function(self)
 			if MONEY_WON_ALERT_FRAMES[4] then
-				--local b = MONEY_WON_ALERT_FRAMES[4]
-				MovAny:UnlockPoint(MONEY_WON_ALERT_FRAMES[4])
-				MONEY_WON_ALERT_FRAMES[4]:ClearAllPoints()
-				MONEY_WON_ALERT_FRAMES[4]:SetPoint("BOTTOMLEFT", "MoneyWonAlertMover4", "BOTTOMLEFT", 0, 0)
-				MovAny:LockPoint(MONEY_WON_ALERT_FRAMES[4])
-				MONEY_WON_ALERT_FRAMES[4].ignoreFramePositionManager = true
-				MONEY_WON_ALERT_FRAMES[4]:SetMovable(true)
-				MONEY_WON_ALERT_FRAMES[4]:SetUserPlaced(true)
-				self.sbf = MONEY_WON_ALERT_FRAMES[4]
-			else
-				MONEY_WON_ALERT_FRAMES[4] = CreateFrame("Button", nil, UIParent, "MoneyWonAlertFrameTemplate")
-				--local b = MONEY_WON_ALERT_FRAMES[4]
-				MovAny:UnlockPoint(MONEY_WON_ALERT_FRAMES[4])
-				MONEY_WON_ALERT_FRAMES[4]:ClearAllPoints()
-				MONEY_WON_ALERT_FRAMES[4]:SetPoint("BOTTOMLEFT", "MoneyWonAlertMover4", "BOTTOMLEFT", 0, 0)
+				local b = MONEY_WON_ALERT_FRAMES[4]
+				MovAny:UnlockPoint(b)
+				b:ClearAllPoints()
+				b:SetPoint("BOTTOMLEFT", MoneyWonAlertMover4, "BOTTOMLEFT", 0, 0)
 				MovAny:LockPoint(b)
-				MONEY_WON_ALERT_FRAMES[4].ignoreFramePositionManager = true
-				MONEY_WON_ALERT_FRAMES[4]:SetMovable(true)
-				MONEY_WON_ALERT_FRAMES[4]:SetUserPlaced(true)
-				self.sbf = MONEY_WON_ALERT_FRAMES[4]
+				--b.ignoreFramePositionManager = true
+				b:SetMovable(true)
+				b:SetUserPlaced(true)
+				self.sbf = b
+			else
+				local frame = CreateFrame("Button", nil, UIParent, "MoneyWonAlertFrameTemplate")
+				MONEY_WON_ALERT_FRAMES[4] = frame
+				local b = MONEY_WON_ALERT_FRAMES[4]
+				MovAny:UnlockPoint(b)
+				b:ClearAllPoints()
+				b:SetPoint("BOTTOMLEFT", MoneyWonAlertMover4, "BOTTOMLEFT", 0, 0)
+				MovAny:LockPoint(b)
+				--b.ignoreFramePositionManager = true
+				b:SetMovable(true)
+				b:SetUserPlaced(true)
+				self.sbf = b
 			end
 		end,
 		OnMAHide = function(self, hidden)
@@ -4358,26 +4360,27 @@ MovAny.lVirtualMovers = {
 		point = {"CENTER", "UIParent", "CENTER", 0, 0},
 		OnMAHook = function(self)
 			if MONEY_WON_ALERT_FRAMES[5] then
-				--local b = MONEY_WON_ALERT_FRAMES[5]
-				MovAny:UnlockPoint(MONEY_WON_ALERT_FRAMES[5])
-				MONEY_WON_ALERT_FRAMES[5]:ClearAllPoints()
-				MONEY_WON_ALERT_FRAMES[5]:SetPoint("BOTTOMLEFT", "MoneyWonAlertMover5", "BOTTOMLEFT", 0, 0)
-				MovAny:LockPoint(MONEY_WON_ALERT_FRAMES[5])
-				MONEY_WON_ALERT_FRAMES[5].ignoreFramePositionManager = true
-				MONEY_WON_ALERT_FRAMES[5]:SetMovable(true)
-				MONEY_WON_ALERT_FRAMES[5]:SetUserPlaced(true)
-				self.sbf = MONEY_WON_ALERT_FRAMES[5]
-			else
-				MONEY_WON_ALERT_FRAMES[5] = CreateFrame("Button", nil, UIParent, "MoneyWonAlertFrameTemplate")
-				--local b = MONEY_WON_ALERT_FRAMES[5]
-				MovAny:UnlockPoint(MONEY_WON_ALERT_FRAMES[5])
-				MONEY_WON_ALERT_FRAMES[5]:ClearAllPoints()
-				MONEY_WON_ALERT_FRAMES[5]:SetPoint("BOTTOMLEFT", "MoneyWonAlertMover5", "BOTTOMLEFT", 0, 0)
+				local b = MONEY_WON_ALERT_FRAMES[5]
+				MovAny:UnlockPoint(b)
+				b:ClearAllPoints()
+				b:SetPoint("BOTTOMLEFT", MoneyWonAlertMover5, "BOTTOMLEFT", 0, 0)
 				MovAny:LockPoint(b)
-				MONEY_WON_ALERT_FRAMES[5].ignoreFramePositionManager = true
-				MONEY_WON_ALERT_FRAMES[5]:SetMovable(true)
-				MONEY_WON_ALERT_FRAMES[5]:SetUserPlaced(true)
-				self.sbf = MONEY_WON_ALERT_FRAMES[5]
+				--b.ignoreFramePositionManager = true
+				b:SetMovable(true)
+				b:SetUserPlaced(true)
+				self.sbf = b
+			else
+				local frame = CreateFrame("Button", nil, UIParent, "MoneyWonAlertFrameTemplate")
+				MONEY_WON_ALERT_FRAMES[5] = frame
+				local b = MONEY_WON_ALERT_FRAMES[5]
+				MovAny:UnlockPoint(b)
+				b:ClearAllPoints()
+				b:SetPoint("BOTTOMLEFT", MoneyWonAlertMover5, "BOTTOMLEFT", 0, 0)
+				MovAny:LockPoint(b)
+				--b.ignoreFramePositionManager = true
+				b:SetMovable(true)
+				b:SetUserPlaced(true)
+				self.sbf = b
 			end
 		end,
 		OnMAHide = function(self, hidden)
