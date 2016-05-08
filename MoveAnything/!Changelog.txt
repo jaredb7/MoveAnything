@@ -3,6 +3,10 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**15.3.5**
+* Should no longer unanchor protected frames.
+* Some other smaller fixes.
+
 **15.3.4**
 * Some minor fixes.
 * Fixed Frames:
