@@ -3689,7 +3689,7 @@ MovAny.lVirtualMovers = {
 				local b = LOOT_WON_ALERT_FRAMES[1]
 				MovAny:UnlockPoint(b)
 				b:ClearAllPoints()
-				b:SetPoint("BOTTOMLEFT", "LootWonAlertMover1", "BOTTOMLEFT", 0, 0)
+				b:SetPoint("BOTTOMLEFT", LootWonAlertMover1, "BOTTOMLEFT", 0, 0)
 				MovAny:LockPoint(b)
 				b.ignoreFramePositionManager = true
 				b:SetMovable(true)

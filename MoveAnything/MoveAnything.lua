@@ -4038,10 +4038,6 @@ function MovAny:GrabContainerFrame(container, movableBag)
 	end
 end
 
-local function Checkr(frame, ...)
-	maPrint("Test", ...)
-end
-
 function MovAny:UnanchorRelatives(e, f, opt)
 	if f.GetName and f:GetName() ~= nil and e.noUnanchorRelatives then
 		return
@@ -4066,13 +4062,13 @@ function MovAny:UnanchorRelatives(e, f, opt)
 			end
 		end
 	end
-	local num = p:GetNumChildren()
+	--local num = p:GetNumChildren()
 	--assert((num < 8000), "Too much childrens stuck in owerflow")
 	if p.GetChildren then
 		local children = {p:GetChildren()}
 		if children ~= nil then
 			for i, v in ipairs(children) do
-				if not v:IsForbidden() then
+				if not v:IsForbidden() and not v:IsProtected() then
 					self:_AddDependents(relatives, v)
 				end
 			end
