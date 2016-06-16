@@ -2654,10 +2654,15 @@ MovAny.lVirtualMovers = {
 			MovAny:LockPoint(b)
 			self.tef = b
 			b = _G["ConsolidatedBuffs"]
-			b:ClearAllPoints()
-			b:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 0)
-			MovAny:LockPoint(b)
+			if b then
+				b:ClearAllPoints()
+				b:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 0)
+				MovAny:LockPoint(b)
+			end
 			if BuffFrame.numConsolidated == 0 then
+				if not b then
+					return
+				end
 				b:Hide()
 			end
 			if self.attachedChildren and self.opt and self.opt.scale then
@@ -2686,9 +2691,11 @@ MovAny.lVirtualMovers = {
 			b:ClearAllPoints()
 			b:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", - 205, - 13)
 			b = _G["ConsolidatedBuffs"]
-			MovAny:UnlockPoint(b)
-			b:ClearAllPoints()
-			b:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", - 205, - 13)
+			if b then
+				MovAny:UnlockPoint(b)
+				b:ClearAllPoints()
+				b:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", - 205, - 13)
+			end
 			for i, v in pairs(self.attachedChildren) do
 				MovAny:UnlockScale(v)
 				v:SetScale(1)
@@ -3038,10 +3045,15 @@ MovAny.lVirtualMovers = {
 			--MovAny:LockPoint(b)
 			self.tef = b
 			b = _G["ConsolidatedBuffs"]
-			b:ClearAllPoints()
-			b:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
-			MovAny:LockPoint(b)
+			if b then
+				b:ClearAllPoints()
+				b:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
+				MovAny:LockPoint(b)
+			end
 			if BuffFrame.numConsolidated == 0 then
+				if not b then
+					return
+				end
 				b:Hide()
 			end
 			if self.attachedChildren and self.opt and self.opt.scale then
@@ -3070,9 +3082,11 @@ MovAny.lVirtualMovers = {
 			b:ClearAllPoints()
 			b:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", - 205, - 13)
 			b = _G["ConsolidatedBuffs"]
-			MovAny:UnlockPoint(b)
-			b:ClearAllPoints()
-			b:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", - 205, - 13)
+			if b then
+				MovAny:UnlockPoint(b)
+				b:ClearAllPoints()
+				b:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", - 205, - 13)
+			end
 			for i, v in pairs(self.attachedChildren) do
 				MovAny:UnlockScale(v)
 				v:SetScale(1)
