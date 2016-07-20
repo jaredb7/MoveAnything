@@ -1733,7 +1733,7 @@ function MovAny:HookFrame(e, f, dontUnanchor, runBeforeInteract)
 		f.orgScale = f:GetScale()
 		f.scale = f:GetScale()
 	end
-	if f.SetMovable and not e.noMove then
+	if f.SetMovable and e and not e.noMove then
 		if f:IsUserPlaced() then
 			f.MAWasUserPlaced = true
 		end
@@ -1747,7 +1747,7 @@ function MovAny:HookFrame(e, f, dontUnanchor, runBeforeInteract)
 		f:SetUserPlaced(true)
 	end
 	f.MAE = e
-	if not opt.orgPos and not e.noMove then
+	if not opt.orgPos and e and not e.noMove then
 		self.Position:StoreOrgPoints(f, opt)
 	end
 	if not f.MAHooked then
@@ -1756,7 +1756,7 @@ function MovAny:HookFrame(e, f, dontUnanchor, runBeforeInteract)
 		end
 		f.MAHooked = true
 	end
-	if not dontUnanchor and not e.noUnanchorRelatives and not e.noMove then
+	if not dontUnanchor and e and not e.noUnanchorRelatives and not e.noMove then
 		self:UnanchorRelatives(e, f, opt)
 	end
 	if self.DetachFromParent[fn] and not self.NoReparent[fn] and not f.MAOrgParent then
@@ -1980,7 +1980,9 @@ function MovAny:ToggleHide(fn)
 	if f and fn ~= f:GetName() then
 		fn = f:GetName()
 	end
-	if not f or (f.MAE and f.MAE.userData and not f.MAE.userData.hidden) then
+	self:AttachMover(fn)
+	local opt = self:GetUserData(fn, nil, true)
+	if not f or not opt.hidden then
 		ret = self:HideFrame(fn)
 	else
 		ret = self:ShowFrame(fn)
@@ -2615,6 +2617,7 @@ function MovAny:HideFrame(f, readOnly)
 	if not fn then
 		fn = f:GetName()
 	end
+	API:AddElementIfNew(fn)
 	if fn == "PaladinPowerBar" then
 		f:UnregisterAllEvents()
 	elseif fn == "CompactRaidFrameManager" then
@@ -2720,6 +2723,7 @@ function MovAny:ShowFrame(f, readOnly, dontHook)
 	if not fn then
 		fn = f:GetName()
 	end
+	API:AddElementIfNew(fn)
 	if fn == "PaladinPowerBar" then
 		PaladinPowerBar_OnLoad(f)
 	elseif fn == "CompactRaidFrameManager" then
@@ -2747,10 +2751,10 @@ function MovAny:ShowFrame(f, readOnly, dontHook)
 		end
 	end]]
 	local e = API:GetElement(fn)
-	local opt
-	if e and e.userData then
+	local opt = self:GetUserData(fn, nil, true)
+	--[[if e and e.userData then
 		opt = e.userData
-	end
+	end]]
 	if not readOnly and opt then
 		opt.hidden = nil
 		opt.unit = nil

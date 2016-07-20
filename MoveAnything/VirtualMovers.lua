@@ -1832,13 +1832,13 @@ MovAny.lVirtualMovers = {
 			end
 		end
 	},
-	MonkHarmonyBarMover = {
+	MMonkHarmonyBarFrameMover = {
 		w = 100,
 		h = 30,
-		inherits = MonkHarmonyBar,
+		inherits = MonkHarmonyBarFrame,
 		point = {"CENTER", "UIParent", "TOP", 0, -70},
 		OnMAHook = function(self)
-			local b = MonkHarmonyBar
+			local b = MonkHarmonyBarFrame
 			MovAny:UnlockPoint(b)
 			b:ClearAllPoints()
 			b:SetPoint("CENTER", MonkHarmonyBarMover, "CENTER", 0, 0)
@@ -1852,11 +1852,11 @@ MovAny.lVirtualMovers = {
 			if type(scale) ~= "number" then
 				return
 			end
-			MonkHarmonyBar:SetScale(scale)
+			MonkHarmonyBarFrame:SetScale(scale)
 		end,
 		OnMAPostReset = function(self)
-			MovAny:UnlockPoint(MonkHarmonyBar)
-			local b = MonkHarmonyBar
+			MovAny:UnlockPoint(MonkHarmonyBarFrame)
+			local b = MonkHarmonyBarFrame
 			b:ClearAllPoints()
 			b:SetPoint("TOP", PlayerFrame, "TOP", 49, -46)
 		end
