@@ -3,6 +3,19 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**16.0.2**
+* Added Frames:
+	* Combo Point Frame
+	* Mage Arcane Charges Power Frame
+* Fixed Frames:
+	* TargetFrame
+	* Paladin Power Frame
+	* Monk Chi Frame
+	* Stance Buttons
+	* Stance Buttons - Vertical
+* Removed Frames:
+	* Target Combo Points
+
 **16.0.1**
 * Fixed Frames:
 	* Player Buffs Default
