@@ -2515,10 +2515,10 @@ MovAny.lVirtualMovers = {
 		w = 30,
 		h = 30,
 		point = {"TOPRIGHT", "UIParent", "TOPRIGHT", - 205, - 13},
-		children = {"TemporaryEnchantFrame", "ConsolidatedBuffs"},
+		children = {"TemporaryEnchantFrame"},
 		prefix = "BuffButton",
 		excludes = "PlayerBuffsMover2",
-		count = 32,
+		count = 40,
 		dontHide = true,
 		dontLock = true,
 		dontScale = true,
@@ -2530,28 +2530,14 @@ MovAny.lVirtualMovers = {
 						vm:MAScanForChildren(true, true)
 						if opt.scale then
 							if not opt.hidden and vm.attachedChildren then
-								if GetCVar("consolidateBuffs") == "1" then
-									for i, v in pairs(vm.attachedChildren) do
-										if v:GetParent():GetName() ~= "ConsolidatedBuffs" then
-											v:SetScale(opt.scale)
-										else
-											v:SetScale(1)
-										end
-									end
-								else
-									for i, v in pairs(vm.attachedChildren) do
-										v:SetScale(opt.scale)
-									end
+								for i, v in pairs(vm.attachedChildren) do
+									v:SetScale(opt.scale)
 								end
 							end
 						end
 						MovAny:UnlockPoint(vm.tef)
 						vm.tef:ClearAllPoints()
-						if IsInGroup() and GetCVarBool("consolidateBuffs") then
-							vm.tef:SetPoint("TOPRIGHT", ConsolidatedBuffs, "TOPLEFT", - 6, 0)
-						else
-							vm.tef:SetPoint("TOPRIGHT", ConsolidatedBuffs, "TOPRIGHT", 0, 0)
-						end
+						vm.tef:SetPoint("TOPRIGHT", BuffFrame, "TOPRIGHT", 0, 0)
 						MovAny:LockPoint(vm.tef)
 					end
 				end
@@ -2560,36 +2546,16 @@ MovAny.lVirtualMovers = {
 				end)
 			end
 		end,
-		--[[OnMAFoundChild = function(self, index, child)
-			if self.opt and self.opt.scale then
-				--MovAny:UnlockScale(child)
-				if child:GetParent():GetName() ~= "ConsolidatedBuffs" then
-					child:SetScale(self.opt.scale)
-				else
-					child:SetScale(1)
-				end
-				--MovAny:LockScale(child)
-			end
-		end]]
 		OnMAFoundChild = function(self, index, child)
 			if index == 1 then
 				MovAny:UnlockPoint(child)
 				child:ClearAllPoints()
-				local hasMainHandEnchant = GetWeaponEnchantInfo()
-				if ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", - 148, 0)
-				elseif ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", - 111, 0)
-				elseif ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", - 73, 0)
-				elseif ConsolidatedBuffs:IsVisible() and not hasMainHandEnchant and not TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", - 35, 0)
-				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", - 111, 0)
-				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", - 74, 0)
-				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", - 37, 0)
+				if TempEnchant1:IsShown() and TempEnchant2:IsShown() and TempEnchant3:IsShown() then
+					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", -111, 0)
+				elseif TempEnchant1:IsShown() and TempEnchant2:IsShown() and not TempEnchant3:IsShown() then
+					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", -74, 0)
+				elseif TempEnchant1:IsShown() and not TempEnchant2:IsShown() and not TempEnchant3:IsShown() then
+					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", -37, 0)
 				else
 					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 0)
 				end
@@ -2599,28 +2565,16 @@ MovAny.lVirtualMovers = {
 			if index == 1 then
 				MovAny:UnlockPoint(child)
 				child:ClearAllPoints()
-				local hasMainHandEnchant = GetWeaponEnchantInfo()
-				if ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 353, - 13)
-				elseif ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 316, - 13)
-				elseif ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 278, - 13)
-				elseif ConsolidatedBuffs:IsVisible() and not hasMainHandEnchant and not TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 240, - 13)
-				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 316, - 13)
-				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 279, - 13)
-				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 242, - 13)
+				if TempEnchant1:IsShown() and TempEnchant2:IsShown() and TempEnchant3:IsShown() then
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -316, -13)
+				elseif TempEnchant1:IsShown() and TempEnchant2:IsShown() and not TempEnchant3:IsShown() then
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -279, -13)
+				elseif TempEnchant1:IsShown() and not TempEnchant2:IsShown() and not TempEnchant3:IsShown() then
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -242, -13)
 				else
-					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 205, - 13)
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -205, -13)
 				end
-				--MovAny:LockPoint(child)
 			end
-			--DebuffButton1:ClearAllPoints()
-			--DebuffButton1:SetPoint("TOPRIGHT", ConsolidatedBuffs, "BOTTOMRIGHT", 0, - 60)
 		end,
 		OnMAAlpha = function(self, alpha)
 			BuffFrame:SetAlpha(alpha)
@@ -2630,18 +2584,8 @@ MovAny.lVirtualMovers = {
 				return
 			end
 			if self.attachedChildren then
-				if GetCVar("consolidateBuffs") then
-					for i, child in pairs(self.attachedChildren) do
-						if child:GetParent():GetName() ~= "ConsolidatedBuffs" then
-							child:SetScale(scale)
-						else
-							child:SetScale(1)
-						end
-					end
-				else
-					for i, child in pairs(self.attachedChildren) do
-						child:SetScale(scale)
-					end
+				for i, child in pairs(self.attachedChildren) do
+					child:SetScale(scale)
 				end
 			end
 		end,
@@ -2653,31 +2597,9 @@ MovAny.lVirtualMovers = {
 			b = _G["TemporaryEnchantFrame"]
 			MovAny:LockPoint(b)
 			self.tef = b
-			b = _G["ConsolidatedBuffs"]
-			if b then
-				b:ClearAllPoints()
-				b:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 0)
-				MovAny:LockPoint(b)
-			end
-			if BuffFrame.numConsolidated == 0 then
-				if not b then
-					return
-				end
-				b:Hide()
-			end
 			if self.attachedChildren and self.opt and self.opt.scale then
-				if GetCVar("consolidateBuffs") == "1" then
-					for i, v in pairs(self.attachedChildren) do
-						if v:GetParent():GetName() ~= "ConsolidatedBuffs" then
-							v:SetScale(self.opt.scale)
-						else
-							v:SetScale(1)
-						end
-					end
-				else
-					for i, v in pairs(self.attachedChildren) do
-						v:SetScale(self.opt.scale)
-					end
+				for i, v in pairs(self.attachedChildren) do
+					v:SetScale(self.opt.scale)
 				end
 			end
 		end,
@@ -2690,12 +2612,6 @@ MovAny.lVirtualMovers = {
 			MovAny:UnlockPoint(b)
 			b:ClearAllPoints()
 			b:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", - 205, - 13)
-			b = _G["ConsolidatedBuffs"]
-			if b then
-				MovAny:UnlockPoint(b)
-				b:ClearAllPoints()
-				b:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", - 205, - 13)
-			end
 			for i, v in pairs(self.attachedChildren) do
 				MovAny:UnlockScale(v)
 				v:SetScale(1)
@@ -2709,11 +2625,9 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAHide = function(self, hidden)
 			if hidden then
-				MovAny:LockVisibility(_G["ConsolidatedBuffs"])
 				MovAny:LockVisibility(_G["BuffFrame"])
 				MovAny:LockVisibility(_G["TemporaryEnchantFrame"])
 			else
-				MovAny:UnlockVisibility(_G["ConsolidatedBuffs"])
 				MovAny:UnlockVisibility(_G["BuffFrame"])
 				MovAny:UnlockVisibility(_G["TemporaryEnchantFrame"])
 			end
@@ -2723,10 +2637,10 @@ MovAny.lVirtualMovers = {
 		w = 30,
 		h = 30,
 		point = {"TOPRIGHT", "UIParent", "TOPRIGHT", - 205, - 13},
-		children = {"TemporaryEnchantFrame", "ConsolidatedBuffs"},
+		children = {"TemporaryEnchantFrame"},
 		prefix = "BuffButton",
 		excludes = "PlayerBuffsMover",
-		count = 32,
+		count = 40,
 		dontHide = true,
 		dontLock = true,
 		dontScale = true,
@@ -2738,28 +2652,14 @@ MovAny.lVirtualMovers = {
 						vm:MAScanForChildren(true, true)
 						if opt.scale then
 							if not opt.hidden and vm.attachedChildren then
-								if GetCVar("consolidateBuffs") == "1" then
-									for i, v in pairs(vm.attachedChildren) do
-										if v:GetParent():GetName() ~= "ConsolidatedBuffs" then
-											v:SetScale(opt.scale)
-										else
-											v:SetScale(1)
-										end
-									end
-								else
-									for i, v in pairs(vm.attachedChildren) do
-										v:SetScale(opt.scale)
-									end
+								for i, v in pairs(vm.attachedChildren) do
+									v:SetScale(opt.scale)
 								end
 							end
 						end
 						MovAny:UnlockPoint(vm.tef)
 						vm.tef:ClearAllPoints()
-						if IsInGroup() and GetCVar("consolidateBuffs") == "1" then
-							vm.tef:SetPoint("TOPLEFT", ConsolidatedBuffs, "TOPRIGHT", - 6, 0)
-						else
-							vm.tef:SetPoint("TOPLEFT", ConsolidatedBuffs, "TOPLEFT", 0, 0)
-						end
+						vm.tef:SetPoint("TOPRIGHT", BuffFrame, "TOPRIGHT", 0, 0)
 						MovAny:LockPoint(vm.tef)
 					end
 				end
@@ -2771,198 +2671,37 @@ MovAny.lVirtualMovers = {
 		OnMAFoundChild = function(self, index, child)
 			if self.opt and self.opt.scale then
 				--MovAny:UnlockScale(child)
-				if child:GetParent():GetName() ~= "ConsolidatedBuffs" then
-					child:SetScale(self.opt.scale)
-				else
-					child:SetScale(1)
-				end
+				child:SetScale(self.opt.scale)
 			end
-			--[[if GetCVar("consolidateBuffs") == "1" then
-				if not InCombatLockdown() then
-					SetCVar("consolidateBuffs", 0)
-					ConsolidatedBuffs:Hide()
-				end
-			end]]
 			if index == 1 then
 				MovAny:UnlockPoint(child)
 				child:ClearAllPoints()
-				if child:GetParent():GetName() ~= "ConsolidatedBuffs" then
-					local hasMainHandEnchant = GetWeaponEnchantInfo()
-					if ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and TempEnchant3:IsVisible() then
-						child:SetPoint("TOPLEFT", self, "TOPLEFT", 148, 0)
-					elseif ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
-						child:SetPoint("TOPLEFT", self, "TOPLEFT", 111, 0)
-					elseif ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
-						TempEnchant1:ClearAllPoints()
-						TempEnchant1:SetPoint("TOPLEFT", self, "TOPLEFT", 37, 0)
-						child:SetPoint("TOPLEFT", self, "TOPLEFT", 74, 0)
-					elseif ConsolidatedBuffs:IsVisible() and not hasMainHandEnchant and not TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
-						child:SetPoint("TOPLEFT", self, "TOPLEFT", 37, 0)
-					elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and TempEnchant3:IsVisible() then
-						child:SetPoint("TOPLEFT", self, "TOPLEFT", 111, 0)
-					elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
-						child:SetPoint("TOPLEFT", self, "TOPLEFT", 74, 0)
-					elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
-						TempEnchant1:ClearAllPoints()
-						TempEnchant1:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
-						child:SetPoint("TOPLEFT", self, "TOPLEFT", 37, 0)
-					else
-						child:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
-					end
+				if TempEnchant1:IsShown() and TempEnchant2:IsShown() and TempEnchant3:IsShown() then
+					TempEnchant1:ClearAllPoints()
+					TempEnchant1:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
+					child:SetPoint("TOPLEFT", self, "TOPLEFT", 111, 0)
+				elseif TempEnchant1:IsShown() and TempEnchant2:IsShown() and not TempEnchant3:IsShown() then
+					TempEnchant1:ClearAllPoints()
+					TempEnchant1:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
+					child:SetPoint("TOPLEFT", self, "TOPLEFT", 74, 0)
+				elseif TempEnchant1:IsShown() and not TempEnchant2:IsShown() and not TempEnchant3:IsShown() then
+					TempEnchant1:ClearAllPoints()
+					TempEnchant1:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
+					child:SetPoint("TOPLEFT", self, "TOPLEFT", 37, 0)
 				else
-					child:SetPoint("TOPLEFT", "ConsolidatedBuffs", "TOPRIGHT", 7, 0)
+					child:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
 				end
-				--DebuffButton1:ClearAllPoints()
-				--DebuffButton1:SetPoint("TOPLEFT", ConsolidatedBuffs, "BOTTOMLEFT", 0, - 60)
 			else
 				if string.match(child:GetName(), "BuffButton") then
-					if IsInGroup() and GetCVar("consolidateBuffs") == "1" then
-						local nonConsolidated = { }
-						if IsInGroup() and GetCVar("consolidateBuffs") == "1" then
-							local j = 1
-							for i = 1, 40 do
-								local name, _, _, _, _, _, _, _, _, shouldConsolidate = UnitAura("player", i)
-								if name then
-									if not shouldConsolidate then
-										nonConsolidated[j] = i
-										j = j + 1
-									end
-								end
-							end
-						end
-						for k = 1, #nonConsolidated do
-							local child = _G["BuffButton"..nonConsolidated[k]]
-							if k == 1 then
-								MovAny:UnlockPoint(child)
-								child:ClearAllPoints()
-								child:SetPoint("TOPLEFT", "ConsolidatedBuffs", "TOPRIGHT", 7, 0)
-							elseif k == 8 then
-								MovAny:UnlockPoint(child)
-								child:ClearAllPoints()
-								child:SetPoint("TOP", "ConsolidatedBuffs", "BOTTOM", 0, - 15)
-							elseif k == 16 then
-								MovAny:UnlockPoint(child)
-								child:ClearAllPoints()
-								child:SetPoint("TOP", "BuffButton"..nonConsolidated[8], "BOTTOM", 0, - 15)
-							elseif k == 24 then
-								MovAny:UnlockPoint(child)
-								child:ClearAllPoints()
-								child:SetPoint("TOP", "BuffButton"..nonConsolidated[16], "BOTTOM", 0, - 15)
-							elseif k == 32 then
-								MovAny:UnlockPoint(child)
-								child:ClearAllPoints()
-								child:SetPoint("TOP", "BuffButton"..nonConsolidated[24], "BOTTOM", 0, - 15)
-							else
-								MovAny:UnlockPoint(child)
-								child:ClearAllPoints()
-								child:SetPoint("LEFT", "BuffButton"..nonConsolidated[k - 1], "RIGHT", 5, 0)
-							end
-						end
-					else
-						if index == 9 then
-							MovAny:UnlockPoint(child)
-							child:ClearAllPoints()
-							child:SetPoint("TOP", "ConsolidatedBuffs", "BOTTOM", 0, - 15)
-						elseif index == 17 then
-							MovAny:UnlockPoint(child)
-							child:ClearAllPoints()
-							child:SetPoint("TOP", "BuffButton"..(index - 8), "BOTTOM", 0, - 15)
-						elseif index == 25 then
-							MovAny:UnlockPoint(child)
-							child:ClearAllPoints()
-							child:SetPoint("TOP", "BuffButton"..(index - 17), "BOTTOM", 0, - 15)
-						elseif index == 33 then
-							MovAny:UnlockPoint(child)
-							child:ClearAllPoints()
-							child:SetPoint("TOP", "BuffButton"..(index - 25), "BOTTOM", 0, - 15)
-						else
-							MovAny:UnlockPoint(child)
-							child:ClearAllPoints()
-							child:SetPoint("LEFT", "BuffButton"..(index - 1), "RIGHT", 5, 0)
-						end
-					end
-					--[=[local consolidatedNum
-					local nonConsolidated = { }
-					if IsInGroup() and GetCVar("consolidateBuffs") == "1" then
-						consolidatedNum = 0
-						local j = 1
-						for i = 1, 40 do
-							local name, _, _, _, _, _, _, _, _, shouldConsolidate = UnitAura("player", i)
-							if name then
-								if shouldConsolidate then
-									consolidatedNum = consolidatedNum + 1
-								else
-									nonConsolidated[j] = i
-									j = j + 1
-								end
-							end
-						end
-					else
-						consolidatedNum = 0
-					end
-					if index - 1 - consolidatedNum == 9 then
+					if index == 9 or index == 17 or index == 25 or index == 33 then
 						MovAny:UnlockPoint(child)
 						child:ClearAllPoints()
-						if IsInGroup() and GetCVar("consolidateBuffs") == "1" then
-							_G["BuffButton"..nonConsolidated[9]]:SetPoint("TOP", ConsolidatedBuffs, "BOTTOM", 0, - 15)
-						else
-							child:SetPoint("TOP", ConsolidatedBuffs, "BOTTOM", 0, - 15)
-						end
-					elseif index - consolidatedNum == 17 then
-						if IsInGroup() and GetCVar("consolidateBuffs") == "1" then
-							MovAny:UnlockPoint(child)
-							child:ClearAllPoints()
-							child:SetPoint("TOP", "BuffButton"..nonConsolidated[8], "BOTTOM", 0, - 15)
-						else
-							MovAny:UnlockPoint(child)
-							child:ClearAllPoints()
-							child:SetPoint("TOP", "BuffButton"..(index - 8), "BOTTOM", 0, - 15)
-						end
-					elseif index - 1 - consolidatedNum == 25 then
-						if IsInGroup() and GetCVar("consolidateBuffs") == "1" then
-							MovAny:UnlockPoint(child)
-							child:ClearAllPoints()
-							child:SetPoint("TOP", "BuffButton"..nonConsolidated[17], "BOTTOM", 0, - 15)
-						else
-							MovAny:UnlockPoint(child)
-							child:ClearAllPoints()
-							child:SetPoint("TOP", "BuffButton"..(index - 17), "BOTTOM", 0, - 15)
-						end
-					elseif index - 1 - consolidatedNum == 33 then
-						if IsInGroup() and GetCVar("consolidateBuffs") == "1" then
-							MovAny:UnlockPoint(child)
-							child:ClearAllPoints()
-							child:SetPoint("TOP", "BuffButton"..nonConsolidated[25], "BOTTOM", 0, - 15)
-						else
-							MovAny:UnlockPoint(child)
-							child:ClearAllPoints()
-							child:SetPoint("TOP", "BuffButton"..(index - 25), "BOTTOM", 0, - 15)
-						end
+						child:SetPoint("TOP", "BuffButton"..(index - 8), "BOTTOM", 0, -15)
 					else
 						MovAny:UnlockPoint(child)
 						child:ClearAllPoints()
-						if IsInGroup() and GetCVar("consolidateBuffs") == "1" then
-							local consNum = 0
-							for i = index - 1, 1, -1 do
-								local name, rank, icon, count, dispelType, duration, expires, caster, isStealable, shouldConsolidate = UnitAura("player", i)
-								if shouldConsolidate then
-									consNum = consNum + 1
-								else
-									break
-								end
-							end
-							local x = index - 1 - consNum
-							if x > 0 then
-								child:SetPoint("LEFT", "BuffButton"..x, "RIGHT", 5, 0)
-							elseif x < 1 then
-								child:SetPoint("TOPLEFT", "ConsolidatedBuffs", "TOPRIGHT", 7, 0)
-							else
-								child:SetPoint("LEFT", "BuffButton"..nonConsolidated[#nonConsolidated - 1], "RIGHT", 5, 0)
-							end
-						else
-							child:SetPoint("LEFT", "BuffButton"..(index - 1), "RIGHT", 5, 0)
-						end
-					end]=]
+						child:SetPoint("LEFT", "BuffButton"..(index - 1), "RIGHT", 5, 0)
+					end
 				end
 			end
 		end,
@@ -2970,39 +2709,28 @@ MovAny.lVirtualMovers = {
 			if index == 1 then
 				MovAny:UnlockPoint(child)
 				child:ClearAllPoints()
-				local hasMainHandEnchant = GetWeaponEnchantInfo()
-				if ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 353, - 13)
-				elseif ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 316, - 13)
-				elseif ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+				if TempEnchant1:IsShown() and TempEnchant2:IsShown() and TempEnchant3:IsShown() then
 					TempEnchant1:ClearAllPoints()
 					TempEnchant1:SetPoint("TOPRIGHT", TemporaryEnchantFrame, "TOPRIGHT", 0, 0)
-					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 279, - 13)
-				elseif ConsolidatedBuffs:IsVisible() and not hasMainHandEnchant and not TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 242, - 13)
-				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 316, - 13)
-				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
-					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 279, - 13)
-				elseif not ConsolidatedBuffs:IsVisible() and hasMainHandEnchant and TempEnchant1:IsVisible() and not TempEnchant2:IsVisible() and not TempEnchant3:IsVisible() then
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -316, -13)
+				elseif TempEnchant1:IsShown() and TempEnchant2:IsShown() and not TempEnchant3:IsShown() then
 					TempEnchant1:ClearAllPoints()
 					TempEnchant1:SetPoint("TOPRIGHT", TemporaryEnchantFrame, "TOPRIGHT", 0, 0)
-					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 242, - 13)
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -279, -13)
+				elseif TempEnchant1:IsShown() and not TempEnchant2:IsShown() and not TempEnchant3:IsShown() then
+					TempEnchant1:ClearAllPoints()
+					TempEnchant1:SetPoint("TOPRIGHT", TemporaryEnchantFrame, "TOPRIGHT", 0, 0)
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -242, -13)
 				else
-					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", - 205, - 13)
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -205, -13)
 				end
 				--MovAny:LockPoint(child)
 			else
 				if string.match(child:GetName(), "BuffButton") then
-					if index == 9 then
+					if index == 9 or index == 17 or index == 25 or index == 33 then
 						MovAny:UnlockPoint(child)
 						child:ClearAllPoints()
-						child:SetPoint("TOP", ConsolidatedBuffs, "BOTTOM", 0, - 15)
-					elseif index == 17 then
-						MovAny:UnlockPoint(child)
-						child:ClearAllPoints()
-						child:SetPoint("TOP", "BuffButton"..(index - 8), "BOTTOM", 0, - 15)
+						child:SetPoint("TOP", "BuffButton"..(index - 8), "BOTTOM", 0, -15)
 					else
 						MovAny:UnlockPoint(child)
 						child:ClearAllPoints()
@@ -3010,8 +2738,6 @@ MovAny.lVirtualMovers = {
 					end
 				end
 			end
-			--DebuffButton1:ClearAllPoints()
-			--DebuffButton1:SetPoint("TOPRIGHT", ConsolidatedBuffs, "BOTTOMRIGHT", 0, - 60)
 		end,
 		OnMAAlpha = function(self, alpha)
 			BuffFrame:SetAlpha(alpha)
@@ -3021,18 +2747,8 @@ MovAny.lVirtualMovers = {
 				return
 			end
 			if self.attachedChildren then
-				if GetCVar("consolidateBuffs") == "1" then
-					for i, child in pairs(self.attachedChildren) do
-						if child:GetParent():GetName() ~= "ConsolidatedBuffs" then
-							child:SetScale(scale)
-						else
-							child:SetScale(1)
-						end
-					end
-				else
-					for i, child in pairs(self.attachedChildren) do
-						child:SetScale(scale)
-					end
+				for i, child in pairs(self.attachedChildren) do
+					child:SetScale(scale)
 				end
 			end
 		end,
@@ -3044,12 +2760,6 @@ MovAny.lVirtualMovers = {
 			--b = _G["TemporaryEnchantFrame"]
 			--MovAny:LockPoint(b)
 			self.tef = b
-			b = _G["ConsolidatedBuffs"]
-			if b then
-				b:ClearAllPoints()
-				b:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
-				MovAny:LockPoint(b)
-			end
 			if BuffFrame.numConsolidated == 0 then
 				if not b then
 					return
@@ -3057,18 +2767,8 @@ MovAny.lVirtualMovers = {
 				b:Hide()
 			end
 			if self.attachedChildren and self.opt and self.opt.scale then
-				if GetCVar("consolidateBuffs") == "1" then
-					for i, v in pairs(self.attachedChildren) do
-						if v:GetParent():GetName() ~= "ConsolidatedBuffs" then
-							v:SetScale(self.opt.scale)
-						else
-							v:SetScale(1)
-						end
-					end
-				else
-					for i, v in pairs(self.attachedChildren) do
-						v:SetScale(self.opt.scale)
-					end
+				for i, v in pairs(self.attachedChildren) do
+					v:SetScale(self.opt.scale)
 				end
 			end
 		end,
@@ -3081,12 +2781,6 @@ MovAny.lVirtualMovers = {
 			MovAny:UnlockPoint(b)
 			b:ClearAllPoints()
 			b:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", - 205, - 13)
-			b = _G["ConsolidatedBuffs"]
-			if b then
-				MovAny:UnlockPoint(b)
-				b:ClearAllPoints()
-				b:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", - 205, - 13)
-			end
 			for i, v in pairs(self.attachedChildren) do
 				MovAny:UnlockScale(v)
 				v:SetScale(1)
@@ -3100,11 +2794,9 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAHide = function(self, hidden)
 			if hidden then
-				MovAny:LockVisibility(_G["ConsolidatedBuffs"])
 				MovAny:LockVisibility(_G["BuffFrame"])
 				MovAny:LockVisibility(_G["TemporaryEnchantFrame"])
 			else
-				MovAny:UnlockVisibility(_G["ConsolidatedBuffs"])
 				MovAny:UnlockVisibility(_G["BuffFrame"])
 				MovAny:UnlockVisibility(_G["TemporaryEnchantFrame"])
 			end
@@ -3115,8 +2807,8 @@ MovAny.lVirtualMovers = {
 		h = 30,
 		prefix = "DebuffButton",
 		excludes = "PlayerDebuffsMover2",
-		count = 16,
-		point = {"TOPRIGHT", "ConsolidatedBuffs", "BOTTOMRIGHT", 0, - 60},
+		count = 40,
+		point = {"TOPRIGHT", "BuffFrame", "BOTTOMRIGHT", 0, - 60},
 		OnLoad = function(self)
 			if BuffFrame_Update then
 				hooksecurefunc("BuffFrame_Update", function()
@@ -3135,7 +2827,7 @@ MovAny.lVirtualMovers = {
 		OnMAReleaseChild = function(self, index, child)
 			if index == 1 then
 				child:ClearAllPoints()
-				child:SetPoint("TOPRIGHT", "ConsolidatedBuffs", "BOTTOMRIGHT", 0, - 60)
+				child:SetPoint("TOPRIGHT", "BuffFrame", "BOTTOMRIGHT", 0, - 60)
 			end
 			child:SetAlpha(1)
 		end,
@@ -3168,7 +2860,7 @@ MovAny.lVirtualMovers = {
 		prefix = "DebuffButton",
 		excludes = "PlayerDebuffsMover",
 		count = 16,
-		point = {"TOPRIGHT", "ConsolidatedBuffs", "BOTTOMRIGHT", 0, - 60},
+		point = {"TOPRIGHT", "BuffFrame", "BOTTOMRIGHT", 0, - 60},
 		OnLoad = function(self)
 			if BuffFrame_Update then
 				hooksecurefunc("BuffFrame_Update", function()
@@ -3179,14 +2871,18 @@ MovAny.lVirtualMovers = {
 			end
 		end,
 		OnMAFoundChild = function(self, index, child)
+			if self.opt and self.opt.scale then
+				--MovAny:UnlockScale(child)
+				child:SetScale(self.opt.scale)
+			end
 			if index == 1 then
 				child:ClearAllPoints()
 				child:SetPoint("TOPRIGHT", self, "TOPRIGHT")
 			else
 				if string.match(child:GetName(), "DebuffButton") then
-					if index == 9 then
+					if index == 9 or index == 17 or index == 25 or index == 33 then
 						child:ClearAllPoints()
-						child:SetPoint("TOPLEFT", "DebuffButton"..(index - 8), "BOTTOMLEFT", 0, - 15)
+						child:SetPoint("TOP", "DebuffButton"..(index - 8), "BOTTOM", 0, - 15)
 					else
 						child:ClearAllPoints()
 						child:SetPoint("LEFT", "DebuffButton"..(index - 1), "RIGHT", 5, 0)
@@ -3197,12 +2893,12 @@ MovAny.lVirtualMovers = {
 		OnMAReleaseChild = function(self, index, child)
 			if index == 1 then
 				child:ClearAllPoints()
-				child:SetPoint("TOPRIGHT", "ConsolidatedBuffs", "BOTTOMRIGHT", 0, - 60)
+				child:SetPoint("TOPRIGHT", "BuffFrame", "BOTTOMRIGHT", 0, - 60)
 			else
 				if string.match(child:GetName(), "DebuffButton") then
-					if index == 9 then
+					if index == 9 or index == 17 or index == 25 or index == 33 then
 						child:ClearAllPoints()
-						child:SetPoint("TOPRIGHT", "DebuffButton"..(index - 8), "BOTTOMRIGHT", 0, - 15)
+						child:SetPoint("TOP", "DebuffButton"..(index - 8), "BOTTOM", 0, - 15)
 					else
 						child:ClearAllPoints()
 						child:SetPoint("RIGHT", "DebuffButton"..(index - 1), "LEFT", 5, 0)

@@ -3,6 +3,16 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**16.0.1**
+* Fixed Frames:
+	* Player Buffs Default
+	* Player Buffs From Right to Left
+	* Player Debuffs Default
+	* Player Debuffs From Right to Left
+* Removed Frames:
+	* Consolidated Buffs
+	* Player Buffs - Consolidated Buffs Tooltip
+
 **16.0.0**
 * Updated for 7.0.3.
 * Every frame can be hidden without creating the mover anchor.
