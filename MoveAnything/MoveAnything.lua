@@ -205,12 +205,14 @@ local MovAny = {
 		FocusFrameSpellBar,
 		MirrorTimer1,
 		MiniMapInstanceDifficulty,
-		EclipseBarFrame,
-		PaladinPowerBar,
-		ShardBarFrame,
-		PriestBarFrame,
-		MonkHarmonyBar,
 		VoidStorageFrame,
+		ComboPointPlayerFrame,
+		RuneFrame,
+		MageArcaneChargesFrame,
+		PaladinPowerBarFrame,
+		WarlockPowerFrame,
+		MonkHarmonyBarFrame,
+		MonkStaggerBar,
 	},
 	lTranslate = {
 		minimap = "MinimapCluster",
@@ -2618,7 +2620,7 @@ function MovAny:HideFrame(f, readOnly)
 		fn = f:GetName()
 	end
 	API:AddElementIfNew(fn)
-	if fn == "PaladinPowerBar" then
+	if fn == "PaladinPowerBarFrame" then
 		f:UnregisterAllEvents()
 	elseif fn == "CompactRaidFrameManager" then
 		f:UnregisterAllEvents()
@@ -2724,8 +2726,8 @@ function MovAny:ShowFrame(f, readOnly, dontHook)
 		fn = f:GetName()
 	end
 	API:AddElementIfNew(fn)
-	if fn == "PaladinPowerBar" then
-		PaladinPowerBar_OnLoad(f)
+	if fn == "PaladinPowerBarFrame" then
+		PaladinPowerBar.OnLoad(f)
 	elseif fn == "CompactRaidFrameManager" then
 		f:RegisterEvent("DISPLAY_SIZE_CHANGED")
 		f:RegisterEvent("UI_SCALE_CHANGED")

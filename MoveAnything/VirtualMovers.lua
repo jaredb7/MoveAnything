@@ -1832,16 +1832,16 @@ MovAny.lVirtualMovers = {
 			end
 		end
 	},
-	MMonkHarmonyBarFrameMover = {
-		w = 100,
+	MonkHarmonyBarFrameMover = {
+		w = 110,
 		h = 30,
 		inherits = MonkHarmonyBarFrame,
-		point = {"CENTER", "UIParent", "TOP", 0, -70},
+		point = {"TOP", "PlayerFrame", "TOP", 49, -46 - (30 / 2)},
 		OnMAHook = function(self)
 			local b = MonkHarmonyBarFrame
 			MovAny:UnlockPoint(b)
 			b:ClearAllPoints()
-			b:SetPoint("CENTER", MonkHarmonyBarMover, "CENTER", 0, 0)
+			b:SetPoint("CENTER", self, "CENTER", 0, 0)
 			MovAny:LockPoint(b)
 			--b.ignoreFramePositionManager = true
 			b:SetMovable(true)
@@ -1858,7 +1858,14 @@ MovAny.lVirtualMovers = {
 			MovAny:UnlockPoint(MonkHarmonyBarFrame)
 			local b = MonkHarmonyBarFrame
 			b:ClearAllPoints()
-			b:SetPoint("TOP", PlayerFrame, "TOP", 49, -46)
+			b:SetPoint("TOP", "PlayerFrame", "TOP", 49, -46)
+		end,
+		OnMAHide = function(self, hidden)
+			if hidden then
+				MovAny:LockVisibility(self.sbf)
+			else
+				MovAny:UnlockVisibility(self.sbf)
+			end
 		end
 	},
 	StanceButtonsMover = {
@@ -1883,6 +1890,16 @@ MovAny.lVirtualMovers = {
 			b:SetUserPlaced(true)
 			self.sbf = b
 		end,
+		OnMAScale = function(self, scale)
+			if type(scale) ~= "number" then
+				return
+			end
+			if self.attachedChildren then
+				for i, child in pairs(self.attachedChildren) do
+					child:SetScale(scale)
+				end
+			end
+		end,
 		OnMAPreReset = function(self)
 			local b = self.sbf
 			MovAny:UnlockPoint(b)
@@ -1892,6 +1909,10 @@ MovAny.lVirtualMovers = {
 			b.ignoreFramePositionManager = nil
 			b:SetUserPlaced(nil)
 			b:SetMovable(nil)
+			for i, v in pairs(self.attachedChildren) do
+				MovAny:UnlockScale(v)
+				v:SetScale(1)
+			end
 		end,
 		OnMAHide = function(self, hidden)
 			if hidden then
@@ -1933,6 +1954,16 @@ MovAny.lVirtualMovers = {
 				self.sbf:SetMovable(nil)
 			end
 		end,
+		OnMAScale = function(self, scale)
+			if type(scale) ~= "number" then
+				return
+			end
+			if self.attachedChildren then
+				for i, child in pairs(self.attachedChildren) do
+					child:SetScale(scale)
+				end
+			end
+		end,
 		OnMAFoundChild = function(self, index, child)
 			child.MAParent = self
 			child:ClearAllPoints()
@@ -1949,6 +1980,10 @@ MovAny.lVirtualMovers = {
 				child:SetPoint("BOTTOMLEFT", self.sbf, "BOTTOMLEFT", 11, 3)
 			else
 				child:SetPoint("LEFT", self.lastChild, "RIGHT", 8, 0)
+			end
+			for i, v in pairs(self.attachedChildren) do
+				MovAny:UnlockScale(v)
+				v:SetScale(1)
 			end
 		end,
 		OnMAHide = function(self, hidden)
