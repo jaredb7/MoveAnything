@@ -4,7 +4,7 @@
 
 
 **16.0.3**
-* Autoremove fomr potentionally broken frames.
+* Auto-removed some potentionally broken frames.
 * Fixed Frames:
 	* Player Buffs Default
 	* Player Buffs From Right to Left
