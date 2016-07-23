@@ -5444,6 +5444,21 @@ function MovAny_OnEvent(self, event, arg1)
 				if MovAny:IsModified(PlayerPowerBarAltCounterBar) then
 					MovAny:ResetFrame(PlayerPowerBarAltCounterBar)
 				end
+				for k, v in pairs(MADB.profiles) do
+					if v.frames["PaladinPowerBar"] then
+						v.frames["PaladinPowerBar"] = nil
+					end
+					for i = 1, 10 do
+						if v.frames["LootWonAlertMover"..i] then
+							v.frames["LootWonAlertMover"..i] = nil
+						end
+					end
+					for i = 1, 5 do
+						if v.frames["MoneyWonAlertMover"..i] then
+							v.frames["MoneyWonAlertMover"..i] = nil
+						end
+					end
+				end
 			end
 		elseif arg1 == "Blizzard_TalentUI" and MovAny.hBlizzard_TalentUI then
 			MovAny:hBlizzard_TalentUI()

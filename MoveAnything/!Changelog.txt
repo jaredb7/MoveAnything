@@ -3,6 +3,15 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**16.0.3**
+* Autoremove fomr potentionally broken frames.
+* Fixed Frames:
+	* Player Buffs Default
+	* Player Buffs From Right to Left
+* Removed Frames:
+	* Loot Won Alert Frame 1-10
+	* Money Won Frame 1-5
+
 **16.0.2**
 * Added Frames:
 	* Combo Point Frame

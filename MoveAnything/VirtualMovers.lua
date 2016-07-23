@@ -2586,9 +2586,9 @@ MovAny.lVirtualMovers = {
 				MovAny:UnlockPoint(child)
 				child:ClearAllPoints()
 				if TempEnchant1:IsShown() and TempEnchant2:IsShown() and TempEnchant3:IsShown() then
-					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", -111, 0)
+					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", -101, 0)
 				elseif TempEnchant1:IsShown() and TempEnchant2:IsShown() and not TempEnchant3:IsShown() then
-					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", -74, 0)
+					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", -69, 0)
 				elseif TempEnchant1:IsShown() and not TempEnchant2:IsShown() and not TempEnchant3:IsShown() then
 					child:SetPoint("TOPRIGHT", self, "TOPRIGHT", -37, 0)
 				else
@@ -2601,9 +2601,9 @@ MovAny.lVirtualMovers = {
 				MovAny:UnlockPoint(child)
 				child:ClearAllPoints()
 				if TempEnchant1:IsShown() and TempEnchant2:IsShown() and TempEnchant3:IsShown() then
-					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -316, -13)
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -306, -13)
 				elseif TempEnchant1:IsShown() and TempEnchant2:IsShown() and not TempEnchant3:IsShown() then
-					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -279, -13)
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -274, -13)
 				elseif TempEnchant1:IsShown() and not TempEnchant2:IsShown() and not TempEnchant3:IsShown() then
 					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -242, -13)
 				else
@@ -2714,11 +2714,17 @@ MovAny.lVirtualMovers = {
 				if TempEnchant1:IsShown() and TempEnchant2:IsShown() and TempEnchant3:IsShown() then
 					TempEnchant1:ClearAllPoints()
 					TempEnchant1:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
-					child:SetPoint("TOPLEFT", self, "TOPLEFT", 111, 0)
+					TempEnchant2:ClearAllPoints()
+					TempEnchant2:SetPoint("TOPLEFT", TempEnchant1, "TOPRIGHT", 5, 0)
+					TempEnchant3:ClearAllPoints()
+					TempEnchant3:SetPoint("TOPLEFT", TempEnchant2, "TOPRIGHT", 5, 0)
+					child:SetPoint("TOPLEFT", self, "TOPLEFT", 101, 0)
 				elseif TempEnchant1:IsShown() and TempEnchant2:IsShown() and not TempEnchant3:IsShown() then
 					TempEnchant1:ClearAllPoints()
 					TempEnchant1:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
-					child:SetPoint("TOPLEFT", self, "TOPLEFT", 74, 0)
+					TempEnchant2:ClearAllPoints()
+					TempEnchant2:SetPoint("TOPLEFT", TempEnchant1, "TOPRIGHT", 5, 0)
+					child:SetPoint("TOPLEFT", self, "TOPLEFT", 69, 0)
 				elseif TempEnchant1:IsShown() and not TempEnchant2:IsShown() and not TempEnchant3:IsShown() then
 					TempEnchant1:ClearAllPoints()
 					TempEnchant1:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
@@ -2744,17 +2750,17 @@ MovAny.lVirtualMovers = {
 			if index == 1 then
 				MovAny:UnlockPoint(child)
 				child:ClearAllPoints()
+				TempEnchant1:ClearAllPoints()
+				TempEnchant1:SetPoint("TOPRIGHT", TemporaryEnchantFrame, "TOPRIGHT", 0, 0)
+				TempEnchant2:ClearAllPoints()
+				TempEnchant2:SetPoint("TOPRIGHT", TempEnchant1, "TOPLEFT", -5, 0)
+				TempEnchant3:ClearAllPoints()
+				TempEnchant3:SetPoint("TOPRIGHT", TempEnchant2, "TOPLEFT", -5, 0)
 				if TempEnchant1:IsShown() and TempEnchant2:IsShown() and TempEnchant3:IsShown() then
-					TempEnchant1:ClearAllPoints()
-					TempEnchant1:SetPoint("TOPRIGHT", TemporaryEnchantFrame, "TOPRIGHT", 0, 0)
-					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -316, -13)
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -306, -13)
 				elseif TempEnchant1:IsShown() and TempEnchant2:IsShown() and not TempEnchant3:IsShown() then
-					TempEnchant1:ClearAllPoints()
-					TempEnchant1:SetPoint("TOPRIGHT", TemporaryEnchantFrame, "TOPRIGHT", 0, 0)
-					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -279, -13)
+					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -274, -13)
 				elseif TempEnchant1:IsShown() and not TempEnchant2:IsShown() and not TempEnchant3:IsShown() then
-					TempEnchant1:ClearAllPoints()
-					TempEnchant1:SetPoint("TOPRIGHT", TemporaryEnchantFrame, "TOPRIGHT", 0, 0)
 					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -242, -13)
 				else
 					child:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -205, -13)
