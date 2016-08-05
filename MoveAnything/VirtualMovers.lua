@@ -1793,7 +1793,7 @@ MovAny.lVirtualMovers = {
 			end
 		end
 	},
-	ExtraActionBarFrameMover = {
+	--[[ExtraActionBarFrameMover = {
 		w = 52,
 		h = 52,
 		point = {"BOTTOM", "MainMenuBar", 0, 160},
@@ -1831,7 +1831,7 @@ MovAny.lVirtualMovers = {
 				MovAny:UnlockVisibility(self.sbf)
 			end
 		end
-	},
+	},]]
 	MonkHarmonyBarFrameMover = {
 		w = 110,
 		h = 30,

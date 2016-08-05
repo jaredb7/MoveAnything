@@ -165,7 +165,7 @@ local m = {
 		API:AddElement({name = "MainMenuBarPageNumber", displayName = "Action Bar Page Number"}, c)
 		API:AddElement({name = "ActionBarUpButton", displayName = "Action Bar Page Up"}, c)
 		API:AddElement({name = "ActionBarDownButton", displayName = "Action Bar Page Down"}, c)
-		API:AddElement({name = "ExtraActionBarFrameMover", displayName = "Extra Action Button"}, c)
+		API:AddElement({name = "ExtraActionBarFrame", displayName = "Extra Action Bar"}, c)
 		API:AddElement({name = "ZoneAbilityFrame", displayName = "Zone Ability"}, c)
 		API:AddElement({name = "PetActionButtonsMover", displayName = "Pet Action Bar"}, c)
 		API:AddElement({name = "PetActionButtonsVerticalMover", displayName = "Pet Action Bar - Vertical"}, c)
