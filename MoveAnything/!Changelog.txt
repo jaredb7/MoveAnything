@@ -3,6 +3,11 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**16.0.6**
+* Fixed a type which caused major performance issues with tooltips.
+* Fixed Frames:
+	* Talking Head Frame
+
 **16.0.5**
 Tooltips can be properly hidden.
 * Added Frames:

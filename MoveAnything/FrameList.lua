@@ -82,7 +82,7 @@ local m = {
 			end)
 		end}, c)
 		API:AddElement({name = "QuestChoiceFrame", displayName = "Quest Choice Frame"}, c)
-		API:AddElement({name = "TalkingHeadFrame", displayName = "Quest Talking Head Frame"}, c)
+		API:AddElement({name = "TalkingHeadFrame", displayName = "Quest Talking Head Frame", runOnce = TalkingHead_LoadUI}, c)
 		--API:AddElement({name = "QuestTimerFrame", displayName = "Quest Timer"}, c)
 		c = API:GetCategory("Arena")
 		--API:AddElement({name = "ArenaEnemyFrames", displayName = "ArenaEnemyFrames", noScale = 1}, c)

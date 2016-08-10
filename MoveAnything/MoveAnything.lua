@@ -4711,8 +4711,8 @@ function MovAny:HookTooltip(mover)
 	tooltip:ClearAllPoints()
 	tooltip:SetPoint(anchor, mover, anchor, 0, 0)
 	MovAny:LockPoint(tooltip)
-	--local opt = MovAny:GetUserData(mover:GetName())
-	if opt.hidden then
+	local opt = MovAny:GetUserData(mover:GetName())
+	if opt and opt.hidden then
 		self:LockVisibility(tooltip)
 	end
 	MovAny.Alpha:Apply(mover.MAE, tooltip)
