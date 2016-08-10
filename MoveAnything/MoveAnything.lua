@@ -4707,13 +4707,14 @@ function MovAny:HookTooltip(mover)
 			anchor = anchor.."LEFT"
 		end
 	end
-	--MovAny:UnlockPoint(tooltip)
+	MovAny:UnlockPoint(tooltip)
 	tooltip:ClearAllPoints()
 	tooltip:SetPoint(anchor, mover, anchor, 0, 0)
-	--MovAny:LockPoint(tooltip)
-	--[[if opt.hidden then
+	MovAny:LockPoint(tooltip)
+	--local opt = MovAny:GetUserData(mover:GetName())
+	if opt.hidden then
 		self:LockVisibility(tooltip)
-	end]]
+	end
 	MovAny.Alpha:Apply(mover.MAE, tooltip)
 	MovAny.Scale:Apply(mover.MAE, tooltip)
 	MovAny.Misc:Apply(mover.MAE, tooltip)

@@ -3,6 +3,15 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**16.0.5**
+Tooltips can be properly hidden.
+* Fixed Frames:
+	* Tooltip - Bag Item.
+
+**16.0.4**
+* Fixed Frames:
+	* Extra Action Bar
+
 **16.0.3**
 * Auto-removed some potentionally broken frames.
 * Fixed Frames:
