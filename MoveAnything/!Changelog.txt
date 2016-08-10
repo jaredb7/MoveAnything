@@ -5,6 +5,9 @@
 
 **16.0.5**
 Tooltips can be properly hidden.
+* Added Frames:
+	* Honor Bar
+	* Talking Head Frame
 * Fixed Frames:
 	* Tooltip - Bag Item.
 

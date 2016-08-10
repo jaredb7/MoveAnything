@@ -82,6 +82,7 @@ local m = {
 			end)
 		end}, c)
 		API:AddElement({name = "QuestChoiceFrame", displayName = "Quest Choice Frame"}, c)
+		API:AddElement({name = "TalkingHeadFrame", displayName = "Quest Talking Head Frame"}, c)
 		--API:AddElement({name = "QuestTimerFrame", displayName = "Quest Timer"}, c)
 		c = API:GetCategory("Arena")
 		--API:AddElement({name = "ArenaEnemyFrames", displayName = "ArenaEnemyFrames", noScale = 1}, c)
@@ -272,6 +273,7 @@ local m = {
 				end)
 			end
 		}, c)
+		API:AddElement({name = "HonorWatchBar", displayName = "Honor Bar"}, c)
 		API:AddElement({name = "MainMenuBarMaxLevelBar", displayName = "Max Level Bar Filler", noFE = 1, noScale = 1}, c)
 		API:AddElement({name = "ReputationWatchBar", displayName = "Reputation Tracker Bar", runOnce = function()
 			if ReputationWatchBar_Update then
