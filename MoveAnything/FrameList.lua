@@ -274,6 +274,7 @@ local m = {
 			end
 		}, c)
 		API:AddElement({name = "HonorWatchBar", displayName = "Honor Bar"}, c)
+		API:AddElement({name = "ArtifactWatchBar", displayName = "Artifact Bar"}, c)
 		API:AddElement({name = "MainMenuBarMaxLevelBar", displayName = "Max Level Bar Filler", noFE = 1, noScale = 1}, c)
 		API:AddElement({name = "ReputationWatchBar", displayName = "Reputation Tracker Bar", runOnce = function()
 			if ReputationWatchBar_Update then
