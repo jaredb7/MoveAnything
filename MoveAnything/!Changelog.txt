@@ -3,6 +3,15 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**16.0.9**
+* Added Frames:
+	* Order Hall Command Bar
+	* Order Hall Missions
+	* Order Hall Talents
+	* Artifact Frame
+	* Flight Map
+	* Vehicle Experience Bar
+
 **16.0.8**
 * Added Frames:
 	* Artifact Bar

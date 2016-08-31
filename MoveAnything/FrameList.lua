@@ -19,6 +19,7 @@ local cats = {
 	{name = "Game Menu"},
 	{name = "Garrison"},
 	{name = "Shipyard"},
+	{name = "Order Hall"},
 	{name = "Guild"},
 	{name = "Info Panels"},
 	{name = "Loot"},
@@ -397,6 +398,10 @@ local m = {
 		API:AddElement({name = "GarrisonShipyardFrame", displayName = "Naval Operations"}, c)
 		API:AddElement({name = "GarrisonShipMissionAlertFrame", displayName = "Shipyard Mission Alert"}, c)
 		API:AddElement({name = "GarrisonShipFollowerAlertFrame", displayName = "Shipyard Follower Alert"}, c)
+		c = API:GetCategory("Order Hall")
+		API:AddElement({name = "OrderHallCommandBar", displayName = "Order Hall Command Bar"}, c)
+		API:AddElement({name = "OrderHallMissionFrame", displayName = "Order Hall Missions"}, c)
+		API:AddElement({name = "OrderHallTalentFrame", displayName = "Order Hall Talents"}, c)
 		c = API:GetCategory("Guild")
 		API:AddElement({name = "GuildFrame", displayName = "Guild"}, c)
 		gbf:AddCategory(c)
@@ -436,7 +441,9 @@ local m = {
 		API:AddElement({name = "CharacterFrame", displayName = "Character / Reputation / Currency"}, c)
 		API:AddElement({name = "DressUpFrame", displayName = "Dressing Room"}, c)
 		--API:AddElement({name = "LFDParentFrame", displayName = "Dungeon Finder"}, c)
+		API:AddElement({name = "ArtifactFrame", displayName = "Artifact Frame"}, c)
 		API:AddElement({name = "TaxiFrame", displayName = "Flight Paths"}, c)
+		API:AddElement({name = "FlightMapFrame", displayName = "Flight Map"}, c)
 		lfgf:AddCategory(c)
 		API:AddElement({name = "GossipFrame", displayName = "Gossip"}, c)
 		API:AddElement({name = "InspectFrame", displayName = "Inspect"}, c)
@@ -652,6 +659,7 @@ local m = {
 				--{"OverrideActionBarButtonFrame", "ARTWORK","BACKGROUND","BORDER","OVERLAY"}
 			}
 		}, c)
+		API:AddElement({name = "OverrideActionBarExpBar", displayName = "Vehicle Experience Bar", onlyOnceCreated = 1}, c)
 		API:AddElement({name = "OverrideActionButtonsMover", displayName = "Vehicle Action Bar", runOnce = function()
 			OverrideActionBarButtonFrame:SetSize((OverrideActionBarButton1:GetWidth() + 2) * VEHICLE_MAX_ACTIONBUTTONS, OverrideActionBarButton1:GetHeight() + 2)
 		 end}, c)
