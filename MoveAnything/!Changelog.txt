@@ -3,6 +3,11 @@
 * Reseting bags while the bag is not opened won't reset it's scale to default.
 
 
+**16.1.1**
+Updated for 7.1.0.
+* Fixed Frames:
+	* Challenge Keystone
+
 **16.1.0**
 * Added Frames:
 	* World Quest Complete Alert

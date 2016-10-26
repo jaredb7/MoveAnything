@@ -313,7 +313,7 @@ local m = {
 		API:AddElement({name = "PVEFrame", displayName = "Dungeon Finder"}, c)
 		API:AddElement({name = "EncounterJournal", displayName = "Dungeon Journal"}, c)
 		--API:AddElement({name = "LFGSearchStatus", displayName = "Dungeon/Raid Finder Queue Status"}, c)
-		API:AddElement({name = "ChallangesKeystoneFrame", displayName = "Challange Keystone"}, c)
+		API:AddElement({name = "ChallengesKeystoneFrame", displayName = "Challenge Keystone"}, c)
 		API:AddElement({name = "DungeonCompletionAlertFrame1", displayName = "Dungeon Completion Alert"}, c)
 		API:AddElement({name = "ScenarioAlertFrame1", displayName = "Scenario Completion Alert 1"}, c)
 		API:AddElement({name = "ScenarioAlertFrame2", displayName = "Scenario Completion Alert 2"}, c)
