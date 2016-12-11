@@ -1,4 +1,4 @@
-﻿local _G = _G
+local _G = _G
 local hooksecurefunc = hooksecurefunc
 local pairs = pairs
 local string = string
