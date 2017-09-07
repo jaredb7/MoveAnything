@@ -1442,7 +1442,7 @@ function MovAny.hSetPoint(f, ...)
 	if not f then
 		return
 	end
-	--[[if MovAny.lForceProtected[f:GetName()] then 
+	--[[if MovAny.lForceProtected[f:GetName()] then
 		print(f:GetName())
 		return
 	end]]
@@ -3242,7 +3242,7 @@ end
 
 function MovAny:OnShow()
 	if MADB.playSound then
-		PlaySound("igMainMenuOpen")
+		PlaySound(850)
 	end
 	MADB.autoShowNext = true
 	MANudger:Show()
@@ -3257,7 +3257,7 @@ end
 
 function MovAny:OnHide()
 	if MADB.playSound then
-		PlaySound("igMainMenuClose")
+		PlaySound(851)
 	end
 	MADB.autoShowNext = nil
 	if not self.currentMover then
@@ -5547,7 +5547,7 @@ function MovAny_OnEvent(self, event, arg1)
 						self:ma_Show()
 					end
 				end]]
-				ArenaPrepFrames.Hide = function() 
+				ArenaPrepFrames.Hide = function()
 					ArenaPrepFrames.ma_isshown = false
 					ArenaPrepFrames_UpdateWatchFrame()
 				end
@@ -5579,7 +5579,7 @@ function MovAny_OnEvent(self, event, arg1)
 				else
 					ArenaPrepFrames:Hide()
 				end
-				ArenaPrepFrames.Show = function() 
+				ArenaPrepFrames.Show = function()
 						ArenaPrepFrames.ma_isshown = true
 						ArenaPrepFrames_UpdateWatchFrame()
 					end
@@ -5587,7 +5587,7 @@ function MovAny_OnEvent(self, event, arg1)
 				--[[ArenaPrepFrames.Hide = function(self)
 					if not InCombatLockdown() then
 						self:ma_Hide()
-					end 
+					end
 				end]]
 				ArenaPrepFrames.clear_all_points = ArenaPrepFrames.ClearAllPoints
 				ArenaPrepFrames.ClearAllPoints = function(self)
@@ -5639,9 +5639,9 @@ function MovAny_OnEvent(self, event, arg1)
 						self:ma_Hide()
 					end
 				end]]
-				ArenaEnemyFrames.Hide = function() 
+				ArenaEnemyFrames.Hide = function()
 					ArenaEnemyFrames.ma_isshown = false
-					ArenaEnemyFrames_UpdateWatchFrame() 
+					ArenaEnemyFrames_UpdateWatchFrame()
 				end
 				if GetCVarBool("showArenaEnemyFrames") then
 					ArenaEnemyFrames:Show()
