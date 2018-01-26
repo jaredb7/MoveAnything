@@ -415,16 +415,16 @@ local MovAny = {
 		[16] = {"Interface\\ContainerFrame\\UI-Bag-4x4", 256, 256, 219},
 		[18] = {"Interface\\ContainerFrame\\UI-Bag-4x4+2", 256, 256, 239},
 		[20] = {"Interface\\ContainerFrame\\UI-Bag-5x4", 256, 256, 259},
-		[22] = {"Interface\\ContainerFrame\\UI-Bag-5x4", 256, 256, 279},
-		[24] = {"Interface\\ContainerFrame\\UI-Bag-5x4", 256, 256, 299},
-		[26] = {"Interface\\ContainerFrame\\UI-Bag-5x4", 256, 256, 319},
-		[28] = {"Interface\\ContainerFrame\\UI-Bag-5x4", 256, 256, 339},
-		[30] = {"Interface\\ContainerFrame\\UI-Bag-5x4", 256, 256, 359},
-		[32] = {"Interface\\ContainerFrame\\UI-Bag-5x4", 256, 256, 379},
-		[34] = {"Interface\\ContainerFrame\\UI-Bag-5x4", 256, 256, 399},
-		[36] = {"Interface\\ContainerFrame\\UI-Bag-5x4", 256, 256, 419},
-		[38] = {"Interface\\ContainerFrame\\UI-Bag-5x4", 256, 256, 439},
-		[40] = {"Interface\\ContainerFrame\\UI-Bag-5x4", 256, 256, 459},
+		[22] = {"Interface\\ContainerFrame\\UI-Bag-5x4+2", 256, 256, 279},
+		[24] = {"Interface\\ContainerFrame\\UI-Bag-5x5", 256, 256, 299},
+		[26] = {"Interface\\ContainerFrame\\UI-Bag-5x5+2", 256, 256, 319},
+		[28] = {"Interface\\ContainerFrame\\UI-Bag-5x6", 256, 256, 339},
+		[30] = {"Interface\\ContainerFrame\\UI-Bag-5x6+2", 256, 256, 359},
+		[32] = {"Interface\\ContainerFrame\\UI-Bag-5x7", 256, 256, 379},
+		[34] = {"Interface\\ContainerFrame\\UI-Bag-5x7+2", 256, 256, 399},
+		[36] = {"Interface\\ContainerFrame\\UI-Bag-5x8", 256, 256, 419},
+		[38] = {"Interface\\ContainerFrame\\UI-Bag-5x8+2", 256, 256, 439},
+		[40] = {"Interface\\ContainerFrame\\UI-Bag-5x9", 256, 256, 459},
 	},
 	-- X: hook replacements
 	ContainerFrame_GenerateFrame = function(frame, size, id)
@@ -907,9 +907,9 @@ function MovAny:Boot()
 	if not MADB.dontHookCreateFrame and CreateFrame then
 		hooksecurefunc("CreateFrame", self.hCreateFrame)
 	end
-	if ContainerFrame_GenerateFrame then
+	--[[if ContainerFrame_GenerateFrame then
 		hooksecurefunc("ContainerFrame_GenerateFrame", self.ContainerFrame_GenerateFrame)
-	end
+	end]]
 	if ShowUIPanel then
 		hooksecurefunc("ShowUIPanel", self.SyncUIPanels)
 	end
