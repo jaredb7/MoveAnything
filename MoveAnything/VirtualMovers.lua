@@ -1179,7 +1179,7 @@ MovAny.lVirtualMovers = {
 			f.MAHidden = nil
 		end
 	},
-	MainMenuBarArtFrameLeftEndCapMover = {
+	--[[MainMenuBarArtFrameLeftEndCapMover = {
 		w = 128,
 		h = 76,
 		point = {"BOTTOMLEFT", "MainMenuBar", "BOTTOMLEFT", -98, 0},
@@ -1228,7 +1228,7 @@ MovAny.lVirtualMovers = {
 				MovAny:UnlockVisibility(MainMenuBarArtFrame.RightEndCap)
 			end
 		end
-	},
+	},--]]
 	BagButtonsMover = {
 		w = 158,
 		h = 30,
@@ -1507,7 +1507,7 @@ MovAny.lVirtualMovers = {
 		OnMAScale = ScaleChildren,
 		OnMAPreReset = ResetChildren
 	},
-	MicroButtonsSplitMover = {
+	--[[MicroButtonsSplitMover = {
 		w = 158,
 		h = 74,
 		relPoint = {"BOTTOMLEFT", "MainMenuBarArtFrame", "BOTTOMLEFT", 556, 2},
@@ -1596,7 +1596,7 @@ MovAny.lVirtualMovers = {
 		end,
 		OnMAScale = ScaleChildren,
 		OnMAPreReset = ResetChildren
-	},
+	},--]]
 	BasicActionButtonsMover = {
 		w = 498,
 		h = 38,
