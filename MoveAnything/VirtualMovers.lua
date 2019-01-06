@@ -1179,7 +1179,7 @@ MovAny.lVirtualMovers = {
 			f.MAHidden = nil
 		end
 	},
-	--[[MainMenuBarArtFrameLeftEndCapMover = {
+	MainMenuBarArtFrameLeftEndCapMover = {
 		w = 128,
 		h = 76,
 		point = {"BOTTOMLEFT", "MainMenuBar", "BOTTOMLEFT", -98, 0},
@@ -1228,7 +1228,7 @@ MovAny.lVirtualMovers = {
 				MovAny:UnlockVisibility(MainMenuBarArtFrame.RightEndCap)
 			end
 		end
-	},--]]
+	},
 	BagButtonsMover = {
 		w = 158,
 		h = 30,
