@@ -761,6 +761,8 @@ StaticPopupDialogs["MOVEANYTHING_RESET_ALL_CONFIRM"] = {
 	hideOnEscape = 1
 }
 
+MovAny.isClassicWow = select(4,GetBuildInfo())
+
 function MovAny:Load()
 	if self.inited then
 		return
@@ -950,9 +952,11 @@ function MovAny:Boot()
 		hooksecurefunc("UpdateContainerFrameAnchors", self.hUpdateContainerFrameAnchors)
 	end
 	if SpellBookFrame_Update then
-		hooksecurefunc("SpellBookFrame_Update", function()
-			SpellBookPage1:SetPoint("LEFT", SpellBookFrame)
-		end)
+		if not self.isClassicWow then
+			hooksecurefunc("SpellBookFrame_Update", function()
+				SpellBookPage1:SetPoint("LEFT", SpellBookFrame)
+			end)
+		end
 	end
 	--[[if WatchFrame_Update then
 		hooksecurefunc("WatchFrame_Update", self.hWatchFrameExpand)
@@ -4126,7 +4130,7 @@ function MovAny:UnanchorRelatives(e, f, opt)
 end
 
 function MovAny:_AddDependents(l, f)
-	if MovAny:IsProtected(f) and InCombatLockdown() and not f.GetPoint then
+	if (MovAny:IsProtected(f) and InCombatLockdown()) or not f.GetPoint then
 		return
 	end
 	local _, relativeTo = f:GetPoint(1)

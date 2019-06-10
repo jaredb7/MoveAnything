@@ -888,8 +888,10 @@
 				self:RegisterEvent("PLAYER_REGEN_DISABLED")
 				self:RegisterEvent("PLAYER_REGEN_ENABLED")
 				self:RegisterEvent("GROUP_ROSTER_UPDATE")
-				self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
-				self:RegisterEvent("PLAYER_FOCUS_CHANGED")
+				if select(4,GetBuildInfo()) > 20000 then -- It's not classic... go! :)
+					self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
+					self:RegisterEvent("PLAYER_FOCUS_CHANGED")
+				end
 			</OnLoad>
 			<OnShow>
 				MovAny:OnShow()

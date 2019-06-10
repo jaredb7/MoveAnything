@@ -977,27 +977,33 @@ MovAny.lVirtualMovers = {
 		point = {"TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", -10, 0},
 		OnMAHook = function(self)
 			local b = ObjectiveTrackerFrame
-			MovAny:UnlockPoint(b)
-			b:ClearAllPoints()
-			b:SetPoint("TOPRIGHT", self, "TOPRIGHT")
-			MovAny:LockPoint(b)
-			--b.ignoreFramePositionManager = true
-			b:SetMovable(true)
-			b:SetHeight(self:GetHeight())
-			b:SetUserPlaced(true)
-			--self.sbf = b
+			if b then
+				MovAny:UnlockPoint(b)
+				b:ClearAllPoints()
+				b:SetPoint("TOPRIGHT", self, "TOPRIGHT")
+				MovAny:LockPoint(b)
+				--b.ignoreFramePositionManager = true
+				b:SetMovable(true)
+				b:SetHeight(self:GetHeight())
+				b:SetUserPlaced(true)
+				--self.sbf = b
+			end
 		end,
 		OnMAPostReset = function(self)
 			local b = ObjectiveTrackerFrame
-			MovAny:UnlockPoint(b)
-			b:ClearAllPoints()
-			b:SetPoint("TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", -10, 0)
-			--b:SetHeight(b:GetTop() - 85)
+			if b then
+				MovAny:UnlockPoint(b)
+				b:ClearAllPoints()
+				b:SetPoint("TOPRIGHT", "MinimapCluster", "BOTTOMRIGHT", -10, 0)
+				--b:SetHeight(b:GetTop() - 85)
+			end
 		end,
 		OnMAScale = function(self)
 			local b = ObjectiveTrackerFrame
-			local scaleS = self:GetScale()
-			b:SetScale(scaleS)
+			if b then
+				local scaleS = self:GetScale()
+				b:SetScale(scaleS)
+			end
 		end,
 		OnMAHide = function(self, hidden)
 			if hidden then
